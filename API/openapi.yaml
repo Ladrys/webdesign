@@ -1,0 +1,255 @@
+openapi: 3.1.0
+info:
+  title: Prague Pulse Fest API
+  version: 1.0.0
+  description: GET-only REST API popisující festivalová data transformovaná z XML do JSON.
+servers:
+  - url: http://localhost:8080
+paths:
+  /api/festival:
+    get:
+      summary: Vrátí identitu festivalu, vstupenky, popis, datumy a odkazy.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Festival'
+        '400': {description: Neplatný požadavek}
+        '404': {description: Festival nebyl nalezen}
+  /api/venues:
+    get:
+      summary: Vrátí seznam míst/scén.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VenueList'
+        '400': {description: Neplatný požadavek}
+        '404': {description: Místa nebyla nalezena}
+  /api/venues/{id}:
+    get:
+      summary: Vrátí detail místa podle ID.
+      parameters:
+        - $ref: '#/components/parameters/idPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Venue'
+        '400': {description: Neplatné ID}
+        '404': {description: Místo nebylo nalezeno}
+  /api/performers:
+    get:
+      summary: Vrátí seznam účinkujících se stránkováním.
+      parameters:
+        - in: query
+          name: page
+          required: false
+          schema: {type: integer, minimum: 1, default: 1}
+        - in: query
+          name: pageSize
+          required: false
+          schema: {type: integer, minimum: 1, maximum: 60, default: 20}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerformerList'
+        '400': {description: Neplatné stránkování}
+        '404': {description: Interpreti nebyli nalezeni}
+  /api/performers/{id}:
+    get:
+      summary: Vrátí detail interpreta podle ID.
+      parameters:
+        - $ref: '#/components/parameters/idPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Performer'
+        '400': {description: Neplatné ID}
+        '404': {description: Interpret nebyl nalezen}
+  /api/events:
+    get:
+      summary: Vrátí program festivalu.
+      parameters:
+        - in: query
+          name: day
+          required: false
+          schema: {type: string, format: date}
+          description: Filtr podle data dne ve formátu YYYY-MM-DD.
+        - in: query
+          name: venueId
+          required: false
+          schema: {type: string}
+          description: Filtr podle ID scény.
+        - in: query
+          name: performerId
+          required: false
+          schema: {type: string}
+          description: Filtr podle ID interpreta.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventList'
+        '400': {description: Neplatné filtry}
+        '404': {description: Akce nebyly nalezeny}
+  /api/events/{id}:
+    get:
+      summary: Vrátí detail akce podle ID.
+      parameters:
+        - $ref: '#/components/parameters/idPath'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '400': {description: Neplatné ID}
+        '404': {description: Akce nebyla nalezena}
+components:
+  parameters:
+    idPath:
+      in: path
+      name: id
+      required: true
+      schema: {type: string}
+  schemas:
+    Day:
+      type: object
+      required: [id, name, theme, description, date, startTime, endTime]
+      properties:
+        id: {type: string}
+        name: {type: string}
+        theme: {type: string}
+        description: {type: string}
+        date: {type: string, format: date}
+        startTime: {type: string}
+        endTime: {type: string}
+    Ticket:
+      type: object
+      required: [id, name, price, currency, description]
+      properties:
+        id: {type: string}
+        name: {type: string}
+        price: {type: integer}
+        currency: {type: string}
+        description: {type: string}
+    Link:
+      type: object
+      required: [id, name, url]
+      properties:
+        id: {type: string}
+        name: {type: string}
+        url: {type: string, format: uri}
+    Festival:
+      type: object
+      required: [id, name, description, location, dates, tickets, links, contact]
+      properties:
+        id: {type: string}
+        name: {type: string}
+        description: {type: string}
+        location:
+          type: object
+          required: [street, city, postalCode]
+          properties:
+            street: {type: string}
+            city: {type: string}
+            postalCode: {type: string}
+        dates:
+          type: array
+          items: {$ref: '#/components/schemas/Day'}
+        tickets:
+          type: array
+          items: {$ref: '#/components/schemas/Ticket'}
+        links:
+          type: array
+          items: {$ref: '#/components/schemas/Link'}
+        contact:
+          type: object
+          required: [email, phone]
+          properties:
+            email: {type: string}
+            phone: {type: string}
+    Venue:
+      type: object
+      required: [id, name, location, capacity, description]
+      properties:
+        id: {type: string}
+        name: {type: string}
+        location: {type: string}
+        capacity: {type: integer}
+        description: {type: string}
+    VenueList:
+      type: object
+      required: [items, totalItems]
+      properties:
+        items:
+          type: array
+          items: {$ref: '#/components/schemas/Venue'}
+        totalItems: {type: integer}
+    Performer:
+      type: object
+      required: [id, name, performerType, genre, description]
+      properties:
+        id: {type: string}
+        name: {type: string}
+        performerType: {type: string}
+        genre: {type: string}
+        description: {type: string}
+    PerformerList:
+      type: object
+      required: [page, pageSize, totalItems, totalPages, items]
+      properties:
+        page: {type: integer}
+        pageSize: {type: integer}
+        totalItems: {type: integer}
+        totalPages: {type: integer}
+        items:
+          type: array
+          items: {$ref: '#/components/schemas/Performer'}
+    Event:
+      type: object
+      required: [id, name, theme, description, date, startTime, endTime, dayId, venueId, venueName, performerIds, performers]
+      properties:
+        id: {type: string}
+        name: {type: string}
+        theme: {type: string}
+        description: {type: string}
+        date: {type: string, format: date}
+        startTime: {type: string}
+        endTime: {type: string}
+        dayId: {type: string}
+        venueId: {type: string}
+        venueName: {type: string}
+        performerIds:
+          type: array
+          items: {type: string}
+        performers:
+          type: array
+          items: {type: string}
+    EventList:
+      type: object
+      required: [items, totalItems, filtersSupported]
+      properties:
+        items:
+          type: array
+          items: {$ref: '#/components/schemas/Event'}
+        totalItems: {type: integer}
+        filtersSupported:
+          type: array
+          items: {type: string}

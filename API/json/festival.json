@@ -1,0 +1,10 @@
+{
+  "id":"ppf2026",
+  "name":"Prague Pulse Fest",
+  "description":"Prague Pulse Fest je fiktivní třídenní multižánrový festival kombinující koncerty, DJ sety a doprovodný program v městském areálu v Praze.",
+  "location":{"street":"U Výstaviště 67","city":"Praha","postalCode":"170 00"},
+  "dates":[{"id":"d1","name":"Den 1","theme":"Opening Night","description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit.","date":"2026-08-01","startTime":"09:00:00","endTime":"23:59:00"},{"id":"d2","name":"Den 2","theme":"Main Stage Highlights","description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit.","date":"2026-08-02","startTime":"09:00:00","endTime":"23:59:00"},{"id":"d3","name":"Den 3","theme":"Finale & Afterparty","description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit.","date":"2026-08-03","startTime":"09:00:00","endTime":"23:59:00"}],
+  "tickets":[{"id":"t1","name":"Standard","price":1490,"currency":"CZK","description":"Třídenní vstupenka pro běžný vstup do areálu."},{"id":"t2","name":"VIP","price":2990,"currency":"CZK","description":"Rozšířený vstup se samostatnou zónou a rychlejším odbavením."},{"id":"t3","name":"Day Pass","price":690,"currency":"CZK","description":"Jednodenní vstupenka na vybraný festivalový den."}],
+  "links":[{"id":"l1","name":"Web","url":"https://example.com/prague-pulse-fest"},{"id":"l2","name":"Instagram","url":"https://instagram.com/praguepulsefest"},{"id":"l3","name":"Tickets","url":"https://example.com/prague-pulse-fest/tickets"}],
+  "contact":{"email":"info@praguepulsefest.test","phone":"+420 123 456 789"}
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prague Pulse Fest | Praktické informace</title>
+<meta name="description" content="Praktické informace k místu konání, dopravě a scénám festivalu.">
+<meta property="og:title" content="Prague Pulse Fest | Praktické informace">
+<meta property="og:description" content="Praktické informace k místu konání, dopravě a scénám festivalu.">
+<meta property="og:image" content="https://picsum.photos/1200/630?prague">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#obsah">Přejít na obsah</a>
+<header>
+  <div class="header-inner">
+    <a class="brand" href="index.html">Prague Pulse Fest<small>1.–3. 8. 2026 • Vltava Park Praha</small></a>
+    <nav aria-label="Hlavní navigace"><ul><li><a  href="index.html">Festival</a></li><li><a  href="program.html">Program</a></li><li><a  href="performers.html">Účinkující</a></li><li><a class="active" href="info.html">Praktické info</a></li><li><a  href="api.html">API ověření</a></li></ul></nav>
+  </div>
+</header>
+<main id="obsah">
+  <section class="hero">
+    <div><p class="kicker">praktické info</p><h1>Vltava Park: tři scény v jednom městském areálu</h1><p class="lead">Areál je navržený tak, aby se návštěvníci rychle přesouvali mezi hlavní halou, venkovní scénou a klubovou zónou.</p></div>
+    <img src="https://picsum.photos/900/650?city" alt="Ilustrační fotografie městského areálu">
+  </section>
+  <section aria-labelledby="misto">
+    <h2 id="misto">Místo konání</h2>
+    <address>Vltava Park, U Výstaviště 67, 170 00 Praha</address>
+  </section>
+  <section aria-labelledby="sceny">
+    <h2 id="sceny">Scény a kapacity</h2>
+    <div id="venues-list" class="grid"></div>
+  </section>
+  <section aria-labelledby="detail-sceny">
+    <h2 id="detail-sceny">Detail scény</h2>
+    <article id="venue-detail"><p>Vyber scénu a zobrazí se její detail.</p></article>
+  </section>
+  <section aria-labelledby="navstevnik">
+    <h2 id="navstevnik">Doprava a služby</h2>
+    <div class="grid">
+      <article><h3>Doprava</h3><p>Doporučený příjezd je MHD. U areálu je omezené krátkodobé stání pouze pro zásobování a produkci.</p></article>
+      <article><h3>Vstup</h3><p>Vstupenky jsou rozdělené na jednodenní a třídenní variantu. Kontrola probíhá u hlavní brány areálu.</p></article>
+      <article><h3>Zázemí</h3><p>V areálu jsou odpočinkové zóny, občerstvení, informační stánek a značené trasy ke scénám.</p></article>
+    </div>
+  </section>
+</main>
+<script>
+let venues=[]; const $=id=>document.getElementById(id);
+function detail(v){$('venue-detail').innerHTML=`<h3>${v.name}</h3><p><strong>Umístění:</strong> ${v.location}</p><p><strong>Kapacita:</strong> ${v.capacity} osob</p><p>${v.description}</p>`; location.hash='detail-sceny'}
+fetch('../API/json/venues.json').then(r=>r.json()).then(d=>{venues=d.items; $('venues-list').innerHTML=venues.map(v=>`<article tabindex="0" role="button" data-id="${v.id}"><h3>${v.name}</h3><p><strong>${v.capacity}</strong> osob</p><p>${v.location}</p><p>${v.description}</p></article>`).join(''); document.querySelectorAll('[data-id]').forEach(el=>{el.onclick=()=>detail(venues.find(v=>v.id===el.dataset.id));el.onkeydown=x=>{if(x.key==='Enter')el.click()}})});
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Place","name":"Vltava Park","address":{"@type":"PostalAddress","streetAddress":"U Výstaviště 67","addressLocality":"Praha","postalCode":"170 00"}}</script>
+<footer><p>&copy; 2026 Prague Pulse Fest. Školní projekt pro předmět Značkovací jazyky.</p></footer>
+</body>
+</html>

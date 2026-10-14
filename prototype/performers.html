@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prague Pulse Fest | Účinkující</title>
+<meta name="description" content="Přehled účinkujících festivalu s vyhledáváním a detailem interpreta.">
+<meta property="og:title" content="Prague Pulse Fest | Účinkující">
+<meta property="og:description" content="Přehled účinkujících festivalu s vyhledáváním a detailem interpreta.">
+<meta property="og:image" content="https://picsum.photos/1200/630?band">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#obsah">Přejít na obsah</a>
+<header>
+  <div class="header-inner">
+    <a class="brand" href="index.html">Prague Pulse Fest<small>1.–3. 8. 2026 • Vltava Park Praha</small></a>
+    <nav aria-label="Hlavní navigace"><ul><li><a  href="index.html">Festival</a></li><li><a  href="program.html">Program</a></li><li><a class="active" href="performers.html">Účinkující</a></li><li><a  href="info.html">Praktické info</a></li><li><a  href="api.html">API ověření</a></li></ul></nav>
+  </div>
+</header>
+<main id="obsah">
+  <section class="hero">
+    <div><p class="kicker">účinkující</p><h1>Kapely, sólisté a DJ sety napříč scénami</h1><p class="lead">Vyhledej interpreta podle názvu nebo žánru a otevři si jeho detail. Seznam se načítá z projektové datové vrstvy.</p></div>
+    <img src="https://picsum.photos/900/650?band" alt="Ilustrační fotografie hudební kapely">
+  </section>
+  <section class="filters" aria-labelledby="filtr-ucinkujici">
+    <h2 id="filtr-ucinkujici">Najít interpreta</h2>
+    <form id="performer-form">
+      <div><label for="q">Název</label><input id="q" type="search" placeholder="např. Neon"></div>
+      <div><label for="genre">Žánr</label><select id="genre"><option value="">Všechny žánry</option></select></div>
+      <div><button type="submit">Hledat</button></div>
+    </form>
+  </section>
+  <section aria-labelledby="seznam-ucinkujici">
+    <h2 id="seznam-ucinkujici">Seznam účinkujících</h2>
+    <div id="performers-list" class="grid" aria-live="polite"></div>
+  </section>
+  <section aria-labelledby="detail-interpreta">
+    <h2 id="detail-interpreta">Detail interpreta</h2>
+    <article id="performer-detail"><p>Vyber interpreta ze seznamu a detail se zobrazí tady.</p></article>
+  </section>
+  <aside><h2>Festivalový mix</h2><p>Program kombinuje rock, pop, jazz, elektroniku, hip-hop a folk. Každý interpret je svázaný s konkrétními programovými položkami.</p></aside>
+</main>
+<script type="application/ld+json" id="performer-jsonld"></script>
+<script>
+let performers=[]; const $=id=>document.getElementById(id);
+function fromXml(txt){const doc=new DOMParser().parseFromString(txt,'application/xml'); return [...doc.querySelectorAll('interpret')].map(p=>({id:p.getAttribute('id'),name:p.querySelector('nazev')?.textContent||'',performerType:p.querySelector('typ_interpreta')?.textContent||'',genre:p.querySelector('zanr')?.textContent||'',description:p.querySelector('popis')?.textContent||''}))}
+function showDetail(p){$('performer-detail').innerHTML=`<h3>${p.name}</h3><p><strong>Typ:</strong> ${p.performerType} | <strong>Žánr:</strong> ${p.genre}</p><p>${p.description}</p>`; location.hash='detail-interpreta'}
+function render(list){$('performers-list').innerHTML=list.length?list.map(p=>`<article tabindex="0" role="button" data-id="${p.id}"><h3>${p.name}</h3><p><span class="badge">${p.genre}</span></p><p>${p.description}</p></article>`).join(''):'<p class="notice">Žádný interpret neodpovídá filtru.</p>'; document.querySelectorAll('[data-id]').forEach(el=>{el.onclick=()=>showDetail(performers.find(p=>p.id===el.dataset.id)); el.onkeydown=x=>{if(x.key==='Enter')el.click()}})}
+function init(){[...new Set(performers.map(p=>p.genre))].sort().forEach(g=>$('genre').insertAdjacentHTML('beforeend',`<option>${g}</option>`)); render(performers); $('performer-jsonld').textContent=JSON.stringify({'@context':'https://schema.org','@type':'ItemList','numberOfItems':performers.length,'itemListElement':performers.slice(0,10).map((p,i)=>({'@type':'ListItem',position:i+1,item:{'@type':'MusicGroup',name:p.name,genre:p.genre}}))})}
+$('performer-form').addEventListener('submit',ev=>{ev.preventDefault(); const q=$('q').value.toLowerCase(), g=$('genre').value; render(performers.filter(p=>(!q||p.name.toLowerCase().includes(q))&&(!g||p.genre===g)))});
+fetch('../data/festival.xml').then(r=>r.text()).then(t=>{performers=fromXml(t);init()}).catch(()=>fetch('../API/json/performers.json').then(r=>r.json()).then(d=>{performers=d.items;init()}));
+</script>
+<footer><p>&copy; 2026 Prague Pulse Fest. Školní projekt pro předmět Značkovací jazyky.</p></footer>
+</body>
+</html>

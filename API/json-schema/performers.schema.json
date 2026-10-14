@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "page",
+    "pageSize",
+    "totalItems",
+    "totalPages",
+    "items"
+  ],
+  "properties": {
+    "page": {
+      "type": "integer"
+    },
+    "pageSize": {
+      "type": "integer"
+    },
+    "totalItems": {
+      "type": "integer"
+    },
+    "totalPages": {
+      "type": "integer"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/defs/performer"
+      }
+    }
+  },
+  "defs": {
+    "performer": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "performerType",
+        "genre",
+        "description"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "performerType": {
+          "type": "string"
+        },
+        "genre": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prague Pulse Fest | Program</title>
+<meta name="description" content="Interaktivní program festivalu s filtrem podle dne, scény a interpreta.">
+<meta property="og:title" content="Prague Pulse Fest | Program">
+<meta property="og:description" content="Interaktivní program festivalu s filtrem podle dne, scény a interpreta.">
+<meta property="og:image" content="https://picsum.photos/1200/630?stage">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#obsah">Přejít na obsah</a>
+<header>
+  <div class="header-inner">
+    <a class="brand" href="index.html">Prague Pulse Fest<small>1.–3. 8. 2026 • Vltava Park Praha</small></a>
+    <nav aria-label="Hlavní navigace"><ul><li><a  href="index.html">Festival</a></li><li><a class="active" href="program.html">Program</a></li><li><a  href="performers.html">Účinkující</a></li><li><a  href="info.html">Praktické info</a></li><li><a  href="api.html">API ověření</a></li></ul></nav>
+  </div>
+</header>
+<main id="obsah">
+  <section class="hero">
+    <div><p class="kicker">program</p><h1>Vyber si den, scénu nebo interpreta</h1><p class="lead">Program obsahuje 60 vystoupení. Kliknutím na kartu se otevře detail akce s časem, scénou a účinkujícími.</p></div>
+    <img src="https://picsum.photos/900/650?music" alt="Ilustrační fotografie koncertní scény">
+  </section>
+  <section class="filters" aria-labelledby="filtry">
+    <h2 id="filtry">Filtr programu</h2>
+    <form id="filters-form">
+      <div><label for="day">Den</label><select id="day" name="day"><option value="">Všechny dny</option></select></div>
+      <div><label for="venueId">Scéna</label><select id="venueId" name="venueId"><option value="">Všechny scény</option></select></div>
+      <div><label for="performerId">Interpret</label><select id="performerId" name="performerId"><option value="">Všichni interpreti</option></select></div>
+      <div><button type="submit">Filtrovat</button></div>
+    </form>
+  </section>
+  <section aria-labelledby="vysledky">
+    <h2 id="vysledky">Program festivalu</h2>
+    <div id="program-container" class="grid" aria-live="polite"></div>
+  </section>
+  <section aria-labelledby="detail-akce">
+    <h2 id="detail-akce">Detail akce</h2>
+    <article id="event-detail"><p>Vyber kartu v programu a detail se zobrazí tady.</p></article>
+  </section>
+  <aside><h2>Rychlá orientace</h2><p>Program je rozdělený do tří festivalových dnů a tří scén. Filtrování pomáhá najít konkrétní typ vystoupení bez dlouhého procházení seznamu.</p></aside>
+</main>
+<script type="application/ld+json" id="event-jsonld"></script>
+<script>
+let events=[], venues=[], festival={};
+const $=id=>document.getElementById(id);
+function card(e){return `<article tabindex="0" role="button" data-id="${e.id}"><h3>${e.name}</h3><div class="event-meta"><span><time datetime="${e.date}T${e.startTime}">${e.date} ${e.startTime.slice(0,5)}</time>-${e.endTime.slice(0,5)}</span><span>${e.venueName}</span></div><p>${e.theme}</p><p>${e.performers.join(', ')}</p></article>`}
+function detail(e){$('event-detail').innerHTML=`<h3>${e.name}</h3><p><strong>Téma:</strong> ${e.theme}</p><p><strong>Čas:</strong> <time datetime="${e.date}T${e.startTime}">${e.date} ${e.startTime.slice(0,5)}</time>-${e.endTime.slice(0,5)}</p><p><strong>Scéna:</strong> ${e.venueName}</p><p><strong>Účinkující:</strong> ${e.performers.join(', ')}</p><p>${e.description}</p>`; location.hash='detail-akce'}
+function render(items){$('program-container').innerHTML=items.length?items.map(card).join(''):'<p class="notice">Pro zvolený filtr nebyla nalezena žádná akce.</p>'; document.querySelectorAll('[data-id]').forEach(el=>{el.onclick=()=>detail(events.find(e=>e.id===el.dataset.id)); el.onkeydown=x=>{if(x.key==='Enter') el.click()}})}
+function fill(){festival.dates.forEach(d=>$('day').insertAdjacentHTML('beforeend',`<option value="${d.date}">${d.name} - ${d.date}</option>`)); venues.items.forEach(v=>$('venueId').insertAdjacentHTML('beforeend',`<option value="${v.id}">${v.name}</option>`)); const seen=new Set(); events.flatMap(e=>e.performerIds.map((id,i)=>[id,e.performers[i]])).forEach(([id,name])=>{if(!seen.has(id)){seen.add(id); $('performerId').insertAdjacentHTML('beforeend',`<option value="${id}">${name}</option>`)}})}
+$('filters-form').addEventListener('submit',ev=>{ev.preventDefault(); const d=$('day').value,v=$('venueId').value,p=$('performerId').value; render(events.filter(e=>(!d||e.date===d)&&(!v||e.venueId===v)&&(!p||e.performerIds.includes(p))))});
+Promise.all([fetch('../API/json/events.json').then(r=>r.json()),fetch('../API/json/venues.json').then(r=>r.json()),fetch('../API/json/festival.json').then(r=>r.json())]).then(([e,v,f])=>{events=e.items;venues=v;festival=f;fill();render(events);$('event-jsonld').textContent=JSON.stringify({'@context':'https://schema.org','@graph':events.slice(0,8).map(x=>({'@type':'Event',name:x.name,startDate:x.date+'T'+x.startTime,endDate:x.date+'T'+x.endTime,location:{'@type':'Place',name:x.venueName},performer:x.performers.map(n=>({'@type':'MusicGroup',name:n}))}))})}).catch(()=>$('program-container').innerHTML='<p class="notice">Data se nenačetla. Spusť web přes lokální HTTP server.</p>');
+</script>
+<footer><p>&copy; 2026 Prague Pulse Fest. Školní projekt pro předmět Značkovací jazyky.</p></footer>
+</body>
+</html>
