@@ -1,59 +1,61 @@
-# Prague Pulse Fest
+# Prague Rocks Festival
 
-Školní festivalový web: **HTML, CSS a JavaScript bez serveru, instalace a buildu**.
+Responzivní festivalový web v češtině i angličtině. **Bez instalace, serveru, Node.js a buildu.**
 
-## Spuštění
+## Spuštění a stažení
 
-1. Stáhněte repozitář přes **Code → Download ZIP** a celý archiv rozbalte.
-2. Otevřete `web/index.html` v aktuálním prohlížeči.
-3. Při otevření z disku navigace používá stejný soubor `index.html` s parametrem `page`, aby košík a účet zůstaly ve stejném úložišti.
+Na GitHubu zvolte **Code → Download ZIP**, celý archiv rozbalte a otevřete **`web/index.html`**. Při otevření z disku používá navigace stejný soubor s parametrem `page`, aby se účty a košík uchovávaly pod stejnou adresou. JavaScript a místní úložiště musejí být povolené.
 
-Složka `web/` je samostatná a lze ji sdílet celou. Žádná část nevyžaduje Node.js, Python, npm, backend ani databázi. Všechny skripty, obrázky, fonty a PDF knihovny jsou přibalené lokálně, bez CDN a API. Připojení k internetu není pro samotný web potřeba.
+Celou složku `web/` můžete sdílet samostatně. Všechny fonty, obrázky, krátké video a PDF knihovny jsou přibalené. Volitelná Google mapa se načte až po kliknutí; web bez ní funguje offline.
 
-## Náhled
+## Co je nové
 
-![Nový vzhled Prague Pulse Fest](preview/web-desktop.png)
+- Prague Rocks Festival: vlastní logo a asymetrická identita, datum vedle loga, výrazná navigace, kulaté vyhledávání, CZ/EN a vícesloupcový footer.
+- Přepnutí jazyka překládá obsahové stránky, filtry, formuláře, detaily, stavy i PDF a zachovává se po znovuotevření.
+- Lokální tiché video v úvodu s pauzou a respektováním omezeného pohybu; jde o animovaný originální AI vizuál, nikoli převzatý koncertní záznam.
+- 60 různých AI portrétů přiřazených stabilně k XML ID interpretů, se zachovanými iniciálami.
+- 3 dny, 3 scény a 60 vystoupení, filtry programu, oblíbené, detaily a contains hledání.
+- Třídenní VIP **1 590 Kč**, Regular **990 Kč**, stání **490 Kč**. Jednodenní VIP **590 Kč**, Regular **390 Kč**, stání **190 Kč**. Ceny a popisy jsou ve zdrojovém XML.
+- Všechny pozice jsou na nové instalaci volné. Třídenní balíček vyžaduje stejné místo volné ve všech dnech; objednávka je obsadí pro celou dobu.
+- Košík, objednávka hosta i účtu, historie a skutečně vytvářené PDF s českými znaky a QR identifikátorem.
+- Účty přetrvávají po zavření webu, přihlášení platí sedm dnů. JSON zálohu účtů a objednávek lze stáhnout a načíst na jiném zařízení.
+- Praktické informace, reálná lokalita Výstaviště Praha, mapa na vyžádání, doprava, parking, ubytování, soukromí a podmínky.
 
-[Náhled PDF vstupenky](preview/vstupenka.png) · [Vzorové PDF](preview/vstupenky-ukazka.pdf) · [Mobilní zobrazení](preview/web-mobile.png)
+## Moodle a prezentace
 
-## Funkce
+Hotové složky najdete v **[`odevzdani/`](odevzdani/README.md)**:
 
-- Nová vizuální identita a originální logo Prague Pulse Fest, výrazná typografie, vlastní festivalová grafika a AI ilustrace koncertu.
-- Mobile-first rozložení: Flexbox pro navigaci a ovládání, Grid pro přehledy a mapu.
-- 60 interpretů, 60 vystoupení, 3 dny a 3 scény z původních dat.
-- Filtry programu, uložený osobní program, kontextové detaily a vyhledávání `contains` napříč daty i informacemi; ignoruje velikost písmen a diakritiku.
-- Výběr VIP (590 Kč), Regular (390 Kč) a stání (190 Kč) po jednotlivých dnech, košík, objednávka hosta nebo lokálního účtu.
-- Simulace úspěšné i zamítnuté platby.
-- **Skutečný soubor PDF vytvořený v prohlížeči**: samostatná stránka pro každou vstupenku, české znaky, barevný design, kategorie, datum, místo, ID objednávky a QR ukázkového identifikátoru. Lze i tisknout.
-- Lokální registrace, přihlášení, odhlášení a historie objednávek.
+| Cvičení | Co je přiloženo |
+| --- | --- |
+| 02 | `project-specification.md`, `data.xml`, PPTX, PDF, poznámky k prezentaci |
+| 03 | Samostatný spustitelný interaktivní prototyp, `progress-02.md`, PPTX/PDF/poznámky |
+| 04 | Web, `progress-03.md`, dokumentace, PPTX/PDF/poznámky |
+| 05 | Review-ready web, specifikace, data, `progress-04.md`, PPTX/PDF/poznámky |
+| 06 | Metodická šablona `review.md` a prezentace; skutečný přidělený cizí projekt je nutné doplnit |
+| Finální projekt | Povinná struktura `projekt/` včetně webu, prototypu, XML, dokumentace a review |
 
-## Rozsah školního projektu
+Prezentace 02–05 mají šest snímků pro přibližně čtyři minuty, editovatelný text a poznámky řečníka. Prezentace 06 je jasně označená příprava metodiky. Podklady jsou dodatečně sestavené podle požadavků, nejsou dokladem minulého odevzdání. Jména týmu, skutečné přijaté review, časovou osu a schválení rozsahu změn doplňuje tým.
 
-Nejde o skutečný prodej. Účty a objednávky zůstávají v `localStorage` tohoto prohlížeče, přihlášení v `sessionStorage` dané karty. Používejte zkušební údaje a heslo, které jinde nepoužíváte. Heslo se ukládá jako solený PBKDF2-SHA256 hash; lokální účet však není bezpečné serverové ověření identity.
+## Hranice klientské verze
 
-Obsazenost se nesdílí mezi zařízeními, peníze se neodečítají a **e-mail se automaticky neodesílá**. PDF je výslovně označené jako školní ukázka a není platnou vstupenkou na skutečnou akci. Server ani SMTP nejsou součástí odevzdání podle poslední volby uživatele a požadavků předmětu.
+Jde o fiktivní festival. **Platba je zkušební, e-mail se automaticky neodesílá a PDF není skutečnou vstupenkou.** Účty, objednávky a dostupnost jsou uložené v tomto prohlížeči, nikoli sdílené mezi návštěvníky. Heslo se ukládá jako solený PBKDF2 hash. Lokální účet není bezpečná serverová autentizace. Kontaktní doména a telefon jsou pouze ilustrativní, nejsou ověřeným kontaktem pořadatele.
 
-## Volitelné kontroly pro vývojáře
+JSON export je skutečný soubor, který uživatel stáhne; import obnoví data bez duplicit. Web soubor na disku sám průběžně nepřepisuje. Bez serveru nebo ručního oprávnění prohlížeče k souboru to není možné. Obnovení z exportu nepřenáší aktivní přihlášení — k účtu se přihlásíte znovu.
 
-Pro ruční používání nejsou tyto nástroje potřeba. Ve spravovaném testovacím Chromium je `file://` blokované systémovou politikou; automatizované testy proto používají obyčejný statický server:
-
-```sh
-cd /workspace/webdesign
-python -m http.server 8000 --bind 127.0.0.1
-```
-
-V dalším terminálu:
+## Vývojové ověření a obnova podkladů
 
 ```sh
 python validate_project.py
 node --check web/js/app.js
-node --check web/js/design.js
+node --check web/js/i18n.js
+node --check web/js/backup.js
 node --check web/js/ticket-pdf.js
 python tests/browser_smoke.py
+python tests/course_materials.py --folder odevzdani
 ```
 
-Datový validátor používá `lxml`, `PyYAML` a `jsonschema`. Browser test používá Python Playwright, systémový Chromium a PyMuPDF pro kontrolu PDF. Tyto vývojové nástroje se neinstalují kvůli spuštění webu.
+Browserové testy si spouštějí a ukončují vlastní dočasný statický server. Tyto vývojové nástroje (Python Playwright, Chromium, PyMuPDF; pro datový validátor lxml/PyYAML/jsonschema; pro kontrolu prezentací python-pptx) nejsou potřeba pro otevření webu. Ve spravovaném testovacím prohlížeči blokuje politika přímé `file://`; tato kontrola se výslovně označuje jako přeskočená.
 
-`tools/generate_data.py` je volitelná pomůcka pro obnovu hotového `web/js/data.js` po změně zdrojových dat. Není součástí startu ani povinný build. Původní soubory `API/` jsou datové a transformační podklady, nikoli běžící služba. Stránka API ověření byla odstraněna.
+Volitelný `python tools/generate_data.py` obnoví přibalená webová data po změně XML/JSON zdrojů. `python tools/build_course_submissions.py --include-web` znovu sestaví složky odevzdání a PPTX/PDF z `course-source/` (vývojově potřebuje python-pptx a ReportLab). Tyto skripty se při běžném spuštění nespouštějí. Původní složka `API/` obsahuje datové transformace a schémata, nikoli běžící rozhraní.
 
-Podrobnosti: `documentation.md`, aktuální výsledky: `validation_report.md`, původ a licence grafiky: `web/images/ASSETS.md`, licence PDF knihoven a fontů: `web/vendor/`.
+Podrobnosti a limity: `documentation.md`, výsledky: `validation_report.md`. Původ grafiky: `web/images/ROCKS-ASSETS.md` a `web/images/performers/README.md`. Náhledy jsou v `preview/`.

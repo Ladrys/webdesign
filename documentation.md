@@ -1,76 +1,108 @@
-# Prague Pulse Fest – dokumentace
+# Prague Rocks Festival — dokumentace
 
-## Základ a rozsah
+## Identita a návaznost
 
-Základem je uživatelem dodaný `final_project.zip`. Při první úpravě byl připojený repozitář bez commitu. Zůstává Prague Pulse Fest, původní ročník 2026, termín 1.–3. srpna, Vltava Park v Praze, 3 scény, 60 interpretů a 60 vystoupení. Původní XML, XSD, XSLT a JSON podklady se zachovávají. `dokumentace.docx` je původní dodaný dokument; novou verzi popisuje tento Markdown.
+Aktuální název je **Prague Rocks Festival**, 1. ročník, 1.–3. srpna 2026. Základem je uživatelem dodaný `final_project.zip`, původně Prague Pulse Fest. Zůstávají tři dny, tři scény, 60 interpretů a 60 vystoupení. Areál Vltava Park je fiktivní festivalové uspořádání u reálné lokality Výstaviště Praha; navigační adresa je Výstaviště 67, 170 00 Praha 7. Modelový e-mail na doméně `.cz` a telefon jsou ilustrativní a nejsou ověřeným kontaktem pořadatele.
 
-Požadavek na skutečné účty a e-mail byl při upřesnění záměrně vypuštěn: uživatel výslovně zvolil „Chci jen školní verzi bez serveru“. Finální web proto zůstává čistě klientský, bez instalace, Node.js, buildu, databáze a backendu. Nepředstírá skutečný prodej nebo odeslaný e-mail. Návrh serveru není součástí odevzdání.
+Poslední požadavky uživatele zahrnovaly přejmenování, asymetrii, CZ/EN, úvodní video, podobný typ navigace jako festival Rock for People, třídenní balíčky, Google mapu, jednotlivé portréty, méně technických upozornění v běžném toku a materiály pro jednotlivá cvičení. Převzata není žádná cizí značka ani obrazový/video obsah. Vlastní logo má originální kompozici a používá licencované Barlow Condensed. Přímý přístup na referenční web v tomto prostředí odmítal síťový proxy; návrh vychází z popisu uživatele a vlastní festivalové grafiky, nikoli tvrzeného auditu současného Rock for People.
 
-## Vývoj a změny
+Uživatel po upřesnění výslovně zvolil pouze školní verzi bez serveru. Web proto nepoužívá Node.js, databázi, backend ani povinný build. Skutečný serverový účet, hromadná rezervace, platební brána ani automatické odeslání e-mailu nejsou součástí této verze.
 
-| Oblast | Původní stav | Aktuální výsledek a důvod |
+## Změny mezi verzemi a důvody
+
+| Oblast | Změna | Důvod a ověření |
 | --- | --- | --- |
-| Identita a vzhled | Jednoduchá prezentace, následně univerzální tmavé karty | Originální festivalový wordmark a grafika, výrazná kondenzovaná typografie, černá/krémová/oranžová s modrým akcentem, plakátová kompozice. Vychází z požadavku uživatele na výraznější festivalový styl. |
-| Texty | Opakované marketingové fráze | Přímější nadpisy a popisky, zejména „Přihlášení“, „Košík“, „Program 2026“. Odstraněno „Tvoje místo. Tvůj účet.“ |
-| Obrázky a fonty | Vzdálené náhodné fotografie | Lokální originální AI grafika a licencované fonty, bez CDN. |
-| Vyhledávání | Uživatelská stránka API ověření | Globální `contains` vyhledávání s kategoriemi výsledků a odkazy na odpovídající objekt. |
-| Data interpretů | JSON obsahoval pouze 20 z 60 interpretů | Všech 60 se odvozuje z XML. |
-| PDF | Textový soubor vstupenek | Skutečné vícestránkové PDF vytvořené v prohlížeči s českým fontem, QR a vlastním designem. |
-| Otevření z disku | Více HTML souborů s chováním localStorage závislým na prohlížeči | Při `file://` navigace používá jeden `index.html?page=...`; údaje tak zůstávají pod stejným souborem. |
-| Ovládání | Základní formuláře a filtry | Viditelný focus, zachování focusu po výběru sedadla a oblíbené akce, odolnější čtení poškozeného úložiště. |
+| Identita | Prague Pulse Fest → Prague Rocks Festival, vlastní SVG loga a nové datumové bloky | Přímé zadání uživatele, konzistence XML/JSON/webu/prezentací |
+| Úvod a navigace | Asymetrická sazba, nakloněný videoblok, plovoucí CTA, datum vedle loga, zaoblené hledání | Požadovaný festivalový charakter; měření sedmi šířek a vizuální kontrola |
+| Texty | Odstraněny souřadnice a fráze „Tři dny. Žádná vata.“; běžné formuláře mají věcné názvy | Konkrétní uživatelská připomínka, kontrola obsahu |
+| Jazyky | Česká a anglická verze včetně dynamických stavů a PDF | Potřeba zahraničních návštěvníků; přepínání nesmí změnit hodnoty filtrů |
+| Data | 60 interpretů z XML místo první JSON stránky s 20 položkami; šest tarifů v XML | Konzistence datové základny a všech viditelných cen |
+| Obrazy | 60 odlišných AI portrétů, stabilní mapování ID, zachované iniciály | Snazší rozlišení interpretů; kontrola 60 unikátních dvojic soubor/pozice |
+| Vstupenky | Jednodenní i třídenní VIP/Regular/stání a popis obsahu balíčku | Třídenní produkt vyžaduje stejné místo volné ve všech dnech |
+| Účet | Sedmidenní přihlášení, export/import JSON zálohy | Data se zachovají po zavření a lze je přenést bez serveru |
+| Info/footer | Doprava, parking, ubytování, příběh prvního ročníku, kontakt, soukromí, podmínky a sociální platformy | Požadovaná informační architektura a věcný rozsah festivalu |
+| Odevzdání | Složky 02–06, PPTX/PDF/poznámky, samostatný interaktivní prototyp a finální struktura | Přesné členění podle dodaného zadání |
 
-Inspirací byla obecná grafická řeč současných hudebních festivalů a uživatelem zmíněný Rock for People. Nejsou převzata jeho loga, obrázky, názvy ani zdrojové kódy. Přístup na jeho web v prostředí vracel síťové odmítnutí; nelze tvrdit, že byl proveden audit aktuální stránky. Návrh je samostatná identita Prague Pulse Fest.
+Změny jsou dodatečnou implementací uživatelských požadavků a interní validace. Nejsou označovány jako výsledek skutečného cross-review ani konzultace, které nebyly dodány. Větší redesign a přejmenování přesahují drobné úpravy; tým musí doložit návaznost na schválené výstupy 1–2 a potvrdit rozsah změn s vyučujícím.
 
-Redesign a přidané funkce jsou větší změnou vůči dodanému základu. Nebyla dodána schválená verze ze cvičení 1–2 ani konzultace potvrzující limit cca 15 %. Schválení rozsahu, týmovou časovou osu a skutečná rozhodnutí ze semestru musí doplnit autorský tým. `prototype/` uchovává dodané původní HTML jako historický podklad, nikoli nově vytvořený prototyp.
+## Informační architektura a tři scénáře
 
-## Uživatelské scénáře
+Hlavní části tvoří úvod, Program, Účinkující, Scény, Info, Vyhledávání, Vstupenky, Košík a Účet. Footer doplňuje kotvy dopravy, parkování, ubytování, přístupnosti, historie, kontaktů, soukromí a podmínek. Detail interpreta navazuje na související program; detail akce na scénu a vstupenky daného dne. Podrobný účel, cílové skupiny a scénáře jsou v `project-specification.md`.
 
-1. **Sestavení programu:** návštěvník vybere den a scénu, vyhledá interpreta nebo téma, uloží akci a zapne „Jen můj program“. Detail odkazuje na účinkující a nákup pro daný den. Výběr zůstává po obnovení.
-2. **Objednávka hosta:** návštěvník zvolí den a místa v mapě, zkontroluje košík, zadá zkušební jméno a e-mail, simuluje platbu a stáhne skutečný PDF soubor. Každá vstupenka je na vlastní stránce a jasně označená jako školní ukázka.
-3. **Návrat registrovaného uživatele:** lokální registrace převezme košík hosta, uživatel dokončí objednávku a najde ji v historii. Odhlášení historii skryje; přihlášení ji znovu zobrazí. Objednávky dřívějšího hosta se automaticky nepřiřazují podle neověřeného e-mailu.
+- **S1 – osobní program:** mobilní návštěvník zvolí den/scénu, uloží koncert a zobrazí pouze uložené; po obnově výběr zůstane.
+- **S2 – konkrétní interpret:** fanoušek vyhledá část názvu, otevře detail a přejde na související vystoupení.
+- **S3 – vstupenka:** host nebo přihlášený návštěvník porovná balíčky, vybere místo, zkontroluje objednávku a stáhne PDF. Alternativy ověřují zamítnutou platbu, změněný košík a obsazené místo.
 
-## Data a vyhledávání
+## Datová základna
 
-`data/festival.xml` je původní datová základna; kořenové `data.xml` je identická kopie pro strukturu odevzdání. `API/` obsahuje původní JSON příklady, schémata a transformace, nikoli běžící server. `tools/generate_data.py` volitelně vytvoří hotový `web/js/data.js`. Soubor je přiložen a nevyžaduje build ani `fetch` při otevření webu.
+`data/festival.xml` je kanonické XML; kořenové `data.xml` je jeho identická kopie pro odevzdání. XML obsahuje festival, adresu, dny, scény, interprety, program, šest tarifů, odkazy a kontakty. ID a reference se validují proti XSD a podkladům. Původní `API/` uchovává XSLT, JSON schémata a datové příklady, nikoli běžící API.
 
-Vyhledávání sjednocuje velikost písmen, odstraní diakritiku a aplikuje `includes` nad poli každého datového objektu. Zahrnuje interprety, program, scény, dny, festival, datové tarify, odkazy a FAQ. Výsledkem jsou HTML karty s odkazy na odpovídající detail. Prázdný dotaz zobrazí nápovědu; neúspěšné hledání informaci a možnost změnit dotaz.
+Po aktualizaci XML byly jeho existující transformace znovu spuštěny do JSON. Volitelný `tools/generate_data.py` připravuje přibalený `web/js/data.js`; při běhu webu se nic netransformuje ani nestahuje pomocí fetch. Všech 60 interpretů se bere z XML, aby se nepřevzala jen stránkovaná JSON ukázka. Obsah interpretů a jejich vazby na program zůstávají odvoditelné z odevzdané datové základny.
 
-Původní tarify Standard/VIP/Day Pass zůstávají v XML jako zdrojová data. Nový školní nákup nabízí **jednodenní VIP 590 Kč, Regular 390 Kč, stání 190 Kč**. Model je v `ticketTypes` v `web/js/app.js`; vyhledávání rozlišuje aktuální nákup a původní datové tarify. Je to přiznané rozšíření původní specifikace.
+Ceny jsou nyní přímo ve zdroji: třídenní Regular 990 Kč, VIP 1 590 Kč, stání 490 Kč; jednodenní Regular 390 Kč, VIP 590 Kč, stání 190 Kč. Popisy tarifů zahrnují konkrétní rozsah, například stejnou pozici na tři dny a modelové VIP parkování. Skript nákupu ceny nevede v nesouvisející druhé databázi.
 
-## Účty, košík a ochrana vstupů
+## CZ/EN a vyhledávání
 
-Účty, objednávky, košík a oblíbené jsou v `localStorage` s prefixem `pulse:`. `sessionStorage` nese identifikátor přihlášeného uživatele pro danou kartu. Není to serverová autentizace; uživatel má nad daty úplnou kontrolu. Smazání úložiště odstraní i objednávky. Prohlížeč musí povolit místní úložiště. Chybné JSON či neplatné základní typy dat se bezpečně vrací na prázdný stav.
+`web/js/i18n.js` uchovává volbu jazyka a překládá obsah, formuláře, popisky, dynamické stavy, dialogy a metadata. Nový úvod a navigace mají přímo obě varianty. Překlad nesmí změnit interní ID ani hodnoty `<option>`; jména, e-maily a identifikátory se nepřekládají. PDF používá stejný překladový slovník. Vyhledávání obsahujícího řetězce normalizuje velikost písmen a diakritiku a zahrnuje původní i lokalizované texty datových objektů. Prázdný a neúspěšný výsledek mají samostatné stavy.
 
-Heslo má 10–128 znaků a ukládá se jako PBKDF2-SHA256 hash se 120 000 iteracemi a náhodnou 16bajtovou solí. Text hesla se neukládá. Bez Web Crypto registrace selže s vysvětlením, nevkládá slabší náhradu. Uživatelé mají zadávat smyšlené údaje a heslo nepoužívané jinde. E-mail kontroluje HTML validace a doplňkový regex, nikoli ověření skutečného vlastnictví adresy.
+Angličtina byla ověřena na všech devíti stránkách, po opětovném načtení, s filtrováním žánru a v samostatném průchodu anglického nákupu a PDF. V tomto průchodu audit nezjistil chybějící překlad. To není garance jazykové kvality všech možných uživatelských vstupů; vlastní jména se záměrně zachovávají.
 
-Uživatelské hodnoty v HTML se escapují; výsledkové stavy používají `textContent`; hledání nezpracovává dotaz jako spustitelný regex. Není zde SQL ani databázový dotaz, proto zde není SQL injection. Pro případný samostatný server by byla nezbytná validace na serveru a parametrizované dotazy. Žádné heslo k SMTP, API klíč nebo skutečné platební údaje nejsou v klientském kódu. Web nepoužívá analytické cookies, měření ani sledovací skripty.
+## Místa, balíčky a objednávka
 
-Košík je oddělený podle účtu nebo hosta a přihlášení jej sloučí bez duplicit. Platné hodnoty dne, sedadla, kategorie a ceny se kontrolují před zobrazením. Ceny objednávky se znovu odvozují z modelu. Zamítnutá platba zachová košík. Výběr v mapě ani košík nepředstavují rezervaci; dostupnost se kontroluje při dokončení. Objednávky v lokálním prohlížeči obsadí místo pro daný den. Neexistuje společná ani transakční rezervace napříč zařízeními.
+Model má 48 sedadel a 40 míst ke stání na den. Nový prohlížeč začíná bez obsazených míst. Jednodenní položka blokuje svou pozici jen v daném dni; třídenní všechny tři. Třídenní nabídka je dostupná jen při volné pozici ve všech dnech. Košík nevytváří rezervaci; kontrola se opakuje při dokončení. Objednávky jsou místní a nejsou synchronizované mezi návštěvníky nebo zařízeními.
 
-## PDF a e-maily
+Košík je oddělený podle účtu/hosta, registrace převezme výběr bez duplicit. Odebrání položky zachová zadané údaje. Pokud jiná karta změní košík, potvrzení nejprve zobrazí nový obsah/součet a vyžaduje další kontrolu. Ceny objednávky se odvozují z typu, nikoli libovolného uživatelského vstupu. Zamítnutí zkušební platby ponechá výběr. Souhlas odkazuje na podmínky a soukromí místo opakovaného technického banneru.
 
-`web/js/ticket-pdf.js` načte při stažení místní jsPDF, generátor QR a vložené fonty. Není potřeba síťová služba, server ani build. Výsledkem je **skutečný PDF dokument**, nikoli přejmenovaný text nebo automatický tisk do PDF. Obsahuje samostatnou A5 stránku na vstupenku, původní festivalový wordmark, barevný oddělený sektor, české jméno, datum, místo, kategorii, cenu a ID objednávky.
+Platba nestrhává peníze; formulář si nežádá údaje karty. Označení této skutečnosti je soustředěné do dokončení objednávky a podmínek. Fikce festivalu zůstává uvedená ve footeru a dokumentaci, běžný obsah ji zbytečně neopakuje.
 
-QR obsahuje pouze ukázkový identifikátor, nikoli jméno nebo e-mail. Nepotvrzuje pravost ani právo ke vstupu; každá stránka výslovně říká „ŠKOLNÍ UKÁZKA / NEPLATNÁ VSTUPENKA“. Fonty jsou vložené v PDF kvůli českým znakům. Soubor lze opakovaně stáhnout z historie lokálního účtu, nebo vytisknout z HTML. Starší uložené objednávky bez nového `code` používají odvozený identifikátor.
+## Uložení účtu a JSON
 
-**Automatické odeslání e-mailu není implementované**, protože uživatel po upřesnění vybral pouze klientské školní řešení a nemá nastavenou e-mailovou službu. Žádný koncept zprávy se nevydává za skutečně odeslanou zprávu. E-mail z formuláře je pouze údaj na objednávce. Skutečné SMTP vyžaduje bezpečně uložené serverové přihlašovací údaje, ne jejich vložení do JavaScriptu. Samostatná služba by byla další integrace mimo aktuální rozsah.
+`localStorage` uchovává účty, objednávky, košíky a oblíbené. Přihlášení má v `pulse:auth` expiraci sedm dnů a odhlášení jej odstraní. Registrace zůstává uložená po zavření webu; není to pouze životnost aktuální karty. Pro `file://` používá aplikace jednu vstupní stránku s parametrem, protože oddělování localStorage mezi soubory není jednotné napříč prohlížeči.
 
-## Responzivita, přístupnost a SEO
+Heslo má 10–128 znaků a ukládá se jako PBKDF2-SHA256 hash se 120 000 iteracemi a náhodnou 16bajtovou solí. Otevřený text hesla se neukládá. Nejde o produkční ověření identity: uživatel má úplnou kontrolu nad místním úložištěm. JSON záloha obsahuje profily s hashi a objednávky, nikoli přihlášení. Uživatel ji stáhne a může obnovit ve stejném či jiném prohlížeči; validuje se formát, ceny a základní reference. Import je slučovací, duplicitní záznamy nepřidává, konfliktní účty neignoruje. Neplatná záloha nesmí přepsat existující data.
 
-Výchozí rozložení je mobilní. Flexbox řeší navigaci, tlačítka a lišty; CSS Grid přehledy interpretů, program a mapu sedadel. Šířky, mezery a typografie používají pružné hodnoty, `minmax` a `clamp`. Rozhraní se přizpůsobuje prostoru místo konkrétních modelů telefonů. Obrázky mají lokální zdroje a rozměry, fonty jsou licencované a přibalené.
+**JSON soubor se na disku automaticky nepřepisuje.** Bez backendu nebo výslovně povoleného přístupu prohlížeče k souboru to nelze slibovat. Tato verze používá skutečný ruční export/import. Neobsahuje skrytý server ani předstíraný souborový účet.
 
-Navigace má ovládání `aria-expanded`, formuláře popisky, focus je viditelný a lze přeskočit na obsah. Sedadla mají textové názvy, stav, cenu a `aria-pressed`; obsazenost není vyjádřena pouze barvou. Po výběru sedadla či oblíbené akce se focus zachová. Dialog ovládá klávesnice, Escape jej zavře. Výsledky a chyby používají stavové oblasti; animace respektují omezení pohybu. Tiskové CSS skryje ovládání. Technické testy nenahrazují plný audit WCAG AA se čtečkou nebo na fyzickém zařízení.
+Vstupy se escapují, délky a e-mail kontrolují formuláře; hledaný text není spustitelný regex. V aplikaci neexistuje SQL. Chybný formát účtů nezpůsobí prázdnou stránku, selhání zápisu zobrazí stav. Podrobnosti úložiště jsou soustředěné na stránku soukromí a do dokumentace.
 
-Každá stránka má konkrétní title, description, jazyk, viewport a Open Graph text. Domovská stránka obsahuje JSON-LD Festival s viditelnými původními údaji, bez vymyšleného hodnocení. FAQ a provázané obsahové entity pomáhají s porozuměním obsahu. Není vymyšlena produkční doména pro canonical či sitemap. Obsah vykresluje JavaScript, což může omezit jednoduché roboty. Aktuální externí SEO/AEO rešerše ani audit vyhledávači v této revizi neproběhly; tým je má doplnit podle požadavků předmětu. Není tvrzena garance indexace nebo doporučování AI vyhledávači.
+## PDF, video, fotografie a mapa
 
-## Cross-review
+PDF je skutečný vícestránkový dokument vytvořený jsPDF přímo v prohlížeči. Knihovny a licencované fonty jsou lokální a načtou se až na vyžádání. Každá vstupenka má vlastní A5 stránku, český/anglický text, kategorii, konkrétní místo, datum nebo celý rozsah tří dnů, cenu a ID objednávky. QR obsahuje pouze identifikátor, ne osobní údaje. Nemá serverové ověření platnosti. PDF výslovně neprokazuje platbu ani nárok na skutečnou akci. E-mail se automaticky neodesílá.
 
-Skutečné cross-review nebylo dodáno. `review/received-review.md` to uvádí výslovně, nevymýšlí autory ani připomínky. Tým musí doplnit reálné nálezy, jejich závažnost, rozhodnutí a změny, spolupráci členů a průběh jednotlivých cvičení. Technická kontrola z této úpravy není vydávána za cross-review od jiného týmu.
+Krátké tiché video má lokální WebM a MP4 variantu. Jde o desetisekundovou animaci vlastního AI koncertního obrázku, nikoli převzatý koncertní film. Má poster a ovládání pauzy, nespustí se při preferenci omezeného pohybu a pozastaví se po skrytí karty. Původ je v `web/images/ROCKS-ASSETS.md`.
 
-## Použití AI a ověření
+Šedesát různých portrétů vzniklo AI jako čtyři mřížky po šestnácti snímcích. Používá se 60 polí, každé stabilně podle XML ID; CSS výřez při filtrování nemění identitu. WebP soubory mají dohromady přibližně 1,1 MB. Iniciály jsou zachované jako překryv. Původ, reprezentativní prompt a limity jsou v `web/images/performers/README.md`.
 
-Codex byl použit pro analýzu zadání, návrh a implementaci rozhraní, originální SVG logo/ilustrace, texty, PDF a testy. AI generátor vytvořil koncertní vizuál; původ a licence fontů jsou v `web/images/ASSETS.md`. Reprezentativní zadání: festivalový styl s vlastním názvem, responzivita, méně obecných frází a graficky zpracované PDF. Nové logo ani grafika nekopírují značku Rock for People.
+Google Maps se do stránky vloží teprve po stisku tlačítka. Uživatel má i běžný odkaz na skutečnou lokalitu. Testy ověřily odložené vložení a správnou URL s lokálním testovacím obsahem; neověřují síťovou dostupnost skutečných Google map v každém prostředí. Sociální odkazy vedou na veřejné platformy, nikoli vymyšlené ověřené festivalové účty.
 
-Ověření zahrnuje původní XML/XSD/JSON/XSLT validátory, konzistenci datového exportu, průchody Chromium, hledání, lokální účty, košík, varianty platby, stahování skutečného PDF, jeho obsah a různé velikosti obrazovky. Konkrétní počty, výstupy a omezení jsou v `validation_report.md`.
+## UX, responzivita, sémantika a SEO/AEO
 
-Při kontrole byly opraveny ztráty klávesového focusu při překreslení mapy a oblíbených, pád při chybném formátu místního úložiště a neurčité oddělování úložiště mezi různými `file://` soubory. Návrh skutečného backendu byl po odpovědi uživatele vyřazen kvůli školnímu zadání. Testy neprokazují bezpečné produkční přihlášení, skutečnou platbu ani doručení e-mailu a tyto schopnosti web netvrdí. Historii použití AI před touto úpravou musí doplnit původní tým.
+Flexbox slouží navigaci, akcím a formulářovým řádkům; Grid programu, přehledům a mapě. Pružné hodnoty a breakpointy reagují na prostor, nikoli model telefonu. Testovaly se šířky 320, 375, 430, 768, 1024, 1440 a 1920 px včetně vyplněného košíku. Zvýšení systémového textu, jiné enginy a fyzické telefony nejsou tímto testem plně pokryté.
+
+Používají se header/nav/main/section/article/aside/footer, popisky formulářů, time a address podle významu. Odkaz přeskočení navigace, viditelný focus, nativní dialog, stavové oblasti a textové popisy obsazenosti doplňují klávesové ovládání. Výběr sedadla a oblíbené akce zachová focus. Nadpisy seznamů udržují návaznost h1–h2–h3. Nejde o certifikaci WCAG AA ani plnou HTML validaci.
+
+Každá stránka má konkrétní title, description, jazyk, viewport a Open Graph text. Přepnutí jazyka aktualizuje prezentaci a metadata. JSON-LD Festival odpovídá skutečně viditelnému názvu, termínu a lokaci; neobsahuje vymyšlená hodnocení. FAQ jsou věcné a obsahové entity propojené. Bez reálné produkční domény se nevymýšlí canonical a sitemap. Skriptované vykreslení může být omezením pro jednodušší crawlery; pro veřejný provoz by pomohl statický obsahový export.
+
+Primární podklady pro další ověření aktuálních doporučení:
+
+- Google Search Central, [SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide): konkrétní titulky, srozumitelná struktura, odkazy a užitečný obsah.
+- Google Search Central, [AI features and your website](https://developers.google.com/search/docs/appearance/ai-features): neexistuje zde tvrzený zvláštní „AI SEO“ trik; prioritou je dostupný relevantní obsah a pravdivá strukturovaná data.
+- W3C WAI, [Page Structure Tutorial](https://www.w3.org/WAI/tutorials/page-structure/): struktura, nadpisy a landmarky.
+
+Konkrétní zásady výše jsou implementované a ověřitelné v kódu. Přímé načtení těchto webů síť v této relaci odmítla, proto není tvrzena nová kompletní online rešerše trendů ani externí SEO/AEO audit. Tým má zdroje před odevzdáním otevřít a doplnit vlastní aktuální zjištění. Není garantována indexace ani doporučení generativními vyhledávači.
+
+## Odevzdání, prezentace a cross-review
+
+`odevzdani/` má složky pro cvičení 02–06 a finální `projekt/` v přesné struktuře zadání. PPTX mají editovatelné texty a poznámky, PDF zachovávají vzhled; samostatné poznámky počítají přibližně se čtyřmi minutami. Prototyp cvičení 03 je nově sestavený samostatný wireframe s reálnými filtry, oblíbenými, hledáním a detailem.
+
+Materiály jsou **dodatečně sestavené ukázky milníků**, ne falešné doklady dřívějšího odevzdání. Cvičení 04 a 05 používají stejnou současnou implementaci, protože historické verze nebyly dodány. Cvičení 06 obsahuje metodu a tabulku pro doplnění skutečného cizího projektu; není vydáváno za dokončený posudek.
+
+Skutečné přijaté cross-review chybí. `review/received-review.md` to výslovně uvádí. Vlastní ověřené nálezy a úpravy jsou odděleně v `review/internal-review.md` (heuristická kontrola a kognitivní průchod). Tým musí doplnit jména, spolupráci, časovou osu, skutečný přidělený projekt a jeho hodnocení, přijatý posudek a schválení rozsahu změn. Tyto údaje nejsou nahrazené smyšlenými tvrzeními.
+
+## Použití AI a ověření výstupů
+
+Codex byl použit pro rozbor zadání, implementaci, české/anglické texty, SVG identitu, PDF, prezentace a testy. OpenAI Image Generation vytvořil koncertní scénu a čtyři sady fiktivních hudebníků. FFmpeg připravil animovaný vizuál a optimalizované obrázky; vlastní výtvarný obsah se nepřebíral z referenčního festivalu. Reprezentativní zadání: „asymetrický festivalový web“, „CZ/EN“, „3 dny VIP/Regular/stání“, „60 různých interpretů s iniciálami“, „prezentace podle výstupů cvičení“.
+
+Výstupy se kontrolovaly XML/XSD a transformacemi, browserovými průchody, porovnáním cen/vazeb, dekódováním QR, rozborem PDF, měřením layoutu, vizuální prohlídkou a kontrolou PPTX/poznámek. Byly opraveny chyby inicializace třídenního košíku, escapování fotografií, focusu, zalamování formuláře a ztracených vstupů. Kopie cizího loga a backend odporující zadání byly odmítnuty. Limity AI zahrnují možné obrazové nepřesnosti a nutnost lidské kontroly překladu; přínosem je rychlé vytvoření rozsahu, nikoli automatický důkaz správnosti.
+
+Přesné aktuální výsledky jsou v `validation_report.md`, prototypové a prezentační kontroly také v podkladech cvičení 03. Otevření `file://` v tomto spravovaném prohlížeči blokuje politika; nebylo obcházeno a neoznačuje se za úspěšně provedený test. Historii AI práce před dodáním původního projektu doplní tým.

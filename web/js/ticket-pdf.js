@@ -9,8 +9,8 @@
   const orange = '#FF5A1F';
   const gray = '#696960';
   const days = { d1: '1. 8. 2026', d2: '2. 8. 2026', d3: '3. 8. 2026' };
-  const categories = { vip: 'VIP', regular: 'REGULAR', standing: 'STÁNÍ' };
-  const money = value => new Intl.NumberFormat('cs-CZ', { style: 'currency', currency: 'CZK', maximumFractionDigits: 0 }).format(Number(value) || 0);
+  const categories = { vip: 'VIP', regular: 'REGULAR', standing: window.PulseI18n?.lang==='en'?'STANDING':'STÁNÍ' };
+  const money = value => new Intl.NumberFormat(window.PulseI18n?.lang==='en'?'en-GB':'cs-CZ', { style: 'currency', currency: 'CZK', maximumFractionDigits: 0 }).format(Number(value) || 0);
   let dependencies;
 
   function script(name, ready) {
@@ -41,9 +41,9 @@
     doc.setTextColor(color);
   }
 
-  function text(doc, content, x, y, maxWidth, size = 12, bold = false, color = ink) {
+  function text(doc, content, x, y, maxWidth, size = 12, bold = false, color = ink, translate = true) {
     font(doc, size, bold, color);
-    let visible = String(content ?? '').replace(/[\r\n\t]/g, ' ');
+    let visible = String((translate ? window.PulseI18n?.t(content) : content) ?? content ?? '').replace(/[\r\n\t]/g, ' ');
     if (maxWidth && doc.getTextWidth(visible) > maxWidth) {
       while (visible.length && doc.getTextWidth(`${visible}…`) > maxWidth) visible = visible.slice(0, -1);
       visible += '…';
@@ -85,7 +85,7 @@
     doc.addFont('DejaVuSans.ttf', 'PulseSans', 'normal');
     doc.addFileToVFS('DejaVuSans-Bold.ttf', window.PULSE_PDF_FONTS.bold);
     doc.addFont('DejaVuSans-Bold.ttf', 'PulseSans', 'bold');
-    doc.setProperties({ title: `Prague Pulse Fest · ${order.id}`, author: 'Prague Pulse Fest', subject: 'Školní ukázka vstupenek' });
+    doc.setProperties({ title: `Prague Rocks Festival · ${order.id}`, author: 'Prague Rocks Festival', subject: 'Školní ukázka vstupenek' });
     const width = doc.internal.pageSize.getWidth();
     const height = doc.internal.pageSize.getHeight();
     const split = width - 175;
@@ -97,27 +97,27 @@
       box(doc, 0, 0, split, 136, ink);
 
       text(doc, 'PRAGUE', 25, 40, 230, 25, true, paper);
-      text(doc, 'PULSE', 23, 86, 260, 43, true, paper);
-      text(doc, 'FEST / 2026', 26, 117, 230, 11, true, orange);
+      text(doc, 'ROCKS', 23, 86, 260, 43, true, paper);
+      text(doc, 'FESTIVAL / 2026', 26, 117, 230, 11, true, orange);
       doc.setDrawColor(orange);
       doc.setLineWidth(7);
       const markX = split - 117;
       doc.lines([[18, 0], [11, -29], [16, 60], [15, -44], [12, 13], [20, 0]], markX, 70, [1, 1], 'S', false);
 
-      text(doc, 'ŠKOLNÍ UKÁZKA / NEPLATNÁ VSTUPENKA', 26, 159, split - 52, 8, true);
+      text(doc, 'FIKTIVNÍ FESTIVAL / VSTUPENKA', 26, 159, split - 52, 8, true);
       label(doc, 'JMÉNO V OBJEDNÁVCE', 26, 187, split - 52);
-      text(doc, order.name || order.customer?.name || 'Návštěvník festivalu', 26, 214, split - 52, 21, true);
+      text(doc, order.name || order.customer?.name || 'Návštěvník festivalu', 26, 214, split - 52, 21, true, ink, false);
       doc.setDrawColor('#CECCC2');
       doc.setLineWidth(0.6);
       doc.line(26, 230, split - 26, 230);
 
       label(doc, 'DATUM', 26, 253, 165);
-      text(doc, days[ticket.day] || String(ticket.day || '1.–3. 8. 2026'), 26, 276, 180, 17, true);
+      text(doc, ticket.scope==='festival'?'1.–3. 8. 2026':(days[ticket.day] || String(ticket.day || '1.–3. 8. 2026')), 26, 276, 180, 17, true);
       label(doc, 'SEKTOR / MÍSTO', 228, 253, split - 254);
       text(doc, ticket.category === 'standing' ? 'Volná plocha' : (ticket.seat || 'Volný vstup'), 228, 276, split - 254, 16, true);
       label(doc, 'AREÁL', 26, 305, 170);
       text(doc, 'Vltava Park, Praha', 26, 325, 188, 12, true);
-      text(doc, 'U Výstaviště 67, Praha 7', 26, 341, 188, 8, false, gray);
+      text(doc, 'Výstaviště 67, Praha 7', 26, 341, 188, 8, false, gray);
       label(doc, 'CENA VSTUPENKY', 228, 305, split - 254);
       text(doc, money(ticket.price), 228, 327, split - 254, 15, true);
 
@@ -128,15 +128,15 @@
       const sideX = split + 21;
       text(doc, 'ADMIT ONE / UKÁZKA', sideX, 32, 138, 8, true);
       text(doc, categories[ticket.category] || String(ticket.category || 'REGULAR').toUpperCase(), sideX - 1, 72, 139, 23, true);
-      text(doc, days[ticket.day] || '1.–3. 8. 2026', sideX, 98, 138, 10);
+      text(doc, ticket.scope==='festival'?'1.–3. 8. 2026':(days[ticket.day] || '1.–3. 8. 2026'), sideX, 98, 138, 10);
       const suppliedCode = String(ticket.code || `${order.id}-${index + 1}`);
       // No name, email or URL is encoded. This local identifier is not a validated admission token.
       const payload = /^[A-Za-z0-9_-]{1,256}$/.test(suppliedCode) ? suppliedCode : `${String(order.id).replace(/[^A-Za-z0-9_-]/g, '-').slice(0, 80)}-${index + 1}`;
       qr(doc, payload, sideX - 2, 123, 137);
       label(doc, 'VSTUPENKA', sideX, 290, 138);
       text(doc, `${String(index + 1).padStart(2, '0')} / ${String(order.tickets.length).padStart(2, '0')}`, sideX - 1, 325, 138, 23, true);
-      text(doc, 'Ukázkový identifikátor', sideX, 347, 138, 7);
-      text(doc, 'PRAGUE PULSE FEST', sideX, height - 24, 138, 8, true);
+      text(doc, ticket.scope==='festival'?'3 DNY / VŠECHNY SCÉNY':'1 DEN / VŠECHNY SCÉNY', sideX, 347, 138, 7);
+      text(doc, 'PRAGUE ROCKS FESTIVAL', sideX, height - 24, 138, 8, true);
       doc.setDrawColor(ink);
       doc.setLineWidth(0.5);
       doc.setLineDashPattern([3, 4], 0);
@@ -151,7 +151,7 @@
     const href = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = href;
-    link.download = `Prague-Pulse-Fest-${String(order.id).replace(/[^A-Za-z0-9_-]/g, '-')}.pdf`;
+    link.download = `Prague-Rocks-Festival-${String(order.id).replace(/[^A-Za-z0-9_-]/g, '-')}.pdf`;
     document.body.append(link);
     link.click();
     link.remove();

@@ -1,17 +1,17 @@
 <?xml version='1.0' encoding='utf-8'?>
-<festival xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ppf2026" lang="cs" xsi:noNamespaceSchemaLocation="festival.xsd">
-  <nazev>Prague Pulse Fest</nazev>
+<festival xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="prf2026" lang="cs" xsi:noNamespaceSchemaLocation="festival.xsd">
+  <nazev>Prague Rocks Festival</nazev>
   <mistokonani>
-    <ulice>U Výstaviště 67</ulice>
+    <ulice>Výstaviště 67</ulice>
     <mesto>Praha</mesto>
     <psc>170 00</psc>
   </mistokonani>
-  <popis_festivalu>Prague Pulse Fest je fiktivní třídenní multižánrový festival kombinující koncerty, DJ sety a doprovodný program v městském areálu v Praze.</popis_festivalu>
+  <popis_festivalu>Prague Rocks Festival je fiktivní třídenní městský hudební festival v Praze. Tři scény propojují rock, pop, jazz, elektroniku a další žánry.</popis_festivalu>
   <dny>
     <den id="d1">
       <nazev>Den 1</nazev>
       <tema_dne>Opening Night</tema_dne>
-      <popis>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</popis>
+      <popis>Tři scény otevírají festival rockovými koncerty, popem a večerní elektronikou.</popis>
       <datumstart>2026-08-01</datumstart>
       <casstart>09:00:00</casstart>
       <caskonec>23:59:00</caskonec>
@@ -19,7 +19,7 @@
     <den id="d2">
       <nazev>Den 2</nazev>
       <tema_dne>Main Stage Highlights</tema_dne>
-      <popis>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</popis>
+      <popis>Největší festivalový den: od ranních objevů až po hlavní večerní koncerty.</popis>
       <datumstart>2026-08-02</datumstart>
       <casstart>09:00:00</casstart>
       <caskonec>23:59:00</caskonec>
@@ -27,7 +27,7 @@
     <den id="d3">
       <nazev>Den 3</nazev>
       <tema_dne>Finale &amp; Afterparty</tema_dne>
-      <popis>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</popis>
+      <popis>Závěrečné koncerty a klubová afterparty zakončí tři dny pražské hudby.</popis>
       <datumstart>2026-08-03</datumstart>
       <casstart>09:00:00</casstart>
       <caskonec>23:59:00</caskonec>
@@ -1258,41 +1258,59 @@
     </akce>
   </sumakce>
   <kontakt>
-    <email>info@praguepulsefest.test</email>
-    <telefon>+420 123 456 789</telefon>
+    <email>info@praguerocksfestival.cz</email>
+    <telefon>+420 000 000 000</telefon>
   </kontakt>
   <vstupenky>
     <vstupenka id="t1">
-      <nazev>Standard</nazev>
-      <cena>1490</cena>
+      <nazev>3 dny Regular</nazev>
+      <cena>990</cena>
       <mena>CZK</mena>
-      <popis>Třídenní vstupenka pro běžný vstup do areálu.</popis>
+      <popis>Sedadlo Regular na stejném místě po všechny tři dny a vstup na všechny scény.</popis>
     </vstupenka>
     <vstupenka id="t2">
-      <nazev>VIP</nazev>
-      <cena>2990</cena>
+      <nazev>3 dny VIP</nazev>
+      <cena>1590</cena>
       <mena>CZK</mena>
-      <popis>Rozšířený vstup se samostatnou zónou a rychlejším odbavením.</popis>
+      <popis>VIP sedadlo na všechny tři dny, rychlejší odbavení, odpočinková zóna a jedno parkovací místo v nabídce balíčku.</popis>
     </vstupenka>
     <vstupenka id="t3">
-      <nazev>Day Pass</nazev>
-      <cena>690</cena>
+      <nazev>3 dny Stání</nazev>
+      <cena>490</cena>
       <mena>CZK</mena>
-      <popis>Jednodenní vstupenka na vybraný festivalový den.</popis>
+      <popis>Třídenní vstup do zóny stání a na všechny scény.</popis>
     </vstupenka>
-  </vstupenky>
+    <vstupenka id="t4">
+      <nazev>1 den Regular</nazev>
+      <cena>390</cena>
+      <mena>CZK</mena>
+      <popis>Sedadlo Regular na vybraný den a všechny tři scény.</popis>
+    </vstupenka>
+    <vstupenka id="t5">
+      <nazev>1 den VIP</nazev>
+      <cena>590</cena>
+      <mena>CZK</mena>
+      <popis>VIP sedadlo na vybraný den, rychlejší odbavení a vstup do odpočinkové zóny.</popis>
+    </vstupenka>
+    <vstupenka id="t6">
+      <nazev>1 den Stání</nazev>
+      <cena>190</cena>
+      <mena>CZK</mena>
+      <popis>Jednodenní vstup do zóny stání a na všechny scény.</popis>
+    </vstupenka>
+    </vstupenky>
   <odkazy>
     <odkaz id="l1">
       <nazev>Web</nazev>
-      <url>https://example.com/prague-pulse-fest</url>
+      <url>https://praguerocksfestival.cz</url>
     </odkaz>
     <odkaz id="l2">
       <nazev>Instagram</nazev>
-      <url>https://instagram.com/praguepulsefest</url>
+      <url>https://instagram.com/praguerocksfestival</url>
     </odkaz>
     <odkaz id="l3">
       <nazev>Tickets</nazev>
-      <url>https://example.com/prague-pulse-fest/tickets</url>
+      <url>https://praguerocksfestival.cz/tickets</url>
     </odkaz>
   </odkazy>
 </festival>

@@ -1,112 +1,126 @@
-# Prague Pulse Fest 2026 – propozice festivalu (specification.md)
+# Prague Rocks Festival — projektová specifikace
 
-## 1) Stručná identita festivalu
-**Název festivalu:** Prague Pulse Fest  
-**Ročník:** 1. ročník (2026)  
-**Lokalita:** Praha – Areál Vltava Park (fiktivní festivalový areál v širším centru Prahy)  
-**Datumový rozsah:** 1. 8. 2026 – 3. 8. 2026 (3 dny)
+Aktuální specifikace fiktivního festivalu. Historie skutečných odevzdání a
+schválení změn vyučujícím musí být doložena původním týmem.
 
-**Stručný popis:**  
-Prague Pulse Fest je fiktivní městský hudební festival zaměřený na současné žánry a živé koncerty. Festival probíhá ve třídenním formátu a kombinuje několik scén (hal). Přes den nabízí kratší sety a doprovodný program, večer hlavní vystoupení a zakončení dne (afterparty).
+## Identita festivalu
 
----
+| Vlastnost | Hodnota |
+| --- | --- |
+| Název | Prague Rocks Festival |
+| Ročník | 1. ročník, 2026 |
+| Lokalita | Vltava Park (fiktivní areál), Výstaviště Praha, Výstaviště 67, 170 00 Praha 7 |
+| Termín | 1.–3. srpna 2026 |
+| Charakter | Fiktivní třídenní městský hudební festival |
+| Žánry | Rock, indie, pop, elektronika, hip-hop, jazz a folk |
+| Rozsah dat | 3 dny, 3 scény, 60 účinkujících, 60 vystoupení |
 
-## 2) Cílové publikum a charakter akce
-**Cílové publikum:**  
-- primárně 18–35 (studenti a mladí pracující),  
-- sekundárně 35+ fanoušci koncertů a městské kultury,  
-- návštěvníci z Prahy i mimo Prahu (víkendový výlet).
+Identita, adresa a přesné názvy scén jsou ve finálním exportu odvozeny ze
+souboru `data.xml`. Lokalita Výstaviště Praha je reálná; festivalové uspořádání a označení Vltava Park jsou fiktivní. Kontaktní údaje jsou součástí fiktivní festivalové identity,
+nikoli ověřené kontakty skutečného pořadatele. Návštěvníci nesmějí být vedeni
+k tomu, že jde o existující prodávanou akci.
 
-**Charakter akce:**  
-- multižánrový hudební festival (Rock / Pop / Elektronika / Hip-hop / Jazz / Folk),  
-- plynulý program po celý den (dopoledne–večer),  
-- večerní bloky s „highlighty“ a závěrečnou afterparty.
+## Účel webu
 
-**Témata jednotlivých dnů (koncept):**  
-- **Den 1 (Opening Night):** zahájení festivalu + průřez žánry  
-- **Den 2 (Main Stage Highlights):** hlavní festivalový den s největšími vystoupeními  
-- **Den 3 (Finale & Afterparty):** finále festivalu a závěrečné sety  
+Web umožňuje zjistit místo a termín, objevit účinkující, naplánovat návštěvu,
+vyhledat konkrétní informaci a projít školním objednávkovým tokem vstupenky.
+Primární akce jsou otevřít program, filtrovat vystoupení a uložit osobní program.
+Sekundární akce jsou porovnat tarify, vybrat místo a stáhnout PDF vstupenku.
 
----
+## Cílové skupiny
 
-## 3) Struktura webu (minimální obsah)
-Web bude statický a bude sloužit jako obsahový základ (v dalším semestru naváže Webdesign). Stránky budou sémanticky strukturované a připravené tak, aby jejich obsah šel později napojit na API výstupy.
+| Skupina | Potřeba a očekávání | Odpověď rozhraní |
+| --- | --- | --- |
+| Návštěvník na telefonu | Rychle najít čas a scénu, pohodlně ovládat jednou rukou | Mobile-first program, filtry a přehledné karty |
+| Fanoušek konkrétní kapely | Najít interpreta a jeho koncert | Vyhledávání, detail a vazba na program |
+| Návštěvník mimo Prahu | Zjistit dopravu, parkování a pobyt | Praktické informace, scény a mapa lokality |
+| Zahraniční návštěvník | Rozumět orientaci i nákupu | Přepínání češtiny a angličtiny |
+| Vracející se návštěvník | Zachovat vlastní program a objednávku | Místní úložiště a historie lokálního účtu |
 
-### Povinné stránky
-1. **Úvodní stránka (index.html / landing / o festivalu)**
-   - identita festivalu (název, datum, místo)
-   - krátký popis a žánry
-   - odkazy do programu, účinkujících a praktických informací
-   - hero obrázek (např. placeholder/Lorem Picsum pro Open Graph)
+## Informační architektura
 
-2. **Program (program.html)**
-   - program rozdělený na jednotlivé dny (`dny/den`)
-   - u každé programové položky (`sumakce/akce`): název, čas, hala, interpreti
-   - program bude připraven tak, aby šel filtrovat (např. podle dne / haly / interpreta)
+```text
+Úvod
+├── Program → detail vystoupení → účinkující / scéna
+├── Účinkující → detail → příslušná vystoupení
+├── Scény → program scény / doprava
+├── Praktické informace → doprava, pobyt, pravidla, kontakt
+├── Vyhledávání → výsledky → konkrétní objekt
+├── Vstupenky → balíček nebo místa → košík → dokončení → PDF
+└── Účet → registrace / přihlášení → historie objednávek
+```
 
-3. **Účinkující (performers.html + detail interpreta)**
-   - seznam účinkujících (`interpreti/interpret`, min. 60 položek)
-   - detail interpreta: jméno, typ interpreta (Solo/Skupina…), žánr, krátký popis a odkazy na vystoupení v programu
+Hlavní navigace odkazuje na Program, Účinkující, Info a Vstupenky. Další
+obsahové části zpřístupňuje navigace Info a patička. Úvod určuje identitu,
+datum a hlavní akci. Vyhledávání není oddělené od obsahu: výsledky odkazují na
+odpovídající koncert, interpreta, scénu nebo praktickou informaci. Detaily mají
+kontext návratu. Program a osobní program používají stejná datová ID.
 
-4. **Praktické informace (info.html)**
-   - místo konání (adresa/areál, orientační popis)
-   - doprava (MHD / auto), parkování
-   - vstupenky (typy, orientační ceny)
-   - ubytování (tipy v okolí)
-   - pravidla areálu a bezpečnostní informace
-   - kontakt (email, telefon, web)
+## Klíčové uživatelské scénáře
 
-### Navigace webu (minimálně)
-- O festivalu
-- Program
-- Účinkující
-- Praktické info
+| ID | Typ uživatele | Cíl | Výchozí situace | Očekávaný výsledek |
+| --- | --- | --- | --- | --- |
+| S1 | Návštěvník na telefonu | Naplánovat první den na River Stage | Je na úvodu, zná den a scénu, nezná kapely | Filtry ukážou jen odpovídající akce; vybraná akce zůstane v osobním programu i po obnovení |
+| S2 | Fanoušek kapely | Najít Neon Wave a čas koncertu | Zadá část názvu „Neon“ | Dostane odpovídající výsledky, otevře detail a přejde k datu a scéně vystoupení |
+| S3 | Návštěvník bez účtu | Získat třídenní vstupenku nebo konkrétní místa | Porovnává VIP, Regular a stání | Zná obsah a cenu, projde košík, po zkušebním dokončení stáhne PDF s ID objednávky; lokální obsazenost se aktualizuje |
+| S4 | Vracející se návštěvník | Najít dřívější objednávku | Má lokální účet ve stejném prohlížeči | Přihlásí se, zobrazí svou historii a znovu stáhne PDF |
+| S5 | Zahraniční návštěvník | Najít dopravu anglicky | Nerozumí češtině a přichází na úvod | Přepne jazyk, otevře informace a najde mapu lokality |
 
----
+Scénáře S1–S3 jsou základ návrhu, prototypu i ověřování. S4–S5 rozšiřují
+aktuální rozhraní. Wireframe z cvičení 03 řeší S1 a S2; není vydáván za hotový nákup.
 
-## 4) Výchozí datová základna (festival.xml) – minimální rozsah a struktura (koncept)
-Datová základna bude vedena v `festival.xml` jako well-formed XML a bude obsahovat minimálně tyto entity:
+## Datová základna a její vazby
 
-- **festival** (identita, popis, datumy, lokalita, kontakt)  
-- **dny / den** – min. 3 dny  
-- **haly / hala** – min. 2 místa/scény (venues/stages)  
-- **interpreti / interpret** – min. 60 účinkujících  
-- **sumakce / akce** – min. 60 programových položek (events)
+Autoritativním souborem je `data.xml`. Obsahuje `festival`, `dny/den`,
+`haly/hala`, `interpreti/interpret` a `sumakce/akce`. Každé vystoupení odkazuje
+přes `den_ref`, `hala_ref` a `interpret_ref` na existující jedinečné ID.
+Časy mají formát HH:MM:SS a data ISO YYYY-MM-DD. Webový `web/js/data.js`
+je přibalený export stejné základny; jeho regenerace je vývojová činnost,
+nikoli podmínka spuštění webu. Vstupenky a obohacené texty respektují výsledný XML export.
 
-### Vazby v datech (reference v XML)
-Aby byla data konzistentní a snadno použitelná pro program i budoucí API, vazby budou vedeny přímo u položek `akce` pomocí referencí:
+| Tarif | Třídenní cena | Jednodenní cena |
+| --- | --- | --- |
+| VIP | 1 590 Kč | 590 Kč |
+| Regular | 990 Kč | 390 Kč |
+| Stání | 490 Kč | 190 Kč |
 
-- `akce/den_ref` → odkaz na `den/@id`
-- `akce/hala_ref` → odkaz na `hala/@id`
-- `akce/interpreti/interpret_ref` → jeden nebo více odkazů na `interpret/@id`
+Ceny a obsah tarifů se čtou z XML odvozených dat. Výběr konkrétních míst
+a třídenní balíčky jsou dvě cesty v téže klientské objednávce.
 
-Tímto způsobem je možné jednoduše vytvořit přehled programu podle dne, haly i interpreta bez duplicitních seznamů vazeb v jiných částech XML.
+Kontrola dat ověřuje počty, unikátní ID, existenci referencí, návaznost dat
+a shodu přibaleného exportu. `data.xml` i JavaScript jsou součástí odevzdání.
+Samotné přehrání prezentace nebo vizuální prohlídka datovou konzistenci neprokazují.
 
----
+## Interaktivní funkce
 
-## 5) Napojení na API (koncept)
-Obsah webu bude odpovídat (nemusí být 1:1) budoucím REST endpointům a JSON výstupům. V části „Datový model a API“ budou data validována pomocí XSD, transformována pomocí XSLT do JSON a popsána v OpenAPI 3.1+.
+1. Kombinovaný filtr programu podle dne a scény — zkrátí hledání koncertu.
+2. Vyhledávání obsahujícího řetězce bez závislosti na velikosti písmen a diakritice.
+3. Oblíbená vystoupení a osobní program přetrvávající po obnovení.
+4. Kontextové detaily propojující účinkující, vystoupení a scény.
+5. Výběr vstupenek, košík a lokální historie s exportem PDF.
 
-### Povinné endpointy (GET-only)
-- `GET /api/festival` – identita festivalu, popis, datumy, odkazy, vstupenky
-- `GET /api/venues` (haly)
-- `GET /api/venues/{id}`
-- `GET /api/performers` (interpreti)
-- `GET /api/performers/{id}`
-- `GET /api/events` (program / akce)
-- `GET /api/events/{id}`
+## Technické hranice
 
-### Povinné query parametry (minimálně pro /api/events)
-- `day=YYYY-MM-DD` (filtr podle dne)
-- `venueId=...` (filtr podle haly)
-- `performerId=...` (filtr podle interpreta)
+Výsledný web je HTML, CSS a JavaScript se všemi potřebnými zdroji přibalenými.
+Nevyžaduje Node.js, balíčkovací nástroj, build, backend ani databázi. Údaje účtů,
+osobního programu a objednávek přetrvávají ve stejném prohlížeči v místním
+úložišti. Export JSON je uživatelsky stažená záloha, nikoli automatický zápis na disk.
+Neukládá se otevřený text hesla; lokální heslový hash není produkční autentizace.
+Skutečné platby a automatické odesílání e-mailu nejsou součástí klientské verze.
 
-### Stránkování (alespoň u jednoho list endpointu)
-- `page` a `pageSize` (např. u `/api/performers`)
+## Původ podkladů a změny
 
----
+Původní dodaný projekt nesl jméno Prague Pulse Fest. Přejmenování na Prague
+Rocks Festival a současný výraznější grafický směr vznikly z výslovného zadání
+uživatele. Není doloženo schválení změny vyučujícím v limitu přibližně 15 %.
+Tým má před odevzdáním potvrdit návaznost na skutečně schválený první výstup.
+Nevymýšlíme historické konzultace ani review.
 
+## AI a ověření
 
-
-## 6) Poznámka k finální verzi
-Ve finální verzi byla XML data rozšířena o popis festivalu, kontakt, vstupenky, odkazy, popisy hal a popisy interpretů, aby bylo možné korektně sestavit endpoint `GET /api/festival`, detailní výstupy JSON a odpovídající OpenAPI schémata.
+Codex pomohl s rozborem zadání, návrhem struktury, texty, implementací,
+generováním podkladů a automatizovanými kontrolami. Vizuály mají původ uvedený
+v přibaleném `web/images/ASSETS.md`. Přijat byl mobile-first přístup,
+propojená data a originální festivalová identita. Odmítnuty byly backendové
+požadavky odporující zadání a kopie cizího loga. Konkrétní aktuální výsledky
+jsou v `validation_report.md`, je-li přiložen; plán testu není vydáván za jeho výsledek.

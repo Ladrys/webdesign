@@ -1,10 +1,10 @@
 {
-  "id":"ppf2026",
-  "name":"Prague Pulse Fest",
-  "description":"Prague Pulse Fest je fiktivní třídenní multižánrový festival kombinující koncerty, DJ sety a doprovodný program v městském areálu v Praze.",
-  "location":{"street":"U Výstaviště 67","city":"Praha","postalCode":"170 00"},
-  "dates":[{"id":"d1","name":"Den 1","theme":"Opening Night","description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit.","date":"2026-08-01","startTime":"09:00:00","endTime":"23:59:00"},{"id":"d2","name":"Den 2","theme":"Main Stage Highlights","description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit.","date":"2026-08-02","startTime":"09:00:00","endTime":"23:59:00"},{"id":"d3","name":"Den 3","theme":"Finale & Afterparty","description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit.","date":"2026-08-03","startTime":"09:00:00","endTime":"23:59:00"}],
-  "tickets":[{"id":"t1","name":"Standard","price":1490,"currency":"CZK","description":"Třídenní vstupenka pro běžný vstup do areálu."},{"id":"t2","name":"VIP","price":2990,"currency":"CZK","description":"Rozšířený vstup se samostatnou zónou a rychlejším odbavením."},{"id":"t3","name":"Day Pass","price":690,"currency":"CZK","description":"Jednodenní vstupenka na vybraný festivalový den."}],
-  "links":[{"id":"l1","name":"Web","url":"https://example.com/prague-pulse-fest"},{"id":"l2","name":"Instagram","url":"https://instagram.com/praguepulsefest"},{"id":"l3","name":"Tickets","url":"https://example.com/prague-pulse-fest/tickets"}],
-  "contact":{"email":"info@praguepulsefest.test","phone":"+420 123 456 789"}
+  "id":"prf2026",
+  "name":"Prague Rocks Festival",
+  "description":"Prague Rocks Festival je fiktivní třídenní městský hudební festival v Praze. Tři scény propojují rock, pop, jazz, elektroniku a další žánry.",
+  "location":{"street":"Výstaviště 67","city":"Praha","postalCode":"170 00"},
+  "dates":[{"id":"d1","name":"Den 1","theme":"Opening Night","description":"Tři scény otevírají festival rockovými koncerty, popem a večerní elektronikou.","date":"2026-08-01","startTime":"09:00:00","endTime":"23:59:00"},{"id":"d2","name":"Den 2","theme":"Main Stage Highlights","description":"Největší festivalový den: od ranních objevů až po hlavní večerní koncerty.","date":"2026-08-02","startTime":"09:00:00","endTime":"23:59:00"},{"id":"d3","name":"Den 3","theme":"Finale & Afterparty","description":"Závěrečné koncerty a klubová afterparty zakončí tři dny pražské hudby.","date":"2026-08-03","startTime":"09:00:00","endTime":"23:59:00"}],
+  "tickets":[{"id":"t1","name":"3 dny Regular","price":990,"currency":"CZK","description":"Sedadlo Regular na stejném místě po všechny tři dny a vstup na všechny scény."},{"id":"t2","name":"3 dny VIP","price":1590,"currency":"CZK","description":"VIP sedadlo na všechny tři dny, rychlejší odbavení, odpočinková zóna a jedno parkovací místo v nabídce balíčku."},{"id":"t3","name":"3 dny Stání","price":490,"currency":"CZK","description":"Třídenní vstup do zóny stání a na všechny scény."},{"id":"t4","name":"1 den Regular","price":390,"currency":"CZK","description":"Sedadlo Regular na vybraný den a všechny tři scény."},{"id":"t5","name":"1 den VIP","price":590,"currency":"CZK","description":"VIP sedadlo na vybraný den, rychlejší odbavení a vstup do odpočinkové zóny."},{"id":"t6","name":"1 den Stání","price":190,"currency":"CZK","description":"Jednodenní vstup do zóny stání a na všechny scény."}],
+  "links":[{"id":"l1","name":"Web","url":"https://praguerocksfestival.cz"},{"id":"l2","name":"Instagram","url":"https://instagram.com/praguerocksfestival"},{"id":"l3","name":"Tickets","url":"https://praguerocksfestival.cz/tickets"}],
+  "contact":{"email":"info@praguerocksfestival.cz","phone":"+420 000 000 000"}
 }

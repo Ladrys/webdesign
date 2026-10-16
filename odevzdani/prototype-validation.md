@@ -1,0 +1,80 @@
+# Ověření podkladů a prototypu
+
+74 kontrol prošlo.
+
+- cviceni-02-specifikace: six PDF pages and editable PPTX slides
+- cviceni-02-specifikace: slide1 text and presenter notes
+- cviceni-02-specifikace: slide2 text and presenter notes
+- cviceni-02-specifikace: slide3 text and presenter notes
+- cviceni-02-specifikace: slide4 text and presenter notes
+- cviceni-02-specifikace: slide5 text and presenter notes
+- cviceni-02-specifikace: slide6 text and presenter notes
+- cviceni-02-specifikace: festival identity
+- cviceni-02-specifikace: separate presenter notes
+- cviceni-02-specifikace: PowerPoint archive integrity
+- cviceni-03-prototyp: six PDF pages and editable PPTX slides
+- cviceni-03-prototyp: slide1 text and presenter notes
+- cviceni-03-prototyp: slide2 text and presenter notes
+- cviceni-03-prototyp: slide3 text and presenter notes
+- cviceni-03-prototyp: slide4 text and presenter notes
+- cviceni-03-prototyp: slide5 text and presenter notes
+- cviceni-03-prototyp: slide6 text and presenter notes
+- cviceni-03-prototyp: festival identity
+- cviceni-03-prototyp: separate presenter notes
+- cviceni-03-prototyp: PowerPoint archive integrity
+- cviceni-04-implementace: six PDF pages and editable PPTX slides
+- cviceni-04-implementace: slide1 text and presenter notes
+- cviceni-04-implementace: slide2 text and presenter notes
+- cviceni-04-implementace: slide3 text and presenter notes
+- cviceni-04-implementace: slide4 text and presenter notes
+- cviceni-04-implementace: slide5 text and presenter notes
+- cviceni-04-implementace: slide6 text and presenter notes
+- cviceni-04-implementace: festival identity
+- cviceni-04-implementace: separate presenter notes
+- cviceni-04-implementace: PowerPoint archive integrity
+- cviceni-05-review-ready: six PDF pages and editable PPTX slides
+- cviceni-05-review-ready: slide1 text and presenter notes
+- cviceni-05-review-ready: slide2 text and presenter notes
+- cviceni-05-review-ready: slide3 text and presenter notes
+- cviceni-05-review-ready: slide4 text and presenter notes
+- cviceni-05-review-ready: slide5 text and presenter notes
+- cviceni-05-review-ready: slide6 text and presenter notes
+- cviceni-05-review-ready: festival identity
+- cviceni-05-review-ready: separate presenter notes
+- cviceni-05-review-ready: PowerPoint archive integrity
+- cviceni-06-cross-review: six PDF pages and editable PPTX slides
+- cviceni-06-cross-review: slide1 text and presenter notes
+- cviceni-06-cross-review: slide2 text and presenter notes
+- cviceni-06-cross-review: slide3 text and presenter notes
+- cviceni-06-cross-review: slide4 text and presenter notes
+- cviceni-06-cross-review: slide5 text and presenter notes
+- cviceni-06-cross-review: slide6 text and presenter notes
+- cviceni-06-cross-review: festival identity
+- cviceni-06-cross-review: separate presenter notes
+- cviceni-06-cross-review: PowerPoint archive integrity
+- Prototype fits320px/home
+- Prototype fits320px/program
+- Prototype fits320px/performers
+- Prototype fits320px/venues
+- Prototype fits320px/info
+- Prototype fits768px/home
+- Prototype fits768px/program
+- Prototype fits768px/performers
+- Prototype fits768px/venues
+- Prototype fits768px/info
+- Prototype fits1440px/home
+- Prototype fits1440px/program
+- Prototype fits1440px/performers
+- Prototype fits1440px/venues
+- Prototype fits1440px/info
+- Prototype loads60program items
+- Prototype combines day and stage filters
+- Prototype scenarioS1 saved program
+- Prototype favorites persist after reload
+- Prototype loads60artists
+- Prototype scenarioS2 artist detail opens
+- Prototype artist links to related shows
+- Prototype search treats markup as text
+- Prototype has no runtime errors
+
+Kontroly proběhly v Chromium přes vývojový statický server; přímý file:// protokol blokuje politika tohoto prostředí.

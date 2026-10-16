@@ -1,61 +1,28 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="cs">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prague Pulse Fest | Festival</title>
-<meta name="description" content="Třídenní městský festival v Praze s koncerty, DJ sety a doprovodným programem.">
-<meta property="og:title" content="Prague Pulse Fest | Festival">
-<meta property="og:description" content="Třídenní městský festival v Praze s koncerty, DJ sety a doprovodným programem.">
-<meta property="og:image" content="https://picsum.photos/1200/630?festival">
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Interaktivní wireframe festivalu Prague Rocks: program, filtrování, oblíbené a vyhledávání účinkujících.">
+  <title>Prague Rocks Festival — interaktivní prototyp</title>
+  <link rel="stylesheet" href="prototype.css">
+  <script src="data.js" defer></script>
+  <script src="prototype.js" defer></script>
 </head>
 <body>
-<a class="skip" href="#obsah">Přejít na obsah</a>
-<header>
-  <div class="header-inner">
-    <a class="brand" href="index.html">Prague Pulse Fest<small>1.–3. 8. 2026 • Vltava Park Praha</small></a>
-    <nav aria-label="Hlavní navigace"><ul><li><a class="active" href="index.html">Festival</a></li><li><a  href="program.html">Program</a></li><li><a  href="performers.html">Účinkující</a></li><li><a  href="info.html">Praktické info</a></li><li><a  href="api.html">API ověření</a></li></ul></nav>
-  </div>
-</header>
-<main id="obsah">
-  <section class="hero">
-    <div>
-      <p class="kicker">1.–3. srpna 2026 • Praha</p>
-      <h1>Tři dny hudby, scén a večerní atmosféry u Vltavy</h1>
-      <p class="lead">Prague Pulse Fest propojuje živé koncerty, DJ sety, menší klubové scény a pohodový městský festivalový areál ve Vltava Parku.</p>
-      <p><a class="btn" href="program.html">Zobrazit program</a> <a class="btn ghost" href="performers.html">Poznat účinkující</a></p>
-    </div>
-    <img src="https://picsum.photos/900/650?concert" alt="Ilustrační fotografie festivalové atmosféry">
-  </section>
-  <section aria-labelledby="prehled">
-    <h2 id="prehled">Festival v číslech</h2>
-    <div class="stats">
-      <article class="stat"><strong>3</strong>dny programu</article>
-      <article class="stat"><strong>3</strong>festivalové scény</article>
-      <article class="stat"><strong>60</strong>účinkujících</article>
-      <article class="stat"><strong>60</strong>programových akcí</article>
-    </div>
-  </section>
-  <section aria-labelledby="zazitek">
-    <h2 id="zazitek">Co návštěvníka čeká</h2>
-    <div class="grid">
-      <article><h3>Koncerty od rána do noci</h3><p>Program je rozdělený do tří dnů a střídá velké koncerty, odpolední sety i večerní klubovější část.</p></article>
-      <article><h3>Tři rozdílné scény</h3><p>Main Hall patří větším vystoupením, River Stage venkovnímu programu a Club Stage menším setům i afterparty.</p></article>
-      <article><h3>Jednoduchá orientace</h3><p>Na stránce programu jde filtrovat podle dne, scény i interpreta. U akcí je vidět čas, místo a obsazení.</p></article>
-    </div>
-  </section>
-  <section aria-labelledby="dny">
-    <h2 id="dny">Festivalové dny</h2>
-    <ol class="cards">
-      <li><article><h3>Opening Night</h3><p><time datetime="2026-08-01">1. 8. 2026</time></p><p>Úvodní den s kombinací rocku, popu a prvních večerních setů.</p></article></li>
-      <li><article><h3>Main Stage Highlights</h3><p><time datetime="2026-08-02">2. 8. 2026</time></p><p>Nejplnější festivalový den s hlavními koncerty a programem na všech scénách.</p></article></li>
-      <li><article><h3>Finale & Afterparty</h3><p><time datetime="2026-08-03">3. 8. 2026</time></p><p>Závěrečný den, poslední koncerty a večerní klubová atmosféra.</p></article></li>
-    </ol>
-  </section>
-  <aside><h2>Tip pro návštěvníky</h2><p>Začni programem, vyfiltruj si oblíbený den nebo scénu a potom se proklikni na detail konkrétní akce.</p></aside>
-</main>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Festival","name":"Prague Pulse Fest","startDate":"2026-08-01","endDate":"2026-08-03","location":{"@type":"Place","name":"Vltava Park","address":"U Výstaviště 67, Praha"},"description":"Třídenní městský multižánrový festival v Praze."}</script>
-<footer><p>&copy; 2026 Prague Pulse Fest. Školní projekt pro předmět Značkovací jazyky.</p></footer>
+  <a class="skip" href="#main">Přeskočit na obsah</a>
+  <header class="masthead">
+    <a class="brand" href="#home" aria-label="Prague Rocks Festival — úvod">PRAGUE<br><b>ROCKS</b><small>FESTIVAL 2026</small></a>
+    <p class="date">1—3 SRPNA<br>2026 · PRAHA</p>
+    <nav aria-label="Hlavní navigace">
+      <a href="#program">Program</a><a href="#performers">Účinkující</a><a href="#venues">Scény</a><a href="#info">Info</a>
+    </nav>
+  </header>
+  <form id="search-form" class="search" role="search">
+    <label for="query">Prohledat festival</label><div><input id="query" name="q" type="search" placeholder="Kapela, scéna nebo téma"><button type="submit">Hledat →</button></div>
+  </form>
+  <main id="main" tabindex="-1"></main>
+  <footer><p>Prague Rocks Festival · 1.—3. srpna 2026 · interaktivní wireframe</p><a href="#info">Informace o návrhu</a></footer>
+  <dialog id="artist-dialog" aria-labelledby="dialog-title"><button id="close-dialog" type="button" class="close">Zavřít ×</button><div id="dialog-content"></div></dialog>
 </body>
 </html>

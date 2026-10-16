@@ -1,0 +1,1316 @@
+<?xml version='1.0' encoding='utf-8'?>
+<festival xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="prf2026" lang="cs" xsi:noNamespaceSchemaLocation="festival.xsd">
+  <nazev>Prague Rocks Festival</nazev>
+  <mistokonani>
+    <ulice>Výstaviště 67</ulice>
+    <mesto>Praha</mesto>
+    <psc>170 00</psc>
+  </mistokonani>
+  <popis_festivalu>Prague Rocks Festival je fiktivní třídenní městský hudební festival v Praze. Tři scény propojují rock, pop, jazz, elektroniku a další žánry.</popis_festivalu>
+  <dny>
+    <den id="d1">
+      <nazev>Den 1</nazev>
+      <tema_dne>Opening Night</tema_dne>
+      <popis>Tři scény otevírají festival rockovými koncerty, popem a večerní elektronikou.</popis>
+      <datumstart>2026-08-01</datumstart>
+      <casstart>09:00:00</casstart>
+      <caskonec>23:59:00</caskonec>
+    </den>
+    <den id="d2">
+      <nazev>Den 2</nazev>
+      <tema_dne>Main Stage Highlights</tema_dne>
+      <popis>Největší festivalový den: od ranních objevů až po hlavní večerní koncerty.</popis>
+      <datumstart>2026-08-02</datumstart>
+      <casstart>09:00:00</casstart>
+      <caskonec>23:59:00</caskonec>
+    </den>
+    <den id="d3">
+      <nazev>Den 3</nazev>
+      <tema_dne>Finale &amp; Afterparty</tema_dne>
+      <popis>Závěrečné koncerty a klubová afterparty zakončí tři dny pražské hudby.</popis>
+      <datumstart>2026-08-03</datumstart>
+      <casstart>09:00:00</casstart>
+      <caskonec>23:59:00</caskonec>
+    </den>
+  </dny>
+  <haly>
+    <hala id="h1">
+      <nazev>Main Hall</nazev>
+      <lokace>Areál – Hala A</lokace>
+      <velikost>5000</velikost>
+      <popis>Hlavní krytá hala pro večerní headline sety a velké koncerty.</popis>
+    </hala>
+    <hala id="h2">
+      <nazev>River Stage</nazev>
+      <lokace>Areál – Open Air</lokace>
+      <velikost>3000</velikost>
+      <popis>Open-air stage u řeky pro odpolední koncerty a sunset program.</popis>
+    </hala>
+    <hala id="h3">
+      <nazev>Club Stage</nazev>
+      <lokace>Areál – Hala B</lokace>
+      <velikost>1500</velikost>
+      <popis>Menší klubová scéna pro intimnější sety, DJs a afterparty.</popis>
+    </hala>
+  </haly>
+  <interpreti>
+    <interpret id="i1">
+      <nazev>Neon Echo</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Rock</zanr>
+      <popis>Neon Echo je fiktivní solo zaměřený na žánr rock a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i2">
+      <nazev>Neon Pulse</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Pop</zanr>
+      <popis>Neon Pulse je fiktivní skupina zaměřený na žánr pop a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i3">
+      <nazev>Neon Drift</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Jazz</zanr>
+      <popis>Neon Drift je fiktivní solo zaměřený na žánr jazz a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i4">
+      <nazev>Neon Horizon</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Elektronika</zanr>
+      <popis>Neon Horizon je fiktivní skupina zaměřený na žánr elektronika a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i5">
+      <nazev>Neon Mirage</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Hip-Hop</zanr>
+      <popis>Neon Mirage je fiktivní solo zaměřený na žánr hip-hop a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i6">
+      <nazev>Neon Bloom</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Folk</zanr>
+      <popis>Neon Bloom je fiktivní skupina zaměřený na žánr folk a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i7">
+      <nazev>Neon Nova</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Rock</zanr>
+      <popis>Neon Nova je fiktivní solo zaměřený na žánr rock a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i8">
+      <nazev>Neon Wave</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Pop</zanr>
+      <popis>Neon Wave je fiktivní skupina zaměřený na žánr pop a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i9">
+      <nazev>Neon Sphere</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Jazz</zanr>
+      <popis>Neon Sphere je fiktivní solo zaměřený na žánr jazz a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i10">
+      <nazev>Neon Tide</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Elektronika</zanr>
+      <popis>Neon Tide je fiktivní skupina zaměřený na žánr elektronika a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i11">
+      <nazev>Neon Aura</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Hip-Hop</zanr>
+      <popis>Neon Aura je fiktivní solo zaměřený na žánr hip-hop a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i12">
+      <nazev>Neon Whisper</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Folk</zanr>
+      <popis>Neon Whisper je fiktivní skupina zaměřený na žánr folk a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i13">
+      <nazev>Crimson Echo</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Rock</zanr>
+      <popis>Crimson Echo je fiktivní solo zaměřený na žánr rock a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i14">
+      <nazev>Crimson Pulse</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Pop</zanr>
+      <popis>Crimson Pulse je fiktivní skupina zaměřený na žánr pop a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i15">
+      <nazev>Crimson Drift</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Jazz</zanr>
+      <popis>Crimson Drift je fiktivní solo zaměřený na žánr jazz a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i16">
+      <nazev>Crimson Horizon</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Elektronika</zanr>
+      <popis>Crimson Horizon je fiktivní skupina zaměřený na žánr elektronika a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i17">
+      <nazev>Crimson Mirage</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Hip-Hop</zanr>
+      <popis>Crimson Mirage je fiktivní solo zaměřený na žánr hip-hop a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i18">
+      <nazev>Crimson Bloom</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Folk</zanr>
+      <popis>Crimson Bloom je fiktivní skupina zaměřený na žánr folk a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i19">
+      <nazev>Crimson Nova</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Rock</zanr>
+      <popis>Crimson Nova je fiktivní solo zaměřený na žánr rock a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i20">
+      <nazev>Crimson Wave</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Pop</zanr>
+      <popis>Crimson Wave je fiktivní skupina zaměřený na žánr pop a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i21">
+      <nazev>Crimson Sphere</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Jazz</zanr>
+      <popis>Crimson Sphere je fiktivní solo zaměřený na žánr jazz a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i22">
+      <nazev>Crimson Tide</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Elektronika</zanr>
+      <popis>Crimson Tide je fiktivní skupina zaměřený na žánr elektronika a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i23">
+      <nazev>Crimson Aura</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Hip-Hop</zanr>
+      <popis>Crimson Aura je fiktivní solo zaměřený na žánr hip-hop a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i24">
+      <nazev>Crimson Whisper</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Folk</zanr>
+      <popis>Crimson Whisper je fiktivní skupina zaměřený na žánr folk a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i25">
+      <nazev>Velvet Echo</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Rock</zanr>
+      <popis>Velvet Echo je fiktivní solo zaměřený na žánr rock a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i26">
+      <nazev>Velvet Pulse</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Pop</zanr>
+      <popis>Velvet Pulse je fiktivní skupina zaměřený na žánr pop a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i27">
+      <nazev>Velvet Drift</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Jazz</zanr>
+      <popis>Velvet Drift je fiktivní solo zaměřený na žánr jazz a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i28">
+      <nazev>Velvet Horizon</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Elektronika</zanr>
+      <popis>Velvet Horizon je fiktivní skupina zaměřený na žánr elektronika a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i29">
+      <nazev>Velvet Mirage</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Hip-Hop</zanr>
+      <popis>Velvet Mirage je fiktivní solo zaměřený na žánr hip-hop a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i30">
+      <nazev>Velvet Bloom</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Folk</zanr>
+      <popis>Velvet Bloom je fiktivní skupina zaměřený na žánr folk a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i31">
+      <nazev>Velvet Nova</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Rock</zanr>
+      <popis>Velvet Nova je fiktivní solo zaměřený na žánr rock a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i32">
+      <nazev>Velvet Wave</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Pop</zanr>
+      <popis>Velvet Wave je fiktivní skupina zaměřený na žánr pop a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i33">
+      <nazev>Velvet Sphere</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Jazz</zanr>
+      <popis>Velvet Sphere je fiktivní solo zaměřený na žánr jazz a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i34">
+      <nazev>Velvet Tide</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Elektronika</zanr>
+      <popis>Velvet Tide je fiktivní skupina zaměřený na žánr elektronika a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i35">
+      <nazev>Velvet Aura</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Hip-Hop</zanr>
+      <popis>Velvet Aura je fiktivní solo zaměřený na žánr hip-hop a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i36">
+      <nazev>Velvet Whisper</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Folk</zanr>
+      <popis>Velvet Whisper je fiktivní skupina zaměřený na žánr folk a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i37">
+      <nazev>Solar Echo</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Rock</zanr>
+      <popis>Solar Echo je fiktivní solo zaměřený na žánr rock a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i38">
+      <nazev>Solar Pulse</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Pop</zanr>
+      <popis>Solar Pulse je fiktivní skupina zaměřený na žánr pop a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i39">
+      <nazev>Solar Drift</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Jazz</zanr>
+      <popis>Solar Drift je fiktivní solo zaměřený na žánr jazz a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i40">
+      <nazev>Solar Horizon</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Elektronika</zanr>
+      <popis>Solar Horizon je fiktivní skupina zaměřený na žánr elektronika a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i41">
+      <nazev>Solar Mirage</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Hip-Hop</zanr>
+      <popis>Solar Mirage je fiktivní solo zaměřený na žánr hip-hop a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i42">
+      <nazev>Solar Bloom</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Folk</zanr>
+      <popis>Solar Bloom je fiktivní skupina zaměřený na žánr folk a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i43">
+      <nazev>Solar Nova</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Rock</zanr>
+      <popis>Solar Nova je fiktivní solo zaměřený na žánr rock a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i44">
+      <nazev>Solar Wave</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Pop</zanr>
+      <popis>Solar Wave je fiktivní skupina zaměřený na žánr pop a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i45">
+      <nazev>Solar Sphere</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Jazz</zanr>
+      <popis>Solar Sphere je fiktivní solo zaměřený na žánr jazz a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i46">
+      <nazev>Solar Tide</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Elektronika</zanr>
+      <popis>Solar Tide je fiktivní skupina zaměřený na žánr elektronika a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i47">
+      <nazev>Solar Aura</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Hip-Hop</zanr>
+      <popis>Solar Aura je fiktivní solo zaměřený na žánr hip-hop a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i48">
+      <nazev>Solar Whisper</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Folk</zanr>
+      <popis>Solar Whisper je fiktivní skupina zaměřený na žánr folk a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i49">
+      <nazev>Lunar Echo</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Rock</zanr>
+      <popis>Lunar Echo je fiktivní solo zaměřený na žánr rock a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i50">
+      <nazev>Lunar Pulse</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Pop</zanr>
+      <popis>Lunar Pulse je fiktivní skupina zaměřený na žánr pop a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i51">
+      <nazev>Lunar Drift</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Jazz</zanr>
+      <popis>Lunar Drift je fiktivní solo zaměřený na žánr jazz a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i52">
+      <nazev>Lunar Horizon</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Elektronika</zanr>
+      <popis>Lunar Horizon je fiktivní skupina zaměřený na žánr elektronika a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i53">
+      <nazev>Lunar Mirage</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Hip-Hop</zanr>
+      <popis>Lunar Mirage je fiktivní solo zaměřený na žánr hip-hop a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i54">
+      <nazev>Lunar Bloom</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Folk</zanr>
+      <popis>Lunar Bloom je fiktivní skupina zaměřený na žánr folk a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i55">
+      <nazev>Lunar Nova</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Rock</zanr>
+      <popis>Lunar Nova je fiktivní solo zaměřený na žánr rock a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i56">
+      <nazev>Lunar Wave</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Pop</zanr>
+      <popis>Lunar Wave je fiktivní skupina zaměřený na žánr pop a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i57">
+      <nazev>Lunar Sphere</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Jazz</zanr>
+      <popis>Lunar Sphere je fiktivní solo zaměřený na žánr jazz a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i58">
+      <nazev>Lunar Tide</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Elektronika</zanr>
+      <popis>Lunar Tide je fiktivní skupina zaměřený na žánr elektronika a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i59">
+      <nazev>Lunar Aura</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Hip-Hop</zanr>
+      <popis>Lunar Aura je fiktivní solo zaměřený na žánr hip-hop a živá festivalová vystoupení.</popis>
+    </interpret>
+    <interpret id="i60">
+      <nazev>Lunar Whisper</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Folk</zanr>
+      <popis>Lunar Whisper je fiktivní skupina zaměřený na žánr folk a živá festivalová vystoupení.</popis>
+    </interpret>
+  </interpreti>
+  <sumakce>
+    <akce id="a1">
+      <nazev>Akce 1</nazev>
+      <tema_akce>Rock Show</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-01</datumstart>
+      <casstart>09:00:00</casstart>
+      <caskonec>09:50:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i8</interpret_ref>
+        <interpret_ref>i9</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a2">
+      <nazev>Akce 2</nazev>
+      <tema_akce>Pop Concert</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-01</datumstart>
+      <casstart>10:05:00</casstart>
+      <caskonec>10:55:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i15</interpret_ref>
+        <interpret_ref>i16</interpret_ref>
+        <interpret_ref>i17</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a3">
+      <nazev>Akce 3</nazev>
+      <tema_akce>Jazz Evening</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-01</datumstart>
+      <casstart>11:10:00</casstart>
+      <caskonec>12:00:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i22</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a4">
+      <nazev>Akce 4</nazev>
+      <tema_akce>Elektronická Noc</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-01</datumstart>
+      <casstart>12:15:00</casstart>
+      <caskonec>13:05:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i29</interpret_ref>
+        <interpret_ref>i30</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a5">
+      <nazev>Akce 5</nazev>
+      <tema_akce>Hip-Hop Session</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-01</datumstart>
+      <casstart>13:20:00</casstart>
+      <caskonec>14:10:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i36</interpret_ref>
+        <interpret_ref>i37</interpret_ref>
+        <interpret_ref>i38</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a6">
+      <nazev>Akce 6</nazev>
+      <tema_akce>Folk Session</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-01</datumstart>
+      <casstart>14:25:00</casstart>
+      <caskonec>15:15:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i43</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a7">
+      <nazev>Akce 7</nazev>
+      <tema_akce>Dance Party</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-01</datumstart>
+      <casstart>15:30:00</casstart>
+      <caskonec>16:20:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i50</interpret_ref>
+        <interpret_ref>i51</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a8">
+      <nazev>Akce 8</nazev>
+      <tema_akce>Indie Night</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-01</datumstart>
+      <casstart>16:35:00</casstart>
+      <caskonec>17:25:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i57</interpret_ref>
+        <interpret_ref>i58</interpret_ref>
+        <interpret_ref>i59</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a9">
+      <nazev>Akce 9</nazev>
+      <tema_akce>Blues Jam</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-01</datumstart>
+      <casstart>17:40:00</casstart>
+      <caskonec>18:30:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i4</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a10">
+      <nazev>Akce 10</nazev>
+      <tema_akce>World Music</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-01</datumstart>
+      <casstart>18:45:00</casstart>
+      <caskonec>19:35:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i11</interpret_ref>
+        <interpret_ref>i12</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a11">
+      <nazev>Akce 11</nazev>
+      <tema_akce>Rock Show</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-01</datumstart>
+      <casstart>19:50:00</casstart>
+      <caskonec>20:40:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i18</interpret_ref>
+        <interpret_ref>i19</interpret_ref>
+        <interpret_ref>i20</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a12">
+      <nazev>Akce 12</nazev>
+      <tema_akce>Pop Concert</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-01</datumstart>
+      <casstart>20:55:00</casstart>
+      <caskonec>21:45:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i25</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a13">
+      <nazev>Akce 13</nazev>
+      <tema_akce>Jazz Evening</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-01</datumstart>
+      <casstart>22:00:00</casstart>
+      <caskonec>22:50:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i32</interpret_ref>
+        <interpret_ref>i33</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a14">
+      <nazev>Akce 14</nazev>
+      <tema_akce>Elektronická Noc</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-01</datumstart>
+      <casstart>09:00:00</casstart>
+      <caskonec>09:50:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i39</interpret_ref>
+        <interpret_ref>i40</interpret_ref>
+        <interpret_ref>i41</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a15">
+      <nazev>Akce 15</nazev>
+      <tema_akce>Hip-Hop Session</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-01</datumstart>
+      <casstart>10:05:00</casstart>
+      <caskonec>10:55:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i46</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a16">
+      <nazev>Akce 16</nazev>
+      <tema_akce>Folk Session</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-01</datumstart>
+      <casstart>11:10:00</casstart>
+      <caskonec>12:00:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i53</interpret_ref>
+        <interpret_ref>i54</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a17">
+      <nazev>Akce 17</nazev>
+      <tema_akce>Dance Party</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-01</datumstart>
+      <casstart>12:15:00</casstart>
+      <caskonec>13:05:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i60</interpret_ref>
+        <interpret_ref>i1</interpret_ref>
+        <interpret_ref>i2</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a18">
+      <nazev>Akce 18</nazev>
+      <tema_akce>Indie Night</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-01</datumstart>
+      <casstart>13:20:00</casstart>
+      <caskonec>14:10:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i7</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a19">
+      <nazev>Akce 19</nazev>
+      <tema_akce>Blues Jam</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-01</datumstart>
+      <casstart>14:25:00</casstart>
+      <caskonec>15:15:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i14</interpret_ref>
+        <interpret_ref>i15</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a20">
+      <nazev>Akce 20</nazev>
+      <tema_akce>World Music</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-01</datumstart>
+      <casstart>15:30:00</casstart>
+      <caskonec>16:20:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i21</interpret_ref>
+        <interpret_ref>i22</interpret_ref>
+        <interpret_ref>i23</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a21">
+      <nazev>Akce 21</nazev>
+      <tema_akce>Rock Show</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-02</datumstart>
+      <casstart>09:00:00</casstart>
+      <caskonec>09:50:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i28</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a22">
+      <nazev>Akce 22</nazev>
+      <tema_akce>Pop Concert</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-02</datumstart>
+      <casstart>10:05:00</casstart>
+      <caskonec>10:55:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i35</interpret_ref>
+        <interpret_ref>i36</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a23">
+      <nazev>Akce 23</nazev>
+      <tema_akce>Jazz Evening</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-02</datumstart>
+      <casstart>11:10:00</casstart>
+      <caskonec>12:00:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i42</interpret_ref>
+        <interpret_ref>i43</interpret_ref>
+        <interpret_ref>i44</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a24">
+      <nazev>Akce 24</nazev>
+      <tema_akce>Elektronická Noc</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-02</datumstart>
+      <casstart>12:15:00</casstart>
+      <caskonec>13:05:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i49</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a25">
+      <nazev>Akce 25</nazev>
+      <tema_akce>Hip-Hop Session</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-02</datumstart>
+      <casstart>13:20:00</casstart>
+      <caskonec>14:10:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i56</interpret_ref>
+        <interpret_ref>i57</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a26">
+      <nazev>Akce 26</nazev>
+      <tema_akce>Folk Session</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-02</datumstart>
+      <casstart>14:25:00</casstart>
+      <caskonec>15:15:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i3</interpret_ref>
+        <interpret_ref>i4</interpret_ref>
+        <interpret_ref>i5</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a27">
+      <nazev>Akce 27</nazev>
+      <tema_akce>Dance Party</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-02</datumstart>
+      <casstart>15:30:00</casstart>
+      <caskonec>16:20:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i10</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a28">
+      <nazev>Akce 28</nazev>
+      <tema_akce>Indie Night</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-02</datumstart>
+      <casstart>16:35:00</casstart>
+      <caskonec>17:25:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i17</interpret_ref>
+        <interpret_ref>i18</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a29">
+      <nazev>Akce 29</nazev>
+      <tema_akce>Blues Jam</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-02</datumstart>
+      <casstart>17:40:00</casstart>
+      <caskonec>18:30:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i24</interpret_ref>
+        <interpret_ref>i25</interpret_ref>
+        <interpret_ref>i26</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a30">
+      <nazev>Akce 30</nazev>
+      <tema_akce>World Music</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-02</datumstart>
+      <casstart>18:45:00</casstart>
+      <caskonec>19:35:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i31</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a31">
+      <nazev>Akce 31</nazev>
+      <tema_akce>Rock Show</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-02</datumstart>
+      <casstart>19:50:00</casstart>
+      <caskonec>20:40:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i38</interpret_ref>
+        <interpret_ref>i39</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a32">
+      <nazev>Akce 32</nazev>
+      <tema_akce>Pop Concert</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-02</datumstart>
+      <casstart>20:55:00</casstart>
+      <caskonec>21:45:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i45</interpret_ref>
+        <interpret_ref>i46</interpret_ref>
+        <interpret_ref>i47</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a33">
+      <nazev>Akce 33</nazev>
+      <tema_akce>Jazz Evening</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-02</datumstart>
+      <casstart>22:00:00</casstart>
+      <caskonec>22:50:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i52</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a34">
+      <nazev>Akce 34</nazev>
+      <tema_akce>Elektronická Noc</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-02</datumstart>
+      <casstart>09:00:00</casstart>
+      <caskonec>09:50:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i59</interpret_ref>
+        <interpret_ref>i60</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a35">
+      <nazev>Akce 35</nazev>
+      <tema_akce>Hip-Hop Session</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-02</datumstart>
+      <casstart>10:05:00</casstart>
+      <caskonec>10:55:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i6</interpret_ref>
+        <interpret_ref>i7</interpret_ref>
+        <interpret_ref>i8</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a36">
+      <nazev>Akce 36</nazev>
+      <tema_akce>Folk Session</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-02</datumstart>
+      <casstart>11:10:00</casstart>
+      <caskonec>12:00:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i13</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a37">
+      <nazev>Akce 37</nazev>
+      <tema_akce>Dance Party</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-02</datumstart>
+      <casstart>12:15:00</casstart>
+      <caskonec>13:05:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i20</interpret_ref>
+        <interpret_ref>i21</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a38">
+      <nazev>Akce 38</nazev>
+      <tema_akce>Indie Night</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-02</datumstart>
+      <casstart>13:20:00</casstart>
+      <caskonec>14:10:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i27</interpret_ref>
+        <interpret_ref>i28</interpret_ref>
+        <interpret_ref>i29</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a39">
+      <nazev>Akce 39</nazev>
+      <tema_akce>Blues Jam</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-02</datumstart>
+      <casstart>14:25:00</casstart>
+      <caskonec>15:15:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i34</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a40">
+      <nazev>Akce 40</nazev>
+      <tema_akce>World Music</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-02</datumstart>
+      <casstart>15:30:00</casstart>
+      <caskonec>16:20:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i41</interpret_ref>
+        <interpret_ref>i42</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a41">
+      <nazev>Akce 41</nazev>
+      <tema_akce>Rock Show</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-03</datumstart>
+      <casstart>09:00:00</casstart>
+      <caskonec>09:50:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i48</interpret_ref>
+        <interpret_ref>i49</interpret_ref>
+        <interpret_ref>i50</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a42">
+      <nazev>Akce 42</nazev>
+      <tema_akce>Pop Concert</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-03</datumstart>
+      <casstart>10:05:00</casstart>
+      <caskonec>10:55:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i55</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a43">
+      <nazev>Akce 43</nazev>
+      <tema_akce>Jazz Evening</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-03</datumstart>
+      <casstart>11:10:00</casstart>
+      <caskonec>12:00:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i2</interpret_ref>
+        <interpret_ref>i3</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a44">
+      <nazev>Akce 44</nazev>
+      <tema_akce>Elektronická Noc</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-03</datumstart>
+      <casstart>12:15:00</casstart>
+      <caskonec>13:05:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i9</interpret_ref>
+        <interpret_ref>i10</interpret_ref>
+        <interpret_ref>i11</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a45">
+      <nazev>Akce 45</nazev>
+      <tema_akce>Hip-Hop Session</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-03</datumstart>
+      <casstart>13:20:00</casstart>
+      <caskonec>14:10:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i16</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a46">
+      <nazev>Akce 46</nazev>
+      <tema_akce>Folk Session</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-03</datumstart>
+      <casstart>14:25:00</casstart>
+      <caskonec>15:15:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i23</interpret_ref>
+        <interpret_ref>i24</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a47">
+      <nazev>Akce 47</nazev>
+      <tema_akce>Dance Party</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-03</datumstart>
+      <casstart>15:30:00</casstart>
+      <caskonec>16:20:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i30</interpret_ref>
+        <interpret_ref>i31</interpret_ref>
+        <interpret_ref>i32</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a48">
+      <nazev>Akce 48</nazev>
+      <tema_akce>Indie Night</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-03</datumstart>
+      <casstart>16:35:00</casstart>
+      <caskonec>17:25:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i37</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a49">
+      <nazev>Akce 49</nazev>
+      <tema_akce>Blues Jam</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-03</datumstart>
+      <casstart>17:40:00</casstart>
+      <caskonec>18:30:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i44</interpret_ref>
+        <interpret_ref>i45</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a50">
+      <nazev>Akce 50</nazev>
+      <tema_akce>World Music</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-03</datumstart>
+      <casstart>18:45:00</casstart>
+      <caskonec>19:35:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i51</interpret_ref>
+        <interpret_ref>i52</interpret_ref>
+        <interpret_ref>i53</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a51">
+      <nazev>Akce 51</nazev>
+      <tema_akce>Rock Show</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-03</datumstart>
+      <casstart>19:50:00</casstart>
+      <caskonec>20:40:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i58</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a52">
+      <nazev>Akce 52</nazev>
+      <tema_akce>Pop Concert</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-03</datumstart>
+      <casstart>20:55:00</casstart>
+      <caskonec>21:45:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i5</interpret_ref>
+        <interpret_ref>i6</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a53">
+      <nazev>Akce 53</nazev>
+      <tema_akce>Jazz Evening</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-03</datumstart>
+      <casstart>22:00:00</casstart>
+      <caskonec>22:50:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i12</interpret_ref>
+        <interpret_ref>i13</interpret_ref>
+        <interpret_ref>i14</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a54">
+      <nazev>Akce 54</nazev>
+      <tema_akce>Elektronická Noc</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-03</datumstart>
+      <casstart>09:00:00</casstart>
+      <caskonec>09:50:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i19</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a55">
+      <nazev>Akce 55</nazev>
+      <tema_akce>Hip-Hop Session</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-03</datumstart>
+      <casstart>10:05:00</casstart>
+      <caskonec>10:55:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i26</interpret_ref>
+        <interpret_ref>i27</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a56">
+      <nazev>Akce 56</nazev>
+      <tema_akce>Folk Session</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-03</datumstart>
+      <casstart>11:10:00</casstart>
+      <caskonec>12:00:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i33</interpret_ref>
+        <interpret_ref>i34</interpret_ref>
+        <interpret_ref>i35</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a57">
+      <nazev>Akce 57</nazev>
+      <tema_akce>Dance Party</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-03</datumstart>
+      <casstart>12:15:00</casstart>
+      <caskonec>13:05:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i40</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a58">
+      <nazev>Akce 58</nazev>
+      <tema_akce>Indie Night</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-03</datumstart>
+      <casstart>13:20:00</casstart>
+      <caskonec>14:10:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i47</interpret_ref>
+        <interpret_ref>i48</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a59">
+      <nazev>Akce 59</nazev>
+      <tema_akce>Blues Jam</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-03</datumstart>
+      <casstart>14:25:00</casstart>
+      <caskonec>15:15:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i54</interpret_ref>
+        <interpret_ref>i55</interpret_ref>
+        <interpret_ref>i56</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a60">
+      <nazev>Akce 60</nazev>
+      <tema_akce>World Music</tema_akce>
+      <popis_akce>Lorem ipsum – stručný popis programu / vystoupení.</popis_akce>
+      <datumstart>2026-08-03</datumstart>
+      <casstart>15:30:00</casstart>
+      <caskonec>16:20:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i1</interpret_ref>
+      </interpreti>
+    </akce>
+  </sumakce>
+  <kontakt>
+    <email>info@praguerocksfestival.cz</email>
+    <telefon>+420 000 000 000</telefon>
+  </kontakt>
+  <vstupenky>
+    <vstupenka id="t1">
+      <nazev>3 dny Regular</nazev>
+      <cena>990</cena>
+      <mena>CZK</mena>
+      <popis>Sedadlo Regular na stejném místě po všechny tři dny a vstup na všechny scény.</popis>
+    </vstupenka>
+    <vstupenka id="t2">
+      <nazev>3 dny VIP</nazev>
+      <cena>1590</cena>
+      <mena>CZK</mena>
+      <popis>VIP sedadlo na všechny tři dny, rychlejší odbavení, odpočinková zóna a jedno parkovací místo v nabídce balíčku.</popis>
+    </vstupenka>
+    <vstupenka id="t3">
+      <nazev>3 dny Stání</nazev>
+      <cena>490</cena>
+      <mena>CZK</mena>
+      <popis>Třídenní vstup do zóny stání a na všechny scény.</popis>
+    </vstupenka>
+    <vstupenka id="t4">
+      <nazev>1 den Regular</nazev>
+      <cena>390</cena>
+      <mena>CZK</mena>
+      <popis>Sedadlo Regular na vybraný den a všechny tři scény.</popis>
+    </vstupenka>
+    <vstupenka id="t5">
+      <nazev>1 den VIP</nazev>
+      <cena>590</cena>
+      <mena>CZK</mena>
+      <popis>VIP sedadlo na vybraný den, rychlejší odbavení a vstup do odpočinkové zóny.</popis>
+    </vstupenka>
+    <vstupenka id="t6">
+      <nazev>1 den Stání</nazev>
+      <cena>190</cena>
+      <mena>CZK</mena>
+      <popis>Jednodenní vstup do zóny stání a na všechny scény.</popis>
+    </vstupenka>
+    </vstupenky>
+  <odkazy>
+    <odkaz id="l1">
+      <nazev>Web</nazev>
+      <url>https://praguerocksfestival.cz</url>
+    </odkaz>
+    <odkaz id="l2">
+      <nazev>Instagram</nazev>
+      <url>https://instagram.com/praguerocksfestival</url>
+    </odkaz>
+    <odkaz id="l3">
+      <nazev>Tickets</nazev>
+      <url>https://praguerocksfestival.cz/tickets</url>
+    </odkaz>
+  </odkazy>
+</festival>

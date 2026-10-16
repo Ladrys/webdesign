@@ -1,8 +1,8 @@
-# Náhled nové verze
+# Náhled Prague Rocks Festival
 
-- `web-desktop.png`: skutečný screenshot webu při šířce 1440 px.
-- `web-mobile.png`: skutečný screenshot webu při šířce 375 px, po načtení všech obrázků.
-- `vstupenka.png`: vykreslená první stránka skutečně vygenerovaného PDF.
-- `vstupenky-ukazka.pdf`: vzorový dvoustránkový PDF soubor z automatizovaného nákupního průchodu. Jméno i objednávka jsou testovací údaje, vstupenky nejsou platné pro skutečný festival.
+- `web-desktop.png`: skutečný screenshot při šířce1440px.
+- `web-mobile.png`: screenshot při375px.
+- `vstupenka.png`: vykreslená první stránka skutečně vytvořeného PDF.
+- `vstupenky-ukazka.pdf`: dvoustránkový vzor třídenní objednávky s testovacími údaji; není platnou vstupenkou.
 
-Pro spuštění rozbalte celou složku `web/` a otevřete `web/index.html`. Tyto náhledy nejsou součástí runtime webu.
+Aktuální prezentace PPTX/PDF jsou ve složce `odevzdani/`.
