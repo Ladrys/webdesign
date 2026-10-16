@@ -1,3 +1,8 @@
 __pycache__/
 *.pyc
 .playwright/
+node_modules/
+.env
+.env.*
+*.log
+web-ke-stazeni.zip
