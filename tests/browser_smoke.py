@@ -1162,10 +1162,16 @@ try:
               'A fresh information-page visit waits for a privacy decision before contacting Google')
         privacy_page.locator('#cookie-accept-all').click()
         privacy_page.wait_for_selector('#map-container iframe')
+        # Network dispatch follows iframe insertion asynchronously. Wait for the
+        # mocked document before asserting exact request counts.
+        privacy_page.frame_locator('#map-container iframe').get_by_text('Map test fixture', exact=True).wait_for()
         check('google.com/maps' in privacy_page.locator('#map-container iframe').get_attribute('src')
               and len(map_requests) == 1, 'Accepting all immediately loads the Google Maps iframe')
         privacy_page.reload()
         privacy_page.wait_for_selector('#map-container iframe')
+        # Network dispatch follows iframe insertion asynchronously. Wait for the
+        # mocked document before asserting exact request counts.
+        privacy_page.frame_locator('#map-container iframe').get_by_text('Map test fixture', exact=True).wait_for()
         check(privacy_page.locator('#cookie-banner').count() == 0 and len(map_requests) == 2,
               'Accepted maps load automatically on later visits without another loading button')
         privacy_page.locator('#footer [data-cookie-settings]').click()

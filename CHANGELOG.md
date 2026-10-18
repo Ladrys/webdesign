@@ -1,5 +1,9 @@
 # Verze projektu
 
+## 1.0.2 — 18. 10. 2026
+
+- Kontrola souhlasu s Google Maps čeká na načtení testovacího dokumentu, takže nezaměňuje vložení iframe s dokončeným síťovým požadavkem.
+
 ## 1.0.1 — 18. 10. 2026
 
 - Opravené cesty ke skutečným requirements souborům v GitHub Actions cache.
