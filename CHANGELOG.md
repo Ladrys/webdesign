@@ -2,7 +2,7 @@
 
 ## 1.0.2 — 18. 10. 2026
 
-- Kontrola souhlasu s Google Maps čeká na skutečné odeslání požadavku, takže nezaměňuje vložení iframe se síťovou událostí.
+- Opravené zachytávání HTTPS požadavků v testech; mapy nahrazuje místní odpověď i v současném Playwrightu. Kontrola souhlasu čeká na tuto odpověď před počítáním požadavků.
 
 ## 1.0.1 — 18. 10. 2026
 

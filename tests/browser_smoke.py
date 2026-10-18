@@ -144,7 +144,7 @@ try:
         browser = playwright.chromium.launch(**launch_options)
         context = browser.new_context(accept_downloads=True)
         # Keep the consent checks deterministic and never contact external map servers.
-        context.route('https://**', lambda route: route.fulfill(status=200, content_type='text/html', body='<p>Map test fixture</p>'))
+        context.route(lambda url: url.startswith('https://'), lambda route: route.fulfill(status=200, content_type='text/html', body='<p>Map test fixture</p>'))
         page = context.new_page()
         errors = []
         external_requests = []
@@ -600,7 +600,7 @@ try:
         check(page.locator('#export-data, #import-data, #backup-status, [data-print], .backup-panel').count() == 0,
               'Account history has no JSON backup, import or print controls')
         legacy_context = browser.new_context(storage_state=context.storage_state(), accept_downloads=True)
-        legacy_context.route('https://**', lambda route: route.fulfill(status=200, content_type='text/html', body='<p>Map test fixture</p>'))
+        legacy_context.route(lambda url: url.startswith('https://'), lambda route: route.fulfill(status=200, content_type='text/html', body='<p>Map test fixture</p>'))
         legacy_page = legacy_context.new_page()
         legacy_page.goto(BASE + 'account.html')
         legacy_page.evaluate('''() => {
@@ -717,7 +717,7 @@ try:
 
         # Exercise the single purchase funnel, promotions, two-day validity and camping.
         purchase_context = browser.new_context(accept_downloads=True)
-        purchase_context.route('https://**', lambda route: route.fulfill(status=200, content_type='text/html', body='<p>Unexpected external request</p>'))
+        purchase_context.route(lambda url: url.startswith('https://'), lambda route: route.fulfill(status=200, content_type='text/html', body='<p>Unexpected external request</p>'))
         purchase = purchase_context.new_page()
         purchase_errors = []
         purchase.on('pageerror', lambda error: purchase_errors.append(str(error)))
@@ -1038,7 +1038,7 @@ try:
 
         # Corrupt optional metadata must not erase otherwise valid ticket history or stock.
         damaged_context = browser.new_context(storage_state=context.storage_state(), accept_downloads=True)
-        damaged_context.route('https://**', lambda route: route.fulfill(status=200, content_type='text/html', body='<p>Unexpected external request</p>'))
+        damaged_context.route(lambda url: url.startswith('https://'), lambda route: route.fulfill(status=200, content_type='text/html', body='<p>Unexpected external request</p>'))
         damaged = damaged_context.new_page()
         damaged_errors = []
         damaged.on('pageerror', lambda error: damaged_errors.append(str(error)))
@@ -1149,7 +1149,7 @@ try:
         check(page.locator('#cookie-banner').count() == 0, 'The saved privacy decision survives navigation')
 
         privacy_context = browser.new_context()
-        privacy_context.route('https://**', lambda route: route.fulfill(status=200, content_type='text/html', body='<p>Map test fixture</p>'))
+        privacy_context.route(lambda url: url.startswith('https://'), lambda route: route.fulfill(status=200, content_type='text/html', body='<p>Map test fixture</p>'))
         privacy_page = privacy_context.new_page()
         map_requests = []
         privacy_errors = []
@@ -1160,14 +1160,14 @@ try:
         check(privacy_page.locator('#cookie-banner').is_visible()
               and privacy_page.locator('#map-container iframe').count() == 0 and not map_requests,
               'A fresh information-page visit waits for a privacy decision before contacting Google')
-        # Iframe insertion precedes network dispatch. Observe the actual request
-        # before checking its count, without depending on external frame content.
-        with privacy_page.expect_request(lambda request: request.url.startswith('https://maps.google.com/maps?')):
+        # Match HTTPS URLs explicitly: a terminal glob ** does not match paths
+        # in current Playwright. Wait for the mocked response before counting.
+        with privacy_page.expect_response(lambda response: response.url.startswith('https://maps.google.com/maps?') and response.status == 200):
             privacy_page.locator('#cookie-accept-all').click()
         privacy_page.wait_for_selector('#map-container iframe')
         check('google.com/maps' in privacy_page.locator('#map-container iframe').get_attribute('src')
-              and len(map_requests) == 1, 'Accepting all immediately loads the Google Maps iframe')
-        with privacy_page.expect_request(lambda request: request.url.startswith('https://maps.google.com/maps?')):
+              and len(map_requests) == 1, f'Accepting all immediately loads the Google Maps iframe; requests={map_requests!r}')
+        with privacy_page.expect_response(lambda response: response.url.startswith('https://maps.google.com/maps?') and response.status == 200):
             privacy_page.reload()
         privacy_page.wait_for_selector('#map-container iframe')
         check(privacy_page.locator('#cookie-banner').count() == 0 and len(map_requests) == 2,
@@ -1190,7 +1190,7 @@ try:
         privacy_context.close()
 
         reject_context = browser.new_context()
-        reject_context.route('https://**', lambda route: route.fulfill(status=200, content_type='text/html', body='<p>Unexpected external request</p>'))
+        reject_context.route(lambda url: url.startswith('https://'), lambda route: route.fulfill(status=200, content_type='text/html', body='<p>Unexpected external request</p>'))
         reject_page = reject_context.new_page()
         reject_page.goto(BASE + 'info.html')
         reject_page.locator('#cookie-reject').click()
