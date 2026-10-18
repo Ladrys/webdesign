@@ -1,32 +1,34 @@
 # Cvičení 06 — poznámky k prezentaci
 
-Metodika cross-review — nutno doplnit
+Cross-review — šablona k doplnění
+
+**Autoři:** Michal Ladra, Matěj Mlejnek, Jan Martínek
 
 Šest snímků, přibližně 35–45 sekund na snímek; celkem 3–5 minut.
-Text upravte podle skutečné práce a jmen členů týmu. Nevydávejte podklady za historický záznam.
+Milníky jsou připravené podklady, nikoli archiv dřívějších odevzdání. Popis spolupráce a dřívější rozhodnutí upravte podle skutečného průběhu.
 
 **Nejde o dokončené peer review. Nejdříve doplňte cizí projekt a skutečné nálezy.**
 
-## 1. Review potřebuje skutečný důkaz.
+## 1. Cross-review: šablona
 
-Tato prezentace je metodická příprava. Nemáme přidělený cizí web ani jeho specifikaci, a proto nemůžeme poctivě uvést skutečné nálezy. Před prezentací výsledků je nutné doplnit hodnocený projekt, verzi, podmínky a reálně provedené scénáře. Šablona ukazuje, jak použijeme dvě formalizované metody a jak budeme posuzovat závažnost. Není vhodné ji odevzdat jako hotové splnění cvičení šest bez doplnění výsledků. Na závěr jasně odlišíme příklady vlastního ověření od peer review. Audiozpětná vazba našeho zadavatele není hodnocením přiděleného cizího projektu a chybějící posudek nenahrazuje.
+[25 s] Toto je metodická šablona, ne dokončené hodnocení cizího webu. Přidělený projekt ani jeho specifikace nebyly poskytnuty. Připravený je postup, dvě metody a struktura evidence; po skutečném hodnocení musíme doplnit identitu cizího projektu a tři až pět ověřených nálezů. Jeho hodnoty nenahrazujeme zjištěními z našeho festivalu. Následující poznámky slouží jako osnova pro přibližně čtyřminutovou prezentaci po vyplnění.
 
-## 2. Dvě metody, odlišný pohled.
+## 2. Podklady a podmínky hodnocení
 
-Heuristická evaluace posoudí obecné principy použitelnosti, například viditelnost stavu, konzistenci a prevenci chyb. Každý hodnotitel projde web samostatně a nálezy poté sjednotíme. Kognitivní průchod sleduje konkrétní úkol: zda uživatel ví, co chce udělat, všimne si správného ovládání, spojí jej s cílem a pozná úspěch. Vybereme dva scénáře z cizí specifikace, nikoli z našeho festivalu. Doplníme mobilní zobrazení a klávesnici. Expertní odhad nevydáváme za test s reprezentativními uživateli.
+[30 s po doplnění] Uveďte název cizího projektu a verzi, kterou jste opravdu hodnotili. Převezměte dva scénáře z jeho specifikace a řekněte, co mělo být výsledkem. Doplňte datum a podmínky provedení. Nepoužívejte dnešní datum nebo jména jako náhradu za neprovedené hodnocení. Připravená šablona je pouze současný výstup přípravy; po provedení tento bod nahraďte konkrétním pokrokem od minulého cvičení. Rozhodněte, které nálezy mají největší dopad na dokončení scénářů.
 
-## 3. Závažnost určuje dopad.
+## 3. Dvě formalizované metody
 
-Stupnici je vhodné sjednotit před hodnocením. Kritický problém znemožní důležitý úkol, významný způsobuje chyby nebo zásadní nejistotu, drobný má omezený místní dopad. Nestačí každé nepohodlí označit za kritické. U nálezu vysvětlíme, komu brání, v jaké situaci a zda existuje obcházení. Pokud se neshodneme, vrátíme se ke scénáři a důkazu. Doporučení se pak řadí podle dopadu a ne podle toho, který problém nejvíce zaujal na screenshotu.
+[40 s] Heuristické hodnocení přiřazuje zjištění ke konkrétním pravidlům, ne k osobnímu vkusu. Při kognitivním průchodu se u každého kroku ptáme, zda uživatel zná cíl, najde správný prvek, spojí si ho s cílem a pozná správný výsledek. Metody se doplňují: první hledá opakující se problémy rozhraní, druhá překážky konkrétního úkolu. Do skutečné prezentace doplňte, kde každá metoda vedla k nálezu. Expertní průchod nezaměňujte za experiment s reprezentativním vzorkem uživatelů.
 
-## 4. Od pozorování k doporučení.
+## 4. Jak zapsat nález a jeho závažnost
 
-Každý nález potřebuje stránku a přesné kroky. Doplníme očekávaný a skutečný stav a screenshot nebo jiný důkaz. Propojíme jej s heuristikou nebo konkrétní otázkou kognitivního průchodu. Závažnost zdůvodníme dopadem na úkol a navrhneme změnu, která problém řeší. U prezentace vybereme tři až pět nejsilnějších reálných nálezů. V této připravené verzi jejich místa zůstávají nedoplněná, protože cizí projekt nebyl předán. Prázdné výsledky nelze nahradit věrohodně znějícími domněnkami.
+[40 s] U každého nálezu doplňte reprodukovatelné kroky a důkaz, například screenshot s kontextem. Závažnost se odvozuje od dopadu: kritická chyba brání klíčovému úkolu bez rozumné náhrady, významná způsobuje chyby nebo nejistotu a drobná nebrání dosažení cíle. Samotné chybějící slovo bez kontextu není automaticky kritický problém. Každý návrh opravy spojte s příčinou. Rozlišujte mezi problémem použitelnosti a grafickou preferencí. Přesný formulář je připraven v review.md.
 
-## 5. Příklady nejsou cizí review.
+## 5. Tři až pět hlavních nálezů
 
-Na vlastním projektu lze ukázat rozdíl mezi důkazem a tvrzením. Datový validátor skutečně spočítá entity a ověří reference, ale nezměří srozumitelnost rozhraní. Architektura localStorage dokládá místní ukládání, nikoli sdílené účty. A absence cizího webu znamená, že peer review není provedeno. Tyto příklady jsou označené jako vlastní ověření Prague Pulse Fest a nesmějí se objevit v tabulce nálezů jiného týmu. Po přidělení projektu je nahradíme skutečně pozorovanými případy.
+[60–90 s po doplnění] Nahraďte tento snímek třemi až pěti skutečnými nálezy cizího projektu. Pro každý stručně řekněte, co se stalo, proč to uživateli vadí a jak problém opravit. Nejzávažnější příklad podpořte krátkou ukázkou nebo screenshotem; pokud potřebujete, použijte více místa a zkraťte ostatní snímky. V této šabloně žádné nálezy nejsou a R01 až R05 nejsou tvrzením o existenci chyb. Celý projev včetně ukázek má zůstat do pěti minut.
 
-## 6. Před odevzdáním doplnit.
+## 6. AI a vlastní ověření nálezů
 
-K dokončení potřebujeme skutečný cizí projekt, jeho specifikaci a klíčové scénáře. Potom doplníme identifikaci verze, podmínky, dva průchody a tři až pět reálných nálezů. Zkontrolujeme shodu tabulky review a prezentace. AI může pomoci se stručností, strukturou a návrhem otázek, ale nesmí vytvářet neověřené problémy ani výpovědi testerů. Hodnotitel má každý nález osobně zopakovat. Takto připravené review bude konkrétní, spravedlivé a použitelné pro změny hodnoceného projektu.
+[35 s po doplnění] AI pomohla připravit tuto metodiku a formulář. Nenahrazuje pozorování cizího projektu a v tuto chvíli z ní nepochází ověřené nálezy. Při skutečném review uveďte konkrétní návrh AI, jeho kontrolu a přijetí či odmítnutí. Například domnělý problém můžete odmítnout, pokud opakovaný průchod ukáže správnou cestu. Na závěr doporučte pořadí oprav podle dopadu. Před odevzdáním šablonu nahraďte skutečným review a zkontrolujte důkazy i čas prezentace.

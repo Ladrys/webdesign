@@ -3,7 +3,7 @@ from pathlib import Path
 from threading import Thread
 from functools import partial
 from http.server import SimpleHTTPRequestHandler,ThreadingHTTPServer
-import argparse,json,zipfile
+import argparse,json,os,zipfile,re
 import fitz
 from pptx import Presentation
 from playwright.sync_api import sync_playwright
@@ -17,7 +17,15 @@ for folder in sorted(root.glob('cviceni-*')):
  check(len(pdf)==6 and len(ppt.slides)==6,folder.name+': six PDF pages and editable PPTX slides')
  for i,(page,slide) in enumerate(zip(pdf,ppt.slides),1):
   check(bool(page.get_text().strip()) and bool(slide.notes_slide.notes_text_frame.text.strip()),folder.name+f': slide{i} text and presenter notes')
+  # Inspect the produced files: neither export may silently clip slide text or
+  # lose a paragraph while the other format still appears correct.
+  spans=[span for block in page.get_text('dict')['blocks'] if 'lines' in block for line in block['lines'] for span in line['spans']]
+  check(all(-.5<=s['bbox'][0] and -.5<=s['bbox'][1] and s['bbox'][2]<=page.rect.width+.5 and s['bbox'][3]<=page.rect.height+.5 for s in spans),folder.name+f': slide{i} PDF text stays inside page')
+  ppt_text=' '.join(shape.text for shape in slide.shapes if shape.has_text_frame)
+  compact=lambda text:re.sub(r'\s+','',text)
+  check(compact(page.get_text())==compact(ppt_text),folder.name+f': slide{i} PDF/PPTX visible text agrees')
  check('PULSE' in pdf[0].get_text() and '2027' in pdf[0].get_text(),folder.name+': Prague Pulse 2027 identity')
+ check(all(name in pdf[0].get_text() and name in ppt.core_properties.author for name in ['Michal Ladra','Matěj Mlejnek','Jan Martínek']),folder.name+': all three authors in cover and metadata')
  check((folder/'presenter-notes.md').is_file(),folder.name+': separate presenter notes')
  with zipfile.ZipFile(folder/'prezentace.pptx') as archive:check(archive.testzip() is None,folder.name+': PowerPoint archive integrity')
  pdf.close()
@@ -27,7 +35,13 @@ server=ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(root)));T
 base=f'http://127.0.0.1:{server.server_port}/cviceni-03-prototyp/prototype/index.html'
 try:
  with sync_playwright() as p:
-  browser=p.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox']);page=browser.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
+  # Prefer an explicit browser or the cloud image; use Playwright's bundled
+  # Chromium on computers without /usr/bin/chromium, including Windows/macOS.
+  chromium_path=os.environ.get('CHROMIUM_PATH')
+  if not chromium_path and Path('/usr/bin/chromium').is_file():chromium_path='/usr/bin/chromium'
+  launch_options={'args':['--no-sandbox']}
+  if chromium_path:launch_options['executable_path']=chromium_path
+  browser=p.chromium.launch(**launch_options);page=browser.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
   for width in [320,768,1440]:
    page.set_viewport_size({'width':width,'height':900});page.goto(base)
    for view in ['home','program','performers','venues','info']:

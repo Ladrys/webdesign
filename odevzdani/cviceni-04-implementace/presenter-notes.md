@@ -2,29 +2,31 @@
 
 První funkční implementace
 
+**Autoři:** Michal Ladra, Matěj Mlejnek, Jan Martínek
+
 Šest snímků, přibližně 35–45 sekund na snímek; celkem 3–5 minut.
-Text upravte podle skutečné práce a jmen členů týmu. Nevydávejte podklady za historický záznam.
+Milníky jsou připravené podklady, nikoli archiv dřívějších odevzdání. Popis spolupráce a dřívější rozhodnutí upravte podle skutečného průběhu.
 
-## 1. Festival má vlastní tvář.
+## 1. První funkční implementace
 
-Na wireframe navazuje kompletní současná implementace. Obsahuje výraznější vlastní identitu, tmavou celoplošnou hlavičku a skutečnou historickou fotografii Výstaviště. Identitu doplňuje typografické logo bez zvukových sloupců Prague Pulse Fest. Inspirací je obecný festivalový vizuální styl, nikoli převzetí loga nebo grafiky jiné akce. Materiály byly připraveny ze současné verze, protože skutečný historický export ze cvičení nebyl poskytnut. Při prezentaci ukážeme mobilní a desktopové zobrazení a dvě nejdůležitější cesty. Není třeba instalovat runtime nebo spouštět build. Název vracíme na Prague Pulse Fest a termín na výslovnou volbu zadavatele posouváme na 1.–3. srpna 2027. Hlavička má na notebooku hledání a navigaci v jednom řádku; odpočet pracuje s pražskou časovou zónou.
+[30 s] Oproti wireframu ukazujeme současný hotový web s vlastní vizuální identitou, češtinou a angličtinou a rozšířenými funkcemi. Základem zůstává HTML, CSS a JavaScript bez backendu a instalačního kroku. Balíček obsahuje dnešní verzi webu, nikoli nedoložený historický stav ze cvičení. Při prezentaci se zaměříme na mobilní i desktopové zobrazení, funkční navigaci a dva stejné scénáře jako v prototypu.
 
-## 2. Hlavní části jsou propojené.
+## 2. Co přibylo proti prototypu
 
-Implementace pokrývá třináct HTML vstupů a všechny povinné části. Program rozlišuje hlavní mezinárodní jména, českou scénu a klubovou elektroniku. Detaily mají biografii, konkrétní subžánr a hudební odkazy; ověřený profil se odlišuje od vyhledávání. Návštěvník si vybere jeden, dva libovolné nebo tři dny. VIP a Regular si ručně označí v mapě, stání vybírá počtem. Kemp se přidává v košíku. Soukromí, Podmínky a Kredity mají vlastní stránky, praktické Info se soustředí na návštěvu.
+[35 s] Povinné obsahové části již neexistují jako oddělené ukázky. Z interpreta lze přejít ke koncertu a ze scény do filtrovaného programu. Hledání pokrývá všechna data včetně popisů. K jádru přibyly vstupenky na jeden, dva nebo tři dny, košík, kemp a PDF. Registrace i historie jsou lokální pro prohlížeč, účet není povinný. Nákup nyní nepředěláváme na vstupenky pro jednotlivé scény; toto rozhodnutí je ponechané k další samostatné úpravě.
 
-## 3. Flexbox i Grid mají své místo.
+## 3. Mobilní a desktopové zobrazení
 
-Ano, Flexbox se pro tento web hodí, zejména pro navigaci a řady ovládacích prvků. Pro více řad karet je vhodnější Grid. Pružné velikosti a clamp přizpůsobují typografii prostoru, místo pevného navrhování pro konkrétní telefon. Responzivitu však nedokazuje jediný screenshot prázdného úvodu. Kontrolujeme i dlouhé názvy, otevřené menu, formuláře, dialogy a neprázdný košík. Při prezentaci vedle sebe ukážeme úzký a široký viewport stejného scénáře, aby bylo vidět, že zůstává stejná logika.
+[40 s včetně ukázky] Ukážeme stejnou stránku v úzké a široké podobě. Flexbox se hodí na navigaci a ovládací řádky, Grid na více řad obsahových karet. Pružná typografie a sloupce využívají dostupný prostor. Zkoušíme přetékání, čitelnost, formuláře a dosah na hlavní akce. Prázdný úvod nestačí: rozhraní musí fungovat i s dlouhými názvy, chybovým stavem, otevřeným dialogem nebo naplněným košíkem. Automatické ověření šířek doplňuje vizuální kontrola těchto stavů.
 
-## 4. Dva scénáře předvést, ne popsat.
+## 4. Dva scénáře ve finálním rozhraní
 
-Zopakujeme S1 a S2 ve finálním rozhraní. Nejprve filtrujeme program a ověříme uložení osobního výběru. Potom hledáme DARKZY a přejdeme z detailu k jeho koncertu. Při ukázce sledujeme názvy, datum a scénu; efektní animace nesmí nahradit správný obsah. Krátce ukážeme klávesnici a zavření dialogu. Přístupnost není pouze kontrast: důležité je správné pořadí, popisky, zachování focusu a srozumitelná změna stavu. Plnou shodu s WCAG bez odpovídajícího auditu netvrdíme.
+[50 s včetně ukázky] Nejprve předvedeme filtr prvního dne a River Stage a uložíme koncert do osobního programu. Potom přes globální hledání najdeme DARKZY, otevřeme detail a přejdeme ke koncertu. Sledujeme správnost údajů a srozumitelnost cesty, ne pouze animace. Krátce ukážeme focus klávesnice, zavření dialogu a návrat k obsahu. Stejné ID propojuje seznam i detail, takže nevznikají rozdílné ručně napsané časy. Tyto scénáře budou moci zopakovat hodnotitelé v dalším milníku.
 
-## 5. Zdroj dat zůstává jeden.
+## 5. Konkrétní principy UX, přístupnosti a SEO
 
-Ceny a model daně vycházejí z XML. Dva dny stojí součet dvou jednodenních tarifů, tři dny mají zvýhodněný balíček. Příklad: dvě dvoudenní VIP jsou 2360 korun, PULSE10 odečte 236 a stan pro dvě osoby přidá 650. Výsledek je 2774 korun; kemp se nezlevňuje. V ceně je modelová dvanáctiprocentní DPH, nikoli příplatek. Výpočet je školní model, ne právní potvrzení sazby roku 2027. PDF vypíše skutečné vybrané dny a pro kemp přidá samostatný voucher.
+[35 s] Přístupnost řešíme konkrétními prvky: sémantikou, popisky, focusy a chybovými zprávami. Technické SEO stojí na obsahu, jedinečných titulcích a srozumitelném propojení. JSON-LD je strojově čitelný popis festivalu vložený do stránky, nenahrazuje XML zdroj dat. Pro generativní vyhledávání nevytváříme smyšlená hodnocení ani údajně povinný speciální AI soubor. Dokumentace uvádí konkrétní zdroje Google Search Central a WAI a jejich uplatnění. Plnou shodu s WCAG bez auditu netvrdíme.
 
-## 6. Kontrola má konkrétní výstup.
+## 6. AI a kontrola implementace
 
-AI pomohla s rozvržením, texty, originální grafikou, implementací a testovacími skripty. Testy ale musí běžet proti skutečné výsledné verzi. Přiložený validační záznam uvádí konkrétní výsledek, rozsah a přeskočené kontroly. Datové minimum a reference kontrolujeme odděleně od prohlížeče. PDF posuzujeme jako soubor a ne pouze potvrzení na obrazovce. Historické odevzdání, testy s reálnými návštěvníky ani externí cross-review nejsou doloženy. Tým musí umět vysvětlit, co přijal a které limity zůstávají. Dne 18. října 2026 jsme přímo přečetli Google SEO Starter Guide, Google AI features and your website a WAI Page Structure Tutorial. Používáme konkrétní titulky, vnitřní odkazy, viditelný text, pravdivé JSON-LD a logické landmarky a nadpisy. Zvláštní AI schéma ani speciální textový soubor nejsou vyžadované. Nové fotografie jsou částečně CC BY-NC-SA: dva snímky lze použít v tomto nekomerčním školním rozsahu, nikoli automaticky pro komerční festival.
+[40 s] AI pomáhala s grafickým směrem, texty, kódem a testovacími skripty. Přijali jsme vlastní typografickou identitu, ale upravili navigaci a konkrétní obsah podle zpětné vazby. Nepřevzali jsme cizí logo ani serverové řešení. Validátor porovnává XML s přibalenými daty a browserové testy ověřují hledání, účty, ceny i obsazenost. PDF kontrolujeme jako skutečný soubor. Výsledky a limity uvádí validation_report.md. Skutečné fotografie mají kredity; oproti požadavku na AI obrázky jde o výslovně popsanou odchylku, nikoli AI generované portréty. Zaznamenané datové a browserové kontroly prošly; přesný rozsah je v reportu, ne v odhadu AI.

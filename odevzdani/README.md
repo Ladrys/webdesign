@@ -1,44 +1,34 @@
-# Prague Pulse Fest — podklady pro Moodle
+# Prague Pulse Fest — odevzdání na Moodle
 
-Každá složka cvičení má vlastní PPTX, PDF a `presenter-notes.md` pro 3–5 minut.
-PPTX obsahuje editovatelný text a poznámky přednášejícího. PDF má stejnou grafiku.
-Web a prototyp spustíte otevřením příslušného `index.html` bez instalace.
+**Autoři:** Michal Ladra, Matěj Mlejnek, Jan Martínek · akademický rok 2026/2027
 
-| Složka | Obsah odpovídající zadání |
+Nahrajte ZIP příslušné složky. Každá prezentace má šest snímků na 3–5 minut;
+`prezentace.pptx` obsahuje upravitelný text a poznámky, `prezentace.pdf` slouží
+k pohodlnému promítání. `presenter-notes.md` je stručná příprava řečníka.
+
+| Cvičení / složka | Požadované soubory a obsah |
 | --- | --- |
-| cviceni-02-specifikace | Specifikace, XML data, prezentace |
-| cviceni-03-prototyp | Spustitelný interaktivní wireframe, progress-02, prezentace |
-| cviceni-04-implementace | Současný web, progress-03, prezentace |
-| cviceni-05-review-ready | Současný web, specifikace, data, progress-04, prezentace |
-| cviceni-06-cross-review | Metodická šablona review a prezentace — nutno doplnit skutečný cizí projekt |
-| finalni-projekt/projekt | Předepsaná finální struktura, pokud byl builder spuštěn s --include-web |
+| 02 — `cviceni-02-specifikace/` | `project-specification.md`, `data.xml`, `prezentace.pptx` nebo `prezentace.pdf`. Identita, účel, cílové skupiny, architektura, dva scénáře, AI a ověření. |
+| 03 — `cviceni-03-prototyp/` | Celá složka `prototype/`, `progress-02.md`, prezentace. Spustitelný návrh pro mobil i desktop, dva průchody a nejméně tři smysluplné funkce. |
+| 04 — `cviceni-04-implementace/` | Celá složka `web/`, `progress-03.md`, prezentace. Úvod a odlišná obsahová stránka, navigace, interaktivita a responzivita. |
+| 05 — `cviceni-05-review-ready/` | `web/`, `project-specification.md`, `progress-04.md`, prezentace. Kompletní verze pro druhý tým; přibalená data podporují nezávislé ověření. |
+| 06 — `cviceni-06-cross-review/` | `review.md`, prezentace výsledků cizího webu. Dva scénáře, dvě formalizované metody, 3–5 nálezů s důkazy, závažností a doporučením. **Zatím šablona k doplnění.** |
+| Finální projekt — `finalni-projekt/projekt/` | `project-specification.md`, `prototype/`, `documentation.md`, `data.xml`, `web/`, `review/received-review.md`. Volitelně `docs/` s Word/PDF dokumentací. |
 
-## Co je připraveno dodatečně
+Před cvičením odevzdejte i prezentaci, kterou budete ukazovat. Web spustíte
+otevřením `web/index.html`, prototyp otevřením `prototype/index.html`; instalace
+není potřeba. Pythonové nástroje jsou pouze pro údržbu a ověření projektu.
 
-Balíčky jsou **rekonstruované ukázky milníků vytvořené nyní podle zadání**,
-nikoli důkaz dřívějšího odevzdání, termínů, konzultací nebo práce konkrétních členů.
-Cvičení 04 a 05 úmyslně používají stejnou současnou verzi. Cvičení 03 má nově
-sestavený redukovaný interaktivní prototyp. Nepředkládejte je jako falešnou historii.
+## Před odevzdáním
 
-## Co musí ještě dodat tým
+Podklady milníků jsou připravené podle zadání, nikoli archiv minulých odevzdání.
+Cvičení 04 a 05 obsahují stejný současný web. Tým doplní skutečný průběh spolupráce,
+přijaté cross-review a odůvodnění změn proti schválené specifikaci. Bez původních
+schválených výstupů nelze potvrdit dodržení limitu změn přibližně 15 %.
 
-1. Skutečný přidělený projekt a jeho specifikaci pro cvičení 06. Metodika je připravená,
-   ale skutečné nálezy nelze vytvořit bez hodnoceného webu. Šablona není hotové peer review.
-2. Přijaté cross-review do `review/received-review.md` a skutečná rozhodnutí v dokumentaci.
-3. Jména a reálnou spolupráci členů, časovou osu a případné historické prezentace.
-4. Ověření posunu termínu na srpen 2027, přechodu na skutečné interprety a výraznějšího
-   redesignu vůči schváleným prvním výstupům. Původní název Prague Pulse Fest zůstává;
-   dodržení limitu změn cca 15 % nelze potvrdit bez těchto výstupů.
-5. Nejnovější audiozpětná vazba je požadavek zadavatele, nikoli cross-review.
-   Vstupenkový tok nově řeší 1/2/3 dny, vlastní místa, kemp a modelovou DPH.
-   Dva snímky CC BY-NC-SA jsou určeny jen pro nekomerční školní rozsah.
+Pro cvičení 06 chybí přidělený cizí projekt a skutečné nálezy; šablonu proto nelze
+odevzdat jako hotové hodnocení. Zpětná vazba zadavatele není přijatým cross-review.
 
-## Pravdivé ověření a AI
-
-Aktuální testy hotového webu jsou ve `validation_report.md` u příslušného balíčku,
-prototypové testy u cvičení 03 a datové kontroly v `data-validation.md`. Počty
-a výsledky nepřenášejte na jinou verzi bez opakování testu. AI pomohla s texty,
-implementací, grafikou i těmito podklady; metody a omezení jsou výslovně popsané.
-
-Před prezentací odevzdejte všechny soubory, které budete ukazovat. PPTX/PDF
-se podle zadání také nahrává před cvičením. Prezentace 06 je zatím pouze příprava.
+Použití AI, konkrétní kontroly a jejich omezení uvádí prezentace, poznámky a
+`documentation.md`. Výsledky kontroly dat jsou v `data-validation.md`, ověření
+webu ve `validation_report.md` a prototypu v `prototype-validation.md`.

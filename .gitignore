@@ -6,3 +6,8 @@ node_modules/
 .env.*
 *.log
 web-ke-stazeni.zip
+.venv/
+venv/
+test-artifacts/
+.DS_Store
+Thumbs.db

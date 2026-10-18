@@ -1,34 +1,36 @@
-# Zdrojové podklady školního odevzdání
+# Podklady prezentací a odevzdání
 
-Tato složka obsahuje udržovatelné podklady pro `tools/build_course_submissions.py`.
-Hotové složky pro Moodle vytváří builder do `odevzdani/`. Běžný návštěvník webu
-Python ani prezentační knihovny nepotřebuje.
+**Autoři:** Michal Ladra, Matěj Mlejnek, Jan Martínek.
 
-Materiály jednotlivých cvičení jsou **dodatečně připravené ukázky milníků podle
-zadání**, nikoli záznam skutečných dřívějších odevzdání nebo konzultací. Cvičení
-04 a 05 obsahují stejný současný web záměrně: historické verze z těchto cvičení
-nebyly doloženy. Cvičení 03 má vlastní nově sestavený interaktivní wireframe.
+Tato složka obsahuje zdroje školních podkladů. Hotové soubory pro Moodle jsou
+v [`odevzdani/`](../odevzdani/README.md); tuto zdrojovou složku neodevzdávejte
+místo nich.
 
-Prezentace jsou současně v editovatelném PPTX a ve stabilním PDF. Jejich scénář
-je v `presenter-notes.md`, také v poznámkách snímků PPTX. Pro cvičení 02–05 jde
-o šest snímků přibližně na čtyři minuty. Prezentaci 06 je třeba po obdržení
-cizího projektu doplnit skutečnými výsledky; připravená metodika je jasně označená.
+| Zdroj | Výstup |
+| --- | --- |
+| `presentations.json` | Prezentace 02–06 v PPTX a PDF, poznámky pro přednášející |
+| `c02-specification.md` | Projektová specifikace pro cvičení 02 |
+| `c03-progress-02.md` až `c05-progress-04.md` | Stručné zprávy o milnících |
+| `prototype/` | Samostatný funkční wireframe pro cvičení 03 |
+| `c06-review-template.md` | Formulář pro skutečné hodnocení cizího projektu |
 
-Skutečný přidělený projekt pro cross-review, přijaté review, jména týmu,
-časová osa a odsouhlasení výraznějšího redesignu a přechodu na skutečné interprety nebyly poskytnuty. Nejsou
-nahrazeny smyšlenými údaji. `c06-review-template.md` obsahuje přesný postup,
-tabulku nálezů i odlišené příklady vlastního ověření.
+Každá prezentace má šest snímků a poznámky pro 3–5 minut včetně krátké ukázky.
+Texty vysvětlují rozhodnutí, použití AI a konkrétní ověření. Podrobnosti patří
+do poznámek, ne do přeplněných snímků.
 
-```sh
-python tools/build_course_submissions.py --output /tmp/prague-pulse-submissions
-```
+Podklady jsou sestavené ze současného projektu podle jednotlivých milníků.
+Nejsou archivem historických odevzdání. Cvičení 04 a 05 proto obsahují stejný
+současný web. Prezentace a review pro cvičení 06 jsou **šablony k doplnění**:
+přidělený cizí projekt ani skutečné nálezy nebyly dodány.
 
-Bez `--include-web` se vytvoří texty, prototyp a prezentace, ale nekopíruje se
-rozpracovaný web. Úplné odevzdání z hotové a ověřené verze:
+## Úprava a export
+
+Upravte zdroje zde a potom z kořene repozitáře spusťte:
 
 ```sh
 python tools/build_course_submissions.py --include-web
 ```
 
-Tvorba podkladů vyžaduje vývojové knihovny `python-pptx`, `reportlab` a Pillow.
-Ty nejsou součástí požadavků na spuštění odevzdaného webu.
+Builder zkopíruje podklady a web, zkontroluje datové vazby a vytvoří prezentace.
+Vyžaduje Python a vývojové knihovny uvedené v návodu repozitáře. **Pro otevření
+webu ani prezentací nejsou tyto nástroje potřeba.**

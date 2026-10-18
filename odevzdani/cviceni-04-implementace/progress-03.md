@@ -1,81 +1,57 @@
-# Progress 03 — funkční implementace
+# Progress 03 — první funkční implementace
 
-## Aktuální stav
+**Projekt:** Prague Pulse Fest, 1.–3. srpna 2027, Výstaviště Praha.
+**Autoři:** Michal Ladra, Matěj Mlejnek, Jan Martínek.
 
-Složka `web/` obsahuje aktuální kompletní implementaci HTML/CSS/JavaScript.
-Je přiložena přímo, bez instalačního kroku. Úvod, Program, Účinkující, Scény,
-Info, Novinky, Vyhledávání, Vstupenky, Košík, Účet, Soukromí, Podmínky a Kredity tvoří navzájem propojené části.
-Tento balíček byl připraven dodatečně ze současné verze; neprokazuje dřívější stav cvičení 04.
+## Co je implementováno
 
-## Proti wireframu
+Složka `web/` obsahuje klientský web v HTML, CSS a JavaScriptu. Otevře se bez
+instalace a buildu. Propojuje úvod, program, účinkující s detaily, scény,
+praktické info, novinky a hledání. Podporuje češtinu a angličtinu.
 
-| Wireframe | Implementace | Důvod |
-| --- | --- | --- |
-| Jednoduché bloky a karty | Tmavá hlavička přes celou šířku, vlastní logo, historická fotografie areálu v úvodu | Výslovný požadavek na silnější identitu |
-| Jednojazyčný obsah | Přepínač češtiny a angličtiny | Orientace zahraničních návštěvníků |
-| Textové přehledy | 42 fotografií a 18 typografických náhrad skutečných interpretů, medailonky | Snazší rozlišení účinkujících |
-| S1 a S2 | Navíc 1/2/3 dny, ruční sedadla, stání, kemp, promo jen na vstupenky, 12% DPH, rozšířený profil a PDF | Rozšíření scénáře S3 |
-| Jednoduché zobrazení scén | Praktické informace a automatická mapa po povolení externích map | Snazší plánování cesty s možností odvolat souhlas |
-| Jednoduchá hlavička | Jednořádková navigace na notebooku a odpočet do 1. srpna 2027 | Oprava zalamování a návaznost na aktuální termín |
+Fungují filtry, osobní program a objednávka hosta i přihlášeného uživatele.
+Vstupenky lze vybrat na jeden, dva nebo tři dny; doplňkem je kemp, promo kód
+a PDF. Účty, výběr i objednávky zůstávají v prohlížeči. Platba a e-mail nejsou
+napojené na skutečnou službu.
 
-Změny nejsou doloženým výsledkem cross-review. Vycházejí z požadavků uživatele
-a technické validace. Větší vizuální změny, přechod na skutečné interprety a posun termínu vyžadují ověřit návaznost
-na schválené první dva výstupy předmětu.
+## Změny proti prototypu
 
-## Mobile-first a současné postupy
+| Změna | Důvod |
+| --- | --- |
+| Vlastní tmavá identita, typografické logo, fotografie | Požadavek zadavatele na výraznější festivalový vzhled |
+| Čeština a angličtina | Orientace zahraničních návštěvníků |
+| Rozšířené detaily a hudební odkazy | Snazší rozhodování o programu |
+| Košík, účet, kemp a PDF | Doplnění objednávkového scénáře S3 |
+| Samostatné soukromí, podmínky a kredity | Přehlednější návštěvnické informace |
 
-Flexbox používáme pro navigaci, tlačítka a řádky formulářů; Grid pro karty,
-výsledky a rozložení programu. Pružné šířky, `minmax` a `clamp` přizpůsobují
-obsah dostupnému prostoru. Formuláře mají popisky a textové chybové stavy,
-klávesnice viditelný focus a mapy míst textový popis stavu. Omezení pohybu
-se promítá do animací. Konkrétní normativní zdroje a omezení ověření jsou
-uvedeny v `documentation.md`; neprohlašujeme plný audit WCAG AA. Dne 18. 10. 2026
-jsme přímo přečetli Google SEO Starter Guide, Google AI features and your website
-a WAI Page Structure Tutorial. Konkrétně používáme jedinečné titulky/popisy,
-odstavce a nadpisy, vnitřní odkazy a landmarky. Pro AI funkce není vyžadované
-zvláštní schéma ani speciální AI textový soubor; JSON-LD musí odpovídat obsahu.
+Základ S1 a S2 zůstává stejný. Případná změna vstupenek podle jednotlivých
+scén je odložená; tento balíček takovou změnu neobsahuje.
 
-Viditelný obsah, konkrétní titulky, metadata a propojení programových entit
-mají přednost před domnělými „AI SEO“ triky. Strukturovaná data mají odpovídat
-viditelnému festivalu; nevymýšlíme hodnocení ani ověřeného pořadatele.
+## Použité postupy a trendy
 
-## Ověření
+- **Responzivita:** mobile-first, Flexbox pro ovládání, Grid pro obsah,
+  pružná typografie a sloupce místo pevných rozměrů zařízení.
+- **Přístupnost:** sémantická struktura, nadpisy, popisky, viditelný focus,
+  textové chyby a podpora omezeného pohybu.
+- **SEO a AEO/GEO:** konkrétní titulky, popisy, vnitřní odkazy a JSON-LD
+  odpovídající festivalu. Žádná smyšlená hodnocení ani zvláštní „AI SEO“ data.
 
-Přiložený `validation_report.md` zaznamenává aktuální skutečné kontroly a jejich
-limity. Datový validátor kontroluje XML a webový export. Browserové průchody
-ověřují načtení, hledání, filtry, stav košíku, účty, rozlišení obrazovek a PDF.
-Vývojové testovací nástroje se nespouštějí při běžném otevření webu.
+Konkrétní použití doporučení Google Search Central a WAI i jejich zdroje
+popisuje `documentation.md`. Plnou shodu s WCAG bez auditu netvrdíme.
 
-Bez prokázaného testu netvrdíme ověření na fyzických zařízeních, ve všech
-prohlížečích, se čtečkou ani certifikaci WCAG. Pro cvičení lze ukázat S1 a S2
-v obou šířkách a S3 jako doplňkový scénář.
+## Testování a kontrola AI
 
-## AI
+Datový validátor porovnává XML a webový export. Browserové scénáře ověřují
+hledání, filtry, uložení, navigaci, formuláře, účty, ceny a obsazenost.
+Kontrola PDF čte výsledný soubor. Výsledky a podmínky jsou ve
+`validation_report.md`; testování různých šířek nezastupuje všechny fyzické
+telefony a prohlížeče.
 
-Codex pomohl s kódem, texty, návrhem a kontrolními skripty; aktuální fotografie a plakáty mají
-evidenci v `web/images/PHOTO-CREDITS.md`. Skutečné interprety používáme na
-pozdější výslovný požadavek uživatele; jejich účast není potvrzená a jejich
-umělce nevydáváme za osoby vytvořené AI; medailonky jsou shrnutí jejich tvorby.
-Síťová blokace byla vyřešena;
-42 fotografií interpretů a historická fotografie areálu mají konkrétní zdroj,
-autora a licenci. Osmnáct zbývajících karet používá vlastní typografii. Příklady promptů: „asymetrická festivalová
-identita s vlastním názvem“, „mobile-first program s filtrem scény“, „ověř
-shodu XML a přibalených dat“. Přijaty byly originální grafika a lokální datový
-export; odmítnuty kopie cizího loga a serverová integrace v klientském zadání.
-AI návrh sám není důkaz správnosti: ověřujeme skutečné chování a výsledný PDF soubor.
+AI pomohla s obsahem, rozhraním, kódem a testy. Přijata byla vlastní grafika
+a export z XML, upraveny mobilní stavy, biografie a výpočty; odmítnuty kopie
+cizí značky a backend mimo zadání. Fotografie mají skutečné zdroje a licence
+v Kreditech. Jejich použití na přání zadavatele je odchylkou od požadavku na
+AI obrázky; nevydáváme je za generované.
 
-## Změny podle nejnovější audiozpětné vazby
-
-Tato zpětná vazba je od zadavatele, nikoli od přiděleného jiného týmu.
-Program nově rozděluje 20/20/20 interpretů mezi hlavní mezinárodní jména,
-českou scénu a klubovou elektroniku. Medailonky a konkrétní subžánry jsou v XML.
-Nákup sjednocuje jeden, dva libovolné nebo tři dny; VIP a Regular vyžadují ruční
-sedadla, stání množství. Objednávka přidá stan 350 Kč nebo karavan 850 Kč
-plus 150 Kč za osobu na 3 noci. PULSE10/PRAHA200 se vztahují jen na vstupenky.
-Rozpis ukazuje modelovou 12% DPH zahrnutou v cenách, nikoli další poplatek.
-Registrace má příjmení, telefon a potvrzení hesla, profil lze upravit.
-
-Offline plánek, podrobnější návštěvnické FAQ a skutečné fotografie novinek
-pomáhají při cestě; soukromí, podmínky a obrazové kredity mají vlastní stránky.
-Dva snímky (Hedex, AC Slater) mají CC BY-NC-SA 2.0 a patří pouze do nekomerčního
-školního rozsahu. Zdroje a úpravy jsou v PHOTO-CREDITS.md a na stránce Kredity.
+Balíček zachycuje současnou implementaci. Historický stav cvičení, externí
+review a souhlasy s většími změnami nebyly doloženy a nejsou domýšlené.

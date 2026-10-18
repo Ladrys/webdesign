@@ -1,67 +1,56 @@
 # Prague Pulse Fest
 
-Responzivní festivalový web v češtině i angličtině. **Bez instalace, serveru, Node.js a buildu.**
+[![Kontroly projektu](https://github.com/Ladrys/webdesign/actions/workflows/validate.yml/badge.svg)](https://github.com/Ladrys/webdesign/actions/workflows/validate.yml)
+[![Verze 1.0.0](https://img.shields.io/badge/verze-1.0.0-ff8155)](CHANGELOG.md)
+![HTML · CSS · JavaScript](https://img.shields.io/badge/web-HTML%20%C2%B7%20CSS%20%C2%B7%20JavaScript-222222)
 
-## Spuštění a stažení
+Responzivní web fiktivního hudebního festivalu **1.–3. srpna 2027 na Výstavišti Praha**. Česká i anglická verze, program, osobní výběr koncertů a objednávka vstupenek s PDF.
 
-Na GitHubu zvolte **Code → Download ZIP**, celý archiv rozbalte a otevřete **`web/index.html`**. Při otevření z disku používá navigace stejný soubor s parametrem `page`, aby se účty a košík uchovávaly pod stejnou adresou. JavaScript a místní úložiště musejí být povolené.
+**Autoři:** Michal Ladra · Matěj Mlejnek · Jan Martínek
 
-Celou složku `web/` můžete sdílet samostatně. Fonty, fotografie, typografické plakáty a PDF knihovny jsou přibalené. Google mapa se po souhlasu s externími mapami načítá automaticky; web bez ní funguje offline.
+[Spuštění](#spuštění) · [Soubory k odevzdání](docs/ODEVZDANI.md) · [Jak projekt funguje](docs/PROJECT-GUIDE.md) · [Dokumentace](documentation.md)
 
-## Co je nové
+![Úvodní stránka Prague Pulse Fest](preview/home.png)
 
-- Prague Pulse Fest, **1.–3. srpna 2027**: vlastní typografické logo, tmavá hlavička přes celou šířku, odpočet, kompaktní navigace a kulaté hledání v jednom řádku na notebooku, CZ/EN a vícesloupcový footer s ikonami sociálních sítí.
-- Přepnutí jazyka překládá obsahové stránky, filtry, formuláře, detaily, stavy i PDF a zachovává se po znovuotevření.
-- Skutečná fotografie Průmyslového paláce z roku 2018 (Bengt Nyman, CC BY 2.0) s viditelným datem; aktuální úvod nepřehrává video a fotografie nepředstírá stav areálu pro rok 2027.
-- Navržený line-up 60 skutečných interpretů (např. David Guetta, Katy Perry, Skrillex a DARKZY), 42 skutečných doložených fotografií, 18 typografických náhrad a biografické medailonky z XML. Účast není potvrzená. Main Hall má mezinárodní jména, River Stage českou scénu a Club Stage klubovou elektroniku, vždy po 20 interpretech.
-- 3 dny, 3 scény a 60 chronologických položek bez kolizí scén, konkrétní hudební subžánry, podrobné medailonky, Spotify/YouTube odkazy, filtry, oblíbené a contains hledání.
-- Třídenní VIP **1 590 Kč**, Regular **990 Kč**, stání **490 Kč**. Jednodenní VIP **590 Kč**, Regular **390 Kč**, stání **190 Kč**. Dva libovolné dny stojí dvojnásobek jednodenní ceny. Částky obsahují modelovou **12% DPH**, poplatky jsou 0 Kč; ceny a popisy jsou ve zdrojovém XML.
-- Sjednocený průvodce pro **1 / 2 / 3 dny**, včetně nesousedících dnů. VIP a Regular si návštěvník ručně označí v mapě; stání vybírá počtem. Nový prohlížeč začíná s volnými místy, objednávka zabere jen své konkrétní dny.
-- Volitelný kemp na tři noci: **stan 350 Kč / karavan 850 Kč + 150 Kč za osobu**, kapacity a limity podle typu. Doplněk vstupenkové objednávky má vlastní PDF voucher.
-- Dokončení má jméno, příjmení, e-mail a telefon. `PULSE10` (10 %) a `PRAHA200` (200 Kč) snižují **jen vstupenky**, nikoli kemp. Sedm metod platby je zkušebních. PDF zachová konkrétní dny, součet, slevu, kemp a zahrnutou DPH.
-- Tři novinky mají vlastní články a skutečné fotografie: ověřené dokončení rekonstrukce Průmyslového paláce, MHD a ilustrační festivalový náramek. Datum a původ snímků jsou uvedené.
-- Rozšířená registrace vyžaduje jméno, příjmení, e-mail, telefon a potvrzení hesla; kontakty lze upravit v profilu. Účty a objednávky přetrvávají po zavření webu ve stejném prohlížeči; přihlášení platí sedm dnů. Historie zachová ročník starší objednávky, která neobsadí místa pro rok 2027.
-- Praktické návštěvnické informace, **offline plánek areálu**, MHD, parkování a kemp. Externí Google mapa jen po souhlasu. Soukromí, Podmínky a Kredity mají vlastní stránky, celkem 13 HTML vstupů.
-- Panel soukromí: nezbytné místní ukládání a samostatná volba externích map; bez analytiky a reklamního sledování.
+## Spuštění
 
-## Moodle a prezentace
+1. [Stáhni ZIP projektu](https://github.com/Ladrys/webdesign/archive/refs/heads/main.zip) nebo použij **Code → Download ZIP**.
+2. **Rozbal celý archiv.**
+3. Otevři **`web/index.html`** v prohlížeči.
 
-Hotové složky najdete v **[`odevzdani/`](odevzdani/README.md)**:
+Python, Node.js ani instalace balíčků nejsou pro web potřeba. Povol JavaScript a místní úložiště. Fotografie, fonty i PDF knihovny jsou přibalené; externí Google mapa vyžaduje připojení a souhlas.
 
-| Cvičení | Co je přiloženo |
+## Funkce
+
+- Program 60 vystoupení na třech scénách, filtry podle dne a scény, oblíbené koncerty.
+- Vyhledávání v datech festivalu, detaily interpretů a přepínání CZ/EN.
+- Výběr vstupenek na 1/2/3 dny, sedadla nebo stání, promo kódy a volitelný kemp.
+- Místní účet, profil, historie objednávek a stažení PDF vstupenek i kempovacího poukazu.
+- Praktické informace, offline plánek a volitelná Google mapa.
+
+Jde o klientský školní projekt: účty a objednávky zůstávají v daném prohlížeči, platby jsou zkušební a e-mail se neodesílá. Současná vstupenka platí pro všechny scény ve vybraných dnech.
+
+## Orientace v repozitáři
+
+| Umístění | Účel |
 | --- | --- |
-| 02 | `project-specification.md`, `data.xml`, PPTX, PDF, poznámky k prezentaci |
-| 03 | Samostatný spustitelný interaktivní prototyp, `progress-02.md`, PPTX/PDF/poznámky |
-| 04 | Web, `progress-03.md`, dokumentace, PPTX/PDF/poznámky |
-| 05 | Review-ready web, specifikace, data, `progress-04.md`, PPTX/PDF/poznámky |
-| 06 | Metodická šablona `review.md` a prezentace; skutečný přidělený cizí projekt je nutné doplnit |
-| Finální projekt | Povinná struktura `projekt/` včetně webu, prototypu, XML, dokumentace a review |
+| [`web/`](web/) | Hotový web; začni souborem `index.html`. |
+| [`data/festival.xml`](data/festival.xml) | Zdrojová data; kořenový `data.xml` je kopie pro odevzdání. |
+| [`API/`](API/) | XML schémata, XSLT, JSON příklady a OpenAPI z datové části; nejde o běžící server. |
+| [`prototype/`](prototype/) | Jednoduchý interaktivní wireframe pro ověření scénářů. |
+| [`course-source/`](course-source/) | Upravitelné podklady prezentací a průběžných zpráv. |
+| [`odevzdani/`](odevzdani/README.md) | Připravené složky pro cvičení 2–6 a finální projekt. |
+| [`tests/`](tests/README.md) · [`tools/`](tools/README.md) | Volitelné vývojové kontroly a generátory podkladů. |
+| [`docs/`](docs/PROJECT-GUIDE.md) · [`review/`](review/) | Průvodce soubory, dokumentace a záznamy hodnocení. |
 
-Prezentace 02–05 mají šest snímků pro přibližně čtyři minuty, editovatelný text a poznámky řečníka. Prezentace 06 je jasně označená příprava metodiky. Podklady jsou dodatečně sestavené podle požadavků, nejsou dokladem minulého odevzdání. Jména týmu, skutečné přijaté review, časovou osu a schválení rozsahu změn doplňuje tým.
+Podrobný [průvodce vysvětluje jednotlivé soubory, funkce, ukládání dat i rozdíl mezi XML, JSON a JSON-LD](docs/PROJECT-GUIDE.md). [Vývojový návod](docs/DEVELOPMENT.md) popisuje instalaci Pythonu a spuštění testů. Výsledky ověření jsou v [`validation_report.md`](validation_report.md); historie verzí v [`CHANGELOG.md`](CHANGELOG.md).
 
-## Hranice klientské verze
+## Podklady do školy
 
-Jde o fiktivní festival s navrženým line-upem skutečných interpretů; jejich účast není potvrzená. **Platba je zkušební, e-mail se automaticky neodesílá a PDF není skutečnou vstupenkou.** Účty, objednávky a dostupnost jsou uložené v tomto prohlížeči, nikoli sdílené mezi návštěvníky. Heslo se ukládá jako solený PBKDF2 hash. Lokální účet není bezpečná serverová autentizace. Kontaktní doména a telefon jsou pouze ilustrativní, nejsou ověřeným kontaktem pořadatele.
+[Seznam požadovaných souborů a obsahu prezentací pro každé cvičení](docs/ODEVZDANI.md) · [Projektová specifikace](project-specification.md) · [Dokumentace Word](docs/documentation.docx)
 
-Web automaticky nepřepisuje soubory na disku. Data ukládá do `localStorage`; odstranění dat prohlížeče smaže i místní účty a objednávky. Souhlas s externí mapou lze kdykoli změnit odkazem v patičce. Volba soukromí má platnost 180 dnů; nemění nezbytné ukládání účtu nebo košíku.
+Prezentace jsou připravené jako PPTX i PDF s poznámkami pro 3–5 minut. Cvičení 6 je šablona, dokud tým nedoplní skutečné hodnocení přiděleného projektu. Údaje o historických odevzdáních ani externím review se nedoplňují odhadem.
 
-## Vývojové ověření a obnova podkladů
+## Zdroje
 
-```sh
-python validate_project.py
-node --check web/js/app.js
-node --check web/js/i18n.js
-node --check web/js/privacy.js
-node --check web/js/design.js
-node --check web/js/site-shell.js
-node --check web/js/news.js
-node --check web/js/ticket-pdf.js
-python tests/browser_smoke.py
-python tests/course_materials.py --folder odevzdani
-```
-
-Browserové testy si spouštějí a ukončují vlastní dočasný statický server. Tyto vývojové nástroje (Python Playwright, Chromium, PyMuPDF; pro datový validátor lxml/PyYAML/jsonschema; pro kontrolu prezentací python-pptx) nejsou potřeba pro otevření webu. Ve spravovaném testovacím prohlížeči blokuje politika přímé `file://`; tato kontrola se výslovně označuje jako přeskočená.
-
-Volitelný `python tools/generate_data.py` obnoví přibalená webová data po změně XML/JSON zdrojů. `python tools/build_course_submissions.py --include-web` znovu sestaví složky odevzdání a PPTX/PDF z `course-source/` (vývojově potřebuje python-pptx a ReportLab). Tyto skripty se při běžném spuštění nespouštějí. Původní složka `API/` obsahuje datové transformace a schémata, nikoli běžící rozhraní.
-
-Podrobnosti a limity: `documentation.md`, výsledky: `validation_report.md`. **Fotografie Hedex a AC Slater mají CC BY-NC-SA 2.0: použití je určeno pro nekomerční školní projekt, nikoli automaticky pro komerční festival.** Před jiným použitím je nutné získat další oprávnění nebo je nahradit. Zdroje, autoři a licence všech fotografií i původ typografických plakátů: `web/images/PHOTO-CREDITS.md`. Starší nepoužívané AI video a portréty dokumentují `web/images/ROCKS-ASSETS.md` a `web/images/performers/README.md`. Náhledy jsou v `preview/`.
+[Autoři a licence fotografií](web/images/PHOTO-CREDITS.md) · [Knihovny PDF a QR](web/vendor/README.md). Dvě fotografie CC BY-NC-SA omezují aktuální sadu na nekomerční školní použití. Účast uvedených skutečných interpretů na fiktivním festivalu není potvrzená.

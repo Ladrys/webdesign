@@ -1,366 +1,41 @@
 {
   "02": {
     "name": "Projektová specifikace a data",
-    "subtitle": "Identita · návštěvníci · informační architektura",
+    "subtitle": "Festival, návštěvníci, struktura a scénáře",
+    "authors": [
+      "Michal Ladra",
+      "Matěj Mlejnek",
+      "Jan Martínek"
+    ],
     "slides": [
       {
         "layout": "cover",
-        "title": "Festival začíná\nu programu.",
-        "kicker": "CVIČENÍ 02 / SPECIFIKACE",
-        "lead": "Prague Pulse Fest\n1—3 / 08 / 2027 · Praha",
-        "notes": "Představujeme Prague Pulse Fest, fiktivní třídenní hudební festival v Praze. Cílem webu je umožnit návštěvníkovi rychle zjistit, kdy a kde hrají oblíbené kapely, a připravit si vlastní program. Jde o aktuálně připravený podklad k milníku, ne doklad historického odevzdání. Základem je specifikace a XML datová základna. Zachováváme tři dny, tři scény a šedesát účinkujících; původní název, posun termínu na srpen 2027 a výraznější grafický směr vznikly z požadavku zadavatele. Současná datová základna obsahuje skutečné interprety jako navržený line-up; nejde o potvrzení jejich účasti."
+        "title": "Projektová specifikace",
+        "kicker": "CVIČENÍ 02",
+        "lead": "Prague Pulse Fest · 1.–3. srpna 2027\nVýstaviště Praha · fiktivní festival",
+        "notes": "[30 s] Představujeme Prague Pulse Fest, fiktivní třídenní hudební festival na pražském Výstavišti. První výstup tvoří specifikace a XML datová základna. Web má návštěvníkovi usnadnit výběr koncertů, dohledání interpreta a přípravu návštěvy. Na tomto snímku uvedeme všechny tři autory. Poznámka k původu materiálů: nynější balíčky jsou připravené podklady podle zadání, ne archiv historických odevzdání. Skutečné interprety používáme jako návrh line-upu, jejich účast netvrdíme."
+      },
+      {
+        "layout": "bullets",
+        "title": "Účel webu a cílové skupiny",
+        "kicker": "POTŘEBY NÁVŠTĚVNÍKŮ",
+        "bullets": [
+          "Návštěvník na mobilu: rychle najít den, čas a scénu.",
+          "Fanoušek interpreta: vyhledat jméno a otevřít koncert.",
+          "Přijíždějící návštěvník: doprava, orientace, čeština i angličtina.",
+          "Hlavní akce: najít koncert, uložit program, vybrat vstupenku."
+        ],
+        "lead": "",
+        "notes": "[35 s] Cílové skupiny rozlišujeme podle úkolu. Na místě potřebuje člověk rychlou orientaci v programu, fanoušek hledá konkrétní jméno a návštěvník Prahy cestu do areálu. Proto navrhujeme kombinované filtry, hledání, osobní program a praktické informace. Angličtina pomáhá zahraničním návštěvníkům. Výběr vstupenky je další cesta, ale účet nesmí být podmínkou jejího dokončení. Hlavním cílem úvodu je ukázat název, datum a srozumitelné odkazy k těmto úkolům."
       },
       {
         "layout": "metrics",
-        "title": "Jedna akce. Propojená data.",
-        "kicker": "IDENTITA A DATOVÝ MODEL",
+        "title": "Datová základna v XML",
+        "kicker": "ENTITY A VAZBY",
         "metrics": [
           [
             "3",
-            "festivalové dny"
-          ],
-          [
-            "3",
-            "hudební scény"
-          ],
-          [
-            "60",
-            "účinkujících"
-          ],
-          [
-            "60",
-            "programových položek"
-          ]
-        ],
-        "lead": "1.–3. srpna 2027 · Vltava Park / Výstaviště Praha\nMain Hall / mezinárodní · River Stage / CZ · Club Stage / elektronika",
-        "notes": "Festival trvá od prvního do třetího srpna 2027 ve fiktivně uspořádaném areálu u reálného Výstaviště Praha. XML obsahuje tři dny, tři scény, šedesát skutečných interpretů a šedesát vystoupení. Každá scéna má dvacet jmen a jasné zaměření: Main Hall velká mezinárodní jména, River Stage českou scénu a Club Stage klubovou elektroniku. Každý interpret má jedno vystoupení, program je chronologický a scény nemají kolize. Skutečná jména ale neznamenají potvrzenou účast. Vztahy kontrolujeme podle jednoznačných ID."
-      },
-      {
-        "layout": "cards",
-        "title": "Pro koho web připravujeme?",
-        "kicker": "POTŘEBY → FUNKCE",
-        "cards": [
-          [
-            "Na cestě",
-            "Mobilní návštěvník potřebuje čas a scénu bez procházení celého webu.\n\nFiltry programu a osobní výběr."
-          ],
-          [
-            "Za konkrétní kapelou",
-            "Fanoušek zná část názvu, potřebuje zjistit, kdy kapela hraje.\n\nHledání, detail a související koncert."
-          ],
-          [
-            "Poprvé v Praze",
-            "Návštěvník potřebuje dopravu, orientaci a srozumitelný jazyk.\n\nInfo, mapa lokality a CZ / EN."
-          ]
-        ],
-        "notes": "Hlavní skupiny definujeme podle konkrétní potřeby, nikoli jen věku. Návštěvník na telefonu potřebuje najít nejbližší koncert; fanoušek konkrétní kapely hledá známé jméno a čas. Lidé přijíždějící do Prahy potřebují praktické informace a zahraniční návštěvníci angličtinu. Pro každou potřebu máme jasnou funkci. Vedlejší tok umožní porovnat vstupenky a projít lokální objednávku. Na úvodu má být hned vidět název, datum a hlavní cesta do programu."
-      },
-      {
-        "layout": "route",
-        "title": "Obsah má konkrétní vazby.",
-        "kicker": "INFORMAČNÍ ARCHITEKTURA",
-        "steps": [
-          [
-            "Úvod",
-            "Identita + datum"
-          ],
-          [
-            "Program",
-            "Den / scéna"
-          ],
-          [
-            "Účinkující",
-            "Detail + koncert"
-          ],
-          [
-            "Info",
-            "Doprava + místo"
-          ]
-        ],
-        "lead": "Hledání vede na odpovídající objekt.\nVstupenky → košík → dokončení → PDF; účet je doplňková cesta.",
-        "notes": "Z úvodní stránky vedeme do programu, účinkujících a praktických informací. Detail interpreta neukončuje cestu: odkazuje na příslušný koncert, kde je datum a scéna. Scéna naopak propojuje lokalitu s jejím programem. Vyhledávání má samostatné výsledky, které míří na správný obsah. Objednávka je oddělená souvislá cesta od porovnání tarifů přes košík k PDF. Účet není podmínkou objednávky. Takto vzniká struktura podle úkolů uživatele, nikoli podle technických souborů."
-      },
-      {
-        "layout": "split",
-        "title": "Dva průchody, jasný výsledek.",
-        "kicker": "KLÍČOVÉ SCÉNÁŘE",
-        "cards": [
-          [
-            "S1 / Vybrat program",
-            "Telefon → den 1 → River Stage → uložit koncert → osobní program.\n\nVýsledek: správný výběr přetrvá po obnovení."
-          ],
-          [
-            "S2 / Najít kapelu",
-            "Dotaz „DARKZY“ → DARKZY → detail → vystoupení.\n\nVýsledek: návštěvník zná datum, čas a scénu."
-          ]
-        ],
-        "lead": "S3: vlastní dny a sedadlo, volitelný kemp, cena včetně modelové DPH.",
-        "notes": "První scénář řeší návštěvníka na telefonu, který zná den a scénu. Filtrovaný seznam mu umožní uložit koncert a později se vrátit k vlastnímu programu. Ve druhém scénáři návštěvník zadá jen název DARKZY, otevře DARKZY a zjistí čas i scénu koncertu. Očekávané výsledky jsou měřitelné: filtry nesmějí vracet jiné dny a oblíbené musí vydržet obnovení. Třetím scénářem ve specifikaci je objednávka hosta s výstupem PDF. Třetí scénář nově dovoluje dva libovolné dny včetně prvního a třetího, vlastní sedadlo a kemp. Není nutné kupovat celý festival."
-      },
-      {
-        "layout": "split",
-        "title": "AI návrh potřebuje důkaz.",
-        "kicker": "POUŽITÍ AI A KONTROLA",
-        "cards": [
-          [
-            "Přijato / upraveno",
-            "AI: struktura, texty, propojení dat a vizuální návrh.\n\nVlastní identita festivalu; žádná kopie cizího loga."
-          ],
-          [
-            "Jak ověřujeme",
-            "Počty a unikátní ID. Existence každé reference. Shoda exportu s XML.\n\nScénáře ověřují chování, ne jen vzhled."
-          ]
-        ],
-        "lead": "Schválení redesignu a skutečnou historii semestru musí doložit tým.",
-        "notes": "AI pomohla analyzovat zadání a připravit strukturu, texty i návrh datového propojení. Přijali jsme propojení podle ID a mobile-first přístup. Odmítli jsme vlastní backend, protože finální zadání vyžaduje čistě klientské řešení, a kopírování cizí značky. Builder kontroluje počty, unikátní identifikátory a existenci vazeb. Samotná AI kontrola ale nic nedokazuje, proto máme konkrétní validátory a navazující scénáře. Chybějící skutečné konzultace, schválení změn a týmovou historii nesmíme nahrazovat vymyšlenými tvrzeními."
-      }
-    ]
-  },
-  "03": {
-    "name": "UX návrh a interaktivní prototyp",
-    "subtitle": "Mobile-first · klíčové scénáře · funkční wireframe",
-    "slides": [
-      {
-        "layout": "cover",
-        "title": "Nejdřív cesta.\nPotom grafika.",
-        "kicker": "CVIČENÍ 03 / PROTOTYP",
-        "lead": "Spustitelný wireframe bez instalace.\nDva scénáře, čtyři obsahové části.",
-        "notes": "Připravili jsme interaktivní wireframe, který lze otevřít přímo v prohlížeči. Záměrně je jednodušší než finální vizuální návrh, abychom mohli hodnotit navigaci a práci s programem. Nejde o skutečně archivovanou dřívější verzi, ale o nově sestavený reprezentativní milník. Oproti specifikaci jsou nyní přímo průchozí dva scénáře: sestavení programu a vyhledání interpreta. Používáme stejná obsahová data, takže prototyp není jen několik vymyšlených karet."
-      },
-      {
-        "layout": "cards",
-        "title": "Interaktivita řeší potřebu.",
-        "kicker": "ČTYŘI FUNKCE, NE SLIDESHOW",
-        "cards": [
-          [
-            "Zúžit program",
-            "Den + scéna společně mění skutečný seznam vystoupení.\n\nMéně nesouvisejících výsledků."
-          ],
-          [
-            "Uchovat výběr",
-            "Přidání do osobního programu a filtr „Jen uložené“.\n\nVýběr zůstává po obnovení."
-          ],
-          [
-            "Najít souvislosti",
-            "Contains hledání + detail interpreta + návazné koncerty.\n\nOd názvu až k času a scéně."
-          ]
-        ],
-        "notes": "Navržené funkce navazují přímo na potřeby ze specifikace. Kombinace dne a scény zkracuje program na relevantní část. Oblíbené umožní vrátit se k rozhodnutí a jsou uchované v prohlížeči. Hledání funguje podle části názvu bez ohledu na velikost písmen a diakritiku. Kontextový detail přidává další smysluplnou interakci: z interpreta vede ke koncertu. Samotnou navigaci ani dekorativní pohyb nepočítáme jako jednu ze tří požadovaných funkcí."
-      },
-      {
-        "layout": "split",
-        "title": "Malý displej je výchozí.",
-        "kicker": "RESPONZIVNÍ HIERARCHIE",
-        "cards": [
-          [
-            "Mobil",
-            "Jeden sloupec, zalamovaná navigace a filtry.\n\nNázev a hlavní akce před delším obsahem."
-          ],
-          [
-            "Desktop",
-            "Grid rozšíří seznam podle volného prostoru.\n\nStejná cesta a význam ovládání, více obsahu vedle sebe."
-          ]
-        ],
-        "lead": "Pružné rozměry; popisky formulářů; viditelný focus; klávesnice.",
-        "notes": "Pro mobil nezačínáme zmenšeným desktopem. Základ tvoří jeden sloupec, krátká navigace a jasné pořadí: identita, hledání, obsah. Filtry i tlačítka se mají zalamovat bez horizontálního posouvání celé stránky. Desktop používá tentýž obsah, jen nabízí více karet vedle sebe. Grid řeší obsahové seznamy a Flexbox navigaci. Už ve wireframu mají formuláře popisky a ovládání viditelný focus. To je levnější ověřit před dopracováním grafiky."
-      },
-      {
-        "layout": "route",
-        "title": "S1 / Od přehledu k výběru.",
-        "kicker": "ŽIVÝ PRŮCHOD PROGRAMEM",
-        "steps": [
-          [
-            "Program",
-            "Otevřít přehled"
-          ],
-          [
-            "1. srpna",
-            "Vybrat den"
-          ],
-          [
-            "River Stage",
-            "Zvolit scénu"
-          ],
-          [
-            "Uloženo",
-            "Obnovit stránku"
-          ]
-        ],
-        "lead": "Zkontrolovat správný den, scénu a zachování oblíbené akce.\nPrázdný výběr má srozumitelnou cestu zpět.",
-        "notes": "V první krátké ukázce otevřeme Program, vybereme první srpen a River Stage. Na výsledku ověříme datum a scénu, ne pouze počet karet. Jeden koncert uložíme a zapneme filtr Jen uložené. Po obnovení je uložený výběr znovu k dispozici. Projdeme také stav bez výsledků, aby bylo jasné, jak filtr změnit. Konkrétní průchod a jeho výsledek popisuje přiložený prototypový validační záznam; test ve vývojovém prohlížeči neznamená test na všech zařízeních."
-      },
-      {
-        "layout": "route",
-        "title": "S2 / Od hledání ke koncertu.",
-        "kicker": "ŽIVÝ PRŮCHOD HLEDÁNÍM",
-        "steps": [
-          [
-            "DARKZY",
-            "Zadat dotaz"
-          ],
-          [
-            "Výsledky",
-            "Najít interpreta"
-          ],
-          [
-            "DARKZY",
-            "Otevřít detail"
-          ],
-          [
-            "Program",
-            "Zjistit čas"
-          ]
-        ],
-        "lead": "Hledaný text se zobrazuje jako text.\nDetail a vystoupení používají stejné datové vazby.",
-        "notes": "Ve druhé ukázce zadáme DARKZY do globálního hledání. Výsledky oddělují účinkující od souvisejících vystoupení. U DARKZY otevřeme dialog s žánrem, popisem a programem. Odkaz do programu zachová kontext interpreta. Kontrolujeme, že údaje pocházejí ze stejné základny a dialog lze zavřít klávesou Escape. Hledaný text se nevkládá jako spustitelné HTML. Návštěvník dostane srozumitelnou zprávu i tehdy, když hledání nic nenajde."
-      },
-      {
-        "layout": "split",
-        "title": "Co prototyp ověřuje?",
-        "kicker": "AI / VALIDACE / DALŠÍ KROK",
-        "cards": [
-          [
-            "Ověřené hranice",
-            "Data a reference; funkční filtry; oblíbené; hledání; dialog.\n\nZáznam: prototype-validation.md."
-          ],
-          [
-            "Zbývající práce",
-            "Finální grafika, jazykové mutace, vstupenky a PDF.\n\nWireframe nepředstírá hotovou objednávku."
-          ]
-        ],
-        "lead": "AI návrh byl upraven podle scénářů. Uživatelský výzkum není doložen.",
-        "notes": "Prototyp ověřuje informační architekturu a dva klíčové průchody. Jeho datové minimum kontroluje builder a browserový test prochází filtry, hledání, uložení i dialog. AI pomohla s návrhem a kódem, ale nepovažujeme její návrh za důkaz použitelnosti. Přijali jsme jednoduché bloky, propojení dat a funkční stavy. Odmítli jsme předstírat nákup v nehotovém wireframu. Skutečné rozhovory s návštěvníky ani testování na fyzickém telefonu nebyly dodány. Další milník ukazuje finální vzhled a širší funkce."
-      }
-    ]
-  },
-  "04": {
-    "name": "První funkční implementace",
-    "subtitle": "Vizuální identita · responzivita · praktické scénáře",
-    "slides": [
-      {
-        "layout": "cover",
-        "title": "Festival má\nvlastní tvář.",
-        "kicker": "CVIČENÍ 04 / IMPLEMENTACE",
-        "lead": "Výrazná typografie. Asymetrická kompozice.\nHTML · CSS · JavaScript.",
-        "notes": "Na wireframe navazuje kompletní současná implementace. Obsahuje výraznější vlastní identitu, tmavou celoplošnou hlavičku a skutečnou historickou fotografii Výstaviště. Identitu doplňuje typografické logo bez zvukových sloupců Prague Pulse Fest. Inspirací je obecný festivalový vizuální styl, nikoli převzetí loga nebo grafiky jiné akce. Materiály byly připraveny ze současné verze, protože skutečný historický export ze cvičení nebyl poskytnut. Při prezentaci ukážeme mobilní a desktopové zobrazení a dvě nejdůležitější cesty. Není třeba instalovat runtime nebo spouštět build. Název vracíme na Prague Pulse Fest a termín na výslovnou volbu zadavatele posouváme na 1.–3. srpna 2027. Hlavička má na notebooku hledání a navigaci v jednom řádku; odpočet pracuje s pražskou časovou zónou."
-      },
-      {
-        "layout": "cards",
-        "title": "Hlavní části jsou propojené.",
-        "kicker": "OBSAH A FUNKCE",
-        "cards": [
-          [
-            "Objevovat",
-            "Úvod, novinky, 60 skutečných interpretů, biografické detaily a hledání.\n\nCZ / EN pro zahraniční návštěvníky."
-          ],
-          [
-            "Plánovat",
-            "Mezinárodní / česká / klubová scéna.\n\nOsobní program, doprava a offline plánek."
-          ],
-          [
-            "Vybrat vstupenku",
-            "Jeden, dva nebo tři dny. Vlastní sedadlo nebo stání.\n\nKemp, promo a daňový rozpis v PDF."
-          ]
-        ],
-        "notes": "Implementace pokrývá třináct HTML vstupů a všechny povinné části. Program rozlišuje hlavní mezinárodní jména, českou scénu a klubovou elektroniku. Detaily mají biografii, konkrétní subžánr a hudební odkazy; ověřený profil se odlišuje od vyhledávání. Návštěvník si vybere jeden, dva libovolné nebo tři dny. VIP a Regular si ručně označí v mapě, stání vybírá počtem. Kemp se přidává v košíku. Soukromí, Podmínky a Kredity mají vlastní stránky, praktické Info se soustředí na návštěvu."
-      },
-      {
-        "layout": "split",
-        "title": "Flexbox i Grid mají své místo.",
-        "kicker": "MOBILNÍ A DESKTOPOVÉ ZOBRAZENÍ",
-        "cards": [
-          [
-            "Flexbox",
-            "Navigace, akce, přepínače a řádky formulářů.\n\nZalamování podle dostupného prostoru."
-          ],
-          [
-            "Grid",
-            "Přehledy interpretů, program a obsahové bloky.\n\nPružné sloupce, rozumné mezery, čitelná hierarchie."
-          ]
-        ],
-        "lead": "Kontrolujeme přetékání, čitelnost, ovládání, dialogy i vyplněný košík.",
-        "notes": "Ano, Flexbox se pro tento web hodí, zejména pro navigaci a řady ovládacích prvků. Pro více řad karet je vhodnější Grid. Pružné velikosti a clamp přizpůsobují typografii prostoru, místo pevného navrhování pro konkrétní telefon. Responzivitu však nedokazuje jediný screenshot prázdného úvodu. Kontrolujeme i dlouhé názvy, otevřené menu, formuláře, dialogy a neprázdný košík. Při prezentaci vedle sebe ukážeme úzký a široký viewport stejného scénáře, aby bylo vidět, že zůstává stejná logika."
-      },
-      {
-        "layout": "route",
-        "title": "Dva scénáře předvést, ne popsat.",
-        "kicker": "UKÁZKA IMPLEMENTACE",
-        "steps": [
-          [
-            "S1",
-            "Den + scéna"
-          ],
-          [
-            "Výběr",
-            "Uložit koncert"
-          ],
-          [
-            "S2",
-            "Vyhledat DARKZY"
-          ],
-          [
-            "Detail",
-            "Otevřít koncert"
-          ]
-        ],
-        "lead": "Klávesnice: viditelný focus, dialog a návrat.\nObsah: stejná data v seznamu i detailu.",
-        "notes": "Zopakujeme S1 a S2 ve finálním rozhraní. Nejprve filtrujeme program a ověříme uložení osobního výběru. Potom hledáme DARKZY a přejdeme z detailu k jeho koncertu. Při ukázce sledujeme názvy, datum a scénu; efektní animace nesmí nahradit správný obsah. Krátce ukážeme klávesnici a zavření dialogu. Přístupnost není pouze kontrast: důležité je správné pořadí, popisky, zachování focusu a srozumitelná změna stavu. Plnou shodu s WCAG bez odpovídajícího auditu netvrdíme."
-      },
-      {
-        "layout": "split",
-        "title": "Zdroj dat zůstává jeden.",
-        "kicker": "XML → PŘIBALENÝ EXPORT → ROZHRANÍ",
-        "cards": [
-          [
-            "XML jako zdroj",
-            "60 jmen, 60 akcí, tarify, kemp a modelová sazba DPH.\n\nDvě vybraná data zůstávají přesná i v PDF."
-          ],
-          [
-            "Přehledný součet",
-            "Promo jen na vstupenky, kemp samostatně.\n\nCeny obsahují 12% DPH; poplatek objednávky 0 Kč."
-          ]
-        ],
-        "lead": "2× dvoudenní VIP + PULSE10 + stan pro 2 = 2 774 Kč včetně modelové DPH.",
-        "notes": "Ceny a model daně vycházejí z XML. Dva dny stojí součet dvou jednodenních tarifů, tři dny mají zvýhodněný balíček. Příklad: dvě dvoudenní VIP jsou 2360 korun, PULSE10 odečte 236 a stan pro dvě osoby přidá 650. Výsledek je 2774 korun; kemp se nezlevňuje. V ceně je modelová dvanáctiprocentní DPH, nikoli příplatek. Výpočet je školní model, ne právní potvrzení sazby roku 2027. PDF vypíše skutečné vybrané dny a pro kemp přidá samostatný voucher."
-      },
-      {
-        "layout": "split",
-        "title": "Kontrola má konkrétní výstup.",
-        "kicker": "OVĚŘENÍ AI A VLASTNÍHO ŘEŠENÍ",
-        "cards": [
-          [
-            "Technické důkazy",
-            "Datový validátor a browserové průchody.\n\nAktuální výsledky: validation_report.md."
-          ],
-          [
-            "Poctivé limity",
-            "Žádná smyšlená měření uživatelů ani peer review.\n\nFyzické telefony a plný audit WCAG nejsou doloženy."
-          ]
-        ],
-        "lead": "Přijato: vlastní identita a mobile-first. Odmítnuto: backend a kopie značky.",
-        "notes": "AI pomohla s rozvržením, texty, originální grafikou, implementací a testovacími skripty. Testy ale musí běžet proti skutečné výsledné verzi. Přiložený validační záznam uvádí konkrétní výsledek, rozsah a přeskočené kontroly. Datové minimum a reference kontrolujeme odděleně od prohlížeče. PDF posuzujeme jako soubor a ne pouze potvrzení na obrazovce. Historické odevzdání, testy s reálnými návštěvníky ani externí cross-review nejsou doloženy. Tým musí umět vysvětlit, co přijal a které limity zůstávají. Dne 18. října 2026 jsme přímo přečetli Google SEO Starter Guide, Google AI features and your website a WAI Page Structure Tutorial. Používáme konkrétní titulky, vnitřní odkazy, viditelný text, pravdivé JSON-LD a logické landmarky a nadpisy. Zvláštní AI schéma ani speciální textový soubor nejsou vyžadované. Nové fotografie jsou částečně CC BY-NC-SA: dva snímky lze použít v tomto nekomerčním školním rozsahu, nikoli automaticky pro komerční festival."
-      }
-    ]
-  },
-  "05": {
-    "name": "Review-ready verze",
-    "subtitle": "Předání druhému týmu · scénáře · známé limity",
-    "slides": [
-      {
-        "layout": "cover",
-        "title": "Připraveno\nke kontrole.",
-        "kicker": "CVIČENÍ 05 / REVIEW-READY",
-        "lead": "Spustitelný web + specifikace + data.\nPřesné scénáře pro hodnotící tým.",
-        "notes": "Předáváme současnou review-ready verzi druhému týmu. Balíček obsahuje web, specifikaci, data a progress popisující stav i omezení. Materiál je připraven dodatečně ze současné implementace a nevydáváme jej za historicky doložené odevzdání. Reviewer nemusí instalovat framework ani server. Naším cílem je, aby mohl nezávisle projít klíčové úkoly a zaznamenat reprodukovatelné nálezy. Dnes nepředstavujeme výsledky cizího hodnocení; ty zatím nebyly poskytnuty."
-      },
-      {
-        "layout": "metrics",
-        "title": "Obsah pro skutečný průchod.",
-        "kicker": "ROZSAH PŘEDÁNÍ",
-        "metrics": [
-          [
-            "3",
-            "dny programu"
+            "dny"
           ],
           [
             "3",
@@ -368,198 +43,457 @@
           ],
           [
             "60",
-            "detailů interpretů"
+            "účinkujících"
           ],
           [
             "60",
-            "programových položek"
+            "vystoupení"
           ]
         ],
-        "lead": "Filtry · osobní program · CZ / EN · offline plánek\n1/2/3 dny · sedadla / stání · kemp · profil · PDF",
-        "notes": "Web obsahuje všechny hlavní obsahové části, takže hodnocení nemusí stát na prázdných zástupných stránkách. K dispozici je šedesát interpretů a programových položek během tří dnů na třech scénách. Vyhledávání a filtry mají skutečný datový podklad. Doplňkové cesty zahrnují lokalitu, jazykovou volbu a objednávku. Čísla dokazují rozsah obsahu, nikoli automaticky kvalitu UX. Proto předáváme konkrétní scénáře, očekávané výsledky a známé limity, aby review nezůstalo u obecného dojmu z grafiky."
+        "lead": "Festival → dny, scény, interpreti a vystoupení.\nKaždé vystoupení odkazuje na existující ID.",
+        "notes": "[35 s] Datovým zdrojem je festival.xml, pro odevzdání také data.xml. Festival obsahuje tři dny a tři scény: Main Hall, River Stage a Club Stage. Vystoupení nese datum, čas a odkazy na interpreta i scénu. ID jsou stabilní, názvy nejsou spojovacím klíčem. Generátor připravuje data pro prohlížeč; nemáme ručně udržovanou druhou verzi programu. Datové a browserové kontroly ověřují počty, unikátnost ID, reference a časové kolize uvnitř jedné scény."
       },
       {
-        "layout": "cards",
-        "title": "Tři úkoly pro hodnotící tým.",
-        "kicker": "PROSÍME PROJÍT A ZAZNAMENAT",
-        "cards": [
+        "layout": "route",
+        "title": "Struktura a propojení obsahu",
+        "kicker": "INFORMAČNÍ ARCHITEKTURA",
+        "steps": [
+          [
+            "Úvod",
+            "Datum a orientace"
+          ],
+          [
+            "Program",
+            "Den, čas a scéna"
+          ],
+          [
+            "Účinkující",
+            "Seznam a detail"
+          ],
+          [
+            "Info",
+            "Místo a doprava"
+          ]
+        ],
+        "lead": "Hledání → konkrétní obsah · Scény → jejich program\nVstupenky → košík → dokončení → PDF",
+        "notes": "[35 s] Hlavní navigace propojuje úvod, program, účinkující, scény a praktické informace. Hledání má vlastní stránku výsledků. Detail interpreta vede na jeho koncert a detail scény na příslušný program; uživatel se nemusí vracet na začátek. Vedlejší cesta vede přes vstupenky a košík k PDF. Soukromí, podmínky a obrazové kredity patří do patičky. Struktura vychází z cílů návštěvníka, nikoli z názvů JavaScriptových souborů."
+      },
+      {
+        "layout": "bullets",
+        "title": "Dva klíčové uživatelské scénáře",
+        "kicker": "CÍL → POSTUP → VÝSLEDEK",
+        "bullets": [
+          "S1 / Na mobilu vybrat koncerty pro konkrétní den a scénu.",
+          "Program → den → River Stage → uložit → osobní program.",
+          "S2 / Podle známého jména zjistit, kdy interpret vystoupí.",
+          "Hledání DARKZY → detail → datum, čas a scéna koncertu."
+        ],
+        "lead": "",
+        "notes": "[45 s] S1: návštěvník na telefonu zná den a scénu, ale nemá vybrané koncerty. Zvolí první srpen a River Stage, uloží akci a otevře osobní program. Očekáváme správně zúžený seznam a zachování výběru po obnovení. S2: fanoušek zná jméno DARKZY, nezná termín koncertu. Vyhledá ho, otevře detail a zjistí datum, čas i scénu. Specifikace obsahuje také S3: host vybere vstupenku a dokončí lokální objednávku s PDF. Dva první scénáře použijeme již v prototypu."
+      },
+      {
+        "layout": "bullets",
+        "title": "Použití AI a ověření dat",
+        "kicker": "ROZHODNUTÍ A JEJICH KONTROLA",
+        "bullets": [
+          "AI: návrh struktury, textů a propojení dat.",
+          "Přijato: vazby přes ID; upraveno: obsah podle scénářů.",
+          "Odmítnuto: vlastní backend v čistě klientském zadání.",
+          "Ověření: počty, ID, reference a shoda exportu s XML."
+        ],
+        "lead": "",
+        "notes": "[40 s] AI pomohla připravit strukturu specifikace, obsah a datový model. Přijali jsme jednoznačná ID a upravili obsah podle potřeb návštěvníků. Odmítli jsme návrh skutečného serverového přihlašování a e-mailů, protože finální zadání vyžaduje klientské řešení. Kontrolu provádí konkrétní validátor a porovnání exportu s XML; věta „ověřila AI“ by nestačila. Limit: automatická datová kontrola neověří srozumitelnost textů ani skutečnou účast interpretů. Původ fotografií a odchylku od požadavku na AI obrázky uvádíme v dokumentaci. Zaznamenaná datová kontrola prošla: export souhlasí s XML a program má platné reference."
+      }
+    ]
+  },
+  "03": {
+    "name": "UX návrh a interaktivní prototyp",
+    "subtitle": "Mobile-first návrh a dva průchody",
+    "authors": [
+      "Michal Ladra",
+      "Matěj Mlejnek",
+      "Jan Martínek"
+    ],
+    "slides": [
+      {
+        "layout": "cover",
+        "title": "UX návrh a prototyp",
+        "kicker": "CVIČENÍ 03",
+        "lead": "Prague Pulse Fest · 1.–3. srpna 2027\nVýstaviště Praha · fiktivní festival",
+        "notes": "[30 s] Oproti specifikaci máme spustitelný HTML wireframe. Otevře se bez instalace a používá stejnou datovou základnu jako web. Záměrně má jednoduchou grafiku: ověřujeme pořadí obsahu, navigaci a dva klíčové scénáře. Prototyp není šablona, kterou by hotový web při spuštění načítal; je to samostatná návrhová ukázka. Nynější prototyp byl sestaven pro tyto podklady, nepředstavujeme ho jako doložený historický export ze semestru."
+      },
+      {
+        "layout": "bullets",
+        "title": "Od specifikace k wireframu",
+        "kicker": "HLAVNÍ NÁVRHOVÁ ROZHODNUTÍ",
+        "bullets": [
+          "Nově: spustitelný wireframe a dva průchozí scénáře.",
+          "Mobil: jeden sloupec, hlavní úkol před doplňujícím obsahem.",
+          "Desktop: stejné funkce, více karet podle šířky.",
+          "Popisky, viditelný focus a zalamování navigace i filtrů."
+        ],
+        "lead": "",
+        "notes": "[35 s] Mobile-first zde znamená navrhnout použitelný úzký základ, ne pouze zmenšit desktop. Návštěvník nejprve vidí hledání a důležitý obsah, podrobnosti následují. Filtry zůstávají dostupné bez vodorovného posouvání celé stránky. Na desktopu se seznam rozšíří do více sloupců, význam tlačítek ale zůstává stejný. Flexbox obsluhuje navigaci a Grid obsahové karty. Už ve wireframu kontrolujeme popisky a klávesnici, abychom problémy neodkládali až na finální grafiku."
+      },
+      {
+        "layout": "bullets",
+        "title": "Tři funkce řeší konkrétní potřeby",
+        "kicker": "INTERAKTIVITA",
+        "bullets": [
+          "Filtr dne a scény → najít relevantní část programu.",
+          "Osobní program → uložit výběr a vrátit se k němu.",
+          "Hledání a detail → přejít od jména ke konkrétnímu koncertu."
+        ],
+        "lead": "",
+        "notes": "[35 s] První funkce kombinuje den a scénu; seznam musí splnit obě podmínky současně. Druhá ukládá vybraná vystoupení a umožní zobrazit pouze osobní program. Třetí hledá podle části názvu a propojuje detail s koncertem. Hledání nerozlišuje velikost písmen ani diakritiku. Menu nebo slideshow nepovažujeme za samostatnou požadovanou interakci. Každá zde uvedená funkce mění obsah nebo uchovává uživatelovo rozhodnutí a navazuje na potřebu ze specifikace."
+      },
+      {
+        "layout": "route",
+        "title": "S1: sestavení osobního programu",
+        "kicker": "UKÁZKA V PROTOTYPU",
+        "steps": [
+          [
+            "Program",
+            "Otevřít seznam"
+          ],
+          [
+            "Den a scéna",
+            "1. 8. / River Stage"
+          ],
+          [
+            "Uložit",
+            "Vybrat koncert"
+          ],
+          [
+            "Můj výběr",
+            "Obnovit stránku"
+          ]
+        ],
+        "lead": "Očekávaný výsledek: správný filtr a zachovaný výběr.",
+        "notes": "[45 s včetně ukázky] Otevřeme prototyp, přejdeme na Program a zvolíme první srpen s River Stage. Ověříme datum a scénu výsledků, ne jen počet karet. Vybraný koncert uložíme a zapneme Jen uložené. Po obnovení stránky se k výběru vrátíme. Pokud není žádný výsledek, rozhraní má nabídnout pochopitelnou cestu ke změně filtrů. Tento průchod je součástí browserového ověření prototypu; není to výzkum s reprezentativním vzorkem uživatelů."
+      },
+      {
+        "layout": "route",
+        "title": "S2: od hledání ke koncertu",
+        "kicker": "UKÁZKA V PROTOTYPU",
+        "steps": [
+          [
+            "DARKZY",
+            "Zadat dotaz"
+          ],
+          [
+            "Výsledek",
+            "Vybrat interpreta"
+          ],
+          [
+            "Detail",
+            "Jméno a popis"
+          ],
+          [
+            "Koncert",
+            "Datum, čas a scéna"
+          ]
+        ],
+        "lead": "Očekávaný výsledek: detail a program používají stejná data.",
+        "notes": "[45 s včetně ukázky] Do hledání zadáme DARKZY a otevřeme detail stejnojmenného interpreta. Z detailu přejdeme do jeho programu. Ukážeme správný čas a scénu a zavření dialogu klávesou Escape. Vyzkoušíme také dotaz bez výsledku. Přesné vazby porovnáváme s daty, nikoli s tím, zda výsledek vypadá věrohodně. Zadaný text musí být vykreslený jako text, proto kontrolujeme i vstup připomínající HTML. Výsledky jsou zaznamenané v prototype-validation.md."
+      },
+      {
+        "layout": "bullets",
+        "title": "AI a ověření prototypu",
+        "kicker": "PŘIJATO, UPRAVENO, ZKONTROLOVÁNO",
+        "bullets": [
+          "AI: wireframe, návrh textů a obsluha dat.",
+          "Přijato: filtry; upraveno: hierarchie obsahu pro mobil.",
+          "Ověřeno: scénáře, uložení, dialog a šířky 320 / 768 / 1440 px.",
+          "Limit: bez testu s návštěvníky na fyzických telefonech."
+        ],
+        "lead": "",
+        "notes": "[40 s] AI vytvořila návrh rozložení a část kódu. Přijali jsme propojení filtrů a detailů, upravili pořadí obsahu pro malé displeje a odmítli pouhou slideshow jako důkaz interaktivity. Samostatný test prochází dva scénáře, obnovu uloženého programu, vyhledávání a dialog. V určených šířkách kontroluje přetékání. Konkrétní výstup je přiložen, samotný návrh AI není validace. Prototyp zatím nezahrnuje objednávku, PDF ani jazykové mutace; ty ukazuje následující implementační milník. Přiložený test prošel bez chyb běhu a potvrdil zachování uloženého programu."
+      }
+    ]
+  },
+  "04": {
+    "name": "První funkční implementace",
+    "subtitle": "Mobil, desktop, navigace a interaktivita",
+    "authors": [
+      "Michal Ladra",
+      "Matěj Mlejnek",
+      "Jan Martínek"
+    ],
+    "slides": [
+      {
+        "layout": "cover",
+        "title": "První funkční implementace",
+        "kicker": "CVIČENÍ 04",
+        "lead": "Prague Pulse Fest · 1.–3. srpna 2027\nVýstaviště Praha · fiktivní festival",
+        "notes": "[30 s] Oproti wireframu ukazujeme současný hotový web s vlastní vizuální identitou, češtinou a angličtinou a rozšířenými funkcemi. Základem zůstává HTML, CSS a JavaScript bez backendu a instalačního kroku. Balíček obsahuje dnešní verzi webu, nikoli nedoložený historický stav ze cvičení. Při prezentaci se zaměříme na mobilní i desktopové zobrazení, funkční navigaci a dva stejné scénáře jako v prototypu."
+      },
+      {
+        "layout": "bullets",
+        "title": "Co přibylo proti prototypu",
+        "kicker": "PROTI PROTOTYPU",
+        "bullets": [
+          "Úvod, program, účinkující, scény, info a hledání jsou propojené.",
+          "Vlastní vizuální identita a přepínání češtiny / angličtiny.",
+          "Filtry, osobní program, detaily a lokální objednávka s PDF.",
+          "Účet není nutný k dokončení objednávky."
+        ],
+        "lead": "",
+        "notes": "[35 s] Povinné obsahové části již neexistují jako oddělené ukázky. Z interpreta lze přejít ke koncertu a ze scény do filtrovaného programu. Hledání pokrývá všechna data včetně popisů. K jádru přibyly vstupenky na jeden, dva nebo tři dny, košík, kemp a PDF. Registrace i historie jsou lokální pro prohlížeč, účet není povinný. Nákup nyní nepředěláváme na vstupenky pro jednotlivé scény; toto rozhodnutí je ponechané k další samostatné úpravě."
+      },
+      {
+        "layout": "bullets",
+        "title": "Mobilní a desktopové zobrazení",
+        "kicker": "ROZLOŽENÍ A OVLÁDÁNÍ",
+        "bullets": [
+          "Flexbox: navigace, tlačítka a řádky formulářů.",
+          "Grid: obsahové seznamy a karty podle šířky.",
+          "Pružné rozměry místo rozložení pro konkrétní telefon.",
+          "Kontrola i s otevřeným menu, dialogem a plným košíkem."
+        ],
+        "lead": "",
+        "notes": "[40 s včetně ukázky] Ukážeme stejnou stránku v úzké a široké podobě. Flexbox se hodí na navigaci a ovládací řádky, Grid na více řad obsahových karet. Pružná typografie a sloupce využívají dostupný prostor. Zkoušíme přetékání, čitelnost, formuláře a dosah na hlavní akce. Prázdný úvod nestačí: rozhraní musí fungovat i s dlouhými názvy, chybovým stavem, otevřeným dialogem nebo naplněným košíkem. Automatické ověření šířek doplňuje vizuální kontrola těchto stavů."
+      },
+      {
+        "layout": "route",
+        "title": "Dva scénáře ve finálním rozhraní",
+        "kicker": "NAVIGACE A INTERAKTIVITA",
+        "steps": [
           [
             "S1 / Program",
-            "Den 1 + River Stage → uložit koncert → osobní program → obnovit.\n\nSedí filtr a zůstal výběr?"
+            "Den a River Stage"
           ],
           [
-            "S2 / Interpret",
-            "DARKZY → DARKZY → detail → související koncert.\n\nJe jasný datum, čas a scéna?"
+            "Uložit",
+            "Otevřít můj program"
           ],
           [
-            "S3 / 1. + 3. srpna",
-            "Dva dny → vlastní VIP sedadlo → stan pro 2 → PULSE10 → PDF.\n\nSedí dny, sleva, kemp i DPH?"
+            "S2 / Hledání",
+            "Vyhledat DARKZY"
+          ],
+          [
+            "Detail",
+            "Zjistit čas a scénu"
           ]
         ],
-        "notes": "Revieweři nejprve projdou plánování programu a hledání interpreta. Ve třetím scénáři zvolí první a třetí srpen a sami vyberou VIP sedadlo. V košíku přidají stan pro dvě osoby a promo PULSE10. Zkontrolují, že sleva snížila pouze vstupenky, ne kemp, a že DPH už je v ceně. PDF musí zachovat obě nesousedící data a obsahovat campingový voucher. Po nákupu se stejné sedadlo nesmí blokovat ve druhém dni jen kvůli tomuto nákupu. Použijí smyšlené kontakty a zkušební platbu."
+        "lead": "Ukázka: navigace, změna výsledků a práce s klávesnicí.",
+        "notes": "[50 s včetně ukázky] Nejprve předvedeme filtr prvního dne a River Stage a uložíme koncert do osobního programu. Potom přes globální hledání najdeme DARKZY, otevřeme detail a přejdeme ke koncertu. Sledujeme správnost údajů a srozumitelnost cesty, ne pouze animace. Krátce ukážeme focus klávesnice, zavření dialogu a návrat k obsahu. Stejné ID propojuje seznam i detail, takže nevznikají rozdílné ručně napsané časy. Tyto scénáře budou moci zopakovat hodnotitelé v dalším milníku."
       },
       {
-        "layout": "split",
-        "title": "Co už kontrolujeme sami?",
-        "kicker": "DŮKAZY PŘILOŽENÉ K WEBU",
-        "cards": [
-          [
-            "Data a chování",
-            "XML reference a shoda exportu. Hledání, program, úložiště, košík a PDF.\n\nVýsledek v validation_report.md."
-          ],
-          [
-            "Mobil i desktop",
-            "Přetékání, navigace, dlouhé názvy a vyplněné formuláře.\n\nKlávesnice a stavové změny."
-          ]
+        "layout": "bullets",
+        "title": "Konkrétní principy UX, přístupnosti a SEO",
+        "kicker": "POUŽITÉ POSTUPY",
+        "bullets": [
+          "Sémantické nadpisy, landmarky, popisky a viditelný focus.",
+          "Textové chyby formulářů a podpora omezeného pohybu.",
+          "Konkrétní titulky, popisy stránek a vnitřní odkazy.",
+          "JSON-LD popisuje festival; údaje mají odpovídat stránce."
         ],
-        "lead": "Automatické testy nenahrazují nezávislé expertní hodnocení použitelnosti.",
-        "notes": "Vlastní kontroly mají reviewerům ušetřit čas na základních chybách. Datový validátor ověřuje reference a odvozený export, browserové testy důležité interakce a různé šířky. Zvlášť kontrolujeme vyplněný košík a výsledný PDF dokument. Aktuální záznam je přiložen, včetně limitů. Automatický test ovšem nepozná každou nejasnou formulaci ani nevhodné pořadí informací. Právě proto potřebujeme nezávislé expertní hodnocení a skutečný průchod uživatelskými scénáři druhého týmu."
+        "lead": "",
+        "notes": "[35 s] Přístupnost řešíme konkrétními prvky: sémantikou, popisky, focusy a chybovými zprávami. Technické SEO stojí na obsahu, jedinečných titulcích a srozumitelném propojení. JSON-LD je strojově čitelný popis festivalu vložený do stránky, nenahrazuje XML zdroj dat. Pro generativní vyhledávání nevytváříme smyšlená hodnocení ani údajně povinný speciální AI soubor. Dokumentace uvádí konkrétní zdroje Google Search Central a WAI a jejich uplatnění. Plnou shodu s WCAG bez auditu netvrdíme."
       },
       {
-        "layout": "split",
-        "title": "Známé hranice jsou součást předání.",
-        "kicker": "CO REVIEWER POTŘEBUJE VĚDĚT",
-        "cards": [
-          [
-            "Klientské řešení",
-            "Účty, výběr i obsazenost jsou v jednom prohlížeči.\n\nNení sdílený backend, skutečná platba ani automatický e-mail."
-          ],
-          [
-            "Fotografie a ověření",
-            "42 fotografií + 18 vlastních plakátů; kredity na vlastní stránce.\n\nDvě NC-SA fotografie jen pro nekomerční školní použití."
-          ]
+        "layout": "bullets",
+        "title": "AI a kontrola implementace",
+        "kicker": "DŮKAZ JE VE VÝSLEDKU",
+        "bullets": [
+          "AI: návrh rozhraní, obsah, kód a pomocné testy.",
+          "Upraveno: mobilní navigace, biografie a součty objednávky.",
+          "Odmítnuto: kopie cizí značky a backend mimo zadání.",
+          "Ověřeno: XML, browserové scénáře a obsah výsledného PDF."
         ],
-        "lead": "Fiktivní festival není ověřený skutečný pořadatel nebo reálný prodej.",
-        "notes": "Klientské účty a dostupnost zůstávají jen ve stejném prohlížeči, e-mail se automaticky neodesílá. Nový offline plánek funguje bez Googlu, externí mapa až po souhlasu. Skutečné fotografie mají ověřený zdroj a licenci; Hedex a AC Slater jsou CC BY-NC-SA a nejsou určeny pro automatický přenos do komerčního projektu. Historický úvodní snímek není dokladem stavu roku 2027. Nové fotografie rekonstrukce, dopravy a náramku mají přesná data a vysvětlení. Automatické kontroly nenahrazují plný audit WCAG nebo testy s návštěvníky."
+        "lead": "",
+        "notes": "[40 s] AI pomáhala s grafickým směrem, texty, kódem a testovacími skripty. Přijali jsme vlastní typografickou identitu, ale upravili navigaci a konkrétní obsah podle zpětné vazby. Nepřevzali jsme cizí logo ani serverové řešení. Validátor porovnává XML s přibalenými daty a browserové testy ověřují hledání, účty, ceny i obsazenost. PDF kontrolujeme jako skutečný soubor. Výsledky a limity uvádí validation_report.md. Skutečné fotografie mají kredity; oproti požadavku na AI obrázky jde o výslovně popsanou odchylku, nikoli AI generované portréty. Zaznamenané datové a browserové kontroly prošly; přesný rozsah je v reportu, ne v odhadu AI."
+      }
+    ]
+  },
+  "05": {
+    "name": "Verze připravená pro review",
+    "subtitle": "Stav webu, scénáře a známé limity",
+    "authors": [
+      "Michal Ladra",
+      "Matěj Mlejnek",
+      "Jan Martínek"
+    ],
+    "slides": [
+      {
+        "layout": "cover",
+        "title": "Web připravený pro review",
+        "kicker": "CVIČENÍ 05",
+        "lead": "Prague Pulse Fest · 1.–3. srpna 2027\nVýstaviště Praha · fiktivní festival",
+        "notes": "[30 s] Předáváme web, specifikaci a popis scénářů tak, aby jiný tým mohl samostatně provést hodnocení. Oproti návrhu už jsou dostupné všechny hlavní části, obě jazykové varianty a lokální objednávka s PDF. Podklady cvičení čtyři a pět vycházejí ze stejné současné verze: skutečné historické snapshoty nebyly poskytnuty. Netvrdíme tedy neexistující časový vývoj. Nyní ukážeme obsah balíčku, dva hlavní průchody a přesně vymezené limity."
       },
       {
-        "layout": "split",
-        "title": "Nález musí jít zopakovat.",
-        "kicker": "CROSS-REVIEW A POUŽITÍ AI",
-        "cards": [
+        "layout": "bullets",
+        "title": "Co je připravené pro review",
+        "kicker": "ROZSAH REVIEW-READY VERZE",
+        "bullets": [
+          "Z návrhu vznikly všechny hlavní stránky a dva průchody.",
+          "Předáváme úplný web/, specifikaci a postupy scénářů.",
+          "Tři dny, tři scény, 60 interpretů a 60 vystoupení.",
+          "Košík, účet a PDF jako doplňkový scénář."
+        ],
+        "lead": "",
+        "notes": "[35 s] Hodnotitel nepotřebuje náš vývojový počítač. Rozbalí web a otevře index.html; data i knihovny jsou přibalené. Ve specifikaci najde cílové skupiny a očekávané výsledky scénářů. Důležitá rozhodnutí zůstávají stejná: klientské řešení, jednotný datový zdroj a účet jako volitelná cesta. Pro každý nález potřebujeme přesnou stránku a kroky, aby šel nezávisle zopakovat. Prohlídka screenshotů sama nestačí k ověření funkčního hledání, uloženého programu nebo objednávky."
+      },
+      {
+        "layout": "route",
+        "title": "S1: filtr a osobní program",
+        "kicker": "POSTUP PRO NEZÁVISLÉHO HODNOTITELE",
+        "steps": [
           [
-            "Od reviewerů",
-            "Stránka + kroky + očekávání + skutečnost + důkaz.\n\nMetoda, závažnost, dopad a konkrétní doporučení."
+            "Program",
+            "Vybrat 1. srpen"
           ],
           [
-            "Naše odpovědnost",
-            "AI pomohla připravit web i kontroly.\n\nKaždý přijatý nález tým ověří; změnu a důvod zapíše."
+            "River Stage",
+            "Zúžit výsledky"
+          ],
+          [
+            "Uložit",
+            "Vybrat koncert"
+          ],
+          [
+            "Obnovit",
+            "Otevřít můj program"
           ]
         ],
-        "lead": "Skutečné přijaté review zatím chybí; není nahrazeno vymyšlenými nálezy.",
-        "notes": "Prosíme o nálezy s přesnými kroky, důkazem a vysvětlením dopadu. Závažnost odvozujte od toho, zda problém blokuje cíl, způsobuje opakované chyby nebo jde o drobnost. Použít lze Nielsenovy heuristiky a kognitivní průchod; vlastní vizuální preference samy o sobě nejsou závada. AI může pomoci strukturovat záznam, ale každý problém musí člověk reprodukovat. Po přijetí review zapíšeme rozhodnutí a provedenou změnu do dokumentace. Zatím žádné skutečné review od druhého týmu poskytnuto nebylo. Poslední změny pocházejí z audiozpětné vazby zadavatele, což není cross-review od přiděleného jiného týmu."
+        "lead": "Kontrola: správný den a scéna, zachování uložené akce.",
+        "notes": "[45 s včetně ukázky] Hodnotitel postupuje podle tohoto krátkého scénáře. Nejprve ověří, že oba filtry působí společně a ukazují jen očekávané akce. Po uložení koncertu zobrazí osobní program a obnoví stránku. Výběr se má zachovat. Stejný průchod doporučujeme na mobilní šířce i desktopu a alespoň jednou klávesnicí. Když něco nefunguje, má záznam obsahovat původní stav, kroky, očekávání, skutečný výsledek a důkaz. Pouhý obecný dojem není reprodukovatelný nález."
+      },
+      {
+        "layout": "route",
+        "title": "S2: hledání a detail interpreta",
+        "kicker": "POSTUP PRO NEZÁVISLÉHO HODNOTITELE",
+        "steps": [
+          [
+            "Hledání",
+            "Zadat DARKZY"
+          ],
+          [
+            "Výsledky",
+            "Otevřít interpreta"
+          ],
+          [
+            "Detail",
+            "Najít jeho koncert"
+          ],
+          [
+            "Program",
+            "Ověřit čas a scénu"
+          ]
+        ],
+        "lead": "Kontrola: správné propojení, prázdný výsledek a zavření dialogu.",
+        "notes": "[45 s včetně ukázky] U druhého scénáře je cílem zjistit termín známého interpreta. Hledáme DARKZY, otevřeme detail a navazující program. Porovnáme údaje se specifikací a daty. Dále zkusíme neexistující dotaz a zavření dialogu klávesou Escape. Hledání v biografiích je záměr: například dotaz David může najít i interpreta uvedeného vlastním jménem v popisu. To není chyba podobnosti jmen. Výsledky mají vysvětlit nalezený objekt a nabídnout smysluplný přechod, nikoli zobrazit pouze bezkontextový seznam."
+      },
+      {
+        "layout": "bullets",
+        "title": "Testy a známé limity",
+        "kicker": "CO JE A NENÍ OVĚŘENÉ",
+        "bullets": [
+          "Datový validátor, browserové průchody a kontrola PDF.",
+          "Účty a obsazenost jsou místní; platba ani e-mail nejsou reálné.",
+          "Externí mapa potřebuje souhlas a připojení.",
+          "Bez úplného auditu WCAG a testu všech zařízení."
+        ],
+        "lead": "",
+        "notes": "[40 s] Aktuální provedené kontroly jsou v validation_report.md. Rozlišujeme datovou správnost, automatizovaný průchod a uživatelskou srozumitelnost. Lokální stav není sdílená databáze a není přenosný mezi zařízeními. Přímé file otevření blokuje politika zdejšího testovacího prostředí; zdejší testy proto používají vývojový statický server. To není runtime požadavek odevzdaného webu. Skutečnou účast interpretů ani oficiální areál netvrdíme. Nebyl proveden úplný audit WCAG, test všech prohlížečů ani výzkum s návštěvníky."
+      },
+      {
+        "layout": "bullets",
+        "title": "AI, odpovědnost a zadání review",
+        "kicker": "CO MAJÍ HODNOTITELÉ ZOPAKOVAT",
+        "bullets": [
+          "AI pomohla s obsahem, rozhraním, kódem a testy.",
+          "Přijato: datové vazby; opraveno: součty a mobilní stavy.",
+          "Žádáme dvě metody, přesné kroky, důvod a návrh opravy.",
+          "Přijaté externí review zatím není doložené."
+        ],
+        "lead": "",
+        "notes": "[40 s] AI výstupy neodevzdáváme bez kontroly. Přijali jsme strukturu dat a propojené scénáře, upravili součty a mobilní stavy a odmítli vytvoření vlastního backendu. Konkrétní ověření tvoří porovnání dat, browserové akce a čtení výsledného PDF. Jiný tým má použít alespoň dvě formalizované metody, například Nielsenovy heuristiky a kognitivní průchod. U každého nálezu chceme závažnost, způsob objevení, zdůvodnění a návrh úpravy. Přijaté externí review nebylo dodáno; technické testy za ně nevydáváme. Předaný validační report uvádí úspěšné technické průchody a samostatně jejich omezení."
       }
     ]
   },
   "06": {
-    "name": "Metodika cross-review — nutno doplnit",
-    "subtitle": "Šablona pro hodnocení přiděleného cizího projektu",
+    "name": "Cross-review — šablona k doplnění",
+    "subtitle": "Metody a struktura skutečných nálezů",
+    "authors": [
+      "Michal Ladra",
+      "Matěj Mlejnek",
+      "Jan Martínek"
+    ],
     "slides": [
       {
         "layout": "cover",
-        "title": "Review potřebuje\nskutečný důkaz.",
-        "kicker": "CVIČENÍ 06 / METODICKÁ ŠABLONA",
-        "lead": "Cizí projekt dosud nebyl poskytnut.\nToto nejsou hotové výsledky peer review.",
-        "notes": "Tato prezentace je metodická příprava. Nemáme přidělený cizí web ani jeho specifikaci, a proto nemůžeme poctivě uvést skutečné nálezy. Před prezentací výsledků je nutné doplnit hodnocený projekt, verzi, podmínky a reálně provedené scénáře. Šablona ukazuje, jak použijeme dvě formalizované metody a jak budeme posuzovat závažnost. Není vhodné ji odevzdat jako hotové splnění cvičení šest bez doplnění výsledků. Na závěr jasně odlišíme příklady vlastního ověření od peer review. Audiozpětná vazba našeho zadavatele není hodnocením přiděleného cizího projektu a chybějící posudek nenahrazuje."
+        "title": "Cross-review: šablona",
+        "kicker": "CVIČENÍ 06 · K DOPLNĚNÍ",
+        "lead": "Prague Pulse Fest · 1.–3. srpna 2027\nVýstaviště Praha · fiktivní festival",
+        "notes": "[25 s] Toto je metodická šablona, ne dokončené hodnocení cizího webu. Přidělený projekt ani jeho specifikace nebyly poskytnuty. Připravený je postup, dvě metody a struktura evidence; po skutečném hodnocení musíme doplnit identitu cizího projektu a tři až pět ověřených nálezů. Jeho hodnoty nenahrazujeme zjištěními z našeho festivalu. Následující poznámky slouží jako osnova pro přibližně čtyřminutovou prezentaci po vyplnění."
       },
       {
-        "layout": "split",
-        "title": "Dvě metody, odlišný pohled.",
-        "kicker": "PLÁN EXPERTNÍHO HODNOCENÍ",
-        "cards": [
-          [
-            "Nielsenovy heuristiky",
-            "Stav systému, konzistence, prevence chyb, kontrola uživatele a srozumitelná pomoc.\n\nNález přiřadit konkrétnímu pravidlu."
-          ],
-          [
-            "Kognitivní průchod",
-            "Dva scénáře z cizí specifikace, krok po kroku.\n\nVí uživatel co udělat, najde ovládání a pozná výsledek?"
-          ]
+        "layout": "bullets",
+        "title": "Podklady a podmínky hodnocení",
+        "kicker": "VYPLNIT PODLE SKUTEČNÉHO REVIEW",
+        "bullets": [
+          "Hodnocený projekt, tým a přesná verze: doplnit.",
+          "Dva scénáře z jeho specifikace: doplnit.",
+          "Datum, hodnotitelé, prohlížeč a rozlišení: doplnit.",
+          "Od minula: připravena metodika a záznamový formulář."
         ],
-        "lead": "Doplněk: úzký viewport, klávesnice, navigace a interaktivní stavy.",
-        "notes": "Heuristická evaluace posoudí obecné principy použitelnosti, například viditelnost stavu, konzistenci a prevenci chyb. Každý hodnotitel projde web samostatně a nálezy poté sjednotíme. Kognitivní průchod sleduje konkrétní úkol: zda uživatel ví, co chce udělat, všimne si správného ovládání, spojí jej s cílem a pozná úspěch. Vybereme dva scénáře z cizí specifikace, nikoli z našeho festivalu. Doplníme mobilní zobrazení a klávesnici. Expertní odhad nevydáváme za test s reprezentativními uživateli."
+        "lead": "",
+        "notes": "[30 s po doplnění] Uveďte název cizího projektu a verzi, kterou jste opravdu hodnotili. Převezměte dva scénáře z jeho specifikace a řekněte, co mělo být výsledkem. Doplňte datum a podmínky provedení. Nepoužívejte dnešní datum nebo jména jako náhradu za neprovedené hodnocení. Připravená šablona je pouze současný výstup přípravy; po provedení tento bod nahraďte konkrétním pokrokem od minulého cvičení. Rozhodněte, které nálezy mají největší dopad na dokončení scénářů."
       },
       {
-        "layout": "cards",
-        "title": "Závažnost určuje dopad.",
-        "kicker": "PŘEDEM SJEDNOCENÁ STUPNICE",
-        "cards": [
-          [
-            "Kritický",
-            "Klíčový scénář nelze dokončit a neexistuje rozumná náhradní cesta.\n\nDoložit konkrétní blokující krok."
-          ],
-          [
-            "Významný",
-            "Cesta existuje, ale opakovaně vede k chybám nebo zásadní nejistotě.\n\nPopsat náklady a četnost problému."
-          ],
-          [
-            "Drobný",
-            "Lokální nesrovnalost či čitelnost; cíl zůstává dosažitelný.\n\nOddělit od pouhé preference."
-          ]
+        "layout": "bullets",
+        "title": "Dvě formalizované metody",
+        "kicker": "JAK HODNOCENÍ PROVÉST",
+        "bullets": [
+          "Nielsenovy heuristiky: stav, konzistence a prevence chyb.",
+          "Kognitivní průchod: dva scénáře krok za krokem.",
+          "U kroku: cíl → nalezení ovládání → akce → zpětná vazba.",
+          "Doplnit mobil, klávesnici a prázdné či chybové stavy."
         ],
-        "notes": "Stupnici je vhodné sjednotit před hodnocením. Kritický problém znemožní důležitý úkol, významný způsobuje chyby nebo zásadní nejistotu, drobný má omezený místní dopad. Nestačí každé nepohodlí označit za kritické. U nálezu vysvětlíme, komu brání, v jaké situaci a zda existuje obcházení. Pokud se neshodneme, vrátíme se ke scénáři a důkazu. Doporučení se pak řadí podle dopadu a ne podle toho, který problém nejvíce zaujal na screenshotu."
+        "lead": "",
+        "notes": "[40 s] Heuristické hodnocení přiřazuje zjištění ke konkrétním pravidlům, ne k osobnímu vkusu. Při kognitivním průchodu se u každého kroku ptáme, zda uživatel zná cíl, najde správný prvek, spojí si ho s cílem a pozná správný výsledek. Metody se doplňují: první hledá opakující se problémy rozhraní, druhá překážky konkrétního úkolu. Do skutečné prezentace doplňte, kde každá metoda vedla k nálezu. Expertní průchod nezaměňujte za experiment s reprezentativním vzorkem uživatelů."
       },
       {
-        "layout": "route",
-        "title": "Od pozorování k doporučení.",
-        "kicker": "ŠABLONA SKUTEČNÉHO NÁLEZU",
-        "steps": [
-          [
-            "Kroky",
-            "Stránka + akce"
-          ],
-          [
-            "Důkaz",
-            "Skutečný stav"
-          ],
-          [
-            "Dopad",
-            "Cíl + závažnost"
-          ],
-          [
-            "Návrh",
-            "Konkrétní oprava"
-          ]
+        "layout": "bullets",
+        "title": "Jak zapsat nález a jeho závažnost",
+        "kicker": "POŽADOVANÁ EVIDENCE",
+        "bullets": [
+          "Stránka a kroky → očekávaný a skutečný výsledek.",
+          "Metoda, důkaz a dopad na uživatelův cíl.",
+          "Kritický: blokuje cíl; významný: zásadně komplikuje cestu.",
+          "Drobný: místní problém; vždy připojit návrh opravy."
         ],
-        "lead": "R01–R05: doplnit až po průchodu skutečným cizím projektem.\nScreenshot bez vysvětlení dopadu nestačí.",
-        "notes": "Každý nález potřebuje stránku a přesné kroky. Doplníme očekávaný a skutečný stav a screenshot nebo jiný důkaz. Propojíme jej s heuristikou nebo konkrétní otázkou kognitivního průchodu. Závažnost zdůvodníme dopadem na úkol a navrhneme změnu, která problém řeší. U prezentace vybereme tři až pět nejsilnějších reálných nálezů. V této připravené verzi jejich místa zůstávají nedoplněná, protože cizí projekt nebyl předán. Prázdné výsledky nelze nahradit věrohodně znějícími domněnkami."
+        "lead": "",
+        "notes": "[40 s] U každého nálezu doplňte reprodukovatelné kroky a důkaz, například screenshot s kontextem. Závažnost se odvozuje od dopadu: kritická chyba brání klíčovému úkolu bez rozumné náhrady, významná způsobuje chyby nebo nejistotu a drobná nebrání dosažení cíle. Samotné chybějící slovo bez kontextu není automaticky kritický problém. Každý návrh opravy spojte s příčinou. Rozlišujte mezi problémem použitelnosti a grafickou preferencí. Přesný formulář je připraven v review.md."
       },
       {
-        "layout": "cards",
-        "title": "Příklady nejsou cizí review.",
-        "kicker": "VLASTNÍ OVĚŘENÍ / PRAGUE PULSE FEST",
-        "cards": [
-          [
-            "Datové minimum",
-            "Builder kontroluje 3 dny, 3 scény, 60 interpretů a 60 akcí.\n\nDůkaz rozsahu, nikoli kvality UX."
-          ],
-          [
-            "Místní úložiště",
-            "Stav patří jednomu prohlížeči; není sdílený JSON na serveru.\n\nHranice klientského zadání."
-          ],
-          [
-            "Chybějící podklady",
-            "Cizí web a přijaté review nebyly dodány.\n\nNelze tvrdit nálezy ani jejich zapracování."
-          ]
+        "layout": "bullets",
+        "title": "Tři až pět hlavních nálezů",
+        "kicker": "DOPLNIT SKUTEČNÉ VÝSLEDKY",
+        "bullets": [
+          "R01: problém, závažnost, důkaz a doporučení — doplnit.",
+          "R02: problém, závažnost, důkaz a doporučení — doplnit.",
+          "R03: problém, závažnost, důkaz a doporučení — doplnit.",
+          "R04–R05: přidat pouze ověřené a podstatné nálezy."
         ],
-        "notes": "Na vlastním projektu lze ukázat rozdíl mezi důkazem a tvrzením. Datový validátor skutečně spočítá entity a ověří reference, ale nezměří srozumitelnost rozhraní. Architektura localStorage dokládá místní ukládání, nikoli sdílené účty. A absence cizího webu znamená, že peer review není provedeno. Tyto příklady jsou označené jako vlastní ověření Prague Pulse Fest a nesmějí se objevit v tabulce nálezů jiného týmu. Po přidělení projektu je nahradíme skutečně pozorovanými případy."
+        "lead": "",
+        "notes": "[60–90 s po doplnění] Nahraďte tento snímek třemi až pěti skutečnými nálezy cizího projektu. Pro každý stručně řekněte, co se stalo, proč to uživateli vadí a jak problém opravit. Nejzávažnější příklad podpořte krátkou ukázkou nebo screenshotem; pokud potřebujete, použijte více místa a zkraťte ostatní snímky. V této šabloně žádné nálezy nejsou a R01 až R05 nejsou tvrzením o existenci chyb. Celý projev včetně ukázek má zůstat do pěti minut."
       },
       {
-        "layout": "split",
-        "title": "Před odevzdáním doplnit.",
-        "kicker": "VÝSLEDKY, OVĚŘENÍ A AI",
-        "cards": [
-          [
-            "Povinné podklady",
-            "Hodnocený web + specifikace. Dva průchody. 3–5 skutečných nálezů.\n\nDůkazy, závažnost a doporučení."
-          ],
-          [
-            "AI a odpovědnost",
-            "AI pomohla připravit metodiku a strukturu zápisu.\n\nKaždý nález hodnotitel osobně ověří a obhájí."
-          ]
+        "layout": "bullets",
+        "title": "AI a vlastní ověření nálezů",
+        "kicker": "DOPLNIT PODLE PROVEDENÉ PRÁCE",
+        "bullets": [
+          "AI nyní: návrh metodiky a struktury formuláře.",
+          "Každý budoucí nález zopakovat na hodnoceném webu.",
+          "Zapsat přijatý, upravený i odmítnutý návrh AI a důvod.",
+          "Závěr po doplnění: doporučit priority oprav cizímu týmu."
         ],
-        "lead": "review.md i tyto snímky musí odrážet stejné skutečné výsledky.",
-        "notes": "K dokončení potřebujeme skutečný cizí projekt, jeho specifikaci a klíčové scénáře. Potom doplníme identifikaci verze, podmínky, dva průchody a tři až pět reálných nálezů. Zkontrolujeme shodu tabulky review a prezentace. AI může pomoci se stručností, strukturou a návrhem otázek, ale nesmí vytvářet neověřené problémy ani výpovědi testerů. Hodnotitel má každý nález osobně zopakovat. Takto připravené review bude konkrétní, spravedlivé a použitelné pro změny hodnoceného projektu."
+        "lead": "",
+        "notes": "[35 s po doplnění] AI pomohla připravit tuto metodiku a formulář. Nenahrazuje pozorování cizího projektu a v tuto chvíli z ní nepochází ověřené nálezy. Při skutečném review uveďte konkrétní návrh AI, jeho kontrolu a přijetí či odmítnutí. Například domnělý problém můžete odmítnout, pokud opakovaný průchod ukáže správnou cestu. Na závěr doporučte pořadí oprav podle dopadu. Před odevzdáním šablonu nahraďte skutečným review a zkontrolujte důkazy i čas prezentace."
       }
     ]
   }

@@ -6,7 +6,7 @@ Tento záznam se vztahuje k revizi podle hlasové zpětné vazby zadavatele: pů
 | --- | --- |
 | `python validate_project.py` | Prošlo: XML/XSD, minimum 3 dnů / 3 scén / 60 interpretů / 60 akcí, 7 transformací a JSON schémat, OpenAPI, 13 HTML stránek a reprodukovatelnost `data.js` |
 | `python tests/browser_smoke.py` | 486 kontrol prošlo; skutečné akce v Chromium, vytváření a čtení PDF včetně dekódování QR |
-| `python tests/course_materials.py --folder odevzdani` | 74 kontrol prošlo; 5 prezentací, 30 snímků, jejich PDF a interaktivní scénáře prototypu |
+| `python tests/course_materials.py --folder odevzdani` | 139 kontrol prošlo; 5 prezentací, 30 snímků, shoda textu PPTX/PDF, autorství, hranice textu a interaktivní scénáře prototypu |
 | Samostatná kontrola rozložení | 182 kombinací: 13 stránek × 7 šířek × CZ/EN; bez horizontálního přetékání a chyb JavaScriptu |
 | Samostatná anglická kontrola | 13 stránek, 3 články a detail interpreta; seznam chybějících překladů prázdný |
 | Syntax všech `web/js/*.js` a `git diff --check` | Prošlo |
@@ -39,7 +39,7 @@ Podrobný seznam browserových kontrol je v `review/browser-validation-2026-10-1
 
 **2 × 1 180 − 236 (PULSE10) + 350 + 2 × 150 = 2 774 Kč.** Základ bez DPH 2 476,79 Kč a zahrnutá DPH 297,21 Kč. Zkontrolována byla koncertní stránka i poukaz, rozložení textu a čitelnost kódu.
 
-Prezentace byly rovněž vizuálně zkontrolovány při exportu. Provedené opravy jsou popsané v `review/internal-review.md`; uživatelská zpětná vazba v `review/audio-requirements-2026-10-18.md`.
+Prezentace byly zjednodušeny na šest čitelných snímků s poznámkami na 3–5 minut; všechny mají autory Michal Ladra, Matěj Mlejnek a Jan Martínek. Vizuálně bylo zkontrolováno všech 30 snímků a desetistránková doplňková dokumentace PDF. Povinný Markdown, DOCX i PDF vznikají ze stejného dokumentačního zdroje. Nově je připraven GitHub Actions workflow; jeho vzdálený běh tento místní záznam nepotvrzuje. Provedené opravy jsou popsané v `review/internal-review.md`; uživatelská zpětná vazba v `review/audio-requirements-2026-10-18.md`.
 
 ## Rozsah a limity
 

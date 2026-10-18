@@ -1,75 +1,59 @@
-# Progress 04 — podklad pro cross-review
+# Progress 04 — verze připravená pro cross-review
 
-## Co hodnotit
+**Projekt:** Prague Pulse Fest, 1.–3. srpna 2027, Výstaviště Praha.
+**Autoři:** Michal Ladra, Matěj Mlejnek, Jan Martínek.
 
-Otevřete `web/index.html`. Není potřeba instalace ani sestavení. `project-specification.md`
-popisuje identitu, cílové skupiny, strukturu a scénáře. Tento review-ready balíček
-je vytvořen z aktuální verze, nikoli vydáván za doložené dřívější odevzdání.
+## Předávaný stav
 
-K dispozici jsou úvod, tři články novinek, program, 60 skutečných účinkujících s detaily, 3 scény, praktické
-informace, hledání s výsledky, tarify na 1/2/3 dny, výběr míst, lokální účet,
-košík a skutečně generovaný PDF soubor. Česká a anglická verze slouží různým
-cílovým skupinám. Datová základna obsahuje 60 programových položek během 3 dnů. Line-up je návrh,
-účast interpretů není potvrzená. Scény se dělí na mezinárodní hlavní jména, českou scénu a klubovou elektroniku.
+Hodnotícímu týmu předejte `web/` a `project-specification.md`. Web otevřete
+přes `web/index.html`; instalace ani sestavení nejsou potřebné. Obsahuje
+všechny hlavní části, 60 interpretů a 60 vystoupení během tří dnů na třech
+scénách. Skuteční interpreti jsou součástí návrhu fiktivního festivalu,
+jejich účast není potvrzená.
+
+Propojené jsou program, detaily, hledání, osobní výběr a praktické informace.
+Doplňková cesta nabízí vstupenku, košík, místní účet a stažení PDF. Hlavní
+rozhodnutí zůstávají: klientské řešení, jednotný datový zdroj a objednávka
+i bez registrace.
 
 ## Scénáře k nezávislému průchodu
 
-1. **S1 — program:** Zvolte první den a River Stage. Uložte vybranou akci.
-   Přepněte osobní program a obnovte stránku. Zkontrolujte datum, scénu a zachování výběru.
-2. **S2 — hledání:** Hledejte „DARKZY“, otevřete DARKZY a najděte navazující
-   vystoupení. Ověřte vazbu na konkrétní datum a scénu, vyzkoušejte prázdný výsledek.
-3. **S3 — vlastní dny a kemp:** Vyberte první a třetí srpen, dvě VIP vstupenky
-   a ručně označte sedadla. Přidejte stan pro dvě osoby a potvrďte PULSE10.
-   Zkontrolujte 2 360 − 236 + 650 = 2 774 Kč včetně modelové DPH.
-   Projděte simulované dokončení jako host se smyšlenými kontakty. PDF má
-   obě přesná data a samostatný campingový voucher; druhý srpen zůstává
-   pro tato sedadla volný, pokud je neobsadila jiná lokální objednávka.
-   Zkontrolujte rozpis slevy, kempu, daně, jméno a ID objednávky.
+| Scénář | Postup | Očekávaný výsledek |
+| --- | --- | --- |
+| S1 — osobní program | Program → 1. srpna → River Stage → uložit koncert → osobní program → obnovit | Správný den i scéna a zachovaný výběr |
+| S2 — nalezení interpreta | Hledat „DARKZY“ → detail → související program | Shodné jméno, datum, čas a scéna |
+| S3 — objednávka hosta | 1. a 3. srpna → 2× VIP, ruční sedadla → stan pro 2 → PULSE10 → dokončení → PDF | Cena 2 360 − 236 + 650 = 2 774 Kč; dvě vybraná data a campingový voucher |
 
-## Aktuální testování
+Použijte smyšlené kontakty. Vyzkoušejte mobil i desktop, klávesnici, kombinaci
+filtrů a prázdný výsledek. Vyhledávání prochází také biografie; shoda vlastního
+jména v popisu interpreta je záměrná.
 
-`validation_report.md` obsahuje skutečný výsledek testů hotové verze. Je nutné
-rozlišovat datovou kontrolu, automatizovaný průchod a expertní hodnocení.
-Automatická kontrola šířek například potvrzuje nepřetékání v daných viewports,
-ale neprokazuje dobrou srozumitelnost pro každého uživatele. PDF se posuzuje
-jako soubor, ne pouze jako screenshot potvrzení objednávky.
+## Co bylo testováno
 
-## Známé limity předávané reviewerům
+Datový validátor ověřuje XML, reference a export. Browserové testy procházejí
+scénáře, formuláře, účty, ceny, obsazenost a rozlišení obrazovek; PDF se
+kontroluje jako soubor. Konkrétní výsledky jsou ve `validation_report.md`.
+Automatizace není externí review ani uživatelský výzkum.
 
-- Účty a obsazenost jsou lokální pro prohlížeč; neexistuje sdílená databáze ani skutečná platba.
-- E-mail se automaticky neodesílá; objednávka poskytuje stažení PDF.
-- Externí mapa se načte automaticky až po povolení v panelu soukromí a vyžaduje spojení se službou Google; zbývající obsah má zůstat čitelný bez ní.
-- Fiktivní festivalová identita a kontakty nejsou ověřený reálný pořadatel; skuteční interpreti nemají potvrzenou účast.
-- Úvodní fotografie areálu pochází z roku 2018 a nedokládá stav pro rok 2027; 42 karet má skutečné fotografie s kredity, 18 vlastní typografii.
-- Neproběhl plný audit WCAG AA, fyzické telefony ani všechny prohlížeče.
-- Skutečné přijaté cross-review zatím nebylo dodáno. Technické testy nejsou jeho náhradou.
+## Známé limity
 
-## Prosba pro hodnotící tým
+- Účty a obsazenost jsou místní pro prohlížeč, nesdílejí se mezi zařízeními.
+- Platba je simulovaná a e-mail se automaticky neodesílá; výsledkem je PDF.
+- Google mapa vyžaduje povolení externích map a připojení; k dispozici je
+  také přibalený orientační plánek.
+- Fiktivní kontakty a plánek nejsou skutečný pořadatel ani oficiální areál.
+  Ne každý interpret má fotografii; náhradní typografie je přiznaná v Kreditech.
+- Nebyl proveden úplný audit WCAG ani test všech zařízení a prohlížečů.
 
-U nálezu uveďte stránku, přesné kroky, očekávaný a skutečný stav, metodu,
-závažnost, důvod a návrh řešení. Doporučené metody: Nielsenovy heuristiky
-a kognitivní průchod dvou scénářů; doplňte klávesnici a mobilní šířku.
-Oddělte problém použitelnosti od vlastní preference grafického stylu.
+## AI a zadání hodnotitelům
 
-## AI a odpovědnost
+AI pomohla s obsahem, rozhraním, kódem a testy. Přijali jsme datové vazby,
+upravili mobilní stavy a součty, odmítli backend mimo zadání. Výstupy jsme
+porovnávali s daty a ověřovali konkrétními kroky a výsledným PDF.
 
-AI pomohla připravit obsah, kód, původní grafiku a automatizované testy.
-Přijaté a odmítnuté návrhy i limity popisuje dokumentace. Každý výsledek
-cross-review musí hodnotitel ověřit sám. Zde nepředkládáme smyšlené nálezy
-cizího týmu ani nedoložená uživatelská měření.
+Použijte alespoň dvě formalizované metody, například Nielsenovy heuristiky
+a kognitivní průchod. U nálezu uveďte stránku, kroky, očekávání, skutečný stav,
+důkaz, závažnost s důvodem a návrh řešení. Odlište chybu od grafické preference.
 
-## Změny podle nejnovější audiozpětné vazby
-
-Tato zpětná vazba je od zadavatele, nikoli od přiděleného jiného týmu.
-Program nově rozděluje 20/20/20 interpretů mezi hlavní mezinárodní jména,
-českou scénu a klubovou elektroniku. Medailonky a konkrétní subžánry jsou v XML.
-Nákup sjednocuje jeden, dva libovolné nebo tři dny; VIP a Regular vyžadují ruční
-sedadla, stání množství. Objednávka přidá stan 350 Kč nebo karavan 850 Kč
-plus 150 Kč za osobu na 3 noci. PULSE10/PRAHA200 se vztahují jen na vstupenky.
-Rozpis ukazuje modelovou 12% DPH zahrnutou v cenách, nikoli další poplatek.
-Registrace má příjmení, telefon a potvrzení hesla, profil lze upravit.
-
-Offline plánek, podrobnější návštěvnické FAQ a skutečné fotografie novinek
-pomáhají při cestě; soukromí, podmínky a obrazové kredity mají vlastní stránky.
-Dva snímky (Hedex, AC Slater) mají CC BY-NC-SA 2.0 a patří pouze do nekomerčního
-školního rozsahu. Zdroje a úpravy jsou v PHOTO-CREDITS.md a na stránce Kredity.
+Tento podklad vychází ze stejného současného webu jako cvičení 04. Historické
+snapshoty ani přijaté externí review nebyly dodány; jejich výsledky netvrdíme.

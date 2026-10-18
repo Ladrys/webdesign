@@ -1,54 +1,46 @@
-# Progress 02 — interaktivní prototyp
+# Progress 02 — UX návrh a prototyp
 
-## Co je připraveno
+**Projekt:** Prague Pulse Fest, 1.–3. srpna 2027, Výstaviště Praha.
+**Autoři:** Michal Ladra, Matěj Mlejnek, Jan Martínek.
 
-`prototype/index.html` je nově sestavený spustitelný wireframe. Otevře se přímo
-v prohlížeči bez instalace. Obsahuje úvod, program, účinkující, scény, informace
-a vyhledávání. Datový soubor `prototype/data.js` je přiložený export aktuálního
-XML. Prototyp ukazuje informační hierarchii; nepředstavuje historicky odevzdanou verzi.
+## Výstup a hlavní rozhodnutí
 
-## Funkce a potřeby
+Oproti specifikaci je připravený spustitelný HTML wireframe. Otevřete
+`prototype/index.html` bez instalace. Obsahuje úvod, program, účinkující,
+scény, praktické informace a hledání. Přibalená data vycházejí z XML.
 
-| Funkce | Uživatelská potřeba | Scénář |
-| --- | --- | --- |
-| Filtr dne a scény | Najít relevantní koncerty místo celého programu | S1 |
-| Osobní program | Uchovat vybraná vystoupení po obnovení | S1 |
-| Vyhledávání názvu a textu | Najít konkrétní kapelu i podle části názvu | S2 |
-| Detail účinkujícího a jeho vystoupení | Zjistit čas a scénu v souvislostech | S2 |
+Mobile-first základ tvoří jeden sloupec a hlavní úkol před doplňujícím obsahem.
+Na desktopu přibývají sloupce, význam ovládání se nemění. Jednoduchá grafika
+umožňuje posoudit strukturu a navigaci před dopracováním vzhledu.
 
-## Průchod dvěma klíčovými scénáři
+## Funkce a potřeby uživatelů
 
-S1: Úvod → Program → den 1. 8. → River Stage → přidat akci → zapnout „Jen
-uložené“ → obnovit stránku. Očekáváme zachovaný výběr a správný filtr.
+| Funkce | Potřeba |
+| --- | --- |
+| Společný filtr dne a scény | Najít relevantní část programu |
+| Uložení a zobrazení osobního programu | Zachovat vlastní výběr i po obnovení |
+| Hledání podle části názvu nebo popisu | Najít známého interpreta |
+| Detail interpreta s odkazem na koncert | Zjistit datum, čas a scénu v souvislostech |
 
-S2: Do hledání napsat „DARKZY“ → otevřít interpreta DARKZY → jeho detail →
-zobrazit související program. Očekáváme jméno, žánr a programové vazby ze stejné datové základny.
+## Dva průchody
 
-## Mobilní a desktopová varianta
+1. **S1 — vlastní program:** Program → 1. srpna → River Stage → uložit koncert
+   → Jen uložené → obnovit stránku. Očekávání: seznam odpovídá oběma filtrům
+   a uložená akce zůstane dostupná.
+2. **S2 — konkrétní interpret:** Hledání „DARKZY“ → detail DARKZY → Program
+   interpreta. Očekávání: správná vazba mezi jménem, datem, časem a scénou.
 
-Výchozí rozložení je jeden sloupec. Navigace a filtry se zalamují, seznam karet
-se při dostatku místa rozšiřuje pomocí CSS Grid. Formulářová pole mají popisky,
-ovládání viditelný focus, dialog funguje z klávesnice. Nejde jen o menu nebo slideshow:
-funkce přímo mění výběr dat a uchovávají uživatelské rozhodnutí.
+## Ověření a použití AI
 
-## Co bylo ověřeno a jak
+Datová kontrola ověřuje počty, ID a reference. Browserový test prochází
+filtry, uložení, obnovení, detail, bezpečné zobrazení hledaného textu a šířky
+320, 768 a 1440 px. Skutečný výstup je v `prototype-validation.md`.
 
-Builder kontroluje přítomnost 3 dnů, 3 scén, 60 interpretů, 60 akcí a platné
-vazby dat. Samostatný prototypový smoke test prochází filtry, uložení programu,
-hledání a dialog; jeho výsledek je v `prototype-validation.md`. Teprve záznam
-provedeného testu lze uvádět jako důkaz. Vizuální návrh nenahrazuje test
-s reálnými uživateli. Rozhovory ani testování na fyzickém telefonu nebyly doloženy.
+AI pomohla s návrhem rozložení, texty a kódem. Přijali jsme propojené filtry
+a detail, upravili pořadí obsahu pro mobil a odmítli slideshow jako náhradu
+smysluplné interaktivity. Výsledek ověřují uvedené akce a porovnání s daty,
+nikoli samotné hodnocení AI.
 
-## Rozhodnutí a odlišnosti
-
-Wireframe úmyslně používá jednoduché bloky a typografii, aby šly ověřit cesty
-S1 a S2 před finální grafikou. Nákup, jazykové mutace a PDF jsou součástí
-aktuální implementace ve složkách cvičení 04/05, nikoli této redukované ukázky.
-
-## AI a kritická kontrola
-
-AI navrhla rozvržení, datové karty a scénáře. Přijali jsme popsanou navigaci,
-ale nepřijali jsme pouhou dekorativní slideshow jako požadovanou interaktivitu.
-Výsledné filtry porovnáváme s daty, perzistenci s obnovením prohlížeče a
-bezpečné vykreslení se zadáním textu obsahujícího HTML. Historii práce členů týmu
-a skutečné připomínky z cvičení musí doplnit původní tým.
+Prototyp nepokrývá nákup, PDF a jazykové mutace. Nebyl doložen výzkum
+s návštěvníky ani test na fyzických telefonech. Jde o nyní připravený návrhový
+milník, nikoli archiv dřívějšího odevzdání.

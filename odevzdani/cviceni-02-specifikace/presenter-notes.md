@@ -2,29 +2,31 @@
 
 Projektová specifikace a data
 
+**Autoři:** Michal Ladra, Matěj Mlejnek, Jan Martínek
+
 Šest snímků, přibližně 35–45 sekund na snímek; celkem 3–5 minut.
-Text upravte podle skutečné práce a jmen členů týmu. Nevydávejte podklady za historický záznam.
+Milníky jsou připravené podklady, nikoli archiv dřívějších odevzdání. Popis spolupráce a dřívější rozhodnutí upravte podle skutečného průběhu.
 
-## 1. Festival začíná u programu.
+## 1. Projektová specifikace
 
-Představujeme Prague Pulse Fest, fiktivní třídenní hudební festival v Praze. Cílem webu je umožnit návštěvníkovi rychle zjistit, kdy a kde hrají oblíbené kapely, a připravit si vlastní program. Jde o aktuálně připravený podklad k milníku, ne doklad historického odevzdání. Základem je specifikace a XML datová základna. Zachováváme tři dny, tři scény a šedesát účinkujících; původní název, posun termínu na srpen 2027 a výraznější grafický směr vznikly z požadavku zadavatele. Současná datová základna obsahuje skutečné interprety jako navržený line-up; nejde o potvrzení jejich účasti.
+[30 s] Představujeme Prague Pulse Fest, fiktivní třídenní hudební festival na pražském Výstavišti. První výstup tvoří specifikace a XML datová základna. Web má návštěvníkovi usnadnit výběr koncertů, dohledání interpreta a přípravu návštěvy. Na tomto snímku uvedeme všechny tři autory. Poznámka k původu materiálů: nynější balíčky jsou připravené podklady podle zadání, ne archiv historických odevzdání. Skutečné interprety používáme jako návrh line-upu, jejich účast netvrdíme.
 
-## 2. Jedna akce. Propojená data.
+## 2. Účel webu a cílové skupiny
 
-Festival trvá od prvního do třetího srpna 2027 ve fiktivně uspořádaném areálu u reálného Výstaviště Praha. XML obsahuje tři dny, tři scény, šedesát skutečných interpretů a šedesát vystoupení. Každá scéna má dvacet jmen a jasné zaměření: Main Hall velká mezinárodní jména, River Stage českou scénu a Club Stage klubovou elektroniku. Každý interpret má jedno vystoupení, program je chronologický a scény nemají kolize. Skutečná jména ale neznamenají potvrzenou účast. Vztahy kontrolujeme podle jednoznačných ID.
+[35 s] Cílové skupiny rozlišujeme podle úkolu. Na místě potřebuje člověk rychlou orientaci v programu, fanoušek hledá konkrétní jméno a návštěvník Prahy cestu do areálu. Proto navrhujeme kombinované filtry, hledání, osobní program a praktické informace. Angličtina pomáhá zahraničním návštěvníkům. Výběr vstupenky je další cesta, ale účet nesmí být podmínkou jejího dokončení. Hlavním cílem úvodu je ukázat název, datum a srozumitelné odkazy k těmto úkolům.
 
-## 3. Pro koho web připravujeme?
+## 3. Datová základna v XML
 
-Hlavní skupiny definujeme podle konkrétní potřeby, nikoli jen věku. Návštěvník na telefonu potřebuje najít nejbližší koncert; fanoušek konkrétní kapely hledá známé jméno a čas. Lidé přijíždějící do Prahy potřebují praktické informace a zahraniční návštěvníci angličtinu. Pro každou potřebu máme jasnou funkci. Vedlejší tok umožní porovnat vstupenky a projít lokální objednávku. Na úvodu má být hned vidět název, datum a hlavní cesta do programu.
+[35 s] Datovým zdrojem je festival.xml, pro odevzdání také data.xml. Festival obsahuje tři dny a tři scény: Main Hall, River Stage a Club Stage. Vystoupení nese datum, čas a odkazy na interpreta i scénu. ID jsou stabilní, názvy nejsou spojovacím klíčem. Generátor připravuje data pro prohlížeč; nemáme ručně udržovanou druhou verzi programu. Datové a browserové kontroly ověřují počty, unikátnost ID, reference a časové kolize uvnitř jedné scény.
 
-## 4. Obsah má konkrétní vazby.
+## 4. Struktura a propojení obsahu
 
-Z úvodní stránky vedeme do programu, účinkujících a praktických informací. Detail interpreta neukončuje cestu: odkazuje na příslušný koncert, kde je datum a scéna. Scéna naopak propojuje lokalitu s jejím programem. Vyhledávání má samostatné výsledky, které míří na správný obsah. Objednávka je oddělená souvislá cesta od porovnání tarifů přes košík k PDF. Účet není podmínkou objednávky. Takto vzniká struktura podle úkolů uživatele, nikoli podle technických souborů.
+[35 s] Hlavní navigace propojuje úvod, program, účinkující, scény a praktické informace. Hledání má vlastní stránku výsledků. Detail interpreta vede na jeho koncert a detail scény na příslušný program; uživatel se nemusí vracet na začátek. Vedlejší cesta vede přes vstupenky a košík k PDF. Soukromí, podmínky a obrazové kredity patří do patičky. Struktura vychází z cílů návštěvníka, nikoli z názvů JavaScriptových souborů.
 
-## 5. Dva průchody, jasný výsledek.
+## 5. Dva klíčové uživatelské scénáře
 
-První scénář řeší návštěvníka na telefonu, který zná den a scénu. Filtrovaný seznam mu umožní uložit koncert a později se vrátit k vlastnímu programu. Ve druhém scénáři návštěvník zadá jen název DARKZY, otevře DARKZY a zjistí čas i scénu koncertu. Očekávané výsledky jsou měřitelné: filtry nesmějí vracet jiné dny a oblíbené musí vydržet obnovení. Třetím scénářem ve specifikaci je objednávka hosta s výstupem PDF. Třetí scénář nově dovoluje dva libovolné dny včetně prvního a třetího, vlastní sedadlo a kemp. Není nutné kupovat celý festival.
+[45 s] S1: návštěvník na telefonu zná den a scénu, ale nemá vybrané koncerty. Zvolí první srpen a River Stage, uloží akci a otevře osobní program. Očekáváme správně zúžený seznam a zachování výběru po obnovení. S2: fanoušek zná jméno DARKZY, nezná termín koncertu. Vyhledá ho, otevře detail a zjistí datum, čas i scénu. Specifikace obsahuje také S3: host vybere vstupenku a dokončí lokální objednávku s PDF. Dva první scénáře použijeme již v prototypu.
 
-## 6. AI návrh potřebuje důkaz.
+## 6. Použití AI a ověření dat
 
-AI pomohla analyzovat zadání a připravit strukturu, texty i návrh datového propojení. Přijali jsme propojení podle ID a mobile-first přístup. Odmítli jsme vlastní backend, protože finální zadání vyžaduje čistě klientské řešení, a kopírování cizí značky. Builder kontroluje počty, unikátní identifikátory a existenci vazeb. Samotná AI kontrola ale nic nedokazuje, proto máme konkrétní validátory a navazující scénáře. Chybějící skutečné konzultace, schválení změn a týmovou historii nesmíme nahrazovat vymyšlenými tvrzeními.
+[40 s] AI pomohla připravit strukturu specifikace, obsah a datový model. Přijali jsme jednoznačná ID a upravili obsah podle potřeb návštěvníků. Odmítli jsme návrh skutečného serverového přihlašování a e-mailů, protože finální zadání vyžaduje klientské řešení. Kontrolu provádí konkrétní validátor a porovnání exportu s XML; věta „ověřila AI“ by nestačila. Limit: automatická datová kontrola neověří srozumitelnost textů ani skutečnou účast interpretů. Původ fotografií a odchylku od požadavku na AI obrázky uvádíme v dokumentaci. Zaznamenaná datová kontrola prošla: export souhlasí s XML a program má platné reference.

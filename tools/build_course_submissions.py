@@ -16,18 +16,22 @@ import xml.etree.ElementTree as ET
 from pptx import Presentation
 from pptx.dml.color import RGBColor
 from pptx.enum.shapes import MSO_SHAPE
+from pptx.enum.text import MSO_AUTO_SIZE
 from pptx.util import Pt
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
-from reportlab.lib.utils import simpleSplit
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'course-source'
 WIDTH, HEIGHT = 960, 540
-INK, PAPER, ORANGE, MUTED = '#181817', '#f4f0e7', '#f45e2b', '#68635b'
-FONT = 'Arial'  # common editable PowerPoint font; PDF embeds DejaVu for Czech glyphs
-FONT_DIR = Path('/usr/share/fonts/truetype/dejavu')
+INK, PAPER, ORANGE, MUTED = '#191b20', '#ffffff', '#e55024', '#626773'
+PALE, LINE = '#f5f6f8', '#dfe2e7'
+FONT = 'Arial'
+# Liberation Sans is metrically compatible with Arial. Both exports therefore use
+# the same explicit line breaks; the PDF embeds a font with all Czech glyphs.
+FONT_DIR = ROOT / 'tools/fonts'
+AUTHORS = ['Michal Ladra', 'Matěj Mlejnek', 'Jan Martínek']
 
 
 def rgb(color: str) -> RGBColor:
@@ -65,19 +69,26 @@ def data_checks() -> tuple[dict, list[str]]:
 
 
 class Deck:
-    """Render the same editable layout to a native PowerPoint and a PDF."""
+    """Render one restrained, readable layout to editable PowerPoint and PDF.
+
+    Slide text stays short; the explanation belongs in presenter notes. Layout
+    measurement uses the actual embedded PDF font rather than a character count.
+    The builder fails when text will not fit at a readable size, so editing the
+    narrative cannot silently create clipped slides.
+    """
     def __init__(self, target: Path, number: str, info: dict):
         self.target, self.number, self.info = target, number, info
         self.ppt = Presentation()
         self.ppt.slide_width, self.ppt.slide_height = Pt(WIDTH), Pt(HEIGHT)
         self.ppt.core_properties.title = f"Prague Pulse Fest — cvičení {number}: {info['name']}"
         self.ppt.core_properties.subject = 'Dodatečně připravený milník podle zadání; nikoli doložená historie semestru.'
-        self.ppt.core_properties.author = 'Prague Pulse Fest — projektové podklady'
-        pdfmetrics.registerFont(TTFont('PRF-Regular', str(FONT_DIR / 'DejaVuSans.ttf')))
-        pdfmetrics.registerFont(TTFont('PRF-Bold', str(FONT_DIR / 'DejaVuSans-Bold.ttf')))
+        self.authors = info.get('authors', AUTHORS)
+        self.ppt.core_properties.author = ', '.join(self.authors)
+        pdfmetrics.registerFont(TTFont('PRF-Regular', str(FONT_DIR / 'LiberationSans-Regular.ttf')))
+        pdfmetrics.registerFont(TTFont('PRF-Bold', str(FONT_DIR / 'LiberationSans-Bold.ttf')))
         self.pdf = canvas.Canvas(str(target / 'prezentace.pdf'), pagesize=(WIDTH, HEIGHT))
         self.pdf.setTitle(self.ppt.core_properties.title)
-        self.pdf.setAuthor('Prague Pulse Fest — projektové podklady')
+        self.pdf.setAuthor(', '.join(self.authors))
         self.slide = None
         self.notes = []
         self.overflow = []
@@ -94,19 +105,47 @@ class Deck:
             self.pdf.setStrokeColor(border); self.pdf.setLineWidth(1.1)
         self.pdf.rect(x, HEIGHT-y-h, w, h, fill=1, stroke=bool(border))
 
-    def text(self, x, y, w, text, size=20, color=INK, bold=False, h=None, spacing=1.24):
+    def lines(self, text, w, size, bold=False):
+        """Wrap words by measured width, including long filenames as a fallback."""
         font = 'PRF-Bold' if bold else 'PRF-Regular'
         lines = []
-        for paragraph in text.split('\n'):
-            lines.extend(simpleSplit(paragraph, font, size, w) if paragraph else [''])
-        needed = max(1, len(lines)) * size * spacing + 5
-        height = h or needed
-        if needed > height + .1 or x+w > WIDTH+.1 or y+height > HEIGHT+.1:
-            self.overflow.append((self.number, text[:45], needed, height))
+        # A small reserve also tolerates font substitution when a PPTX is opened
+        # on a computer without Arial installed.
+        usable = w * .98
+        for source in str(text).split('\n'):
+            if not source:
+                lines.append(''); continue
+            line = ''
+            for word in source.split():
+                candidate = f'{line} {word}' if line else word
+                if pdfmetrics.stringWidth(candidate, font, size) <= usable:
+                    line = candidate; continue
+                if line:
+                    lines.append(line); line = ''
+                if pdfmetrics.stringWidth(word, font, size) > usable:
+                    for char in word:
+                        if pdfmetrics.stringWidth(line + char, font, size) > usable:
+                            lines.append(line); line = ''
+                        line += char
+                else:
+                    line = word
+            if line:
+                lines.append(line)
+        return lines or ['']
+
+    def text(self, x, y, w, text, size=24, color=INK, bold=False, h=None, spacing=1.18):
+        font = 'PRF-Bold' if bold else 'PRF-Regular'
+        lines = self.lines(text, w, size, bold)
+        needed = size + max(0, len(lines)-1) * size * spacing + 5
+        height = needed if h is None else h
+        if (needed > height + .1 or min(x,y) < 0 or x+w > WIDTH+.1
+                or y+height > HEIGHT+.1):
+            self.overflow.append((self.number, str(text)[:60], round(needed, 1), height))
         shape = self.slide.shapes.add_textbox(Pt(x), Pt(y), Pt(w), Pt(height))
         frame = shape.text_frame
         frame.margin_left = frame.margin_right = frame.margin_top = frame.margin_bottom = 0
         frame.word_wrap = False
+        frame.auto_size = MSO_AUTO_SIZE.NONE
         for index, line in enumerate(lines):
             paragraph = frame.paragraphs[0] if index == 0 else frame.add_paragraph()
             paragraph.text = line
@@ -117,75 +156,100 @@ class Deck:
             paragraph.space_after = Pt(0)
             paragraph.line_spacing = Pt(size * spacing)
         self.pdf.setFont(font, size); self.pdf.setFillColor(color)
+        ascent = pdfmetrics.getAscent(font) / 1000 * size
         for index, line in enumerate(lines):
-            self.pdf.drawString(x, HEIGHT-y-size-index*size*spacing, line)
+            self.pdf.drawString(x, HEIGHT-y-ascent-index*size*spacing, line)
         return needed
 
-    def brand(self, x=42, y=24, scale=1.0, color=INK):
-        self.text(x,y,150*scale,'PRAGUE',14*scale,color,True)
-        self.text(x,y+15*scale,150*scale,'PULSE',22*scale,color,True)
-        self.text(x,y+40*scale,160*scale,'FEST / 2027',6.5*scale,color,True)
+    def fit(self, text, w, h, size=28, minimum=24, bold=False, spacing=1.18):
+        while size >= minimum:
+            count = len(self.lines(text, w, size, bold))
+            if size + max(0,count-1)*size*spacing + 5 <= h:
+                return size
+            size -= .5
+        raise ValueError(f'Cvičení {self.number}: zkraťte text snímku: {str(text)[:100]}')
 
-    def footer(self, index, dark=False):
-        color = PAPER if dark else MUTED
-        label = 'METODICKÁ ŠABLONA — DOPLNIT CIZÍ PROJEKT' if self.number=='06' else 'DODATEČNĚ PŘIPRAVENÝ PODKLAD K MILNÍKU'
-        self.text(42,505,790,label,7.5,color)
-        self.text(862,500,65,f'{self.number} / {index:02}',10,color,True)
+    def footer(self, index):
+        self.rect(56,492,848,1,LINE)
+        label = ('ŠABLONA · doplnit skutečný cizí projekt' if self.number == '06'
+                 else 'Prague Pulse Fest · Výstaviště Praha · 2027')
+        self.text(56,507,760,label,11,MUTED)
+        self.text(851,505,53,f'{index} / 6',12,MUTED)
+
+    def bullets(self, values, top, bottom, lead=''):
+        if not 1 <= len(values) <= 4:
+            raise ValueError(f'Cvičení {self.number}: použijte 1–4 body na snímek.')
+        lead_h = 0
+        if lead:
+            lead_h = 49 if len(self.lines(lead,848,18)) > 1 else 28
+        available = bottom-top-lead_h-(18 if lead else 0)
+        gap = 22
+        size = 28
+        while size >= 24:
+            heights = [size + max(0,len(self.lines(v,800,size))-1)*size*1.2+5
+                       for v in values]
+            if sum(heights)+gap*(len(values)-1) <= available:
+                break
+            size -= .5
+        if size < 24:
+            raise ValueError(f'Cvičení {self.number}: body jsou příliš dlouhé pro čitelný snímek.')
+        y = top
+        for value,height in zip(values,heights):
+            self.rect(57,y+10,8,8,ORANGE)
+            self.text(84,y,800,value,size,INK,h=height,spacing=1.2)
+            y += height+gap
+        if lead:
+            self.text(56,bottom-lead_h,848,lead,18,MUTED,h=lead_h)
 
     def page(self, item, index):
         self.slide = self.ppt.slides.add_slide(self.ppt.slide_layouts[6])
         cover = item['layout']=='cover'
-        bg = INK if cover else PAPER
-        self.rect(0,0,WIDTH,HEIGHT,bg)
+        self.rect(0,0,WIDTH,HEIGHT,PAPER)
         self.notes.append(item['notes'])
         self.slide.notes_slide.notes_text_frame.text = item['notes']
         if cover:
-            self.rect(697,0,263,HEIGHT,ORANGE)
-            self.brand(42,30,1.3,PAPER)
-            self.text(42,121,620,item['kicker'],11,PAPER,True)
-            self.text(38,168,630,item['title'],55,PAPER,True,h=165,spacing=1.06)
-            self.text(42,372,610,item['lead'],19,PAPER,h=87)
-            self.text(726,70,210,'1—3',57,INK,True)
-            self.text(726,139,210,'SRPEN',31,INK,True)
-            self.text(726,177,210,'2027',42,INK,True)
-            self.text(726,285,200,'PRAHA\nVLTAVA PARK',17,INK,True)
-            self.text(726,398,200,f'CVIČENÍ\n{self.number}',26,INK,True)
+            self.rect(56,48,6,30,ORANGE)
+            self.text(77,51,827,'PRAGUE PULSE FEST',20,INK,True)
+            self.text(56,126,848,item['kicker'],14,ORANGE,True)
+            size=self.fit(item['title'],848,143,48,38,True,1.12)
+            self.text(54,169,850,item['title'],size,INK,True,h=143,spacing=1.12)
+            self.text(56,330,848,item['lead'],23,MUTED,h=80)
+            self.text(56,441,848,' · '.join(self.authors),19,INK)
         else:
-            self.brand()
-            self.text(440,42,478,item['kicker'],10,MUTED,True)
-            self.rect(42,91,876,2,INK)
-            self.text(40,112,880,item['title'],34,INK,True,h=85,spacing=1.1)
+            self.text(56,36,848,item['kicker'],13,MUTED,True)
+            self.rect(56,69,49,4,ORANGE)
+            title_size=self.fit(item['title'],848,92,36,30,True,1.12)
+            self.text(54,99,850,item['title'],title_size,INK,True,h=92,spacing=1.12)
+            title_lines=len(self.lines(item['title'],848,title_size,True))
+            top=169 if title_lines==1 else 202
             layout = item['layout']
-            if layout in ('cards','split'):
-                cards = item['cards']; gap=18; width=(876-gap*(len(cards)-1))/len(cards)
-                for index_card,(heading,body) in enumerate(cards):
-                    x=42+index_card*(width+gap)
-                    self.rect(x,218,width,205,INK if index_card==0 else '#e7e0d5')
-                    fg=PAPER if index_card==0 else INK
-                    self.rect(x,218,width,6,ORANGE)
-                    self.text(x+17,239,width-34,heading,20,fg,True,h=54,spacing=1.1)
-                    self.text(x+17,294,width-34,body,14.2,fg,h=119,spacing=1.19)
-                if item.get('lead'):
-                    self.text(42,447,876,item['lead'],13.2,MUTED,h=43,spacing=1.2)
+            if layout == 'bullets':
+                self.bullets(item['bullets'],top,463,item.get('lead',''))
+            elif layout in ('cards','split'):
+                # Backward-compatible source format without the former narrow
+                # cards: each short section is a full-width point.
+                values=[f'{heading}: {body.replace(chr(10), " ")}'
+                        for heading,body in item['cards']]
+                self.bullets(values,top,463,item.get('lead',''))
             elif layout=='metrics':
+                assert len(item['metrics']) == 4, 'Metrics layout expects four values'
                 for i,(value,label) in enumerate(item['metrics']):
-                    x=42+i*225
-                    self.rect(x,220,201,165,ORANGE if i==0 else '#e7e0d5')
-                    self.text(x+18,230,168,value,66,INK,True)
-                    self.text(x+18,328,168,label,12,INK,True)
-                self.text(42,417,876,item['lead'],18,INK,h=74)
+                    x=56+i*218
+                    self.text(x,top+20,191,value,72,ORANGE,True,h=90)
+                    self.text(x,top+123,191,label,22,INK,h=68)
+                self.text(56,407,848,item.get('lead',''),22,MUTED,h=65)
             elif layout=='route':
+                assert len(item['steps']) <= 4, 'Route layout supports at most four steps'
                 for i,(heading,body) in enumerate(item['steps']):
-                    x=42+i*225
-                    self.rect(x,232,201,139,INK if i==0 else '#e7e0d5')
-                    fg=PAPER if i==0 else INK
-                    self.text(x+15,249,168,f'0{i+1}',11,ORANGE,True)
-                    self.text(x+15,281,168,heading,22,fg,True,h=35)
-                    self.text(x+15,326,168,body,12,fg,h=32)
-                    if i<3:
-                        self.text(x+202,288,23,'›',21,INK,True)
-                self.text(42,410,876,item['lead'],17,INK,h=80)
-        self.footer(index,cover)
+                    y=top+i*(65 if title_lines==1 else 57)
+                    self.text(56,y,38,f'{i+1:02}',23,ORANGE,True)
+                    self.text(106,y,274,heading,24,INK,True,h=54)
+                    self.text(391,y+2,513,body,23,MUTED,h=55)
+                if item.get('lead'):
+                    self.text(56,431,848,item['lead'],18,MUTED,h=47)
+            else:
+                raise ValueError(f'Unknown slide layout: {layout}')
+        self.footer(index)
         self.pdf.showPage()
 
     def finish(self):
@@ -194,8 +258,10 @@ class Deck:
         self.pdf.save()
         notes = [f"# Cvičení {self.number} — poznámky k prezentaci",'',
                  self.info['name'],'',
+                 '**Autoři:** '+', '.join(self.authors),'',
                  'Šest snímků, přibližně 35–45 sekund na snímek; celkem 3–5 minut.',
-                 'Text upravte podle skutečné práce a jmen členů týmu. Nevydávejte podklady za historický záznam.','']
+                 'Milníky jsou připravené podklady, nikoli archiv dřívějších odevzdání. '
+                 'Popis spolupráce a dřívější rozhodnutí upravte podle skutečného průběhu.','']
         if self.number=='06':
             notes += ['**Nejde o dokončené peer review. Nejdříve doplňte cizí projekt a skutečné nálezy.**','']
         for i,(slide,note) in enumerate(zip(self.info['slides'],self.notes),1):
@@ -250,11 +316,17 @@ def build(output: Path, include_web: bool):
             shutil.copytree(ROOT/'web',folder/'web')
             for name in ['documentation.md','validation_report.md']:
                 if (ROOT/name).exists():copy_file(ROOT/name,folder/name)
+            if (ROOT/'preview/home.png').exists():
+                copy_file(ROOT/'preview/home.png',folder/'preview/home.png')
         final=output/'finalni-projekt'
         if final.exists():shutil.rmtree(final)
         project=final/'projekt';project.mkdir(parents=True)
         for name in ['project-specification.md','documentation.md','data.xml','validation_report.md']:
             if (ROOT/name).exists():copy_file(ROOT/name,project/name)
+        for name in ['documentation.docx','documentation.pdf']:
+            if (ROOT/'docs'/name).exists():copy_file(ROOT/'docs'/name,project/'docs'/name)
+        if (ROOT/'preview/home.png').exists():
+            copy_file(ROOT/'preview/home.png',project/'preview/home.png')
         if (ROOT/'data/festival.xsd').exists():copy_file(ROOT/'data/festival.xsd',project/'festival.xsd')
         shutil.copytree(ROOT/'web',project/'web')
         shutil.copytree(prototype,project/'prototype')
@@ -267,50 +339,40 @@ def build(output: Path, include_web: bool):
         (final/'README.md').write_text('# Finální projekt\n\nSložka `projekt/` odpovídá povinné struktuře zadání. Otevřete `projekt/web/index.html`.\n\nPřed odevzdáním doplňte skutečné přijaté review, týmovou historii a potvrzení rozsahu změn.\n',encoding='utf-8')
     (output/'data-validation.md').write_text('# Kontrola dat při sestavení podkladů\n\n'+
         '\n'.join('- '+item for item in checks)+'\n\nKontrola se spouští při každém sestavení. Nejde o HTML validaci ani UX audit.\n',encoding='utf-8')
-    readme = '''# Prague Pulse Fest — podklady pro Moodle
+    readme = '''# Prague Pulse Fest — odevzdání na Moodle
 
-Každá složka cvičení má vlastní PPTX, PDF a `presenter-notes.md` pro 3–5 minut.
-PPTX obsahuje editovatelný text a poznámky přednášejícího. PDF má stejnou grafiku.
-Web a prototyp spustíte otevřením příslušného `index.html` bez instalace.
+**Autoři:** Michal Ladra, Matěj Mlejnek, Jan Martínek · akademický rok 2026/2027
 
-| Složka | Obsah odpovídající zadání |
+Nahrajte ZIP příslušné složky. Každá prezentace má šest snímků na 3–5 minut;
+`prezentace.pptx` obsahuje upravitelný text a poznámky, `prezentace.pdf` slouží
+k pohodlnému promítání. `presenter-notes.md` je stručná příprava řečníka.
+
+| Cvičení / složka | Požadované soubory a obsah |
 | --- | --- |
-| cviceni-02-specifikace | Specifikace, XML data, prezentace |
-| cviceni-03-prototyp | Spustitelný interaktivní wireframe, progress-02, prezentace |
-| cviceni-04-implementace | Současný web, progress-03, prezentace |
-| cviceni-05-review-ready | Současný web, specifikace, data, progress-04, prezentace |
-| cviceni-06-cross-review | Metodická šablona review a prezentace — nutno doplnit skutečný cizí projekt |
-| finalni-projekt/projekt | Předepsaná finální struktura, pokud byl builder spuštěn s --include-web |
+| 02 — `cviceni-02-specifikace/` | `project-specification.md`, `data.xml`, `prezentace.pptx` nebo `prezentace.pdf`. Identita, účel, cílové skupiny, architektura, dva scénáře, AI a ověření. |
+| 03 — `cviceni-03-prototyp/` | Celá složka `prototype/`, `progress-02.md`, prezentace. Spustitelný návrh pro mobil i desktop, dva průchody a nejméně tři smysluplné funkce. |
+| 04 — `cviceni-04-implementace/` | Celá složka `web/`, `progress-03.md`, prezentace. Úvod a odlišná obsahová stránka, navigace, interaktivita a responzivita. |
+| 05 — `cviceni-05-review-ready/` | `web/`, `project-specification.md`, `progress-04.md`, prezentace. Kompletní verze pro druhý tým; přibalená data podporují nezávislé ověření. |
+| 06 — `cviceni-06-cross-review/` | `review.md`, prezentace výsledků cizího webu. Dva scénáře, dvě formalizované metody, 3–5 nálezů s důkazy, závažností a doporučením. **Zatím šablona k doplnění.** |
+| Finální projekt — `finalni-projekt/projekt/` | `project-specification.md`, `prototype/`, `documentation.md`, `data.xml`, `web/`, `review/received-review.md`. Volitelně `docs/` s Word/PDF dokumentací. |
 
-## Co je připraveno dodatečně
+Před cvičením odevzdejte i prezentaci, kterou budete ukazovat. Web spustíte
+otevřením `web/index.html`, prototyp otevřením `prototype/index.html`; instalace
+není potřeba. Pythonové nástroje jsou pouze pro údržbu a ověření projektu.
 
-Balíčky jsou **rekonstruované ukázky milníků vytvořené nyní podle zadání**,
-nikoli důkaz dřívějšího odevzdání, termínů, konzultací nebo práce konkrétních členů.
-Cvičení 04 a 05 úmyslně používají stejnou současnou verzi. Cvičení 03 má nově
-sestavený redukovaný interaktivní prototyp. Nepředkládejte je jako falešnou historii.
+## Před odevzdáním
 
-## Co musí ještě dodat tým
+Podklady milníků jsou připravené podle zadání, nikoli archiv minulých odevzdání.
+Cvičení 04 a 05 obsahují stejný současný web. Tým doplní skutečný průběh spolupráce,
+přijaté cross-review a odůvodnění změn proti schválené specifikaci. Bez původních
+schválených výstupů nelze potvrdit dodržení limitu změn přibližně 15 %.
 
-1. Skutečný přidělený projekt a jeho specifikaci pro cvičení 06. Metodika je připravená,
-   ale skutečné nálezy nelze vytvořit bez hodnoceného webu. Šablona není hotové peer review.
-2. Přijaté cross-review do `review/received-review.md` a skutečná rozhodnutí v dokumentaci.
-3. Jména a reálnou spolupráci členů, časovou osu a případné historické prezentace.
-4. Ověření posunu termínu na srpen 2027, přechodu na skutečné interprety a výraznějšího
-   redesignu vůči schváleným prvním výstupům. Původní název Prague Pulse Fest zůstává;
-   dodržení limitu změn cca 15 % nelze potvrdit bez těchto výstupů.
-5. Nejnovější audiozpětná vazba je požadavek zadavatele, nikoli cross-review.
-   Vstupenkový tok nově řeší 1/2/3 dny, vlastní místa, kemp a modelovou DPH.
-   Dva snímky CC BY-NC-SA jsou určeny jen pro nekomerční školní rozsah.
+Pro cvičení 06 chybí přidělený cizí projekt a skutečné nálezy; šablonu proto nelze
+odevzdat jako hotové hodnocení. Zpětná vazba zadavatele není přijatým cross-review.
 
-## Pravdivé ověření a AI
-
-Aktuální testy hotového webu jsou ve `validation_report.md` u příslušného balíčku,
-prototypové testy u cvičení 03 a datové kontroly v `data-validation.md`. Počty
-a výsledky nepřenášejte na jinou verzi bez opakování testu. AI pomohla s texty,
-implementací, grafikou i těmito podklady; metody a omezení jsou výslovně popsané.
-
-Před prezentací odevzdejte všechny soubory, které budete ukazovat. PPTX/PDF
-se podle zadání také nahrává před cvičením. Prezentace 06 je zatím pouze příprava.
+Použití AI, konkrétní kontroly a jejich omezení uvádí prezentace, poznámky a
+`documentation.md`. Výsledky kontroly dat jsou v `data-validation.md`, ověření
+webu ve `validation_report.md` a prototypu v `prototype-validation.md`.
 '''
     if not include_web:
         readme += '\n**Pracovní export:** současný web nebyl kopírován. Úplný export vyžaduje `--include-web`.\n'

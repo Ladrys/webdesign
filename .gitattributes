@@ -1,0 +1,8 @@
+# Exporty a cizi knihovny nejsou vlastni zdrojovy kod projektu.
+odevzdani/** linguist-generated=true
+web/vendor/** linguist-vendored=true
+tools/fonts/** linguist-vendored=true
+web/js/data.js linguist-generated=true
+web/js/artist-copy.js linguist-generated=true
+prototype/data.js linguist-generated=true
+# Zdrojove XML a JSON zustavaji normalne dostupne v repozitari.

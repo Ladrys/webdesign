@@ -2,29 +2,31 @@
 
 UX návrh a interaktivní prototyp
 
+**Autoři:** Michal Ladra, Matěj Mlejnek, Jan Martínek
+
 Šest snímků, přibližně 35–45 sekund na snímek; celkem 3–5 minut.
-Text upravte podle skutečné práce a jmen členů týmu. Nevydávejte podklady za historický záznam.
+Milníky jsou připravené podklady, nikoli archiv dřívějších odevzdání. Popis spolupráce a dřívější rozhodnutí upravte podle skutečného průběhu.
 
-## 1. Nejdřív cesta. Potom grafika.
+## 1. UX návrh a prototyp
 
-Připravili jsme interaktivní wireframe, který lze otevřít přímo v prohlížeči. Záměrně je jednodušší než finální vizuální návrh, abychom mohli hodnotit navigaci a práci s programem. Nejde o skutečně archivovanou dřívější verzi, ale o nově sestavený reprezentativní milník. Oproti specifikaci jsou nyní přímo průchozí dva scénáře: sestavení programu a vyhledání interpreta. Používáme stejná obsahová data, takže prototyp není jen několik vymyšlených karet.
+[30 s] Oproti specifikaci máme spustitelný HTML wireframe. Otevře se bez instalace a používá stejnou datovou základnu jako web. Záměrně má jednoduchou grafiku: ověřujeme pořadí obsahu, navigaci a dva klíčové scénáře. Prototyp není šablona, kterou by hotový web při spuštění načítal; je to samostatná návrhová ukázka. Nynější prototyp byl sestaven pro tyto podklady, nepředstavujeme ho jako doložený historický export ze semestru.
 
-## 2. Interaktivita řeší potřebu.
+## 2. Od specifikace k wireframu
 
-Navržené funkce navazují přímo na potřeby ze specifikace. Kombinace dne a scény zkracuje program na relevantní část. Oblíbené umožní vrátit se k rozhodnutí a jsou uchované v prohlížeči. Hledání funguje podle části názvu bez ohledu na velikost písmen a diakritiku. Kontextový detail přidává další smysluplnou interakci: z interpreta vede ke koncertu. Samotnou navigaci ani dekorativní pohyb nepočítáme jako jednu ze tří požadovaných funkcí.
+[35 s] Mobile-first zde znamená navrhnout použitelný úzký základ, ne pouze zmenšit desktop. Návštěvník nejprve vidí hledání a důležitý obsah, podrobnosti následují. Filtry zůstávají dostupné bez vodorovného posouvání celé stránky. Na desktopu se seznam rozšíří do více sloupců, význam tlačítek ale zůstává stejný. Flexbox obsluhuje navigaci a Grid obsahové karty. Už ve wireframu kontrolujeme popisky a klávesnici, abychom problémy neodkládali až na finální grafiku.
 
-## 3. Malý displej je výchozí.
+## 3. Tři funkce řeší konkrétní potřeby
 
-Pro mobil nezačínáme zmenšeným desktopem. Základ tvoří jeden sloupec, krátká navigace a jasné pořadí: identita, hledání, obsah. Filtry i tlačítka se mají zalamovat bez horizontálního posouvání celé stránky. Desktop používá tentýž obsah, jen nabízí více karet vedle sebe. Grid řeší obsahové seznamy a Flexbox navigaci. Už ve wireframu mají formuláře popisky a ovládání viditelný focus. To je levnější ověřit před dopracováním grafiky.
+[35 s] První funkce kombinuje den a scénu; seznam musí splnit obě podmínky současně. Druhá ukládá vybraná vystoupení a umožní zobrazit pouze osobní program. Třetí hledá podle části názvu a propojuje detail s koncertem. Hledání nerozlišuje velikost písmen ani diakritiku. Menu nebo slideshow nepovažujeme za samostatnou požadovanou interakci. Každá zde uvedená funkce mění obsah nebo uchovává uživatelovo rozhodnutí a navazuje na potřebu ze specifikace.
 
-## 4. S1 / Od přehledu k výběru.
+## 4. S1: sestavení osobního programu
 
-V první krátké ukázce otevřeme Program, vybereme první srpen a River Stage. Na výsledku ověříme datum a scénu, ne pouze počet karet. Jeden koncert uložíme a zapneme filtr Jen uložené. Po obnovení je uložený výběr znovu k dispozici. Projdeme také stav bez výsledků, aby bylo jasné, jak filtr změnit. Konkrétní průchod a jeho výsledek popisuje přiložený prototypový validační záznam; test ve vývojovém prohlížeči neznamená test na všech zařízeních.
+[45 s včetně ukázky] Otevřeme prototyp, přejdeme na Program a zvolíme první srpen s River Stage. Ověříme datum a scénu výsledků, ne jen počet karet. Vybraný koncert uložíme a zapneme Jen uložené. Po obnovení stránky se k výběru vrátíme. Pokud není žádný výsledek, rozhraní má nabídnout pochopitelnou cestu ke změně filtrů. Tento průchod je součástí browserového ověření prototypu; není to výzkum s reprezentativním vzorkem uživatelů.
 
-## 5. S2 / Od hledání ke koncertu.
+## 5. S2: od hledání ke koncertu
 
-Ve druhé ukázce zadáme DARKZY do globálního hledání. Výsledky oddělují účinkující od souvisejících vystoupení. U DARKZY otevřeme dialog s žánrem, popisem a programem. Odkaz do programu zachová kontext interpreta. Kontrolujeme, že údaje pocházejí ze stejné základny a dialog lze zavřít klávesou Escape. Hledaný text se nevkládá jako spustitelné HTML. Návštěvník dostane srozumitelnou zprávu i tehdy, když hledání nic nenajde.
+[45 s včetně ukázky] Do hledání zadáme DARKZY a otevřeme detail stejnojmenného interpreta. Z detailu přejdeme do jeho programu. Ukážeme správný čas a scénu a zavření dialogu klávesou Escape. Vyzkoušíme také dotaz bez výsledku. Přesné vazby porovnáváme s daty, nikoli s tím, zda výsledek vypadá věrohodně. Zadaný text musí být vykreslený jako text, proto kontrolujeme i vstup připomínající HTML. Výsledky jsou zaznamenané v prototype-validation.md.
 
-## 6. Co prototyp ověřuje?
+## 6. AI a ověření prototypu
 
-Prototyp ověřuje informační architekturu a dva klíčové průchody. Jeho datové minimum kontroluje builder a browserový test prochází filtry, hledání, uložení i dialog. AI pomohla s návrhem a kódem, ale nepovažujeme její návrh za důkaz použitelnosti. Přijali jsme jednoduché bloky, propojení dat a funkční stavy. Odmítli jsme předstírat nákup v nehotovém wireframu. Skutečné rozhovory s návštěvníky ani testování na fyzickém telefonu nebyly dodány. Další milník ukazuje finální vzhled a širší funkce.
+[40 s] AI vytvořila návrh rozložení a část kódu. Přijali jsme propojení filtrů a detailů, upravili pořadí obsahu pro malé displeje a odmítli pouhou slideshow jako důkaz interaktivity. Samostatný test prochází dva scénáře, obnovu uloženého programu, vyhledávání a dialog. V určených šířkách kontroluje přetékání. Konkrétní výstup je přiložen, samotný návrh AI není validace. Prototyp zatím nezahrnuje objednávku, PDF ani jazykové mutace; ty ukazuje následující implementační milník. Přiložený test prošel bez chyb běhu a potvrdil zachování uloženého programu.

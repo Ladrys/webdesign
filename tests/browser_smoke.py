@@ -7,6 +7,7 @@ Optional QR decoding checks: zxing-cpp and NumPy.
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from tempfile import gettempdir
 from threading import Thread
 from urllib.parse import quote
 import json
@@ -23,7 +24,7 @@ except ImportError:
     zxingcpp = None
 
 ROOT = Path(__file__).resolve().parents[1]
-ARTIFACTS = Path(os.environ.get('PULSE_TEST_ARTIFACTS', '/tmp/prague-pulse-checks'))
+ARTIFACTS = Path(os.environ.get('PULSE_TEST_ARTIFACTS', str(Path(gettempdir()) / 'prague-pulse-checks')))
 ARTIFACTS.mkdir(parents=True, exist_ok=True)
 CHECKS = []
 
@@ -132,8 +133,15 @@ Thread(target=server.serve_forever, daemon=True).start()
 BASE = os.environ.get('PULSE_TEST_BASE', f'http://127.0.0.1:{server.server_port}/web/')
 try:
     with sync_playwright() as playwright:
-        browser = playwright.chromium.launch(
-            executable_path=os.environ.get('CHROMIUM_PATH', '/usr/bin/chromium'), args=['--no-sandbox'])
+        # Use an explicitly selected browser, the cloud image's Chromium, or
+        # Playwright's installed browser on Windows/macOS and other machines.
+        chromium_path = os.environ.get('CHROMIUM_PATH')
+        if not chromium_path and Path('/usr/bin/chromium').is_file():
+            chromium_path = '/usr/bin/chromium'
+        launch_options = {'args': ['--no-sandbox']}
+        if chromium_path:
+            launch_options['executable_path'] = chromium_path
+        browser = playwright.chromium.launch(**launch_options)
         context = browser.new_context(accept_downloads=True)
         # Keep the consent checks deterministic and never contact external map servers.
         context.route('https://**', lambda route: route.fulfill(status=200, content_type='text/html', body='<p>Map test fixture</p>'))

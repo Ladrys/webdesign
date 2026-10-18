@@ -1,30 +1,32 @@
 # Cvičení 05 — poznámky k prezentaci
 
-Review-ready verze
+Verze připravená pro review
+
+**Autoři:** Michal Ladra, Matěj Mlejnek, Jan Martínek
 
 Šest snímků, přibližně 35–45 sekund na snímek; celkem 3–5 minut.
-Text upravte podle skutečné práce a jmen členů týmu. Nevydávejte podklady za historický záznam.
+Milníky jsou připravené podklady, nikoli archiv dřívějších odevzdání. Popis spolupráce a dřívější rozhodnutí upravte podle skutečného průběhu.
 
-## 1. Připraveno ke kontrole.
+## 1. Web připravený pro review
 
-Předáváme současnou review-ready verzi druhému týmu. Balíček obsahuje web, specifikaci, data a progress popisující stav i omezení. Materiál je připraven dodatečně ze současné implementace a nevydáváme jej za historicky doložené odevzdání. Reviewer nemusí instalovat framework ani server. Naším cílem je, aby mohl nezávisle projít klíčové úkoly a zaznamenat reprodukovatelné nálezy. Dnes nepředstavujeme výsledky cizího hodnocení; ty zatím nebyly poskytnuty.
+[30 s] Předáváme web, specifikaci a popis scénářů tak, aby jiný tým mohl samostatně provést hodnocení. Oproti návrhu už jsou dostupné všechny hlavní části, obě jazykové varianty a lokální objednávka s PDF. Podklady cvičení čtyři a pět vycházejí ze stejné současné verze: skutečné historické snapshoty nebyly poskytnuty. Netvrdíme tedy neexistující časový vývoj. Nyní ukážeme obsah balíčku, dva hlavní průchody a přesně vymezené limity.
 
-## 2. Obsah pro skutečný průchod.
+## 2. Co je připravené pro review
 
-Web obsahuje všechny hlavní obsahové části, takže hodnocení nemusí stát na prázdných zástupných stránkách. K dispozici je šedesát interpretů a programových položek během tří dnů na třech scénách. Vyhledávání a filtry mají skutečný datový podklad. Doplňkové cesty zahrnují lokalitu, jazykovou volbu a objednávku. Čísla dokazují rozsah obsahu, nikoli automaticky kvalitu UX. Proto předáváme konkrétní scénáře, očekávané výsledky a známé limity, aby review nezůstalo u obecného dojmu z grafiky.
+[35 s] Hodnotitel nepotřebuje náš vývojový počítač. Rozbalí web a otevře index.html; data i knihovny jsou přibalené. Ve specifikaci najde cílové skupiny a očekávané výsledky scénářů. Důležitá rozhodnutí zůstávají stejná: klientské řešení, jednotný datový zdroj a účet jako volitelná cesta. Pro každý nález potřebujeme přesnou stránku a kroky, aby šel nezávisle zopakovat. Prohlídka screenshotů sama nestačí k ověření funkčního hledání, uloženého programu nebo objednávky.
 
-## 3. Tři úkoly pro hodnotící tým.
+## 3. S1: filtr a osobní program
 
-Revieweři nejprve projdou plánování programu a hledání interpreta. Ve třetím scénáři zvolí první a třetí srpen a sami vyberou VIP sedadlo. V košíku přidají stan pro dvě osoby a promo PULSE10. Zkontrolují, že sleva snížila pouze vstupenky, ne kemp, a že DPH už je v ceně. PDF musí zachovat obě nesousedící data a obsahovat campingový voucher. Po nákupu se stejné sedadlo nesmí blokovat ve druhém dni jen kvůli tomuto nákupu. Použijí smyšlené kontakty a zkušební platbu.
+[45 s včetně ukázky] Hodnotitel postupuje podle tohoto krátkého scénáře. Nejprve ověří, že oba filtry působí společně a ukazují jen očekávané akce. Po uložení koncertu zobrazí osobní program a obnoví stránku. Výběr se má zachovat. Stejný průchod doporučujeme na mobilní šířce i desktopu a alespoň jednou klávesnicí. Když něco nefunguje, má záznam obsahovat původní stav, kroky, očekávání, skutečný výsledek a důkaz. Pouhý obecný dojem není reprodukovatelný nález.
 
-## 4. Co už kontrolujeme sami?
+## 4. S2: hledání a detail interpreta
 
-Vlastní kontroly mají reviewerům ušetřit čas na základních chybách. Datový validátor ověřuje reference a odvozený export, browserové testy důležité interakce a různé šířky. Zvlášť kontrolujeme vyplněný košík a výsledný PDF dokument. Aktuální záznam je přiložen, včetně limitů. Automatický test ovšem nepozná každou nejasnou formulaci ani nevhodné pořadí informací. Právě proto potřebujeme nezávislé expertní hodnocení a skutečný průchod uživatelskými scénáři druhého týmu.
+[45 s včetně ukázky] U druhého scénáře je cílem zjistit termín známého interpreta. Hledáme DARKZY, otevřeme detail a navazující program. Porovnáme údaje se specifikací a daty. Dále zkusíme neexistující dotaz a zavření dialogu klávesou Escape. Hledání v biografiích je záměr: například dotaz David může najít i interpreta uvedeného vlastním jménem v popisu. To není chyba podobnosti jmen. Výsledky mají vysvětlit nalezený objekt a nabídnout smysluplný přechod, nikoli zobrazit pouze bezkontextový seznam.
 
-## 5. Známé hranice jsou součást předání.
+## 5. Testy a známé limity
 
-Klientské účty a dostupnost zůstávají jen ve stejném prohlížeči, e-mail se automaticky neodesílá. Nový offline plánek funguje bez Googlu, externí mapa až po souhlasu. Skutečné fotografie mají ověřený zdroj a licenci; Hedex a AC Slater jsou CC BY-NC-SA a nejsou určeny pro automatický přenos do komerčního projektu. Historický úvodní snímek není dokladem stavu roku 2027. Nové fotografie rekonstrukce, dopravy a náramku mají přesná data a vysvětlení. Automatické kontroly nenahrazují plný audit WCAG nebo testy s návštěvníky.
+[40 s] Aktuální provedené kontroly jsou v validation_report.md. Rozlišujeme datovou správnost, automatizovaný průchod a uživatelskou srozumitelnost. Lokální stav není sdílená databáze a není přenosný mezi zařízeními. Přímé file otevření blokuje politika zdejšího testovacího prostředí; zdejší testy proto používají vývojový statický server. To není runtime požadavek odevzdaného webu. Skutečnou účast interpretů ani oficiální areál netvrdíme. Nebyl proveden úplný audit WCAG, test všech prohlížečů ani výzkum s návštěvníky.
 
-## 6. Nález musí jít zopakovat.
+## 6. AI, odpovědnost a zadání review
 
-Prosíme o nálezy s přesnými kroky, důkazem a vysvětlením dopadu. Závažnost odvozujte od toho, zda problém blokuje cíl, způsobuje opakované chyby nebo jde o drobnost. Použít lze Nielsenovy heuristiky a kognitivní průchod; vlastní vizuální preference samy o sobě nejsou závada. AI může pomoci strukturovat záznam, ale každý problém musí člověk reprodukovat. Po přijetí review zapíšeme rozhodnutí a provedenou změnu do dokumentace. Zatím žádné skutečné review od druhého týmu poskytnuto nebylo. Poslední změny pocházejí z audiozpětné vazby zadavatele, což není cross-review od přiděleného jiného týmu.
+[40 s] AI výstupy neodevzdáváme bez kontroly. Přijali jsme strukturu dat a propojené scénáře, upravili součty a mobilní stavy a odmítli vytvoření vlastního backendu. Konkrétní ověření tvoří porovnání dat, browserové akce a čtení výsledného PDF. Jiný tým má použít alespoň dvě formalizované metody, například Nielsenovy heuristiky a kognitivní průchod. U každého nálezu chceme závažnost, způsob objevení, zdůvodnění a návrh úpravy. Přijaté externí review nebylo dodáno; technické testy za ně nevydáváme. Předaný validační report uvádí úspěšné technické průchody a samostatně jejich omezení.
