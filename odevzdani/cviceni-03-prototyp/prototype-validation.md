@@ -9,7 +9,7 @@
 - cviceni-02-specifikace: slide4 text and presenter notes
 - cviceni-02-specifikace: slide5 text and presenter notes
 - cviceni-02-specifikace: slide6 text and presenter notes
-- cviceni-02-specifikace: festival identity
+- cviceni-02-specifikace: Prague Pulse 2027 identity
 - cviceni-02-specifikace: separate presenter notes
 - cviceni-02-specifikace: PowerPoint archive integrity
 - cviceni-03-prototyp: six PDF pages and editable PPTX slides
@@ -19,7 +19,7 @@
 - cviceni-03-prototyp: slide4 text and presenter notes
 - cviceni-03-prototyp: slide5 text and presenter notes
 - cviceni-03-prototyp: slide6 text and presenter notes
-- cviceni-03-prototyp: festival identity
+- cviceni-03-prototyp: Prague Pulse 2027 identity
 - cviceni-03-prototyp: separate presenter notes
 - cviceni-03-prototyp: PowerPoint archive integrity
 - cviceni-04-implementace: six PDF pages and editable PPTX slides
@@ -29,7 +29,7 @@
 - cviceni-04-implementace: slide4 text and presenter notes
 - cviceni-04-implementace: slide5 text and presenter notes
 - cviceni-04-implementace: slide6 text and presenter notes
-- cviceni-04-implementace: festival identity
+- cviceni-04-implementace: Prague Pulse 2027 identity
 - cviceni-04-implementace: separate presenter notes
 - cviceni-04-implementace: PowerPoint archive integrity
 - cviceni-05-review-ready: six PDF pages and editable PPTX slides
@@ -39,7 +39,7 @@
 - cviceni-05-review-ready: slide4 text and presenter notes
 - cviceni-05-review-ready: slide5 text and presenter notes
 - cviceni-05-review-ready: slide6 text and presenter notes
-- cviceni-05-review-ready: festival identity
+- cviceni-05-review-ready: Prague Pulse 2027 identity
 - cviceni-05-review-ready: separate presenter notes
 - cviceni-05-review-ready: PowerPoint archive integrity
 - cviceni-06-cross-review: six PDF pages and editable PPTX slides
@@ -49,7 +49,7 @@
 - cviceni-06-cross-review: slide4 text and presenter notes
 - cviceni-06-cross-review: slide5 text and presenter notes
 - cviceni-06-cross-review: slide6 text and presenter notes
-- cviceni-06-cross-review: festival identity
+- cviceni-06-cross-review: Prague Pulse 2027 identity
 - cviceni-06-cross-review: separate presenter notes
 - cviceni-06-cross-review: PowerPoint archive integrity
 - Prototype fits320px/home

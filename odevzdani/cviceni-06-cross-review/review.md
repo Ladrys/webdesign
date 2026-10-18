@@ -62,7 +62,7 @@ odhad, nikoli experiment s reprezentativním vzorkem návštěvníků.
 Ke každému nálezu přiložte screenshot s kontextem nebo jiný reprodukovatelný
 důkaz. Srovnejte očekávaný a skutečný stav. Nezadávejte citlivé údaje.
 
-## Příklady vlastního ověření Prague Rocks — nejsou peer review
+## Příklady vlastního ověření Prague Pulse Fest — nejsou peer review
 
 Tyto příklady pomáhají použít metodu; nejsou nálezy přiděleného cizího projektu.
 

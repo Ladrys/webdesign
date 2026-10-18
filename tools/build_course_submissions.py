@@ -72,14 +72,14 @@ class Deck:
         self.target, self.number, self.info = target, number, info
         self.ppt = Presentation()
         self.ppt.slide_width, self.ppt.slide_height = Pt(WIDTH), Pt(HEIGHT)
-        self.ppt.core_properties.title = f"Prague Rocks — cvičení {number}: {info['name']}"
+        self.ppt.core_properties.title = f"Prague Pulse Fest — cvičení {number}: {info['name']}"
         self.ppt.core_properties.subject = 'Dodatečně připravený milník podle zadání; nikoli doložená historie semestru.'
-        self.ppt.core_properties.author = 'Prague Rocks Festival — projektové podklady'
+        self.ppt.core_properties.author = 'Prague Pulse Fest — projektové podklady'
         pdfmetrics.registerFont(TTFont('PRF-Regular', str(FONT_DIR / 'DejaVuSans.ttf')))
         pdfmetrics.registerFont(TTFont('PRF-Bold', str(FONT_DIR / 'DejaVuSans-Bold.ttf')))
         self.pdf = canvas.Canvas(str(target / 'prezentace.pdf'), pagesize=(WIDTH, HEIGHT))
         self.pdf.setTitle(self.ppt.core_properties.title)
-        self.pdf.setAuthor('Prague Rocks Festival — projektové podklady')
+        self.pdf.setAuthor('Prague Pulse Fest — projektové podklady')
         self.slide = None
         self.notes = []
         self.overflow = []
@@ -125,8 +125,8 @@ class Deck:
 
     def brand(self, x=42, y=24, scale=1.0, color=INK):
         self.text(x,y,150*scale,'PRAGUE',14*scale,color,True)
-        self.text(x,y+15*scale,150*scale,'ROCKS',22*scale,color,True)
-        self.text(x,y+40*scale,160*scale,'FESTIVAL / 2026',6.5*scale,color,True)
+        self.text(x,y+15*scale,150*scale,'PULSE',22*scale,color,True)
+        self.text(x,y+40*scale,160*scale,'FEST / 2027',6.5*scale,color,True)
         self.rect(x+105*scale,y+5*scale,7*scale,34*scale,ORANGE if color==INK else PAPER)
 
     def footer(self, index, dark=False):
@@ -150,7 +150,7 @@ class Deck:
             self.text(42,372,610,item['lead'],19,PAPER,h=87)
             self.text(726,70,210,'1—3',57,INK,True)
             self.text(726,139,210,'SRPEN',31,INK,True)
-            self.text(726,177,210,'2026',42,INK,True)
+            self.text(726,177,210,'2027',42,INK,True)
             self.text(726,285,200,'PRAHA\nVLTAVA PARK',17,INK,True)
             self.text(726,398,200,f'CVIČENÍ\n{self.number}',26,INK,True)
         else:
@@ -269,7 +269,7 @@ def build(output: Path, include_web: bool):
         (final/'README.md').write_text('# Finální projekt\n\nSložka `projekt/` odpovídá povinné struktuře zadání. Otevřete `projekt/web/index.html`.\n\nPřed odevzdáním doplňte skutečné přijaté review, týmovou historii a potvrzení rozsahu změn.\n',encoding='utf-8')
     (output/'data-validation.md').write_text('# Kontrola dat při sestavení podkladů\n\n'+
         '\n'.join('- '+item for item in checks)+'\n\nKontrola se spouští při každém sestavení. Nejde o HTML validaci ani UX audit.\n',encoding='utf-8')
-    readme = '''# Prague Rocks Festival — podklady pro Moodle
+    readme = '''# Prague Pulse Fest — podklady pro Moodle
 
 Každá složka cvičení má vlastní PPTX, PDF a `presenter-notes.md` pro 3–5 minut.
 PPTX obsahuje editovatelný text a poznámky přednášejícího. PDF má stejnou grafiku.
@@ -297,8 +297,9 @@ sestavený redukovaný interaktivní prototyp. Nepředkládejte je jako falešno
    ale skutečné nálezy nelze vytvořit bez hodnoceného webu. Šablona není hotové peer review.
 2. Přijaté cross-review do `review/received-review.md` a skutečná rozhodnutí v dokumentaci.
 3. Jména a reálnou spolupráci členů, časovou osu a případné historické prezentace.
-4. Odsouhlasení přejmenování a výraznějšího redesignu vůči původní specifikaci
-   Prague Pulse Fest; limit změn cca 15 % nelze potvrdit bez schválených prvních výstupů.
+4. Ověření posunu termínu na srpen 2027, přejmenování interpretů a výraznějšího
+   redesignu vůči schváleným prvním výstupům. Původní název Prague Pulse Fest zůstává;
+   dodržení limitu změn cca 15 % nelze potvrdit bez těchto výstupů.
 
 ## Pravdivé ověření a AI
 

@@ -1,5 +1,5 @@
 /*
- * Original AI-generated fictional performer photography for Prague Rocks Festival.
+ * Original AI-generated fictional performer photography for Prague Pulse Fest.
  * Each image is a regular 4 × 4 contact sheet; CSS selects one complete cell.
  * The mapping uses the XML performer ID so searching or sorting never changes it.
  * See images/performers/README.md for provenance and verification details.

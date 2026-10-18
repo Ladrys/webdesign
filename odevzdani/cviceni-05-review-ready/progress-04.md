@@ -15,7 +15,7 @@ cílovým skupinám. Datová základna obsahuje 60 vystoupení během 3 dnů.
 
 1. **S1 — program:** Zvolte první den a River Stage. Uložte vybranou akci.
    Přepněte osobní program a obnovte stránku. Zkontrolujte datum, scénu a zachování výběru.
-2. **S2 — hledání:** Hledejte „Neon“, otevřete Neon Wave a najděte navazující
+2. **S2 — hledání:** Hledejte „Atlas“, otevřete Atlas Motel a najděte navazující
    vystoupení. Ověřte vazbu na konkrétní datum a scénu, vyzkoušejte prázdný výsledek.
 3. **S3 — vstupenka:** Porovnejte třídenní tarify, vyberte vstupenku nebo místa,
    zkontrolujte košík a projděte zkušební dokončení jako host se smyšlenými údaji.
@@ -33,7 +33,7 @@ jako soubor, ne pouze jako screenshot potvrzení objednávky.
 
 - Účty a obsazenost jsou lokální pro prohlížeč; neexistuje sdílená databáze ani skutečná platba.
 - E-mail se automaticky neodesílá; objednávka poskytuje stažení PDF.
-- Externí mapa vyžaduje spojení se službou Google; zbývající obsah má zůstat čitelný bez ní.
+- Externí mapa se načte automaticky až po povolení v panelu soukromí a vyžaduje spojení se službou Google; zbývající obsah má zůstat čitelný bez ní.
 - Fiktivní festivalová identita a kontakty nejsou ověřený reálný pořadatel.
 - Neproběhl plný audit WCAG AA, fyzické telefony ani všechny prohlížeče.
 - Skutečné přijaté cross-review zatím nebylo dodáno. Technické testy nejsou jeho náhradou.

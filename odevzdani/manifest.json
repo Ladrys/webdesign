@@ -3,13 +3,13 @@
   "files": [
     {
       "path": "README.md",
-      "bytes": 2471,
-      "sha256": "6a49adc45e2694d3b1fbd071d4878774cdbf93b1364b756f58fe76f27c7db4cd"
+      "bytes": 2546,
+      "sha256": "acf46a38d4318bf8353b2c9a29e5bd656c7eb9681c14ceabf8fde9f3b88c63ab"
     },
     {
       "path": "cviceni-02-specifikace/data.xml",
-      "bytes": 49028,
-      "sha256": "c924d83eece5d726dade64c8d92c8a934287c12f7cdfd782a6f4051e024f581c"
+      "bytes": 49081,
+      "sha256": "7cd99256cf729734d1f7c0b0305fcdce00fe03869d29b2b06dd64c08afc52a10"
     },
     {
       "path": "cviceni-02-specifikace/festival.xsd",
@@ -18,58 +18,58 @@
     },
     {
       "path": "cviceni-02-specifikace/presenter-notes.md",
-      "bytes": 3540,
-      "sha256": "cd65e52b11c27034e704417f45d89e7dcb858dd48ee946d9d1524724a4ed2183"
+      "bytes": 3573,
+      "sha256": "58978e8aab1ed355aa95eeb31a3f0fbe7c9de07eafaf59230d80903bc6334959"
     },
     {
       "path": "cviceni-02-specifikace/prezentace.pdf",
-      "bytes": 52688,
-      "sha256": "2e021dea94d167528539c1c6e9d31836dd084050949a220d40242e147c1bf4a3"
+      "bytes": 52671,
+      "sha256": "99964bcbb06ab8cfa96f19bd64e1a97aadab0995be71d2dfd1a39b25f3643b8a"
     },
     {
       "path": "cviceni-02-specifikace/prezentace.pptx",
-      "bytes": 51907,
-      "sha256": "b11f95c836f30cba4df8be5ba468e60164f1a6e003aa89946996a4c2c77e04d8"
+      "bytes": 51888,
+      "sha256": "4a68ea37ad0a016f36d90c147db1292e3c0ad933518c7c35ea1a47aab72933b4"
     },
     {
       "path": "cviceni-02-specifikace/project-specification.md",
-      "bytes": 7507,
-      "sha256": "406249708576689d7cc925b2d30fe69321c059b6022c290d02259adf7c4cec4b"
+      "bytes": 7984,
+      "sha256": "fabeebc5792eb7f8e16f94a0a636008e282ae2df886de797a8ec23dc64d312a5"
     },
     {
       "path": "cviceni-03-prototyp/presenter-notes.md",
-      "bytes": 3477,
-      "sha256": "b9a9c26c76910d62771ed8455c962bb151c7c403746aafac9d3ec05742f5b884"
+      "bytes": 3480,
+      "sha256": "f6877517d022a022e02c477f091e779255da6f245162ec717d0c036c9d1895f5"
     },
     {
       "path": "cviceni-03-prototyp/prezentace.pdf",
-      "bytes": 52492,
-      "sha256": "873359b70ca56ab78d72f1a01f2a7febeaf18fa62622c5af1b71e14eb347d4e3"
+      "bytes": 52475,
+      "sha256": "0c4ed69e3cd04fc6099ad996db2d08d88658ad57e9fe00e88dc0345422f94cb7"
     },
     {
       "path": "cviceni-03-prototyp/prezentace.pptx",
-      "bytes": 52057,
-      "sha256": "4992eac9876f9c2e381a01b0952a0ce09fc7e2e7847a907d844e991597a3126a"
+      "bytes": 52020,
+      "sha256": "3ac08b7a99f362d7e358623a4da1535fb886c95ac7c1bb03471e70043369d348"
     },
     {
       "path": "cviceni-03-prototyp/progress-02.md",
-      "bytes": 2824,
-      "sha256": "2b3c9256325ba67a8392af897eedc23cc9598ee400df67c47b141883b700f496"
+      "bytes": 2827,
+      "sha256": "ca5022923ebb1ada854326506fac6c440ae269be1cc2f9161e4fb3820eb01ecf"
     },
     {
       "path": "cviceni-03-prototyp/prototype/README.md",
-      "bytes": 690,
-      "sha256": "362b46516e4fe112c6ba5e84b423d5200d8e9e39841930f791539f1d429573f8"
+      "bytes": 689,
+      "sha256": "42a3940c3b6a4be7af00c3a5540c66ae1c1ad611f90077e4654cba1fac476828"
     },
     {
       "path": "cviceni-03-prototyp/prototype/data.js",
-      "bytes": 35250,
-      "sha256": "621bde705e80ea471e636d4c3c85721020f3bfe5351306deb0996627a5a4d53d"
+      "bytes": 35350,
+      "sha256": "801b977fd5ae7e36ff082f7f1798725de238f2bf3b51b51ab8e2ec05833452a3"
     },
     {
       "path": "cviceni-03-prototyp/prototype/index.html",
-      "bytes": 1581,
-      "sha256": "b56bee3fc0ff82de13f9316b7c8ca0675b6081a4bcb83dbe08632b4e9e52da2d"
+      "bytes": 1570,
+      "sha256": "233e276793ea9f4fb62500f111de4d15634d7e12c9012cbab4f145707e274e7a"
     },
     {
       "path": "cviceni-03-prototyp/prototype/prototype.css",
@@ -78,58 +78,58 @@
     },
     {
       "path": "cviceni-03-prototyp/prototype/prototype.js",
-      "bytes": 9254,
-      "sha256": "ca043eccc22df3ec95b4962097f42ef5adc70f7c1eb9c921a455e9e68fa25bd2"
+      "bytes": 9246,
+      "sha256": "3f5b9a2f490b9dfc9a06bd81183a6b249fe72828c703fed17fc21e6e2bd38da3"
     },
     {
       "path": "cviceni-03-prototyp/prototype-validation.md",
-      "bytes": 3787,
-      "sha256": "9b458b0ec756a35095c3daf29e9dde35f77f777d5519e5388705f7eba2c820a9"
+      "bytes": 3832,
+      "sha256": "8ce1ba6da0109d289918a1da53cc4395d9a533b646bf7306a10cd2a39273a426"
     },
     {
       "path": "cviceni-04-implementace/documentation.md",
-      "bytes": 16126,
-      "sha256": "fd63e9076d60da6070ee3a16a4baab94652f92f53305820aede8ce24ecd63a68"
+      "bytes": 18097,
+      "sha256": "688cfa05eb43e3173b9ecdf11f02da533e6ad9c51473297f447dab6277815eec"
     },
     {
       "path": "cviceni-04-implementace/presenter-notes.md",
-      "bytes": 3743,
-      "sha256": "6d253f7b2248b42dc2e269acb95d42dd3bc3458dc8184f185c0beab9936aebaa"
+      "bytes": 4246,
+      "sha256": "fa153159066df5ed669a480b63d9578d5e562733ffdbf7cb91730549a1cf6a1f"
     },
     {
       "path": "cviceni-04-implementace/prezentace.pdf",
-      "bytes": 52554,
-      "sha256": "6dfe714306c54f1ef707c5b4bda68ed1288593f41dedbe4aee9f75774b53fa1e"
+      "bytes": 52535,
+      "sha256": "3000c6c76e31a48ee07c315d20288f1775164f06a3c8b215a07f7ed7b5b98ac7"
     },
     {
       "path": "cviceni-04-implementace/prezentace.pptx",
-      "bytes": 52042,
-      "sha256": "546b4ca0f1c04be3099db28dae3e723637ae1245e5a9796fc82a200b72378029"
+      "bytes": 52297,
+      "sha256": "926817436a97295b5780462ac31047b1c29642e9052589f33511ee342a85d1ed"
     },
     {
       "path": "cviceni-04-implementace/progress-03.md",
-      "bytes": 3222,
-      "sha256": "704561f9c01409065854e632ca601bd692018b815669ff4fb1ee98754cb82839"
+      "bytes": 3448,
+      "sha256": "56a1df588d813331806cb5702bc70679b91a294381471d49224c44321eea1599"
     },
     {
       "path": "cviceni-04-implementace/validation_report.md",
-      "bytes": 18790,
-      "sha256": "cbe8bfd671d24f2386c182ae8260789791ed25f37eccb908b2f6d3b36b9f4461"
+      "bytes": 19070,
+      "sha256": "7285e091c179cfc51306fc6a5f7ce3d30b1e1cdff2fc1b87ba9914914bd3496b"
     },
     {
       "path": "cviceni-04-implementace/web/account.html",
-      "bytes": 1522,
-      "sha256": "a521a6edd1ed3ffb23e09896dfde385e9b76ef7a10ceb3a1fbdf1ea4a84eb187"
+      "bytes": 1503,
+      "sha256": "fe8d201fd78ae5d09db94b8fc7d13f1db92400c75c6cf0341ba0de7803bf4055"
     },
     {
       "path": "cviceni-04-implementace/web/cart.html",
-      "bytes": 1532,
-      "sha256": "fd276c69056c420dbba2674494f830886337252c00ec04931f37c50045c3f377"
+      "bytes": 1521,
+      "sha256": "3224154486af8c7d468ef5c30612fbb55d2934825f036c61b004becce9a9ab8d"
     },
     {
       "path": "cviceni-04-implementace/web/css/style.css",
-      "bytes": 64211,
-      "sha256": "ecbe35885b48039518da4bb7813eef9c68bbc8b58c1604a63e4858990daf9f25"
+      "bytes": 84723,
+      "sha256": "7aa00f2f5df97786dcef284d76d5efea5a5cb4d85601612926c929c946ce52cc"
     },
     {
       "path": "cviceni-04-implementace/web/images/ASSETS.md",
@@ -138,8 +138,8 @@
     },
     {
       "path": "cviceni-04-implementace/web/images/ROCKS-ASSETS.md",
-      "bytes": 1226,
-      "sha256": "db21cce20fee58af57b6edfad826f850cec4cc4b636376d1fbc3d52c05b59854"
+      "bytes": 1235,
+      "sha256": "2fc8c12c0f0c97cc1c5c5a7af6d78109b621faa94e8940f6998090a5e0dbaa88"
     },
     {
       "path": "cviceni-04-implementace/web/images/artist-orbits.svg",
@@ -223,8 +223,8 @@
     },
     {
       "path": "cviceni-04-implementace/web/images/performers/README.md",
-      "bytes": 2872,
-      "sha256": "04398364483572e5860d4ba7ebb93dbd15cc549781d36a5352da27dacc9a83e2"
+      "bytes": 2901,
+      "sha256": "e1df951d78608721cde89005684d5ce1447fc44e8ce258bb1591d4177c0dc4ae"
     },
     {
       "path": "cviceni-04-implementace/web/images/performers/sheet-1.webp",
@@ -248,23 +248,13 @@
     },
     {
       "path": "cviceni-04-implementace/web/images/prague-pulse-logo-light.svg",
-      "bytes": 7382,
-      "sha256": "69d1aff98847868970213809ab2956424b23b272472dfa5a214cddf66d72f04e"
+      "bytes": 7495,
+      "sha256": "c9b4fcbe4f302d1129d9f3554d1db7ad4b10704dcdba87a0d399fbc8e8eb8a88"
     },
     {
       "path": "cviceni-04-implementace/web/images/prague-pulse-logo.svg",
-      "bytes": 7382,
-      "sha256": "c52c3a5d424d8d3a09556c0903450524eaedf655c403ecb4c31ab5de6da6212e"
-    },
-    {
-      "path": "cviceni-04-implementace/web/images/prague-rocks-logo-light.svg",
-      "bytes": 8753,
-      "sha256": "0a9cfed66fb2ea7cfe0f75f4e65cd1c4344d4f3d5efd93461ae1d6cc75a6acc4"
-    },
-    {
-      "path": "cviceni-04-implementace/web/images/prague-rocks-logo.svg",
-      "bytes": 8753,
-      "sha256": "b22fb26c3f038c22c1d820785f550a1c890edc417e2db17e74a6e1bec558e6cc"
+      "bytes": 7495,
+      "sha256": "f4ca7adbfa5174971c63378ddcc2018e45c35b22e3f71c69b6befe1c0d34aadd"
     },
     {
       "path": "cviceni-04-implementace/web/images/pulse-art.svg",
@@ -283,73 +273,73 @@
     },
     {
       "path": "cviceni-04-implementace/web/index.html",
-      "bytes": 1534,
-      "sha256": "0f4a3b8a776a87aee659572650bbc95468880855e11cd5c1780676a85ca0a69e"
+      "bytes": 1515,
+      "sha256": "355edae6994b1f182dba21f3163236dbc42a729f3bd3a01edad4fddf163645ee"
     },
     {
       "path": "cviceni-04-implementace/web/info.html",
-      "bytes": 1582,
-      "sha256": "977b95bd2e9dfbd6504c575942319578dde6b67b564268b287d4e20f039908dd"
+      "bytes": 1563,
+      "sha256": "e621108c0ed4f0ff2dc94a0e8a08bcd515c2c7bad75497c2be79c561c25d2c45"
     },
     {
       "path": "cviceni-04-implementace/web/js/app.js",
-      "bytes": 45437,
-      "sha256": "18ceeee30e2315e7e098aa009e408fbdfb08b932199336d7d55aade16621f7dd"
-    },
-    {
-      "path": "cviceni-04-implementace/web/js/backup.js",
-      "bytes": 6151,
-      "sha256": "bedade1980d39ea23d35f8631216c48c517798bb095886d0b4504437e55ecf14"
+      "bytes": 44769,
+      "sha256": "70f78c49f8eec6f2adda76aed62f4961a2156bfbfc866cf8e5539e2cc60f2fc2"
     },
     {
       "path": "cviceni-04-implementace/web/js/data.js",
-      "bytes": 35250,
-      "sha256": "621bde705e80ea471e636d4c3c85721020f3bfe5351306deb0996627a5a4d53d"
+      "bytes": 35350,
+      "sha256": "801b977fd5ae7e36ff082f7f1798725de238f2bf3b51b51ab8e2ec05833452a3"
     },
     {
       "path": "cviceni-04-implementace/web/js/design.js",
-      "bytes": 7546,
-      "sha256": "1a1183d5feff051f916bdcd9f98dd7a7d108f010a3bd52057bf0e0e4fd33c310"
+      "bytes": 10645,
+      "sha256": "16e6b1df9cfebfcefbd9efb3bf9b055b38a6bc41188c527007e77f9ddba712c5"
     },
     {
       "path": "cviceni-04-implementace/web/js/i18n.js",
-      "bytes": 41623,
-      "sha256": "8a8f53994553893a39c40f3ceebbeec315998735b505b87989d399b3059fa6ed"
+      "bytes": 40745,
+      "sha256": "e61540786ca014572f53c4bfc5a9ab68d48c9baa294dc05e8ebefc7e7fe776ed"
     },
     {
       "path": "cviceni-04-implementace/web/js/performer-art.js",
-      "bytes": 1386,
-      "sha256": "9c945c39c905256baedf2e0fffd7699c05670d0023967aaea864511fa2a16c91"
+      "bytes": 1382,
+      "sha256": "9af528b4171728f52e7be08932873b468967c2c435cc7cee9668d613a8e00429"
+    },
+    {
+      "path": "cviceni-04-implementace/web/js/privacy.js",
+      "bytes": 6055,
+      "sha256": "815edc7c822495a3f18e0fa4dc5d02494af1dd1b70905ae28f8de984f078d6da"
     },
     {
       "path": "cviceni-04-implementace/web/js/site-shell.js",
-      "bytes": 6683,
-      "sha256": "02087ab9a4f1ac3a031cdc9889d9bce2a4cf30bcef45ab963f8dc4e11c26e68d"
+      "bytes": 9873,
+      "sha256": "dea93dc76567702241abca78ce71adedd6fdf14be80ad5656e81818628772729"
     },
     {
       "path": "cviceni-04-implementace/web/js/ticket-pdf.js",
-      "bytes": 8282,
-      "sha256": "90aeae51c1c223bac2ecc098800afb32249e414cbfee20a2fab25015e170de15"
+      "bytes": 8383,
+      "sha256": "d5bb3eb9f0a163cf31a6275a853866adc12169b7b2f9889914d44ffa26c8bdae"
     },
     {
       "path": "cviceni-04-implementace/web/performers.html",
-      "bytes": 1570,
-      "sha256": "3c3eda37e9ebf2d960583e83e6b8d09ea9e5d673d6e9ee670cfbe36b29c40ac9"
+      "bytes": 1551,
+      "sha256": "9b8995e266b77723f3023de97ad3e8a887d8619398191716da0efb54b5e0fa95"
     },
     {
       "path": "cviceni-04-implementace/web/program.html",
-      "bytes": 1574,
-      "sha256": "99239e0e87171d9fbdfa7d23182d2258d351b8714baa4210ef3595bdad0d6c10"
+      "bytes": 1563,
+      "sha256": "ddbfaa9dcc0ea20f8d258b1232898a57b589b2a33be0f937e438faffa516c63c"
     },
     {
       "path": "cviceni-04-implementace/web/search.html",
-      "bytes": 1548,
-      "sha256": "82a47db215ece1707b12a676e8618740db5ad5625475120b4eb4cec5d736a371"
+      "bytes": 1537,
+      "sha256": "a666495d4ed0e7461d33efd45017ad45e6eccc0581f3e56c304ad704b22b6586"
     },
     {
       "path": "cviceni-04-implementace/web/tickets.html",
-      "bytes": 1552,
-      "sha256": "f470a49d6e8511d46b286c570d5a363a57e66b11d03caa32b0821f3c43bd36a4"
+      "bytes": 1541,
+      "sha256": "2504363c38909e3074e1e6d412d0159bd1cda45261275abe3f5d501942447681"
     },
     {
       "path": "cviceni-04-implementace/web/vendor/FONT-LICENSE.txt",
@@ -388,18 +378,18 @@
     },
     {
       "path": "cviceni-04-implementace/web/venues.html",
-      "bytes": 1530,
-      "sha256": "e3eb198a38201d01708627edcdeac390b2ea596c3340679b8fea1eadbfa5aa03"
+      "bytes": 1511,
+      "sha256": "1db50e346b34428dbe666ca8f4fe712ed1098bfc1d546f6c53bfe93210572865"
     },
     {
       "path": "cviceni-05-review-ready/data.xml",
-      "bytes": 49028,
-      "sha256": "c924d83eece5d726dade64c8d92c8a934287c12f7cdfd782a6f4051e024f581c"
+      "bytes": 49081,
+      "sha256": "7cd99256cf729734d1f7c0b0305fcdce00fe03869d29b2b06dd64c08afc52a10"
     },
     {
       "path": "cviceni-05-review-ready/documentation.md",
-      "bytes": 16126,
-      "sha256": "fd63e9076d60da6070ee3a16a4baab94652f92f53305820aede8ce24ecd63a68"
+      "bytes": 18097,
+      "sha256": "688cfa05eb43e3173b9ecdf11f02da533e6ad9c51473297f447dab6277815eec"
     },
     {
       "path": "cviceni-05-review-ready/festival.xsd",
@@ -413,43 +403,43 @@
     },
     {
       "path": "cviceni-05-review-ready/prezentace.pdf",
-      "bytes": 52501,
-      "sha256": "d8db1df0af5d9f87b2fdd1aac131a3bd2680f1df161bad10d08cd7c938c09374"
+      "bytes": 52486,
+      "sha256": "e8addfdd048da442dfafa44c659ea10cd4e6adac6615b7cc5109a987c5896093"
     },
     {
       "path": "cviceni-05-review-ready/prezentace.pptx",
-      "bytes": 51882,
-      "sha256": "c159a7713ee8c1460b92b4406dc6060e0974f5ddd2de9bc8357321b07f7b6576"
+      "bytes": 51843,
+      "sha256": "6c9757da0dffaf82e93300da3cc00d234e9b0447db9329b390835c8acb823dfe"
     },
     {
       "path": "cviceni-05-review-ready/progress-04.md",
-      "bytes": 3051,
-      "sha256": "f5fc8e3a4c063b498d50dc82f82d1ddcec8d4daa97384193cab4e7db3a321acc"
+      "bytes": 3114,
+      "sha256": "8b5e5b219d42bc139dbf5b90f2ee12e340c6b6d7efd3972449c79ed87d6f160c"
     },
     {
       "path": "cviceni-05-review-ready/project-specification.md",
-      "bytes": 7507,
-      "sha256": "406249708576689d7cc925b2d30fe69321c059b6022c290d02259adf7c4cec4b"
+      "bytes": 7984,
+      "sha256": "fabeebc5792eb7f8e16f94a0a636008e282ae2df886de797a8ec23dc64d312a5"
     },
     {
       "path": "cviceni-05-review-ready/validation_report.md",
-      "bytes": 18790,
-      "sha256": "cbe8bfd671d24f2386c182ae8260789791ed25f37eccb908b2f6d3b36b9f4461"
+      "bytes": 19070,
+      "sha256": "7285e091c179cfc51306fc6a5f7ce3d30b1e1cdff2fc1b87ba9914914bd3496b"
     },
     {
       "path": "cviceni-05-review-ready/web/account.html",
-      "bytes": 1522,
-      "sha256": "a521a6edd1ed3ffb23e09896dfde385e9b76ef7a10ceb3a1fbdf1ea4a84eb187"
+      "bytes": 1503,
+      "sha256": "fe8d201fd78ae5d09db94b8fc7d13f1db92400c75c6cf0341ba0de7803bf4055"
     },
     {
       "path": "cviceni-05-review-ready/web/cart.html",
-      "bytes": 1532,
-      "sha256": "fd276c69056c420dbba2674494f830886337252c00ec04931f37c50045c3f377"
+      "bytes": 1521,
+      "sha256": "3224154486af8c7d468ef5c30612fbb55d2934825f036c61b004becce9a9ab8d"
     },
     {
       "path": "cviceni-05-review-ready/web/css/style.css",
-      "bytes": 64211,
-      "sha256": "ecbe35885b48039518da4bb7813eef9c68bbc8b58c1604a63e4858990daf9f25"
+      "bytes": 84723,
+      "sha256": "7aa00f2f5df97786dcef284d76d5efea5a5cb4d85601612926c929c946ce52cc"
     },
     {
       "path": "cviceni-05-review-ready/web/images/ASSETS.md",
@@ -458,8 +448,8 @@
     },
     {
       "path": "cviceni-05-review-ready/web/images/ROCKS-ASSETS.md",
-      "bytes": 1226,
-      "sha256": "db21cce20fee58af57b6edfad826f850cec4cc4b636376d1fbc3d52c05b59854"
+      "bytes": 1235,
+      "sha256": "2fc8c12c0f0c97cc1c5c5a7af6d78109b621faa94e8940f6998090a5e0dbaa88"
     },
     {
       "path": "cviceni-05-review-ready/web/images/artist-orbits.svg",
@@ -543,8 +533,8 @@
     },
     {
       "path": "cviceni-05-review-ready/web/images/performers/README.md",
-      "bytes": 2872,
-      "sha256": "04398364483572e5860d4ba7ebb93dbd15cc549781d36a5352da27dacc9a83e2"
+      "bytes": 2901,
+      "sha256": "e1df951d78608721cde89005684d5ce1447fc44e8ce258bb1591d4177c0dc4ae"
     },
     {
       "path": "cviceni-05-review-ready/web/images/performers/sheet-1.webp",
@@ -568,23 +558,13 @@
     },
     {
       "path": "cviceni-05-review-ready/web/images/prague-pulse-logo-light.svg",
-      "bytes": 7382,
-      "sha256": "69d1aff98847868970213809ab2956424b23b272472dfa5a214cddf66d72f04e"
+      "bytes": 7495,
+      "sha256": "c9b4fcbe4f302d1129d9f3554d1db7ad4b10704dcdba87a0d399fbc8e8eb8a88"
     },
     {
       "path": "cviceni-05-review-ready/web/images/prague-pulse-logo.svg",
-      "bytes": 7382,
-      "sha256": "c52c3a5d424d8d3a09556c0903450524eaedf655c403ecb4c31ab5de6da6212e"
-    },
-    {
-      "path": "cviceni-05-review-ready/web/images/prague-rocks-logo-light.svg",
-      "bytes": 8753,
-      "sha256": "0a9cfed66fb2ea7cfe0f75f4e65cd1c4344d4f3d5efd93461ae1d6cc75a6acc4"
-    },
-    {
-      "path": "cviceni-05-review-ready/web/images/prague-rocks-logo.svg",
-      "bytes": 8753,
-      "sha256": "b22fb26c3f038c22c1d820785f550a1c890edc417e2db17e74a6e1bec558e6cc"
+      "bytes": 7495,
+      "sha256": "f4ca7adbfa5174971c63378ddcc2018e45c35b22e3f71c69b6befe1c0d34aadd"
     },
     {
       "path": "cviceni-05-review-ready/web/images/pulse-art.svg",
@@ -603,73 +583,73 @@
     },
     {
       "path": "cviceni-05-review-ready/web/index.html",
-      "bytes": 1534,
-      "sha256": "0f4a3b8a776a87aee659572650bbc95468880855e11cd5c1780676a85ca0a69e"
+      "bytes": 1515,
+      "sha256": "355edae6994b1f182dba21f3163236dbc42a729f3bd3a01edad4fddf163645ee"
     },
     {
       "path": "cviceni-05-review-ready/web/info.html",
-      "bytes": 1582,
-      "sha256": "977b95bd2e9dfbd6504c575942319578dde6b67b564268b287d4e20f039908dd"
+      "bytes": 1563,
+      "sha256": "e621108c0ed4f0ff2dc94a0e8a08bcd515c2c7bad75497c2be79c561c25d2c45"
     },
     {
       "path": "cviceni-05-review-ready/web/js/app.js",
-      "bytes": 45437,
-      "sha256": "18ceeee30e2315e7e098aa009e408fbdfb08b932199336d7d55aade16621f7dd"
-    },
-    {
-      "path": "cviceni-05-review-ready/web/js/backup.js",
-      "bytes": 6151,
-      "sha256": "bedade1980d39ea23d35f8631216c48c517798bb095886d0b4504437e55ecf14"
+      "bytes": 44769,
+      "sha256": "70f78c49f8eec6f2adda76aed62f4961a2156bfbfc866cf8e5539e2cc60f2fc2"
     },
     {
       "path": "cviceni-05-review-ready/web/js/data.js",
-      "bytes": 35250,
-      "sha256": "621bde705e80ea471e636d4c3c85721020f3bfe5351306deb0996627a5a4d53d"
+      "bytes": 35350,
+      "sha256": "801b977fd5ae7e36ff082f7f1798725de238f2bf3b51b51ab8e2ec05833452a3"
     },
     {
       "path": "cviceni-05-review-ready/web/js/design.js",
-      "bytes": 7546,
-      "sha256": "1a1183d5feff051f916bdcd9f98dd7a7d108f010a3bd52057bf0e0e4fd33c310"
+      "bytes": 10645,
+      "sha256": "16e6b1df9cfebfcefbd9efb3bf9b055b38a6bc41188c527007e77f9ddba712c5"
     },
     {
       "path": "cviceni-05-review-ready/web/js/i18n.js",
-      "bytes": 41623,
-      "sha256": "8a8f53994553893a39c40f3ceebbeec315998735b505b87989d399b3059fa6ed"
+      "bytes": 40745,
+      "sha256": "e61540786ca014572f53c4bfc5a9ab68d48c9baa294dc05e8ebefc7e7fe776ed"
     },
     {
       "path": "cviceni-05-review-ready/web/js/performer-art.js",
-      "bytes": 1386,
-      "sha256": "9c945c39c905256baedf2e0fffd7699c05670d0023967aaea864511fa2a16c91"
+      "bytes": 1382,
+      "sha256": "9af528b4171728f52e7be08932873b468967c2c435cc7cee9668d613a8e00429"
+    },
+    {
+      "path": "cviceni-05-review-ready/web/js/privacy.js",
+      "bytes": 6055,
+      "sha256": "815edc7c822495a3f18e0fa4dc5d02494af1dd1b70905ae28f8de984f078d6da"
     },
     {
       "path": "cviceni-05-review-ready/web/js/site-shell.js",
-      "bytes": 6683,
-      "sha256": "02087ab9a4f1ac3a031cdc9889d9bce2a4cf30bcef45ab963f8dc4e11c26e68d"
+      "bytes": 9873,
+      "sha256": "dea93dc76567702241abca78ce71adedd6fdf14be80ad5656e81818628772729"
     },
     {
       "path": "cviceni-05-review-ready/web/js/ticket-pdf.js",
-      "bytes": 8282,
-      "sha256": "90aeae51c1c223bac2ecc098800afb32249e414cbfee20a2fab25015e170de15"
+      "bytes": 8383,
+      "sha256": "d5bb3eb9f0a163cf31a6275a853866adc12169b7b2f9889914d44ffa26c8bdae"
     },
     {
       "path": "cviceni-05-review-ready/web/performers.html",
-      "bytes": 1570,
-      "sha256": "3c3eda37e9ebf2d960583e83e6b8d09ea9e5d673d6e9ee670cfbe36b29c40ac9"
+      "bytes": 1551,
+      "sha256": "9b8995e266b77723f3023de97ad3e8a887d8619398191716da0efb54b5e0fa95"
     },
     {
       "path": "cviceni-05-review-ready/web/program.html",
-      "bytes": 1574,
-      "sha256": "99239e0e87171d9fbdfa7d23182d2258d351b8714baa4210ef3595bdad0d6c10"
+      "bytes": 1563,
+      "sha256": "ddbfaa9dcc0ea20f8d258b1232898a57b589b2a33be0f937e438faffa516c63c"
     },
     {
       "path": "cviceni-05-review-ready/web/search.html",
-      "bytes": 1548,
-      "sha256": "82a47db215ece1707b12a676e8618740db5ad5625475120b4eb4cec5d736a371"
+      "bytes": 1537,
+      "sha256": "a666495d4ed0e7461d33efd45017ad45e6eccc0581f3e56c304ad704b22b6586"
     },
     {
       "path": "cviceni-05-review-ready/web/tickets.html",
-      "bytes": 1552,
-      "sha256": "f470a49d6e8511d46b286c570d5a363a57e66b11d03caa32b0821f3c43bd36a4"
+      "bytes": 1541,
+      "sha256": "2504363c38909e3074e1e6d412d0159bd1cda45261275abe3f5d501942447681"
     },
     {
       "path": "cviceni-05-review-ready/web/vendor/FONT-LICENSE.txt",
@@ -708,28 +688,28 @@
     },
     {
       "path": "cviceni-05-review-ready/web/venues.html",
-      "bytes": 1530,
-      "sha256": "e3eb198a38201d01708627edcdeac390b2ea596c3340679b8fea1eadbfa5aa03"
+      "bytes": 1511,
+      "sha256": "1db50e346b34428dbe666ca8f4fe712ed1098bfc1d546f6c53bfe93210572865"
     },
     {
       "path": "cviceni-06-cross-review/presenter-notes.md",
-      "bytes": 3767,
-      "sha256": "aad581be3648c2d683ee76201efeb2eb710f4c6fe9a14e02479d8ddfb84af3c7"
+      "bytes": 3772,
+      "sha256": "0e9f0387c81a45ae933d925949130707996aad44e3424a4e1711515671b0019a"
     },
     {
       "path": "cviceni-06-cross-review/prezentace.pdf",
-      "bytes": 52663,
-      "sha256": "03da53a03c1beb3784312addc200e0291333391657291b633c00a8e03ced7887"
+      "bytes": 52647,
+      "sha256": "53c3e01740c123159c8b0e6046caa612b1d15662d1a7b9110a71d0e4036ba7bc"
     },
     {
       "path": "cviceni-06-cross-review/prezentace.pptx",
-      "bytes": 52236,
-      "sha256": "994efe01a19488d1fd32de10f9b9d751548c8f17a97fb7ec55970a1a690699e3"
+      "bytes": 52208,
+      "sha256": "3d3a415c2abeb62233d6c1b511cc3e8f68cd9340aea276629567f9139e35ce87"
     },
     {
       "path": "cviceni-06-cross-review/review.md",
-      "bytes": 5091,
-      "sha256": "af25c37557368162cc30f05d49d8c5dcbb824c970f853143d50fd306ea1eacb5"
+      "bytes": 5096,
+      "sha256": "c500727dcfd4fa7947c96d8ce20b579bfe21e6dc2824de16df332c195bec2eeb"
     },
     {
       "path": "data-validation.md",
@@ -743,13 +723,13 @@
     },
     {
       "path": "finalni-projekt/projekt/data.xml",
-      "bytes": 49028,
-      "sha256": "c924d83eece5d726dade64c8d92c8a934287c12f7cdfd782a6f4051e024f581c"
+      "bytes": 49081,
+      "sha256": "7cd99256cf729734d1f7c0b0305fcdce00fe03869d29b2b06dd64c08afc52a10"
     },
     {
       "path": "finalni-projekt/projekt/documentation.md",
-      "bytes": 16126,
-      "sha256": "fd63e9076d60da6070ee3a16a4baab94652f92f53305820aede8ce24ecd63a68"
+      "bytes": 18097,
+      "sha256": "688cfa05eb43e3173b9ecdf11f02da533e6ad9c51473297f447dab6277815eec"
     },
     {
       "path": "finalni-projekt/projekt/festival.xsd",
@@ -758,23 +738,23 @@
     },
     {
       "path": "finalni-projekt/projekt/project-specification.md",
-      "bytes": 7507,
-      "sha256": "406249708576689d7cc925b2d30fe69321c059b6022c290d02259adf7c4cec4b"
+      "bytes": 7984,
+      "sha256": "fabeebc5792eb7f8e16f94a0a636008e282ae2df886de797a8ec23dc64d312a5"
     },
     {
       "path": "finalni-projekt/projekt/prototype/README.md",
-      "bytes": 690,
-      "sha256": "362b46516e4fe112c6ba5e84b423d5200d8e9e39841930f791539f1d429573f8"
+      "bytes": 689,
+      "sha256": "42a3940c3b6a4be7af00c3a5540c66ae1c1ad611f90077e4654cba1fac476828"
     },
     {
       "path": "finalni-projekt/projekt/prototype/data.js",
-      "bytes": 35250,
-      "sha256": "621bde705e80ea471e636d4c3c85721020f3bfe5351306deb0996627a5a4d53d"
+      "bytes": 35350,
+      "sha256": "801b977fd5ae7e36ff082f7f1798725de238f2bf3b51b51ab8e2ec05833452a3"
     },
     {
       "path": "finalni-projekt/projekt/prototype/index.html",
-      "bytes": 1581,
-      "sha256": "b56bee3fc0ff82de13f9316b7c8ca0675b6081a4bcb83dbe08632b4e9e52da2d"
+      "bytes": 1570,
+      "sha256": "233e276793ea9f4fb62500f111de4d15634d7e12c9012cbab4f145707e274e7a"
     },
     {
       "path": "finalni-projekt/projekt/prototype/prototype.css",
@@ -783,13 +763,13 @@
     },
     {
       "path": "finalni-projekt/projekt/prototype/prototype.js",
-      "bytes": 9254,
-      "sha256": "ca043eccc22df3ec95b4962097f42ef5adc70f7c1eb9c921a455e9e68fa25bd2"
+      "bytes": 9246,
+      "sha256": "3f5b9a2f490b9dfc9a06bd81183a6b249fe72828c703fed17fc21e6e2bd38da3"
     },
     {
       "path": "finalni-projekt/projekt/review/internal-review.md",
-      "bytes": 2138,
-      "sha256": "3bded59109bd2d18c25f2fc023a0c3dfc4cbea15f4e93a418f02964b9fc6e894"
+      "bytes": 2701,
+      "sha256": "454d7e5f07a6dde057316ba09684fe49abe9e645581360c9ca063a5bb3379ede"
     },
     {
       "path": "finalni-projekt/projekt/review/received-review.md",
@@ -798,23 +778,23 @@
     },
     {
       "path": "finalni-projekt/projekt/validation_report.md",
-      "bytes": 18790,
-      "sha256": "cbe8bfd671d24f2386c182ae8260789791ed25f37eccb908b2f6d3b36b9f4461"
+      "bytes": 19070,
+      "sha256": "7285e091c179cfc51306fc6a5f7ce3d30b1e1cdff2fc1b87ba9914914bd3496b"
     },
     {
       "path": "finalni-projekt/projekt/web/account.html",
-      "bytes": 1522,
-      "sha256": "a521a6edd1ed3ffb23e09896dfde385e9b76ef7a10ceb3a1fbdf1ea4a84eb187"
+      "bytes": 1503,
+      "sha256": "fe8d201fd78ae5d09db94b8fc7d13f1db92400c75c6cf0341ba0de7803bf4055"
     },
     {
       "path": "finalni-projekt/projekt/web/cart.html",
-      "bytes": 1532,
-      "sha256": "fd276c69056c420dbba2674494f830886337252c00ec04931f37c50045c3f377"
+      "bytes": 1521,
+      "sha256": "3224154486af8c7d468ef5c30612fbb55d2934825f036c61b004becce9a9ab8d"
     },
     {
       "path": "finalni-projekt/projekt/web/css/style.css",
-      "bytes": 64211,
-      "sha256": "ecbe35885b48039518da4bb7813eef9c68bbc8b58c1604a63e4858990daf9f25"
+      "bytes": 84723,
+      "sha256": "7aa00f2f5df97786dcef284d76d5efea5a5cb4d85601612926c929c946ce52cc"
     },
     {
       "path": "finalni-projekt/projekt/web/images/ASSETS.md",
@@ -823,8 +803,8 @@
     },
     {
       "path": "finalni-projekt/projekt/web/images/ROCKS-ASSETS.md",
-      "bytes": 1226,
-      "sha256": "db21cce20fee58af57b6edfad826f850cec4cc4b636376d1fbc3d52c05b59854"
+      "bytes": 1235,
+      "sha256": "2fc8c12c0f0c97cc1c5c5a7af6d78109b621faa94e8940f6998090a5e0dbaa88"
     },
     {
       "path": "finalni-projekt/projekt/web/images/artist-orbits.svg",
@@ -908,8 +888,8 @@
     },
     {
       "path": "finalni-projekt/projekt/web/images/performers/README.md",
-      "bytes": 2872,
-      "sha256": "04398364483572e5860d4ba7ebb93dbd15cc549781d36a5352da27dacc9a83e2"
+      "bytes": 2901,
+      "sha256": "e1df951d78608721cde89005684d5ce1447fc44e8ce258bb1591d4177c0dc4ae"
     },
     {
       "path": "finalni-projekt/projekt/web/images/performers/sheet-1.webp",
@@ -933,23 +913,13 @@
     },
     {
       "path": "finalni-projekt/projekt/web/images/prague-pulse-logo-light.svg",
-      "bytes": 7382,
-      "sha256": "69d1aff98847868970213809ab2956424b23b272472dfa5a214cddf66d72f04e"
+      "bytes": 7495,
+      "sha256": "c9b4fcbe4f302d1129d9f3554d1db7ad4b10704dcdba87a0d399fbc8e8eb8a88"
     },
     {
       "path": "finalni-projekt/projekt/web/images/prague-pulse-logo.svg",
-      "bytes": 7382,
-      "sha256": "c52c3a5d424d8d3a09556c0903450524eaedf655c403ecb4c31ab5de6da6212e"
-    },
-    {
-      "path": "finalni-projekt/projekt/web/images/prague-rocks-logo-light.svg",
-      "bytes": 8753,
-      "sha256": "0a9cfed66fb2ea7cfe0f75f4e65cd1c4344d4f3d5efd93461ae1d6cc75a6acc4"
-    },
-    {
-      "path": "finalni-projekt/projekt/web/images/prague-rocks-logo.svg",
-      "bytes": 8753,
-      "sha256": "b22fb26c3f038c22c1d820785f550a1c890edc417e2db17e74a6e1bec558e6cc"
+      "bytes": 7495,
+      "sha256": "f4ca7adbfa5174971c63378ddcc2018e45c35b22e3f71c69b6befe1c0d34aadd"
     },
     {
       "path": "finalni-projekt/projekt/web/images/pulse-art.svg",
@@ -968,73 +938,73 @@
     },
     {
       "path": "finalni-projekt/projekt/web/index.html",
-      "bytes": 1534,
-      "sha256": "0f4a3b8a776a87aee659572650bbc95468880855e11cd5c1780676a85ca0a69e"
+      "bytes": 1515,
+      "sha256": "355edae6994b1f182dba21f3163236dbc42a729f3bd3a01edad4fddf163645ee"
     },
     {
       "path": "finalni-projekt/projekt/web/info.html",
-      "bytes": 1582,
-      "sha256": "977b95bd2e9dfbd6504c575942319578dde6b67b564268b287d4e20f039908dd"
+      "bytes": 1563,
+      "sha256": "e621108c0ed4f0ff2dc94a0e8a08bcd515c2c7bad75497c2be79c561c25d2c45"
     },
     {
       "path": "finalni-projekt/projekt/web/js/app.js",
-      "bytes": 45437,
-      "sha256": "18ceeee30e2315e7e098aa009e408fbdfb08b932199336d7d55aade16621f7dd"
-    },
-    {
-      "path": "finalni-projekt/projekt/web/js/backup.js",
-      "bytes": 6151,
-      "sha256": "bedade1980d39ea23d35f8631216c48c517798bb095886d0b4504437e55ecf14"
+      "bytes": 44769,
+      "sha256": "70f78c49f8eec6f2adda76aed62f4961a2156bfbfc866cf8e5539e2cc60f2fc2"
     },
     {
       "path": "finalni-projekt/projekt/web/js/data.js",
-      "bytes": 35250,
-      "sha256": "621bde705e80ea471e636d4c3c85721020f3bfe5351306deb0996627a5a4d53d"
+      "bytes": 35350,
+      "sha256": "801b977fd5ae7e36ff082f7f1798725de238f2bf3b51b51ab8e2ec05833452a3"
     },
     {
       "path": "finalni-projekt/projekt/web/js/design.js",
-      "bytes": 7546,
-      "sha256": "1a1183d5feff051f916bdcd9f98dd7a7d108f010a3bd52057bf0e0e4fd33c310"
+      "bytes": 10645,
+      "sha256": "16e6b1df9cfebfcefbd9efb3bf9b055b38a6bc41188c527007e77f9ddba712c5"
     },
     {
       "path": "finalni-projekt/projekt/web/js/i18n.js",
-      "bytes": 41623,
-      "sha256": "8a8f53994553893a39c40f3ceebbeec315998735b505b87989d399b3059fa6ed"
+      "bytes": 40745,
+      "sha256": "e61540786ca014572f53c4bfc5a9ab68d48c9baa294dc05e8ebefc7e7fe776ed"
     },
     {
       "path": "finalni-projekt/projekt/web/js/performer-art.js",
-      "bytes": 1386,
-      "sha256": "9c945c39c905256baedf2e0fffd7699c05670d0023967aaea864511fa2a16c91"
+      "bytes": 1382,
+      "sha256": "9af528b4171728f52e7be08932873b468967c2c435cc7cee9668d613a8e00429"
+    },
+    {
+      "path": "finalni-projekt/projekt/web/js/privacy.js",
+      "bytes": 6055,
+      "sha256": "815edc7c822495a3f18e0fa4dc5d02494af1dd1b70905ae28f8de984f078d6da"
     },
     {
       "path": "finalni-projekt/projekt/web/js/site-shell.js",
-      "bytes": 6683,
-      "sha256": "02087ab9a4f1ac3a031cdc9889d9bce2a4cf30bcef45ab963f8dc4e11c26e68d"
+      "bytes": 9873,
+      "sha256": "dea93dc76567702241abca78ce71adedd6fdf14be80ad5656e81818628772729"
     },
     {
       "path": "finalni-projekt/projekt/web/js/ticket-pdf.js",
-      "bytes": 8282,
-      "sha256": "90aeae51c1c223bac2ecc098800afb32249e414cbfee20a2fab25015e170de15"
+      "bytes": 8383,
+      "sha256": "d5bb3eb9f0a163cf31a6275a853866adc12169b7b2f9889914d44ffa26c8bdae"
     },
     {
       "path": "finalni-projekt/projekt/web/performers.html",
-      "bytes": 1570,
-      "sha256": "3c3eda37e9ebf2d960583e83e6b8d09ea9e5d673d6e9ee670cfbe36b29c40ac9"
+      "bytes": 1551,
+      "sha256": "9b8995e266b77723f3023de97ad3e8a887d8619398191716da0efb54b5e0fa95"
     },
     {
       "path": "finalni-projekt/projekt/web/program.html",
-      "bytes": 1574,
-      "sha256": "99239e0e87171d9fbdfa7d23182d2258d351b8714baa4210ef3595bdad0d6c10"
+      "bytes": 1563,
+      "sha256": "ddbfaa9dcc0ea20f8d258b1232898a57b589b2a33be0f937e438faffa516c63c"
     },
     {
       "path": "finalni-projekt/projekt/web/search.html",
-      "bytes": 1548,
-      "sha256": "82a47db215ece1707b12a676e8618740db5ad5625475120b4eb4cec5d736a371"
+      "bytes": 1537,
+      "sha256": "a666495d4ed0e7461d33efd45017ad45e6eccc0581f3e56c304ad704b22b6586"
     },
     {
       "path": "finalni-projekt/projekt/web/tickets.html",
-      "bytes": 1552,
-      "sha256": "f470a49d6e8511d46b286c570d5a363a57e66b11d03caa32b0821f3c43bd36a4"
+      "bytes": 1541,
+      "sha256": "2504363c38909e3074e1e6d412d0159bd1cda45261275abe3f5d501942447681"
     },
     {
       "path": "finalni-projekt/projekt/web/vendor/FONT-LICENSE.txt",
@@ -1073,13 +1043,13 @@
     },
     {
       "path": "finalni-projekt/projekt/web/venues.html",
-      "bytes": 1530,
-      "sha256": "e3eb198a38201d01708627edcdeac390b2ea596c3340679b8fea1eadbfa5aa03"
+      "bytes": 1511,
+      "sha256": "1db50e346b34428dbe666ca8f4fe712ed1098bfc1d546f6c53bfe93210572865"
     },
     {
       "path": "prototype-validation.md",
-      "bytes": 3787,
-      "sha256": "9b458b0ec756a35095c3daf29e9dde35f77f777d5519e5388705f7eba2c820a9"
+      "bytes": 3832,
+      "sha256": "8ce1ba6da0109d289918a1da53cc4395d9a533b646bf7306a10cd2a39273a426"
     }
   ]
 }

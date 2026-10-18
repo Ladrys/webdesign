@@ -15,10 +15,11 @@ Tento balíček byl připraven dodatečně ze současné verze; neprokazuje dř�
 | Jednojazyčný obsah | Přepínač češtiny a angličtiny | Orientace zahraničních návštěvníků |
 | Textové přehledy | Originální obrázky interpretů, detailní kontext | Snazší rozlišení účinkujících |
 | S1 a S2 | Navíc tarify, mapa míst, košík, účet a PDF | Rozšíření scénáře S3 |
-| Jednoduché zobrazení scén | Praktické informace a volitelná externí mapa | Snazší plánování cesty |
+| Jednoduché zobrazení scén | Praktické informace a automatická mapa po povolení externích map | Snazší plánování cesty s možností odvolat souhlas |
+| Jednoduchá hlavička | Jednořádková navigace na notebooku a odpočet do 1. srpna 2027 | Oprava zalamování a návaznost na aktuální termín |
 
 Změny nejsou doloženým výsledkem cross-review. Vycházejí z požadavků uživatele
-a technické validace. Větší vizuální změny a přejmenování vyžadují ověřit návaznost
+a technické validace. Větší vizuální změny, nová jména interpretů a posun termínu vyžadují ověřit návaznost
 na schválené první dva výstupy předmětu.
 
 ## Mobile-first a současné postupy

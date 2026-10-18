@@ -23,7 +23,7 @@ V první krátké ukázce otevřeme Program, vybereme první srpen a River Stage
 
 ## 5. S2 / Od části názvu ke koncertu.
 
-Ve druhé ukázce zadáme Neon do globálního hledání. Výsledky oddělují účinkující od souvisejících vystoupení. U Neon Wave otevřeme dialog s žánrem, popisem a programem. Odkaz do programu zachová kontext interpreta. Kontrolujeme, že údaje pocházejí ze stejné základny a dialog lze zavřít klávesou Escape. Hledaný text se nevkládá jako spustitelné HTML. Návštěvník dostane srozumitelnou zprávu i tehdy, když hledání nic nenajde.
+Ve druhé ukázce zadáme Atlas do globálního hledání. Výsledky oddělují účinkující od souvisejících vystoupení. U Atlas Motel otevřeme dialog s žánrem, popisem a programem. Odkaz do programu zachová kontext interpreta. Kontrolujeme, že údaje pocházejí ze stejné základny a dialog lze zavřít klávesou Escape. Hledaný text se nevkládá jako spustitelné HTML. Návštěvník dostane srozumitelnou zprávu i tehdy, když hledání nic nenajde.
 
 ## 6. Co prototyp ověřuje?
 

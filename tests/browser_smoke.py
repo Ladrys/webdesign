@@ -8,6 +8,7 @@ from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from threading import Thread
+from urllib.parse import quote
 import json
 import os
 import unicodedata
@@ -37,7 +38,7 @@ def check(condition, message):
     print('PASS', message)
 
 
-def validate_pdf(path, order):
+def validate_pdf(path, order, festival_dates):
     check(path.read_bytes().startswith(b'%PDF-'), 'Download is a genuine PDF document')
     with fitz.open(path) as document:
         check(len(document) == len(order['tickets']), 'PDF has one page per ticket')
@@ -51,9 +52,12 @@ def validate_pdf(path, order):
             check(place in text, f'PDF page {index + 1} includes the correct place')
             category = {'vip': 'vip', 'regular': 'regular', 'standing': 'stání'}[ticket['category']]
             check(category in normalized, f'PDF page {index + 1} includes the category')
-            check('prague' in normalized and 'rocks' in normalized, f'PDF page {index + 1} uses the festival identity')
+            check('prague' in normalized and 'pulse' in normalized and 'fest' in normalized,
+                  f'PDF page {index + 1} uses the Prague Pulse Fest identity')
             if ticket.get('scope') == 'festival':
-                check('1.–3. 8. 2026' in text and ('3 dny' in normalized or '3 days' in normalized),
+                first, last = festival_dates[0]['date'].split('-'), festival_dates[-1]['date'].split('-')
+                period = f'{int(first[2])}.–{int(last[2])}. {int(last[1])}. {last[0]}'
+                check(period in text and ('3 dny' in normalized or '3 days' in normalized),
                       f'PDF page {index + 1} includes the three-day validity')
             check(pdf_page.rect.width > pdf_page.rect.height, f'PDF page {index + 1} uses a landscape layout')
             check(bool(pdf_page.get_fonts()), f'PDF page {index + 1} contains typography')
@@ -78,6 +82,8 @@ try:
         browser = playwright.chromium.launch(
             executable_path=os.environ.get('CHROMIUM_PATH', '/usr/bin/chromium'), args=['--no-sandbox'])
         context = browser.new_context(accept_downloads=True)
+        # Keep the consent checks deterministic and never contact external map servers.
+        context.route('https://**', lambda route: route.fulfill(status=200, content_type='text/html', body='<p>Map test fixture</p>'))
         page = context.new_page()
         errors = []
         external_requests = []
@@ -104,11 +110,59 @@ try:
             target.locator('#auth-password').fill(password)
             target.locator('#auth-submit').click()
 
+        def switch_language(target, language):
+            target.locator(f'button[data-lang="{language}"]').click()
+            # The language module runs before the shell; wait for the new document's UI too.
+            target.wait_for_function('''language => document.documentElement.lang === language
+                && document.readyState === 'complete'
+                && document.querySelector('button[data-lang="'+language+'"][aria-pressed="true"]')
+                && document.querySelector('.global-search')''', arg=language)
+            target.evaluate('document.fonts.ready')
+
         go('index.html')
         check(bool(page.locator('main h1').inner_text().strip()), 'Homepage initializes')
         check('Zkus to prosím znovu' not in page.locator('main').inner_text(), 'Homepage avoids the error fallback')
-        check('Prague Rocks Festival' in page.title(), 'Page metadata uses the new festival name')
+        check(page.locator('#cookie-banner').is_visible(), 'A first visit shows the cookie and storage banner')
+        check(page.locator('#cookie-accept-all, #cookie-reject, #cookie-banner [data-cookie-settings]').count() == 3,
+              'The privacy banner offers accept, necessary-only and settings actions')
+        page.locator('#cookie-banner [data-cookie-settings]').click()
+        necessary = page.locator('#cookie-panel input[disabled]')
+        check(necessary.is_checked() and necessary.is_disabled(), 'Necessary storage is explicitly always enabled')
+        check(not page.locator('#cookie-external-maps').is_checked(), 'External Google Maps starts disabled')
+        page.locator('#cookie-only-necessary').click()
+        check(page.locator('#cookie-banner').count() == 0
+              and page.evaluate("JSON.parse(localStorage.getItem('pulse:privacy')).externalMaps === false"),
+              'Necessary-only consent is saved and dismisses the banner')
+        check('Prague Pulse Fest' in page.title(), 'Page metadata uses the original Prague Pulse Fest name')
+        festival_dates = page.evaluate('window.FESTIVAL_DATA.festival.dates')
+        current_edition = int(festival_dates[0]['date'][:4])
+        performer_names = page.evaluate('window.FESTIVAL_DATA.performers.map(p=>p.name)')
+        check(len(performer_names) == len(set(performer_names)) == 60, 'All 60 performer names are unique')
         check(page.locator('.global-search svg').count() == 1, 'Header search uses a vector icon')
+        countdown_states = page.evaluate('''() => {
+            const start='2026-08-01T09:00:00+02:00', end='2026-08-03T23:59:00+02:00';
+            const state=window.PulseCountdown.getState;
+            return {before:state(start,end,new Date(start).getTime()-90061000),
+                    start:state(start,end,new Date(start).getTime()),
+                    during:state(start,end,new Date(start).getTime()+3600000),
+                    end:state(start,end,new Date(end).getTime()),
+                    after:state(start,end,new Date(end).getTime()+1),
+                    invalid:state('invalid',end,0)};
+        }''')
+        check(countdown_states['before'] == {'phase': 'upcoming', 'totalSeconds': 90061,
+              'days': 1, 'hours': 1, 'minutes': 1, 'seconds': 1},
+              'Countdown decomposes time remaining into days, hours, minutes and seconds')
+        check(all(countdown_states[key]['phase'] == 'during' for key in ['start', 'during', 'end']),
+              'Countdown treats the full festival interval as live')
+        check(countdown_states['after']['phase'] == 'ended'
+              and countdown_states['after']['totalSeconds'] == 0,
+              'Countdown shows an ended state after the festival instead of negative numbers')
+        check(countdown_states['invalid']['phase'] == 'invalid'
+              and all(state['totalSeconds'] >= 0 for state in countdown_states.values()),
+              'Countdown handles invalid dates without NaN or negative values')
+        check(page.locator('[data-countdown]').count() == 1
+              and len(page.locator('[data-countdown-caption]').inner_text().strip()) > 0,
+              'Homepage renders a visible countdown or current festival status')
         check(page.locator('#hero-film source').first.get_attribute('src').endswith('.webm'), 'Hero references the local WebM film')
         check(page.locator('#hero-film source[type=\"video/mp4\"]').count() == 1, 'Hero includes an MP4 fallback source')
         page.wait_for_function("document.querySelector('#hero-film').readyState >= 2")
@@ -120,8 +174,31 @@ try:
         page.wait_for_function("!document.querySelector('#hero-film').paused")
         check(True, 'Hero video can resume')
 
+        for width in [1024, 1280, 1366]:
+            page.set_viewport_size({'width': width, 'height': 900})
+            for language in ['en', 'cs']:
+                switch_language(page, language)
+                in_one_row = page.evaluate('''() => {
+                    const selectors=['.brand-cluster','#navigation','.global-search','.language-switch'];
+                    const rects=selectors.map(s=>document.querySelector(s).getBoundingClientRect());
+                    const links=[...document.querySelectorAll('#navigation a')].map(a=>a.getBoundingClientRect());
+                    return rects.every(r=>r.width>0 && r.left>=0 && r.right<=innerWidth)
+                      && Math.max(...rects.map(r=>r.top))<Math.min(...rects.map(r=>r.bottom))
+                      && Math.max(...links.map(r=>r.top))<Math.min(...links.map(r=>r.bottom));
+                }''')
+                check(in_one_row, f'Brand, navigation, search and language switch share one row at {width}px in {language}')
+                ticket_box = page.locator('#navigation .ticket-link').bounding_box()
+                check(ticket_box['width'] <= 150 and ticket_box['height'] <= 56,
+                      f'Header ticket button stays compact at {width}px in {language}')
+                no_overflow(f'Laptop header fits {width}px in {language}')
+        check(page.locator('.footer-social a').count() == 5
+              and page.locator('.footer-social a svg').count() == 5,
+              'Footer includes five recognizable vector social icons')
+        check(all(page.locator('.footer-social a').nth(i).get_attribute('aria-label')
+                  for i in range(5)), 'Social icon links expose accessible platform names')
+
         routes = ['index.html', 'program.html', 'performers.html', 'venues.html', 'info.html',
-                  'search.html?q=Neon', 'tickets.html', 'cart.html', 'account.html']
+                  'search.html?q=' + quote(performer_names[0]), 'tickets.html', 'cart.html', 'account.html']
         for width in [320, 375, 430, 768, 1024, 1440, 1920]:
             page.set_viewport_size({'width': width, 'height': 900})
             for route in routes:
@@ -131,8 +208,7 @@ try:
         page.set_viewport_size({'width': 1440, 'height': 1000})
         go('performers.html')
         genres_cs = page.locator('#genre option').evaluate_all('(options)=>options.map(o=>o.value)')
-        page.locator('[data-lang="en"]').click()
-        page.wait_for_function("document.documentElement.lang === 'en'")
+        switch_language(page, 'en')
         check(page.locator('#genre option').evaluate_all('(options)=>options.map(o=>o.value)') == genres_cs,
               'English translation preserves genre filter values')
         genre = next(value for value in genres_cs if value)
@@ -143,7 +219,7 @@ try:
             check(page.locator('html').get_attribute('lang') == 'en', f'English preference persists: {route}')
             check('Můj účet' not in page.locator('#navigation').inner_text()
                   and 'Vstupenky' not in page.locator('#navigation').inner_text(), f'English navigation is translated: {route}')
-            check('Prague Rocks Festival' in page.title(), f'English metadata retains the identity: {route}')
+            check('Prague Pulse Fest' in page.title(), f'English metadata retains the identity: {route}')
         go('info.html')
         check('How' in page.locator('main').inner_text() or 'Getting' in page.locator('main').inner_text(),
               'Practical information has English content')
@@ -151,14 +227,18 @@ try:
         page.locator('[data-artist]').first.click()
         check('Kdy hraje' not in page.locator('dialog').inner_text(), 'Artist detail is translated into English')
         page.keyboard.press('Escape')
-        page.locator('[data-lang="cs"]').click()
-        page.wait_for_function("document.documentElement.lang === 'cs'")
+        switch_language(page, 'cs')
         check(page.locator('#genre option').evaluate_all('(options)=>options.map(o=>o.value)') == genres_cs,
               'Switching back to Czech retains original genre values')
 
-        go('search.html?q=neon')
-        check(page.locator('#search-count').inner_text().startswith('25 '),
-              'Contains search covers 12 artists plus 13 events')
+        query = performer_names[0][1:-1].swapcase()
+        go('search.html?q=' + quote(query))
+        artist_id = page.evaluate('window.FESTIVAL_DATA.performers[0].id')
+        matching_events = page.evaluate('(id)=>window.FESTIVAL_DATA.events.filter(e=>e.performerIds.includes(id)).map(e=>e.id)', artist_id)
+        check(page.locator(f'#search-results a[href="performers.html?id={artist_id}"]').count() > 0,
+              'Contains search matches an artist name substring regardless of case')
+        check(all(page.locator(f'#search-results a[href="program.html?event={event_id}"]').count() > 0
+                  for event_id in matching_events), 'Contains search includes the selected artist\'s programme entries')
         page.locator('#query').fill('<script>alert(1)</script>')
         check(page.locator('#search-results').inner_text().startswith('Nic jsme'), 'Search treats markup as text')
         page.locator('#query').fill('vstupenky')
@@ -173,7 +253,7 @@ try:
             return [image?.getAttribute('src')||s.backgroundImage,s.backgroundPosition,s.objectPosition].join('|');
         })''')
         check(len(art) == 60 and len(set(art)) == 60, 'All 60 performer cards have distinct portrait selections')
-        page.locator('#artist-q').fill('Lunar Whisper')
+        page.locator('#artist-q').fill(performer_names[-1])
         check(page.locator('#artists article').count() == 1, 'The last performer is searchable')
         page.locator('[data-artist]').click()
         check(page.locator('dialog').is_visible(), 'Artist detail opens')
@@ -191,10 +271,18 @@ try:
         check(page.locator('#events article').count() == 1, 'Favorites survive reload')
 
         go('tickets.html')
+        check(page.locator('a.cart-go[href="cart.html"] svg.cart-icon').count() == 1,
+              'The ticket selector links to the cart with a recognizable vector cart icon')
         scope('day')
         check(page.locator('#seat-map [data-seat]:disabled').count() == 0, 'All 48 seats start available')
         check(page.locator('#seat-map [data-seat]').count() == 48, 'Seat map exposes all 48 seats')
         check('40' in page.locator('#standing-count').inner_text(), 'All 40 standing places start available')
+        for day in ['d2', 'd3']:
+            scope('day', day)
+            check(page.locator('#seat-map [data-seat]:disabled').count() == 0
+                  and '40' in page.locator('#standing-count').inner_text(),
+                  f'A new browser starts with every seat and standing place available on {day}')
+        scope('day', 'd1')
         page.locator('[data-seat="A1"]').focus()
         page.keyboard.press('Space')
         check(page.locator('[data-seat="A1"]').get_attribute('aria-pressed') == 'true', 'Space selects a focused seat')
@@ -207,7 +295,9 @@ try:
         page.locator('#standing').click()
         check('3\u00a0070' in page.locator('#selection').inner_text(), 'Three-day VIP, Regular and standing total 3070 Kč')
         page.locator('#add-cart').click()
-        check('Košík (3)' in page.locator('#navigation').inner_text(), 'Cart counter updates')
+        check(page.locator('#navigation .cart-count').inner_text() == '3', 'Cart counter updates')
+        check(page.locator('#navigation a[href="cart.html"] svg.cart-icon').count() == 1,
+              'Updating the cart counter preserves its navigation icon')
 
         go('cart.html')
         for width in [320, 768, 1920]:
@@ -235,6 +325,7 @@ try:
         check(page.locator('.ticket-paper').count() == 2, 'Guest checkout creates two tickets')
         check('host@example.test' in page.locator('.order').inner_text(), 'Guest email is retained')
         guest_order = page.evaluate("JSON.parse(localStorage.getItem('pulse:orders')).at(-1)")
+        check(guest_order.get('edition') == current_edition, 'New orders explicitly record the current festival edition')
         check(all(t['scope'] == 'festival' and t['days'] == ['d1', 'd2', 'd3'] for t in guest_order['tickets']),
               'A three-day purchase stores validity for all three dates')
         with page.expect_download() as download:
@@ -242,13 +333,16 @@ try:
         check(download.value.suggested_filename.endswith('.pdf'), 'Ticket download uses the PDF extension')
         pdf_path = ARTIFACTS / 'guest-tickets.pdf'
         download.value.save_as(str(pdf_path))
-        validate_pdf(pdf_path, guest_order)
+        validate_pdf(pdf_path, guest_order, festival_dates)
+        check(page.locator('[data-print], button[onclick*="print("]').count() == 0,
+              'Completed order offers PDF download without a print action')
 
         go('tickets.html')
         for day in ['d1', 'd2', 'd3']:
             scope('day', day)
             check(page.locator('[data-seat="A1"]').is_disabled(), f'Three-day purchase reserves the same seat on {day}')
             check(page.locator('[data-seat="A3"]').is_enabled(), f'Unpurchased seats stay available on {day}')
+            check('39' in page.locator('#standing-count').inner_text(), f'Three-day purchase also reserves its standing place on {day}')
         scope('day', 'd2')
         page.locator('[data-seat="B1"]').click()
         page.locator('#add-cart').click()
@@ -264,6 +358,7 @@ try:
         page.locator('#consent').check()
         page.locator('#checkout button').click()
         check(page.locator('.ticket-paper').count() == 1, 'Registered checkout succeeds')
+        registered_order = page.evaluate("JSON.parse(localStorage.getItem('pulse:orders')).at(-1)")
 
         go('tickets.html')
         scope('festival')
@@ -274,6 +369,34 @@ try:
         check(page.locator('[data-seat="B1"]').is_disabled(), 'A single-day booking reserves its selected day')
         go('account.html')
         check(page.locator('.order').count() == 1, "Account history shows only that account's orders")
+        check(page.locator('#export-data, #import-data, #backup-status, [data-print], .backup-panel').count() == 0,
+              'Account history has no JSON backup, import or print controls')
+        legacy_context = browser.new_context(storage_state=context.storage_state(), accept_downloads=True)
+        legacy_context.route('https://**', lambda route: route.fulfill(status=200, content_type='text/html', body='<p>Map test fixture</p>'))
+        legacy_page = legacy_context.new_page()
+        legacy_page.goto(BASE + 'account.html')
+        legacy_order = {**registered_order, 'id': 'PP-LEGACY-2026', 'created': '2026-07-20T12:00:00Z'}
+        legacy_order.pop('edition', None)
+        legacy_page.evaluate('(order)=>localStorage.setItem("pulse:orders",JSON.stringify([order]))', legacy_order)
+        legacy_page.reload()
+        check(legacy_page.locator('.order').count() == 1
+              and 'PP-LEGACY-2026' in legacy_page.locator('.order').inner_text(),
+              'A legacy order without an edition remains visible in account history')
+        with legacy_page.expect_download() as legacy_download:
+            legacy_page.locator('[data-download]').click()
+        legacy_pdf = ARTIFACTS / 'legacy-2026-ticket.pdf'
+        legacy_download.value.save_as(str(legacy_pdf))
+        with fitz.open(legacy_pdf) as document:
+            legacy_pdf_text = document[0].get_text()
+            check('2. 8. 2026' in legacy_pdf_text and f'2. 8. {current_edition}' not in legacy_pdf_text,
+                  'A legacy order PDF keeps its original 2026 validity')
+        legacy_page.goto(BASE + 'tickets.html')
+        legacy_page.locator('#ticket-scope').select_option('day')
+        for day in ['d1', 'd2', 'd3']:
+            legacy_page.locator('#ticket-day').select_option(day)
+            check(legacy_page.locator('[data-seat="B1"]').is_enabled(),
+                  f'A legacy 2026 order does not reserve the same seat for the current edition on {day}')
+        legacy_context.close()
         for width in [320, 768, 1920]:
             page.set_viewport_size({'width': width, 'height': 900})
             no_overflow(f'Populated account history fits {width}px')
@@ -307,42 +430,8 @@ try:
         check('password' not in stored_user and len(stored_user['hash']) == 64 and len(stored_user['salt']) == 32,
               'Account stores a salted PBKDF2 hash rather than the password')
 
-        # Backups are explicit downloads; a website cannot silently overwrite local JSON files.
-        with page.expect_download() as backup_download:
-            page.locator('#export-data').click()
-        backup_path = ARTIFACTS / 'prague-rocks-backup.json'
-        backup_download.value.save_as(str(backup_path))
-        backup_text = backup_path.read_text()
-        backup_data = json.loads(backup_text)
-        check('UniqueSchool123!' not in backup_text and stored_user['hash'] in backup_text,
-              'JSON export contains hashed account data and no plaintext password')
-        fresh_context = browser.new_context(accept_downloads=True)
-        fresh = fresh_context.new_page()
-        fresh.goto(BASE + 'account.html')
-        fresh.locator('#import-data').set_input_files(str(backup_path))
-        fresh.wait_for_function("JSON.parse(localStorage.getItem('pulse:users')||'[]').length === 1")
-        check(fresh.evaluate("JSON.parse(localStorage.getItem('pulse:orders')).length") == 2,
-              'JSON import restores account and guest orders in a fresh browser')
-        login(fresh)
-        fresh.wait_for_selector('#logout')
-        check(fresh.locator('.order').count() == 1, 'The imported account can log in with its original password')
-        fresh.goto(BASE + 'tickets.html')
-        fresh.locator('#ticket-scope').select_option('day')
-        fresh.locator('#ticket-day').select_option('d3')
-        check(fresh.locator('[data-seat="A1"]').is_disabled(), 'JSON import restores three-day seat occupancy')
-        fresh.goto(BASE + 'account.html')
-        fresh.locator('#import-data').set_input_files(str(backup_path))
-        fresh.wait_for_function("document.querySelector('#backup-status').textContent.length > 0")
-        check(fresh.evaluate("JSON.parse(localStorage.getItem('pulse:orders')).length") == 2,
-              'Importing the same backup does not duplicate orders')
-        invalid_path = ARTIFACTS / 'invalid-backup.json'
-        invalid_path.write_text('{"users": [{"password":"plaintext"}], "orders": []}')
-        fresh.evaluate("document.querySelector('#backup-status').textContent = ''")
-        fresh.locator('#import-data').set_input_files(str(invalid_path))
-        fresh.wait_for_function("document.querySelector('#backup-status').textContent.length > 0")
-        check(fresh.evaluate("JSON.parse(localStorage.getItem('pulse:orders')).length") == 2,
-              'Invalid backup cannot replace existing orders')
-        fresh_context.close()
+        check(page.locator('#export-data, #import-data, #backup-status, [data-print], .backup-panel').count() == 0,
+              'Signing in again does not restore removed backup or print controls')
 
         go('index.html')
         page.screenshot(path=str(ARTIFACTS / 'home-desktop.png'), full_page=True, animations='disabled')
@@ -378,7 +467,7 @@ try:
               'Cart review rerenders the new selection and preserves form state')
         page.evaluate("""() => {
           const orders = JSON.parse(localStorage.getItem('pulse:orders'));
-          orders.push({id:'external', tickets:[{day:'d1',seat:'B3',price:590,category:'vip',scope:'day'}]});
+          orders.push({id:'external', edition:Number(window.FESTIVAL_DATA.festival.dates[0].date.slice(0,4)), tickets:[{day:'d1',seat:'B3',price:590,category:'vip',scope:'day'}]});
           localStorage.setItem('pulse:orders', JSON.stringify(orders));
         }""")
         page.locator('#checkout button').click()
@@ -387,11 +476,59 @@ try:
         check(not external_requests, 'All assets, purchases and PDF generation work without external network requests')
 
         go('info.html')
-        check(page.locator('iframe').count() == 0, 'Google Maps is not embedded before explicit loading')
-        page.route('https://maps.google.com/**', lambda route: route.fulfill(status=200, content_type='text/html', body='<p>Map test fixture</p>'))
-        page.locator('#load-map').click()
-        page.wait_for_selector('iframe')
-        check('google.com/maps' in page.locator('iframe').get_attribute('src'), 'Google Maps loads after the map button is activated')
+        check(page.locator('#map-container iframe').count() == 0,
+              'Rejecting optional storage keeps Google Maps unembedded')
+        check(page.locator('#load-map').count() == 0, 'Map has no extra manual loading step')
+        check(not external_requests, 'Rejecting external maps prevents all third-party map requests')
+        check(page.locator('#cookie-banner').count() == 0, 'The saved privacy decision survives navigation')
+
+        privacy_context = browser.new_context()
+        privacy_context.route('https://**', lambda route: route.fulfill(status=200, content_type='text/html', body='<p>Map test fixture</p>'))
+        privacy_page = privacy_context.new_page()
+        map_requests = []
+        privacy_errors = []
+        privacy_page.on('pageerror', lambda error: privacy_errors.append(str(error)))
+        privacy_page.on('request', lambda request: map_requests.append(request.url)
+                        if request.url.startswith('https://') else None)
+        privacy_page.goto(BASE + 'info.html')
+        check(privacy_page.locator('#cookie-banner').is_visible()
+              and privacy_page.locator('#map-container iframe').count() == 0 and not map_requests,
+              'A fresh information-page visit waits for a privacy decision before contacting Google')
+        privacy_page.locator('#cookie-accept-all').click()
+        privacy_page.wait_for_selector('#map-container iframe')
+        check('google.com/maps' in privacy_page.locator('#map-container iframe').get_attribute('src')
+              and len(map_requests) == 1, 'Accepting all immediately loads the Google Maps iframe')
+        privacy_page.reload()
+        privacy_page.wait_for_selector('#map-container iframe')
+        check(privacy_page.locator('#cookie-banner').count() == 0 and len(map_requests) == 2,
+              'Accepted maps load automatically on later visits without another loading button')
+        privacy_page.locator('#footer [data-cookie-settings]').click()
+        check(privacy_page.locator('#cookie-external-maps').is_checked(), 'Privacy settings reflect the saved map consent')
+        privacy_page.locator('#cookie-external-maps').uncheck()
+        privacy_page.locator('#cookie-save').click()
+        check(privacy_page.locator('#map-container iframe').count() == 0,
+              'Revoking external-map consent unloads the iframe immediately')
+        privacy_page.reload()
+        check(privacy_page.locator('#map-container iframe').count() == 0 and len(map_requests) == 2,
+              'Revoked consent prevents map requests on subsequent visits')
+        switch_language(privacy_page, 'en')
+        privacy_page.locator('#footer [data-cookie-settings]').click()
+        check('Privacy settings' in privacy_page.locator('#cookie-panel').text_content()
+              and 'External Google Maps' in privacy_page.locator('#cookie-panel').text_content(),
+              'Privacy settings and map permission are translated into English')
+        check(not privacy_errors, 'Privacy settings, consent and map updates produce no JavaScript errors')
+        privacy_context.close()
+
+        reject_context = browser.new_context()
+        reject_context.route('https://**', lambda route: route.fulfill(status=200, content_type='text/html', body='<p>Unexpected external request</p>'))
+        reject_page = reject_context.new_page()
+        reject_page.goto(BASE + 'info.html')
+        reject_page.locator('#cookie-reject').click()
+        check(reject_page.locator('#cookie-banner').count() == 0
+              and reject_page.locator('#map-container iframe').count() == 0
+              and reject_page.evaluate('window.PulsePrivacy.getPreferences().externalMaps === false'),
+              'The banner necessary-only action rejects external maps directly')
+        reject_context.close()
 
         reduced = browser.new_context(reduced_motion='reduce')
         reduced_page = reduced.new_page()

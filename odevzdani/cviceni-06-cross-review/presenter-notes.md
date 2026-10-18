@@ -25,7 +25,7 @@ Každý nález potřebuje stránku a přesné kroky. Doplníme očekávaný a sk
 
 ## 5. Příklady nejsou cizí review.
 
-Na vlastním projektu lze ukázat rozdíl mezi důkazem a tvrzením. Datový validátor skutečně spočítá entity a ověří reference, ale nezměří srozumitelnost rozhraní. Architektura localStorage dokládá místní ukládání, nikoli sdílené účty. A absence cizího webu znamená, že peer review není provedeno. Tyto příklady jsou označené jako vlastní ověření Prague Rocks a nesmějí se objevit v tabulce nálezů jiného týmu. Po přidělení projektu je nahradíme skutečně pozorovanými případy.
+Na vlastním projektu lze ukázat rozdíl mezi důkazem a tvrzením. Datový validátor skutečně spočítá entity a ověří reference, ale nezměří srozumitelnost rozhraní. Architektura localStorage dokládá místní ukládání, nikoli sdílené účty. A absence cizího webu znamená, že peer review není provedeno. Tyto příklady jsou označené jako vlastní ověření Prague Pulse Fest a nesmějí se objevit v tabulce nálezů jiného týmu. Po přidělení projektu je nahradíme skutečně pozorovanými případy.
 
 ## 6. Před odevzdáním doplnit.
 

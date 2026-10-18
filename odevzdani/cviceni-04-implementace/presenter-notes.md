@@ -7,7 +7,7 @@ Text upravte podle skutečné práce a jmen členů týmu. Nevydávejte podklady
 
 ## 1. Festival má vlastní tvář.
 
-Na wireframe navazuje kompletní současná implementace. Obsahuje výraznější vlastní identitu, asymetrickou kompozici a originální logo Prague Rocks Festival. Inspirací je obecný festivalový vizuální styl, nikoli převzetí loga nebo grafiky jiné akce. Materiály byly připraveny ze současné verze, protože skutečný historický export ze cvičení nebyl poskytnut. Při prezentaci ukážeme mobilní a desktopové zobrazení a dvě nejdůležitější cesty. Není třeba instalovat runtime nebo spouštět build.
+Na wireframe navazuje kompletní současná implementace. Obsahuje výraznější vlastní identitu, asymetrickou kompozici a originální logo Prague Pulse Fest. Inspirací je obecný festivalový vizuální styl, nikoli převzetí loga nebo grafiky jiné akce. Materiály byly připraveny ze současné verze, protože skutečný historický export ze cvičení nebyl poskytnut. Při prezentaci ukážeme mobilní a desktopové zobrazení a dvě nejdůležitější cesty. Není třeba instalovat runtime nebo spouštět build. Název vracíme na Prague Pulse Fest a termín na výslovnou volbu zadavatele posouváme na 1.–3. srpna 2027. Hlavička má na notebooku hledání a navigaci v jednom řádku; odpočet pracuje s pražskou časovou zónou.
 
 ## 2. Hlavní části jsou propojené.
 
@@ -19,11 +19,11 @@ Ano, Flexbox se pro tento web hodí, zejména pro navigaci a řady ovládacích 
 
 ## 4. Dva scénáře předvést, ne popsat.
 
-Zopakujeme S1 a S2 ve finálním rozhraní. Nejprve filtrujeme program a ověříme uložení osobního výběru. Potom hledáme Neon Wave a přejdeme z detailu k jeho koncertu. Při ukázce sledujeme názvy, datum a scénu; efektní animace nesmí nahradit správný obsah. Krátce ukážeme klávesnici a zavření dialogu. Přístupnost není pouze kontrast: důležité je správné pořadí, popisky, zachování focusu a srozumitelná změna stavu. Plnou shodu s WCAG bez odpovídajícího auditu netvrdíme.
+Zopakujeme S1 a S2 ve finálním rozhraní. Nejprve filtrujeme program a ověříme uložení osobního výběru. Potom hledáme Atlas Motel a přejdeme z detailu k jeho koncertu. Při ukázce sledujeme názvy, datum a scénu; efektní animace nesmí nahradit správný obsah. Krátce ukážeme klávesnici a zavření dialogu. Přístupnost není pouze kontrast: důležité je správné pořadí, popisky, zachování focusu a srozumitelná změna stavu. Plnou shodu s WCAG bez odpovídajícího auditu netvrdíme.
 
 ## 5. Zdroj dat zůstává jeden.
 
-Datová základna v XML je autoritativní. Přibalený JavaScriptový export umožňuje zobrazit program bez síťového načítání, což je důležité pro přímé otevření z disku. Generátor je pouze vývojová pomůcka. Ceny tarifů i hlavní údaje musí odpovídat XML. Objednávkový tok vytváří skutečný PDF soubor s identifikací objednávky, ale neposílá e-mail a neprovádí skutečnou platbu. Hesla, objednávky a obsazenost nemají serverové zázemí; místní účet není bezpečné sdílené přihlašování.
+Datová základna v XML je autoritativní. Přibalený JavaScriptový export umožňuje zobrazit program bez síťového načítání, což je důležité pro přímé otevření z disku. Generátor je pouze vývojová pomůcka. Ceny tarifů i hlavní údaje musí odpovídat XML. Objednávkový tok vytváří skutečný PDF soubor s identifikací objednávky, ale neposílá e-mail a neprovádí skutečnou platbu. Hesla, objednávky a obsazenost nemají serverové zázemí; místní účet není bezpečné sdílené přihlašování. Nové objednávky mají ročník 2027, historické bez ročníku zůstávají 2026 a neblokují nový rok. Panel soukromí dovoluje externí mapy samostatně; po povolení se mapa vloží automaticky a odvolání ji odstraní. Analytika ani reklamní sledování nejsou použité.
 
 ## 6. Kontrola má konkrétní výstup.
 

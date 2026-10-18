@@ -1,4 +1,4 @@
-# Prague Rocks Festival
+# Prague Pulse Fest
 
 Responzivní festivalový web v češtině i angličtině. **Bez instalace, serveru, Node.js a buildu.**
 
@@ -6,20 +6,21 @@ Responzivní festivalový web v češtině i angličtině. **Bez instalace, serv
 
 Na GitHubu zvolte **Code → Download ZIP**, celý archiv rozbalte a otevřete **`web/index.html`**. Při otevření z disku používá navigace stejný soubor s parametrem `page`, aby se účty a košík uchovávaly pod stejnou adresou. JavaScript a místní úložiště musejí být povolené.
 
-Celou složku `web/` můžete sdílet samostatně. Všechny fonty, obrázky, krátké video a PDF knihovny jsou přibalené. Volitelná Google mapa se načte až po kliknutí; web bez ní funguje offline.
+Celou složku `web/` můžete sdílet samostatně. Všechny fonty, obrázky, krátké video a PDF knihovny jsou přibalené. Google mapa se po souhlasu s externími mapami načítá automaticky; web bez ní funguje offline.
 
 ## Co je nové
 
-- Prague Rocks Festival: vlastní logo a asymetrická identita, datum vedle loga, výrazná navigace, kulaté vyhledávání, CZ/EN a vícesloupcový footer.
+- Prague Pulse Fest, **1.–3. srpna 2027**: vlastní logo, asymetrická identita, odpočet, kompaktní navigace a kulaté hledání v jednom řádku na notebooku, CZ/EN a vícesloupcový footer s ikonami sociálních sítí.
 - Přepnutí jazyka překládá obsahové stránky, filtry, formuláře, detaily, stavy i PDF a zachovává se po znovuotevření.
 - Lokální tiché video v úvodu s pauzou a respektováním omezeného pohybu; jde o animovaný originální AI vizuál, nikoli převzatý koncertní záznam.
-- 60 různých AI portrétů přiřazených stabilně k XML ID interpretů, se zachovanými iniciálami.
+- 60 různých AI portrétů přiřazených stabilně k XML ID interpretů, originálnější názvy účinkujících a zachované iniciály.
 - 3 dny, 3 scény a 60 vystoupení, filtry programu, oblíbené, detaily a contains hledání.
 - Třídenní VIP **1 590 Kč**, Regular **990 Kč**, stání **490 Kč**. Jednodenní VIP **590 Kč**, Regular **390 Kč**, stání **190 Kč**. Ceny a popisy jsou ve zdrojovém XML.
 - Všechny pozice jsou na nové instalaci volné. Třídenní balíček vyžaduje stejné místo volné ve všech dnech; objednávka je obsadí pro celou dobu.
 - Košík, objednávka hosta i účtu, historie a skutečně vytvářené PDF s českými znaky a QR identifikátorem.
-- Účty přetrvávají po zavření webu, přihlášení platí sedm dnů. JSON zálohu účtů a objednávek lze stáhnout a načíst na jiném zařízení.
-- Praktické informace, reálná lokalita Výstaviště Praha, mapa na vyžádání, doprava, parking, ubytování, soukromí a podmínky.
+- Účty a objednávky přetrvávají po zavření webu ve stejném prohlížeči; přihlášení platí sedm dnů. Historie zachová ročník starší objednávky, která neobsadí místa pro rok 2027.
+- Praktické informace, reálná lokalita Výstaviště Praha, automatická mapa po souhlasu, doprava, parking, ubytování, soukromí a podmínky.
+- Panel soukromí: nezbytné místní ukládání a samostatná volba externích map; bez analytiky a reklamního sledování.
 
 ## Moodle a prezentace
 
@@ -40,7 +41,7 @@ Prezentace 02–05 mají šest snímků pro přibližně čtyři minuty, editova
 
 Jde o fiktivní festival. **Platba je zkušební, e-mail se automaticky neodesílá a PDF není skutečnou vstupenkou.** Účty, objednávky a dostupnost jsou uložené v tomto prohlížeči, nikoli sdílené mezi návštěvníky. Heslo se ukládá jako solený PBKDF2 hash. Lokální účet není bezpečná serverová autentizace. Kontaktní doména a telefon jsou pouze ilustrativní, nejsou ověřeným kontaktem pořadatele.
 
-JSON export je skutečný soubor, který uživatel stáhne; import obnoví data bez duplicit. Web soubor na disku sám průběžně nepřepisuje. Bez serveru nebo ručního oprávnění prohlížeče k souboru to není možné. Obnovení z exportu nepřenáší aktivní přihlášení — k účtu se přihlásíte znovu.
+Web automaticky nepřepisuje soubory na disku. Data ukládá do `localStorage`; odstranění dat prohlížeče smaže i místní účty a objednávky. Souhlas s externí mapou lze kdykoli změnit odkazem v patičce. Volba soukromí má platnost 180 dnů; nemění nezbytné ukládání účtu nebo košíku.
 
 ## Vývojové ověření a obnova podkladů
 
@@ -48,7 +49,9 @@ JSON export je skutečný soubor, který uživatel stáhne; import obnoví data 
 python validate_project.py
 node --check web/js/app.js
 node --check web/js/i18n.js
-node --check web/js/backup.js
+node --check web/js/privacy.js
+node --check web/js/design.js
+node --check web/js/site-shell.js
 node --check web/js/ticket-pdf.js
 python tests/browser_smoke.py
 python tests/course_materials.py --folder odevzdani

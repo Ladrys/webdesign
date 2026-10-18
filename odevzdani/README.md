@@ -1,4 +1,4 @@
-# Prague Rocks Festival — podklady pro Moodle
+# Prague Pulse Fest — podklady pro Moodle
 
 Každá složka cvičení má vlastní PPTX, PDF a `presenter-notes.md` pro 3–5 minut.
 PPTX obsahuje editovatelný text a poznámky přednášejícího. PDF má stejnou grafiku.
@@ -26,8 +26,9 @@ sestavený redukovaný interaktivní prototyp. Nepředkládejte je jako falešno
    ale skutečné nálezy nelze vytvořit bez hodnoceného webu. Šablona není hotové peer review.
 2. Přijaté cross-review do `review/received-review.md` a skutečná rozhodnutí v dokumentaci.
 3. Jména a reálnou spolupráci členů, časovou osu a případné historické prezentace.
-4. Odsouhlasení přejmenování a výraznějšího redesignu vůči původní specifikaci
-   Prague Pulse Fest; limit změn cca 15 % nelze potvrdit bez schválených prvních výstupů.
+4. Ověření posunu termínu na srpen 2027, přejmenování interpretů a výraznějšího
+   redesignu vůči schváleným prvním výstupům. Původní název Prague Pulse Fest zůstává;
+   dodržení limitu změn cca 15 % nelze potvrdit bez těchto výstupů.
 
 ## Pravdivé ověření a AI
 

@@ -1,4 +1,4 @@
-# Interaktivní wireframe — Prague Rocks Festival
+# Interaktivní wireframe — Prague Pulse Fest
 
 Otevřete `index.html` v prohlížeči. Bez instalace, serveru a buildu.
 Prototyp používá přibalená data `data.js`; JavaScript musí být povolen.
@@ -7,7 +7,7 @@ Jde o nově sestavený reprezentativní prototyp pro aktuální materiály cvič
 nikoli o zpětně doloženou historickou verzi ze semestru.
 
 S1: Program → den → scéna → uložit akci → Jen uložené → obnovení.
-S2: Vyhledávání Neon → Neon Wave → detail → Program interpreta.
+S2: Vyhledávání Atlas → Atlas Motel → detail → Program interpreta.
 
 Podporuje filtry, osobní program, contains hledání a detail. Nákup ani skutečný
 účet se v redukovaném wireframu nepředstírají. Finální web je samostatně ve `web/`.

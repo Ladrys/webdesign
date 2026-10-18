@@ -21,7 +21,7 @@ XML. Prototyp ukazuje informační hierarchii; nepředstavuje historicky odevzda
 S1: Úvod → Program → den 1. 8. → River Stage → přidat akci → zapnout „Jen
 uložené“ → obnovit stránku. Očekáváme zachovaný výběr a správný filtr.
 
-S2: Do hledání napsat „Neon“ → otevřít interpreta Neon Wave → jeho detail →
+S2: Do hledání napsat „Atlas“ → otevřít interpreta Atlas Motel → jeho detail →
 zobrazit související program. Očekáváme jméno, žánr a programové vazby ze stejné datové základny.
 
 ## Mobilní a desktopová varianta

@@ -1,4 +1,4 @@
-# Prague Rocks Festival — projektová specifikace
+# Prague Pulse Fest — projektová specifikace
 
 Aktuální specifikace fiktivního festivalu. Historie skutečných odevzdání a
 schválení změn vyučujícím musí být doložena původním týmem.
@@ -7,10 +7,10 @@ schválení změn vyučujícím musí být doložena původním týmem.
 
 | Vlastnost | Hodnota |
 | --- | --- |
-| Název | Prague Rocks Festival |
-| Ročník | 1. ročník, 2026 |
+| Název | Prague Pulse Fest |
+| Ročník | 1. ročník, 2027 |
 | Lokalita | Vltava Park (fiktivní areál), Výstaviště Praha, Výstaviště 67, 170 00 Praha 7 |
-| Termín | 1.–3. srpna 2026 |
+| Termín | 1.–3. srpna 2027 |
 | Charakter | Fiktivní třídenní městský hudební festival |
 | Žánry | Rock, indie, pop, elektronika, hip-hop, jazz a folk |
 | Rozsah dat | 3 dny, 3 scény, 60 účinkujících, 60 vystoupení |
@@ -61,7 +61,7 @@ kontext návratu. Program a osobní program používají stejná datová ID.
 | ID | Typ uživatele | Cíl | Výchozí situace | Očekávaný výsledek |
 | --- | --- | --- | --- | --- |
 | S1 | Návštěvník na telefonu | Naplánovat první den na River Stage | Je na úvodu, zná den a scénu, nezná kapely | Filtry ukážou jen odpovídající akce; vybraná akce zůstane v osobním programu i po obnovení |
-| S2 | Fanoušek kapely | Najít Neon Wave a čas koncertu | Zadá část názvu „Neon“ | Dostane odpovídající výsledky, otevře detail a přejde k datu a scéně vystoupení |
+| S2 | Fanoušek kapely | Najít Atlas Motel a čas koncertu | Zadá část názvu „Atlas“ | Dostane odpovídající výsledky, otevře detail a přejde k datu a scéně vystoupení |
 | S3 | Návštěvník bez účtu | Získat třídenní vstupenku nebo konkrétní místa | Porovnává VIP, Regular a stání | Zná obsah a cenu, projde košík, po zkušebním dokončení stáhne PDF s ID objednávky; lokální obsazenost se aktualizuje |
 | S4 | Vracející se návštěvník | Najít dřívější objednávku | Má lokální účet ve stejném prohlížeči | Přihlásí se, zobrazí svou historii a znovu stáhne PDF |
 | S5 | Zahraniční návštěvník | Najít dopravu anglicky | Nerozumí češtině a přichází na úvod | Přepne jazyk, otevře informace a najde mapu lokality |
@@ -104,15 +104,22 @@ Samotné přehrání prezentace nebo vizuální prohlídka datovou konzistenci n
 Výsledný web je HTML, CSS a JavaScript se všemi potřebnými zdroji přibalenými.
 Nevyžaduje Node.js, balíčkovací nástroj, build, backend ani databázi. Údaje účtů,
 osobního programu a objednávek přetrvávají ve stejném prohlížeči v místním
-úložišti. Export JSON je uživatelsky stažená záloha, nikoli automatický zápis na disk.
+úložišti `localStorage`, nikoli v průběžně přepisovaném souboru na disku.
 Neukládá se otevřený text hesla; lokální heslový hash není produkční autentizace.
 Skutečné platby a automatické odesílání e-mailu nejsou součástí klientské verze.
+Přihlášení vyprší za sedm dnů. Google mapa se automaticky vloží až po povolení
+externích map v panelu soukromí; tuto volbu lze odvolat. Analytika ani reklamní
+sledování nejsou použité. Historické objednávky si zachovávají původní ročník
+a neblokují místa aktuálního ročníku.
 
 ## Původ podkladů a změny
 
-Původní dodaný projekt nesl jméno Prague Pulse Fest. Přejmenování na Prague
-Rocks Festival a současný výraznější grafický směr vznikly z výslovného zadání
-uživatele. Není doloženo schválení změny vyučujícím v limitu přibližně 15 %.
+Zachovává se původní název Prague Pulse Fest. Po upřesnění uživatele byl
+obnoven po pracovní verzi s názvem Prague Rocks Festival. Termín se na jeho
+výslovnou volbu posunul z 1.–3. srpna 2026 na 1.–3. srpna 2027;
+programové vazby, počet dnů, scén a interpretů zůstaly zachované.
+Výraznější grafický směr vznikl z požadavků uživatele. Není doloženo schválení
+rozsahu změn vyučujícím v limitu přibližně 15 %.
 Tým má před odevzdáním potvrdit návaznost na skutečně schválený první výstup.
 Nevymýšlíme historické konzultace ani review.
 

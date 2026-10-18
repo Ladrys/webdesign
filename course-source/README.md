@@ -20,7 +20,7 @@ nahrazeny smyšlenými údaji. `c06-review-template.md` obsahuje přesný postup
 tabulku nálezů i odlišené příklady vlastního ověření.
 
 ```sh
-python tools/build_course_submissions.py --output /tmp/prague-rocks-submissions
+python tools/build_course_submissions.py --output /tmp/prague-pulse-submissions
 ```
 
 Bez `--include-web` se vytvoří texty, prototyp a prezentace, ale nekopíruje se

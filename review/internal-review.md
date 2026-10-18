@@ -16,4 +16,8 @@ Tento záznam je vlastní technická a UX kontrola současného webu, nikoli př
 | Formulářový souhlas přetékal při 320 px | Významný | Browserové měření hranic; odkazy byly samostatné flex položky | Text a odkazy zabaleny do pružného bloku s korektním zalamováním |
 | Výběr sedadla a oblíbené akce ztrácel focus | Významný | Ovládání Space/Tab | Focus se obnovuje podle stabilního ID; ověřeno regresní kontrolou |
 
+| Odpočet přetékal na nejmenší šířce | Významný | Měření hranic při 320 px | Menší pružné buňky odpočtu; opakované průchody bez přetékání |
+| Aktualizace počtu položek mazala ikonu košíku | Drobný | Kontrola DOM po vložení místa | Mění se pouze text počítadla, ikona a popisek zůstávají |
+| Nový ročník mohl převzít obsazenost starých objednávek | Významný | Regresní scénář s objednávkou bez edition | Nová objednávka má ročník 2027; stará si zachovává 2026 v historii/PDF a neblokuje novou mapu |
+
 Kontroly se vztahují k této implementaci. Nepotvrzují kompletní WCAG AA audit, skutečný prodej ani právní soulad dokumentu GDPR.

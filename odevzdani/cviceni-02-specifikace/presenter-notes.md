@@ -7,11 +7,11 @@ Text upravte podle skutečné práce a jmen členů týmu. Nevydávejte podklady
 
 ## 1. Festival začíná u programu.
 
-Představujeme Prague Rocks Festival, fiktivní třídenní hudební festival v Praze. Cílem webu je umožnit návštěvníkovi rychle zjistit, kdy a kde hrají oblíbené kapely, a připravit si vlastní program. Jde o aktuálně připravený podklad k milníku, ne doklad historického odevzdání. Základem je specifikace a XML datová základna. Zachováváme tři dny, tři scény a šedesát účinkujících; nové jméno a výraznější grafický směr vznikly z požadavku zadavatele.
+Představujeme Prague Pulse Fest, fiktivní třídenní hudební festival v Praze. Cílem webu je umožnit návštěvníkovi rychle zjistit, kdy a kde hrají oblíbené kapely, a připravit si vlastní program. Jde o aktuálně připravený podklad k milníku, ne doklad historického odevzdání. Základem je specifikace a XML datová základna. Zachováváme tři dny, tři scény a šedesát účinkujících; původní název, posun termínu na srpen 2027 a výraznější grafický směr vznikly z požadavku zadavatele.
 
 ## 2. Jedna akce. Propojená data.
 
-Festival propojuje několik současných žánrů. První ročník se odehrává od prvního do třetího srpna 2026 ve fiktivně uspořádaném areálu Vltava Park u reálného Výstaviště Praha. XML obsahuje identitu festivalu, tři dny, tři scény, šedesát interpretů a šedesát vystoupení. Každé vystoupení má odkaz na existující den, scénu a interpreta. Nejde tedy o čtyři nezávislé seznamy; vztahy lze zkontrolovat a použít pro program i detail kapely.
+Festival propojuje několik současných žánrů. První ročník se odehrává od prvního do třetího srpna 2027 ve fiktivně uspořádaném areálu Vltava Park u reálného Výstaviště Praha. XML obsahuje identitu festivalu, tři dny, tři scény, šedesát interpretů a šedesát vystoupení. Každé vystoupení má odkaz na existující den, scénu a interpreta. Nejde tedy o čtyři nezávislé seznamy; vztahy lze zkontrolovat a použít pro program i detail kapely.
 
 ## 3. Pro koho web připravujeme?
 
@@ -23,7 +23,7 @@ Z úvodní stránky vedeme do programu, účinkujících a praktických informac
 
 ## 5. Dva průchody, jasný výsledek.
 
-První scénář řeší návštěvníka na telefonu, který zná den a scénu. Filtrovaný seznam mu umožní uložit koncert a později se vrátit k vlastnímu programu. Ve druhém scénáři návštěvník zadá jen část názvu Neon, otevře Neon Wave a zjistí čas i scénu koncertu. Očekávané výsledky jsou měřitelné: filtry nesmějí vracet jiné dny a oblíbené musí vydržet obnovení. Třetím scénářem ve specifikaci je objednávka hosta s výstupem PDF.
+První scénář řeší návštěvníka na telefonu, který zná den a scénu. Filtrovaný seznam mu umožní uložit koncert a později se vrátit k vlastnímu programu. Ve druhém scénáři návštěvník zadá jen část názvu Atlas, otevře Atlas Motel a zjistí čas i scénu koncertu. Očekávané výsledky jsou měřitelné: filtry nesmějí vracet jiné dny a oblíbené musí vydržet obnovení. Třetím scénářem ve specifikaci je objednávka hosta s výstupem PDF.
 
 ## 6. AI návrh potřebuje důkaz.
 
