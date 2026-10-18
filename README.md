@@ -6,18 +6,20 @@ Responzivní festivalový web v češtině i angličtině. **Bez instalace, serv
 
 Na GitHubu zvolte **Code → Download ZIP**, celý archiv rozbalte a otevřete **`web/index.html`**. Při otevření z disku používá navigace stejný soubor s parametrem `page`, aby se účty a košík uchovávaly pod stejnou adresou. JavaScript a místní úložiště musejí být povolené.
 
-Celou složku `web/` můžete sdílet samostatně. Všechny fonty, obrázky, krátké video a PDF knihovny jsou přibalené. Google mapa se po souhlasu s externími mapami načítá automaticky; web bez ní funguje offline.
+Celou složku `web/` můžete sdílet samostatně. Fonty, fotografie, typografické plakáty a PDF knihovny jsou přibalené. Google mapa se po souhlasu s externími mapami načítá automaticky; web bez ní funguje offline.
 
 ## Co je nové
 
-- Prague Pulse Fest, **1.–3. srpna 2027**: vlastní logo, asymetrická identita, odpočet, kompaktní navigace a kulaté hledání v jednom řádku na notebooku, CZ/EN a vícesloupcový footer s ikonami sociálních sítí.
+- Prague Pulse Fest, **1.–3. srpna 2027**: vlastní typografické logo, tmavá hlavička přes celou šířku, odpočet, kompaktní navigace a kulaté hledání v jednom řádku na notebooku, CZ/EN a vícesloupcový footer s ikonami sociálních sítí.
 - Přepnutí jazyka překládá obsahové stránky, filtry, formuláře, detaily, stavy i PDF a zachovává se po znovuotevření.
-- Lokální tiché video v úvodu s pauzou a respektováním omezeného pohybu; jde o animovaný originální AI vizuál, nikoli převzatý koncertní záznam.
-- 60 různých AI portrétů přiřazených stabilně k XML ID interpretů, originálnější názvy účinkujících a zachované iniciály.
-- 3 dny, 3 scény a 60 vystoupení, filtry programu, oblíbené, detaily a contains hledání.
-- Třídenní VIP **1 590 Kč**, Regular **990 Kč**, stání **490 Kč**. Jednodenní VIP **590 Kč**, Regular **390 Kč**, stání **190 Kč**. Ceny a popisy jsou ve zdrojovém XML.
+- Skutečná fotografie Průmyslového paláce z roku 2018 (Bengt Nyman, CC BY 2.0) s viditelným datem; aktuální úvod nepřehrává video a fotografie nepředstírá stav areálu pro rok 2027.
+- Navržený line-up 60 skutečných interpretů (např. David Guetta, Katy Perry, Skrillex a DARKZY), 41 skutečných licencovaných fotografií, 19 typografických náhrad a biografické medailonky z XML. Účast není potvrzená; Noisia je zastoupena archivním poslechovým blokem, nikoli živým koncertem.
+- 3 dny, 3 scény a 60 programových položek, filtry programu, oblíbené, detaily a contains hledání.
+- Třídenní VIP **1 590 Kč**, Regular **990 Kč**, stání **490 Kč**. Jednodenní VIP **590 Kč**, Regular **390 Kč**, stání **190 Kč**. Konečné ceny včetně poplatků a popisy jsou ve zdrojovém XML.
 - Všechny pozice jsou na nové instalaci volné. Třídenní balíček vyžaduje stejné místo volné ve všech dnech; objednávka je obsadí pro celou dobu.
-- Košík, objednávka hosta i účtu, historie a skutečně vytvářené PDF s českými znaky a QR identifikátorem.
+- Rychlý nákup 1–8 vstupenek podle kategorie a dne či celého festivalu, interaktivní místa, košík, objednávka hosta i účtu a historie.
+- Dokončení má jméno, příjmení, e-mail a telefon, promo kódy `PULSE10` (10 %) a `PRAHA200` (200 Kč) a sedm zkušebních platebních metod. PDF zachovává rozpis ceny a slevy.
+- Tři novinky mají vlastní články a přehled na úvodní stránce.
 - Účty a objednávky přetrvávají po zavření webu ve stejném prohlížeči; přihlášení platí sedm dnů. Historie zachová ročník starší objednávky, která neobsadí místa pro rok 2027.
 - Praktické informace, reálná lokalita Výstaviště Praha, automatická mapa po souhlasu, doprava, parking, ubytování, soukromí a podmínky.
 - Panel soukromí: nezbytné místní ukládání a samostatná volba externích map; bez analytiky a reklamního sledování.
@@ -39,7 +41,7 @@ Prezentace 02–05 mají šest snímků pro přibližně čtyři minuty, editova
 
 ## Hranice klientské verze
 
-Jde o fiktivní festival. **Platba je zkušební, e-mail se automaticky neodesílá a PDF není skutečnou vstupenkou.** Účty, objednávky a dostupnost jsou uložené v tomto prohlížeči, nikoli sdílené mezi návštěvníky. Heslo se ukládá jako solený PBKDF2 hash. Lokální účet není bezpečná serverová autentizace. Kontaktní doména a telefon jsou pouze ilustrativní, nejsou ověřeným kontaktem pořadatele.
+Jde o fiktivní festival s navrženým line-upem skutečných interpretů; jejich účast není potvrzená. **Platba je zkušební, e-mail se automaticky neodesílá a PDF není skutečnou vstupenkou.** Účty, objednávky a dostupnost jsou uložené v tomto prohlížeči, nikoli sdílené mezi návštěvníky. Heslo se ukládá jako solený PBKDF2 hash. Lokální účet není bezpečná serverová autentizace. Kontaktní doména a telefon jsou pouze ilustrativní, nejsou ověřeným kontaktem pořadatele.
 
 Web automaticky nepřepisuje soubory na disku. Data ukládá do `localStorage`; odstranění dat prohlížeče smaže i místní účty a objednávky. Souhlas s externí mapou lze kdykoli změnit odkazem v patičce. Volba soukromí má platnost 180 dnů; nemění nezbytné ukládání účtu nebo košíku.
 
@@ -52,6 +54,7 @@ node --check web/js/i18n.js
 node --check web/js/privacy.js
 node --check web/js/design.js
 node --check web/js/site-shell.js
+node --check web/js/news.js
 node --check web/js/ticket-pdf.js
 python tests/browser_smoke.py
 python tests/course_materials.py --folder odevzdani
@@ -61,4 +64,4 @@ Browserové testy si spouštějí a ukončují vlastní dočasný statický serv
 
 Volitelný `python tools/generate_data.py` obnoví přibalená webová data po změně XML/JSON zdrojů. `python tools/build_course_submissions.py --include-web` znovu sestaví složky odevzdání a PPTX/PDF z `course-source/` (vývojově potřebuje python-pptx a ReportLab). Tyto skripty se při běžném spuštění nespouštějí. Původní složka `API/` obsahuje datové transformace a schémata, nikoli běžící rozhraní.
 
-Podrobnosti a limity: `documentation.md`, výsledky: `validation_report.md`. Původ grafiky: `web/images/ROCKS-ASSETS.md` a `web/images/performers/README.md`. Náhledy jsou v `preview/`.
+Podrobnosti a limity: `documentation.md`, výsledky: `validation_report.md`. Zdroje, autoři a licence aktuálních fotografií i původ typografických plakátů: `web/images/PHOTO-CREDITS.md`. Starší nepoužívané AI video a portréty dokumentují `web/images/ROCKS-ASSETS.md` a `web/images/performers/README.md`. Náhledy jsou v `preview/`.

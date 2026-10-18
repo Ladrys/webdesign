@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+<title id="title">Výstaviště Praha — architektonická ilustrace</title><desc id="desc">Původní stylizovaná kresba Průmyslového paláce, jeho hodinové věže, prosklených křídel a předprostoru při soumraku. Nejde o fotografii ani přesný stavební plán.</desc>
+<defs>
+<linearGradient id="sky" x2="0" y2="1"><stop stop-color="#0b171e"/><stop offset=".7" stop-color="#284650"/><stop offset="1" stop-color="#765d52"/></linearGradient>
+<linearGradient id="glass" x2="0" y2="1"><stop stop-color="#92ada3"/><stop offset=".5" stop-color="#477475"/><stop offset="1" stop-color="#25484b"/></linearGradient>
+<linearGradient id="plaza" x2="0" y2="1"><stop stop-color="#50625e"/><stop offset="1" stop-color="#17252c"/></linearGradient>
+<linearGradient id="light"><stop stop-color="#d0d3b4" stop-opacity=".3"/><stop offset="1" stop-color="#d0d3b4" stop-opacity="0"/></linearGradient>
+<radialGradient id="glow"><stop stop-color="#f3c586" stop-opacity=".45"/><stop offset="1" stop-color="#f3c586" stop-opacity="0"/></radialGradient>
+<pattern id="pavers" width="180" height="64" patternUnits="userSpaceOnUse" patternTransform="skewX(-24)"><path d="M0 0h180v64H0Z" fill="none" stroke="#bac7b6" stroke-opacity=".1" stroke-width="2"/></pattern>
+</defs>
+<path fill="url(#sky)" d="M0 0h1920v1080H0z"/>
+<path fill="#8ba1a0" opacity=".07" d="M0 246q450-110 960 5t960-4v54q-320-27-660 5T0 291z"/>
+<circle cx="1542" cy="211" r="48" fill="#d9dfc7" opacity=".8"/><circle cx="1528" cy="193" r="48" fill="#142a33"/>
+<path fill="#203b3e" d="M0 665q100-85 195-18 120-118 240-15 130-110 240 6 180-97 290 7 170-112 360-11 140-102 260-10 170-108 335 3v185H0Z"/>
+<path fill="url(#plaza)" d="M0 777h1920v303H0Z"/><path fill="url(#pavers)" d="M0 777h1920v303H0Z"/>
+<path fill="#a5aea0" opacity=".12" d="M830 780h260l260 300H570z"/>
+<!-- The glazed side halls. -->
+<path fill="#a3aa95" d="M258 590h568v174H258zM1094 590h568v174h-568z"/>
+<path fill="#d7d9bd" d="M254 587h576v20H254zM1090 587h576v20h-576zM248 746h584v31H248zM1088 746h584v31h-584z"/>
+<path fill="url(#glass)" d="m268 585 71-73h444l48 73zM1089 585l48-73h444l71 73z"/>
+<g fill="none" stroke="#9eb7a6" stroke-width="3" opacity=".68"><path d="M290 554l-34 38"/><path d="M330 554l-34 38"/><path d="M370 554l-34 38"/><path d="M410 554l-34 38"/><path d="M450 554l-34 38"/><path d="M490 554l-34 38"/><path d="M530 554l-34 38"/><path d="M570 554l-34 38"/><path d="M610 554l-34 38"/><path d="M650 554l-34 38"/><path d="M690 554l-34 38"/><path d="M730 554l-34 38"/><path d="M770 554l-34 38"/><path d="M810 554l-34 38"/><path d="M850 554l-34 38"/><path d="M890 554l-34 38"/><path d="M930 554l-34 38"/><path d="M970 554l-34 38"/><path d="M1010 554l-34 38"/><path d="M1050 554l-34 38"/><path d="M1090 554l-34 38"/><path d="M1130 554l-34 38"/><path d="M1170 554l-34 38"/><path d="M1210 554l-34 38"/><path d="M1250 554l-34 38"/><path d="M1290 554l-34 38"/><path d="M1330 554l-34 38"/><path d="M1370 554l-34 38"/><path d="M1410 554l-34 38"/><path d="M1450 554l-34 38"/><path d="M1490 554l-34 38"/><path d="M1530 554l-34 38"/><path d="M1570 554l-34 38"/><path d="M1610 554l-34 38"/><path d="M1650 554l-34 38"/></g>
+<path fill="none" stroke="#c3cbb0" stroke-width="5" d="M268 585l71-73h444l48 73M1089 585l48-73h444l71 73"/>
+<g fill="url(#glass)" stroke="#d6dbc2" stroke-width="6"><path d="M290 614v126h46V614Z"/><path class="mullion" d="M313 614v126M290 674h46"/><path d="M354 614v126h46V614Z"/><path class="mullion" d="M377 614v126M354 674h46"/><path d="M418 614v126h46V614Z"/><path class="mullion" d="M441 614v126M418 674h46"/><path d="M482 614v126h46V614Z"/><path class="mullion" d="M505 614v126M482 674h46"/><path d="M546 614v126h46V614Z"/><path class="mullion" d="M569 614v126M546 674h46"/><path d="M610 614v126h46V614Z"/><path class="mullion" d="M633 614v126M610 674h46"/><path d="M674 614v126h46V614Z"/><path class="mullion" d="M697 614v126M674 674h46"/><path d="M738 614v126h46V614Z"/><path class="mullion" d="M761 614v126M738 674h46"/><path d="M1100 614v126h46V614Z"/><path class="mullion" d="M1123 614v126M1100 674h46"/><path d="M1164 614v126h46V614Z"/><path class="mullion" d="M1187 614v126M1164 674h46"/><path d="M1228 614v126h46V614Z"/><path class="mullion" d="M1251 614v126M1228 674h46"/><path d="M1292 614v126h46V614Z"/><path class="mullion" d="M1315 614v126M1292 674h46"/><path d="M1356 614v126h46V614Z"/><path class="mullion" d="M1379 614v126M1356 674h46"/><path d="M1420 614v126h46V614Z"/><path class="mullion" d="M1443 614v126M1420 674h46"/><path d="M1484 614v126h46V614Z"/><path class="mullion" d="M1507 614v126M1484 674h46"/><path d="M1548 614v126h46V614Z"/><path class="mullion" d="M1571 614v126M1548 674h46"/></g>
+<g stroke="#adc1af" stroke-width="2" fill="none"><path d="M280 639h526M1114 639h526"/></g>
+<!-- Four entrance pylons and the central glass hall. -->
+<g fill="#c7cdb2" stroke="#93a28f" stroke-width="3"><path d="M241 575h39v190h-39zM786 575h39v190h-39zM1095 575h39v190h-39zM1640 575h39v190h-39z"/></g>
+<g fill="#d8ddc3"><path d="M235 568h51v17h-51zM780 568h51v17h-51zM1089 568h51v17h-51zM1634 568h51v17h-51z"/></g>
+<path fill="#bfc8ad" d="M816 536q144-205 288 0v230H816Z"/>
+<path fill="url(#glass)" d="M838 548q122-170 244 0v190H838Z"/>
+<path fill="none" stroke="#dbe0c4" stroke-width="10" d="M824 541q136-190 272 0"/>
+<g fill="none" stroke="#b2c4ae" stroke-width="4"><path d="M960 438v300M900 473v265M1020 473v265M842 552h236M840 609h240M840 674h240"/><path d="m868 495 184 243M1052 495 868 738" opacity=".45"/></g>
+<path fill="#b7c2a7" d="M810 741h300v38H810Z"/>
+<path fill="#0d252c" stroke="#d6dcc0" stroke-width="6" d="M912 644h96v97h-96z"/><path fill="none" stroke="#849d91" stroke-width="3" d="M960 646v91M914 680h91"/>
+<!-- Distinctive clock tower. -->
+<path fill="#3d6860" stroke="#a4baa0" stroke-width="4" d="m897 303 63-118 63 118-63-20z"/>
+<path fill="#859f83" d="M954 161h12v43h-12z"/><path fill="#b9c6a9" d="M957 139h6v31h-6zM948 154h24v5h-24z"/>
+<path fill="#bfcbb0" stroke="#879c83" stroke-width="3" d="M909 301h102v180H909z"/>
+<path fill="#4d7669" d="M921 379h78v91h-78z"/>
+<g stroke="#b4c9ab" stroke-width="5"><path d="M934 389v68M960 389v68M986 389v68"/></g>
+<circle cx="960" cy="338" r="26" fill="#e5dfb6" stroke="#324f4b" stroke-width="5"/><g stroke="#2a4543" stroke-width="4" stroke-linecap="round"><path d="M960 321v18l13 8"/></g>
+<path fill="#d2d9ba" d="M902 295h116v14H902zM900 466h120v17H900z"/>
+<!-- Human scale, plaza lighting and park edges. -->
+<g fill="#101f25" stroke="#101f25" stroke-width="5"><path d="M60 790v-64m0 33c-74 12-87-45-38-61-43-39 11-77 41-44 39-35 83 7 55 37 55 21 29 80-58 68Z"/><path d="M165 790v-64m0 33c-74 12-87-45-38-61-43-39 11-77 41-44 39-35 83 7 55 37 55 21 29 80-58 68Z"/><path d="M1745 790v-64m0 33c-74 12-87-45-38-61-43-39 11-77 41-44 39-35 83 7 55 37 55 21 29 80-58 68Z"/><path d="M1850 790v-64m0 33c-74 12-87-45-38-61-43-39 11-77 41-44 39-35 83 7 55 37 55 21 29 80-58 68Z"/></g>
+<g stroke="#c1c8a6" stroke-width="4"><path d="M485 775V669M1435 775V669"/></g><g fill="#efe2ab"><circle cx="485" cy="667" r="10"/><circle cx="1435" cy="667" r="10"/></g>
+<g fill="url(#glow)"><circle cx="485" cy="678" r="105"/><circle cx="1435" cy="678" r="105"/></g>
+<g fill="#14252a"><circle cx="745" cy="783" r="7"/><path d="m739 793-4 31h21l-5-31zM739 820l-3 27h7l3-25M752 820l3 27h7l-6-27"/><circle cx="1190" cy="796" r="7"/><path d="m1184 806-5 31h22l-4-31zM1183 833l-3 27h7l3-25M1196 833l3 27h7l-6-27"/></g>
+<path fill="#08151c" opacity=".22" d="M0 0h1920v1080H0z"/>
+</svg>

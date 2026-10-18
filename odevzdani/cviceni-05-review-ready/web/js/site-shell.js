@@ -1,5 +1,5 @@
 'use strict';
-/* Shared original festival shell and accessible, reduced-motion-aware film. */
+/* Shared festival navigation, footer and live countdown. */
 (() => {
   const tr = (cs,en,lang) => (lang || window.PulseI18n?.lang) === 'en' ? en : cs;
   const arrow = '<svg class="arrow-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.8"/></svg>';
@@ -24,25 +24,15 @@
   function footer({lang='cs'}={}) {
     const t=(cs,en)=>tr(cs,en,lang),dates=dateInfo(),year=dates?.year || '';
     const social=[['Facebook','https://www.facebook.com/'],['Instagram','https://www.instagram.com/'],['Spotify','https://open.spotify.com/'],['YouTube','https://www.youtube.com/'],['X','https://x.com/']];
-    return `<div class="rocks-footer"><div class="footer-brand"><a href="index.html" class="brand" aria-label="Prague Pulse Fest">${window.PulseDesign?.logoLight||'PRAGUE PULSE FEST'}</a><p>${dates?`${dates.range} / ${dates.month}.${year}`:''}<br>VLTAVA PARK · ${t('PRAHA','PRAGUE')}</p><a class="footer-ticket" href="tickets.html">${t('VSTUPENKY','TICKETS')} ${arrow}</a></div><div class="footer-column"><h2>${t('FESTIVAL','FESTIVAL')}</h2><a href="program.html">${t('Program','Programme')}</a><a href="performers.html">${t('Účinkující','Artists')}</a><a href="venues.html">${t('Scény a areál','Stages & venue')}</a><a href="info.html#history">${t('Příběh festivalu','Festival story')}</a><a href="account.html">${t('Můj účet','My account')}</a></div><div class="footer-column"><h2>${t('PRAKTICKÉ INFO','GOOD TO KNOW')}</h2><a href="info.html#travel">${t('Jak se k nám dostat','Getting here')}</a><a href="info.html#parking">${t('Parkování','Parking')}</a><a href="info.html#stay">${t('Ubytování','Accommodation')}</a><a href="info.html#accessibility">${t('Bezbariérový přístup','Accessibility')}</a><a href="info.html#faq">${t('Časté dotazy','Frequently asked questions')}</a></div><div class="footer-column footer-contact"><h2>${t('KONTAKT','CONTACT')}</h2><address>Výstaviště 67<br>170 00 Praha 7<br>info@praguepulsefest.cz</address><a href="info.html#contacts">${t('Kontaktní informace','Contact information')} ${arrow}</a><p class="footer-social-title">${t('SLEDUJTE NÁS','FOLLOW US')}</p><div class="footer-social">${social.map(([label,url])=>`<a href="${url}" target="_blank" rel="noopener noreferrer" aria-label="${label}" title="${t('Otevřít platformu','Open platform')} ${label}"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">${socialIcons[label]}</svg></a>`).join('')}</div></div><div class="rocks-footer-bottom"><p>© ${year} Prague Pulse Fest. ${t('Fiktivní festival.','Fictional festival.')}</p><div><a href="info.html#privacy">${t('Ochrana osobních údajů','Privacy')}</a><a href="info.html#terms">${t('Obchodní podmínky','Terms & conditions')}</a><button class="footer-cookie-settings" type="button" data-cookie-settings>${t('Nastavení cookies','Cookie settings')}</button></div><a href="#header" class="back-top">${t('NAHORU','BACK TO TOP')} ↑</a></div></div>`;
+    return `<div class="rocks-footer"><div class="footer-brand"><a href="index.html" class="brand" aria-label="Prague Pulse Fest">${window.PulseDesign?.logoLight||'PRAGUE PULSE FEST'}</a><p>${dates?`${dates.range} / ${dates.month}.${year}`:''}<br>VÝSTAVIŠTĚ · ${t('PRAHA','PRAGUE')}</p><a class="footer-ticket" href="tickets.html">${t('VSTUPENKY','TICKETS')} ${arrow}</a></div><div class="footer-column"><h2>${t('FESTIVAL','FESTIVAL')}</h2><a href="program.html">${t('Program','Programme')}</a><a href="performers.html">${t('Účinkující','Artists')}</a><a href="venues.html">${t('Scény a areál','Stages & venue')}</a><a href="news.html">${t('Novinky','News')}</a><a href="info.html#history">${t('Příběh festivalu','Festival story')}</a><a href="account.html">${t('Můj účet','My account')}</a></div><div class="footer-column"><h2>${t('PRAKTICKÉ INFO','GOOD TO KNOW')}</h2><a href="info.html#travel">${t('Jak se k nám dostat','Getting here')}</a><a href="info.html#parking">${t('Parkování','Parking')}</a><a href="info.html#stay">${t('Ubytování','Accommodation')}</a><a href="info.html#accessibility">${t('Bezbariérový přístup','Accessibility')}</a><a href="info.html#faq">${t('Časté dotazy','Frequently asked questions')}</a></div><div class="footer-column footer-contact"><h2>${t('KONTAKT','CONTACT')}</h2><address>Výstaviště 67<br>170 00 Praha 7<br>info@praguepulsefest.cz</address><a href="info.html#contacts">${t('Kontaktní informace','Contact information')} ${arrow}</a><p class="footer-social-title">${t('SLEDUJTE NÁS','FOLLOW US')}</p><div class="footer-social">${social.map(([label,url])=>`<a href="${url}" target="_blank" rel="noopener noreferrer" aria-label="${label}" title="${t('Otevřít platformu','Open platform')} ${label}"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">${socialIcons[label]}</svg></a>`).join('')}</div></div><div class="rocks-footer-bottom"><p>© ${year} Prague Pulse Fest. ${t('Fiktivní festival.','Fictional festival.')}</p><div><a href="info.html#privacy">${t('Ochrana osobních údajů','Privacy')}</a><a href="info.html#terms">${t('Obchodní podmínky','Terms & conditions')}</a><a href="info.html#credits">${t('Vizuály','Artwork')}</a><button class="footer-cookie-settings" type="button" data-cookie-settings>${t('Nastavení cookies','Cookie settings')}</button></div><a href="#header" class="back-top">${t('NAHORU','BACK TO TOP')} ↑</a></div></div>`;
   }
   window.PulseShell=Object.freeze({header,footer});
-  const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
-  function initFilm(){
-    const video=document.getElementById('hero-film'),button=document.getElementById('film-toggle');
-    if(!video||!button||video.dataset.initialized)return;
-    video.dataset.initialized='true';video.muted=true;
-    const sync=()=>{const playing=!video.paused;button.setAttribute('aria-pressed',String(playing));button.innerHTML=`<span aria-hidden="true">${playing?'Ⅱ':'▶'}</span> ${playing?tr('Pozastavit video','Pause video'):tr('Přehrát video','Play video')}`;};
-    video.addEventListener('play',sync);video.addEventListener('pause',sync);
-    button.addEventListener('click',()=>{if(video.paused)video.play().catch(()=>sync());else video.pause();});
-    sync();if(!reduceMotion.matches)video.play().catch(()=>sync());
-  }
   function updateCountdown(){
     const node=document.querySelector('[data-countdown]');
     if(!node||!window.PulseCountdown)return;
     const state=window.PulseCountdown.getState(node.dataset.start,node.dataset.end);
     const t=(cs,en)=>tr(cs,en,node.dataset.countdownLang);
-    const caption=state.phase==='upcoming'?t('DO PRVNÍHO KONCERTU','UNTIL THE FIRST SHOW'):state.phase==='during'?t('FESTIVAL PRÁVĚ PROBÍHÁ','THE FESTIVAL IS LIVE'):state.phase==='ended'?t(`ROČNÍK ${node.dataset.year} SKONČIL`,`THE ${node.dataset.year} EDITION HAS ENDED`):t('TERMÍN PŘIPRAVUJEME','DATES TO BE ANNOUNCED');
+    const caption=state.phase==='upcoming'?t('FESTIVAL STARTUJE ZA','FESTIVAL STARTS IN'):state.phase==='during'?t('FESTIVAL PRÁVĚ PROBÍHÁ','THE FESTIVAL IS LIVE'):state.phase==='ended'?t(`ROČNÍK ${node.dataset.year} SKONČIL`,`THE ${node.dataset.year} EDITION HAS ENDED`):t('TERMÍN PŘIPRAVUJEME','DATES TO BE ANNOUNCED');
     const text=node.querySelector('[data-countdown-caption]');
     if(text&&text.textContent!==caption)text.textContent=caption;
     const values=node.querySelector('.countdown-values'),link=node.querySelector('.countdown-program');
@@ -53,9 +43,8 @@
       if(value.textContent!==text)value.textContent=text;
     }
   }
-  reduceMotion.addEventListener?.('change',e=>{if(e.matches)document.getElementById('hero-film')?.pause();});
-  document.addEventListener('visibilitychange',()=>{const v=document.getElementById('hero-film');if(v&&document.hidden)v.pause();else updateCountdown();});
-  const init=()=>{initFilm();updateCountdown();};
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)updateCountdown();});
+  const init=updateCountdown;
   new MutationObserver(init).observe(document.documentElement,{childList:true,subtree:true});
   setInterval(()=>{if(!document.hidden)updateCountdown();},1000);
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();

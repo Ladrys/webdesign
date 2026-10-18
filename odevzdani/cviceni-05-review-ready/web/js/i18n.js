@@ -5,6 +5,12 @@
   let lang = 'cs';
   try { lang = localStorage.getItem(key) === 'en' ? 'en' : 'cs'; } catch {}
   const dictionary = {
+    ...(window.PulseArtistCopy || {}),
+    'Např. David nebo jazz': 'For example, David or jazz',
+    'Např. David, VIP nebo doprava': 'For example, David, VIP or travel',
+    'Napiš alespoň jeden znak. Zkus třeba „David“ nebo „VIP“.': 'Enter at least one character. Try “David” or “VIP”.',
+    'Novinky': 'News',
+    'Novinky Prague Pulse Fest: Výstaviště Praha, vstupenky a cesta na festival.': 'Prague Pulse Fest news: Výstaviště Prague, tickets and travel to the festival.',
     "Tři scény otevírají festival rockovými koncerty, popem a večerní elektronikou.": "Three stages open the festival with rock concerts, pop and evening electronic music.",
     "Největší festivalový den: od ranních objevů až po hlavní večerní koncerty.": "The biggest festival day: from morning discoveries to the main evening shows.",
     "Závěrečné koncerty a klubová afterparty zakončí tři dny pražské hudby.": "Closing shows and a club afterparty round off three days of music in Prague.",
@@ -443,6 +449,7 @@
   const escapeRegExp = value => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const replacements = Object.entries(phrases).sort((a, b) => b[0].length - a[0].length).map(([from, to]) => [new RegExp(`(?<![\\p{L}])${escapeRegExp(from)}(?![\\p{L}])`, 'gu'), to]);
   const missing = new Set();
+  const translatedValues = new Set(Object.values(dictionary));
   // Artist names and monograms retain their identity in both languages.
   const properNames = [...new Set((window.FESTIVAL_DATA?.performers || []).flatMap(p => [p.name, p.name.split(' ').map(word => word[0]).join('')]))].sort((a,b) => b.length-a.length);
 
@@ -451,7 +458,7 @@
     if (lang !== 'en' || !source.trim()) return source;
     const leading = source.match(/^\s*/)[0], trailing = source.match(/\s*$/)[0];
     const trimmed = source.trim().replace(/\s+/g, ' ');
-    if (properNames.includes(trimmed)) return source;
+    if (properNames.includes(trimmed) || translatedValues.has(trimmed)) return source;
     if (Object.prototype.hasOwnProperty.call(dictionary, trimmed)) return leading + dictionary[trimmed] + trailing;
     for (const [pattern, render] of patterns) {
       if (pattern.test(trimmed)) return leading + trimmed.replace(pattern, render) + trailing;

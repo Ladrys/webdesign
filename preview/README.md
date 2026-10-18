@@ -1,8 +1,8 @@
-# Náhled Prague Pulse Fest — srpen 2027
+# Prague Pulse Fest — tmavá revize / srpen 2027
 
-- `web-desktop.png`: skutečný český screenshot při šířce 1280 px.
-- `web-mobile.png`: český screenshot při 320 px.
-- `vstupenka.png`: vykreslená první stránka skutečně vytvořeného PDF.
-- `vstupenky-ukazka.pdf`: dvoustránková třídenní objednávka ročníku 2027 s testovacími údaji; není platnou vstupenkou.
+- `web-desktop.png`: skutečný český screenshot 1280 px se skutečnou fotografií Výstaviště a hlavní trojice.
+- `web-mobile.png`: český screenshot 320 px.
+- `vstupenka.png`: první stránka skutečně vytvořeného PDF.
+- `vstupenky-ukazka.pdf`: dvoustránková třídenní objednávka 2027 s testovacími údaji, není platnou vstupenkou.
 
-Aktuální prezentace PPTX/PDF jsou ve složce `odevzdani/`.
+Prezentace PPTX/PDF a finální projekt jsou ve složce `odevzdani/`. Zdroje fotografií a licence jsou v `web/images/PHOTO-CREDITS.md`.

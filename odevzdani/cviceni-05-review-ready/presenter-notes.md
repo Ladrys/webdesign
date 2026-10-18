@@ -11,7 +11,7 @@ Předáváme současnou review-ready verzi druhému týmu. Balíček obsahuje we
 
 ## 2. Obsah pro skutečný průchod.
 
-Web obsahuje všechny hlavní obsahové části, takže hodnocení nemusí stát na prázdných zástupných stránkách. K dispozici je šedesát interpretů a vystoupení během tří dnů na třech scénách. Vyhledávání a filtry mají skutečný datový podklad. Doplňkové cesty zahrnují lokalitu, jazykovou volbu a objednávku. Čísla dokazují rozsah obsahu, nikoli automaticky kvalitu UX. Proto předáváme konkrétní scénáře, očekávané výsledky a známé limity, aby review nezůstalo u obecného dojmu z grafiky.
+Web obsahuje všechny hlavní obsahové části, takže hodnocení nemusí stát na prázdných zástupných stránkách. K dispozici je šedesát interpretů a programových položek během tří dnů na třech scénách. Vyhledávání a filtry mají skutečný datový podklad. Doplňkové cesty zahrnují lokalitu, jazykovou volbu a objednávku. Čísla dokazují rozsah obsahu, nikoli automaticky kvalitu UX. Proto předáváme konkrétní scénáře, očekávané výsledky a známé limity, aby review nezůstalo u obecného dojmu z grafiky.
 
 ## 3. Tři úkoly pro hodnotící tým.
 
@@ -23,7 +23,7 @@ Vlastní kontroly mají reviewerům ušetřit čas na základních chybách. Dat
 
 ## 5. Známé hranice jsou součást předání.
 
-Je důležité nehodnotit klientský školní projekt jako produkční ticketing. Účty a obsazenost se nešíří mezi zařízeními, PDF se stahuje místně a e-mail se automaticky neposílá. Mapa je doplněk závislý na připojení. Známé jsou také limity ověření: nemáme plný audit se čtečkou, všechna fyzická zařízení ani doložený výzkum s návštěvníky. Tyto informace neomlouvají chyby v základních scénářích, ale dávají reviewerům správný kontext a brání zavádějícím závěrům.
+Je důležité nehodnotit klientský školní projekt jako produkční ticketing. Účty a obsazenost se nešíří mezi zařízeními, PDF se stahuje místně a e-mail se automaticky neposílá. Mapa je doplněk závislý na připojení. Známé jsou také limity ověření: nemáme plný audit se čtečkou, všechna fyzická zařízení ani doložený výzkum s návštěvníky. Tyto informace neomlouvají chyby v základních scénářích, ale dávají reviewerům správný kontext a brání zavádějícím závěrům. Skuteční interpreti jsou návrh bez potvrzené účasti. Noisia nevystupuje živě. Aktuálně používáme 41 skutečných fotografií umělců s autorstvím a licencemi, 19 typografických náhrad a historickou fotografii areálu z roku 2018. Datum snímku je viditelné, takže jej nezaměňujeme za současný stav nebo instalaci pro rok 2027.
 
 ## 6. Nález musí jít zopakovat.
 

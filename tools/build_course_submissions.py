@@ -127,7 +127,6 @@ class Deck:
         self.text(x,y,150*scale,'PRAGUE',14*scale,color,True)
         self.text(x,y+15*scale,150*scale,'PULSE',22*scale,color,True)
         self.text(x,y+40*scale,160*scale,'FEST / 2027',6.5*scale,color,True)
-        self.rect(x+105*scale,y+5*scale,7*scale,34*scale,ORANGE if color==INK else PAPER)
 
     def footer(self, index, dark=False):
         color = PAPER if dark else MUTED
@@ -297,7 +296,7 @@ sestavený redukovaný interaktivní prototyp. Nepředkládejte je jako falešno
    ale skutečné nálezy nelze vytvořit bez hodnoceného webu. Šablona není hotové peer review.
 2. Přijaté cross-review do `review/received-review.md` a skutečná rozhodnutí v dokumentaci.
 3. Jména a reálnou spolupráci členů, časovou osu a případné historické prezentace.
-4. Ověření posunu termínu na srpen 2027, přejmenování interpretů a výraznějšího
+4. Ověření posunu termínu na srpen 2027, přechodu na skutečné interprety a výraznějšího
    redesignu vůči schváleným prvním výstupům. Původní název Prague Pulse Fest zůstává;
    dodržení limitu změn cca 15 % nelze potvrdit bez těchto výstupů.
 

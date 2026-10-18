@@ -26,7 +26,7 @@ sestavený redukovaný interaktivní prototyp. Nepředkládejte je jako falešno
    ale skutečné nálezy nelze vytvořit bez hodnoceného webu. Šablona není hotové peer review.
 2. Přijaté cross-review do `review/received-review.md` a skutečná rozhodnutí v dokumentaci.
 3. Jména a reálnou spolupráci členů, časovou osu a případné historické prezentace.
-4. Ověření posunu termínu na srpen 2027, přejmenování interpretů a výraznějšího
+4. Ověření posunu termínu na srpen 2027, přechodu na skutečné interprety a výraznějšího
    redesignu vůči schváleným prvním výstupům. Původní název Prague Pulse Fest zůstává;
    dodržení limitu změn cca 15 % nelze potvrdit bez těchto výstupů.
 

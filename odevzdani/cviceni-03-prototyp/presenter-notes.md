@@ -21,9 +21,9 @@ Pro mobil nezačínáme zmenšeným desktopem. Základ tvoří jeden sloupec, kr
 
 V první krátké ukázce otevřeme Program, vybereme první srpen a River Stage. Na výsledku ověříme datum a scénu, ne pouze počet karet. Jeden koncert uložíme a zapneme filtr Jen uložené. Po obnovení je uložený výběr znovu k dispozici. Projdeme také stav bez výsledků, aby bylo jasné, jak filtr změnit. Konkrétní průchod a jeho výsledek popisuje přiložený prototypový validační záznam; test ve vývojovém prohlížeči neznamená test na všech zařízeních.
 
-## 5. S2 / Od části názvu ke koncertu.
+## 5. S2 / Od hledání ke koncertu.
 
-Ve druhé ukázce zadáme Atlas do globálního hledání. Výsledky oddělují účinkující od souvisejících vystoupení. U Atlas Motel otevřeme dialog s žánrem, popisem a programem. Odkaz do programu zachová kontext interpreta. Kontrolujeme, že údaje pocházejí ze stejné základny a dialog lze zavřít klávesou Escape. Hledaný text se nevkládá jako spustitelné HTML. Návštěvník dostane srozumitelnou zprávu i tehdy, když hledání nic nenajde.
+Ve druhé ukázce zadáme DARKZY do globálního hledání. Výsledky oddělují účinkující od souvisejících vystoupení. U DARKZY otevřeme dialog s žánrem, popisem a programem. Odkaz do programu zachová kontext interpreta. Kontrolujeme, že údaje pocházejí ze stejné základny a dialog lze zavřít klávesou Escape. Hledaný text se nevkládá jako spustitelné HTML. Návštěvník dostane srozumitelnou zprávu i tehdy, když hledání nic nenajde.
 
 ## 6. Co prototyp ověřuje?
 

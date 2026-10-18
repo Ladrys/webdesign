@@ -20,4 +20,8 @@ Tento záznam je vlastní technická a UX kontrola současného webu, nikoli př
 | Aktualizace počtu položek mazala ikonu košíku | Drobný | Kontrola DOM po vložení místa | Mění se pouze text počítadla, ikona a popisek zůstávají |
 | Nový ročník mohl převzít obsazenost starých objednávek | Významný | Regresní scénář s objednávkou bez edition | Nová objednávka má ročník 2027; stará si zachovává 2026 v historii/PDF a neblokuje novou mapu |
 
+| Ilustrace novinky svou přirozenou šířkou přetékala na mobilu | Významný | Měření dokumentu při 320 px a průchod článkem | Obrázky mají omezenou šířku a články pružný rozměr; kontrolováno na sedmi šířkách |
+| Pravidlo pro flex přebíjelo skrytí řádku slevy | Drobný | Průchod košíkem bez promo kódu a po jeho použití | Zachována priorita atributu hidden a ověřená změna stavu |
+| Neověřené fotografie by neměly doložené autorství a licenci | Významný | Kontrola zdroje všech nových obrazových podkladů | Použité pouze doložené fotografie, 19 originálních plakátů pro zbývající osoby, viditelný seznam zdrojů a licencí |
+
 Kontroly se vztahují k této implementaci. Nepotvrzují kompletní WCAG AA audit, skutečný prodej ani právní soulad dokumentu GDPR.

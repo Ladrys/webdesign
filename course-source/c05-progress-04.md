@@ -6,19 +6,22 @@ Otevřete `web/index.html`. Není potřeba instalace ani sestavení. `project-sp
 popisuje identitu, cílové skupiny, strukturu a scénáře. Tento review-ready balíček
 je vytvořen z aktuální verze, nikoli vydáván za doložené dřívější odevzdání.
 
-K dispozici jsou úvod, program, 60 účinkujících s detaily, 3 scény, praktické
+K dispozici jsou úvod, tři články novinek, program, 60 skutečných účinkujících s detaily, 3 scény, praktické
 informace, hledání s výsledky, třídenní tarify, výběr míst, lokální účet,
 košík a skutečně generovaný PDF soubor. Česká a anglická verze slouží různým
-cílovým skupinám. Datová základna obsahuje 60 vystoupení během 3 dnů.
+cílovým skupinám. Datová základna obsahuje 60 programových položek během 3 dnů. Line-up je návrh,
+účast interpretů není potvrzená. Noisia je pouze archivní poslechový blok.
 
 ## Scénáře k nezávislému průchodu
 
 1. **S1 — program:** Zvolte první den a River Stage. Uložte vybranou akci.
    Přepněte osobní program a obnovte stránku. Zkontrolujte datum, scénu a zachování výběru.
-2. **S2 — hledání:** Hledejte „Atlas“, otevřete Atlas Motel a najděte navazující
+2. **S2 — hledání:** Hledejte „DARKZY“, otevřete DARKZY a najděte navazující
    vystoupení. Ověřte vazbu na konkrétní datum a scénu, vyzkoušejte prázdný výsledek.
 3. **S3 — vstupenka:** Porovnejte třídenní tarify, vyberte vstupenku nebo místa,
-   zkontrolujte košík a projděte zkušební dokončení jako host se smyšlenými údaji.
+   zkontrolujte košík, vyzkoušejte PULSE10 nebo PRAHA200 a projděte zkušební
+   dokončení jako host se smyšleným jménem, příjmením, e-mailem a telefonem.
+   Změňte metodu platby a ověřte simulované chování bez poskytovatele.
    Stáhněte PDF a zkontrolujte cenu, ID a jméno. Zkuste návrat na výběr míst.
 
 ## Aktuální testování
@@ -34,7 +37,8 @@ jako soubor, ne pouze jako screenshot potvrzení objednávky.
 - Účty a obsazenost jsou lokální pro prohlížeč; neexistuje sdílená databáze ani skutečná platba.
 - E-mail se automaticky neodesílá; objednávka poskytuje stažení PDF.
 - Externí mapa se načte automaticky až po povolení v panelu soukromí a vyžaduje spojení se službou Google; zbývající obsah má zůstat čitelný bez ní.
-- Fiktivní festivalová identita a kontakty nejsou ověřený reálný pořadatel.
+- Fiktivní festivalová identita a kontakty nejsou ověřený reálný pořadatel; skuteční interpreti nemají potvrzenou účast.
+- Úvodní fotografie areálu pochází z roku 2018 a nedokládá stav pro rok 2027; 41 karet má skutečné fotografie s kredity, 19 vlastní typografii.
 - Neproběhl plný audit WCAG AA, fyzické telefony ani všechny prohlížeče.
 - Skutečné přijaté cross-review zatím nebylo dodáno. Technické testy nejsou jeho náhradou.
 

@@ -1,3 +1,5 @@
+> Historical fictional-performer artwork, unused for the current real-artist line-up. Current assets and credits: `../PHOTO-CREDITS.md`.
+
 # Fotografie fiktivních účinkujících
 
 Čtyři originální fotografické koláže byly vygenerovány nástrojem OpenAI Image Generation dne 16. 10. 2026 pro tento fiktivní festival (nyní Prague Pulse Fest). Žádná fotografie nebyla převzata z Rock for People ani z jiného festivalového webu. Zadání výslovně požadovalo fiktivní dospělé hudebníky, nikoli portréty skutečných interpretů.

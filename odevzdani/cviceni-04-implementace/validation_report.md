@@ -1,36 +1,42 @@
-# Ověření Prague Pulse Fest — ročník 2027
+# Ověření Prague Pulse Fest — tmavá revize / srpen 2027
 
 ## Výsledek
 
-**256 browserových kontrol prošlo**, dále **74 kontrol prezentací a interaktivního prototypu**. Samostatný anglický průchod ověřil všech devět stránek a objednávku s PDF; audit chybějících překladů byl prázdný. XML/XSD, sedm XSLT/JSON výstupů, JSON schémata, datová konzistence a syntax JavaScriptu prošly.
+**339 browserových kontrol prošlo** a **74 kontrol prezentací a interaktivního prototypu prošlo**. Samostatný anglický průchod ověřil deset stránek, všechny tři články a nákup s promo kódem i PDF. Audit chybějících překladů byl prázdný. Datové validace a syntax všech dotčených skriptů prošly.
 
-## Ověřený web
+## Web a nákup
 
-- Devět stránek bez horizontálního přetékání v šířkách 320–1920 px, také vyplněný košík a historie. Hlavička drží logo, navigaci, hledání i CZ/EN v jednom řádku při 1024/1280/1366 px v obou jazycích; tlačítko vstupenek je kompaktní.
-- Původní Prague Pulse Fest, XML i odvozená data mají termín 1.–3. srpna 2027. Všech 60 interpretů má unikátní nové jméno při zachovaných ID a vazbách. Portréty mají 60 různých výřezů.
-- Odpočet rozkládá zbývající čas, přesně rozlišuje začátek/konec, probíhající a skončený festival a neplatný vstup; neukazuje záporné hodnoty. Video WebM se v Chromium dekóduje, lze je zastavit a respektuje omezený pohyb; MP4 alternativa je přibalená.
-- Contains hledání v datech, diakritika, bezpečné zacházení s HTML dotazem, filtry, detaily a trvalé oblíbené fungují. CZ/EN zachovává interní hodnoty filtrů a vlastní jména.
-- Nový prohlížeč má volná všechna místa. Jednodenní rezervace blokuje vybraný den; třídenní sedadlo i stání všechny tři. Kontrola probíhá také při dokončení a při změně košíku v jiné kartě. Ceny a součty souhlasí s XML: třídenní VIP 1590 / Regular 990 / stání 490 Kč, jednodenní 590 / 390 / 190 Kč.
-- Košík zachovává ikonu a počet položek, rozpracovaný formulář a odmítnutou platbu. Nákup hosta i účtu, převzetí košíku registrací, historie, nesprávné heslo, odhlášení a sedmidenní přihlášení včetně nového otevření a expirace prošly. Heslo je uložené jako solený PBKDF2 hash.
-- Nové objednávky mají ročník 2027. Historická objednávka bez pole edition má v historii i PDF rok 2026 a neobsazuje stejnou pozici v roce 2027.
-- Skutečně stažené PDF má stránku pro každou vstupenku, české osobní jméno, ID, správnou kategorii/místo/cenu/termín a čitelný QR identifikátor. QR byly dekódovány pomocí zxing-cpp. Anglické PDF samostatně zachovává jméno a ročník 2027.
-- V účtu ani dokončené objednávce nejsou ovládací prvky tisku, zálohy nebo importu. Patička obsahuje pět přístupně pojmenovaných SVG sociálních ikon.
-- První návštěva nabízí přijmout vše / pouze nezbytné / nastavení. Nezbytné ukládání zůstává zapnuté. Odmítnutí brání požadavkům na Google Maps; přijetí vkládá mapu automaticky i při dalších návštěvách, odvolání iframe odstraní. Nastavení se uchová a je přeložené. Žádná analytika není nasazená.
-- Žádné JavaScriptové runtime chyby. Obsah, nákup i PDF fungují bez externích požadavků. Vložení mapy a správná URL jsou ověřené lokální testovací odpovědí, nikoli skutečným načtením Googlu.
+- Tmavé rozhraní a všechny obsahové stránky v šířkách 320–1920 px, včetně vyplněného košíku, účtu a článku bez horizontálního přetékání. Hlavička má plnou šířku a drží logo, navigaci, hledání i CZ/EN v jednom řádku při 1024/1280/1366 px v obou jazycích. Logo a úvod neobsahují zvukové sloupce ani video.
+- Původní Prague Pulse Fest, 1.–3. srpna 2027. XML, JSON a přibalená data mají 3 dny, 3 scény, 60 skutečných interpretů a 60 konzistentních programových položek. Headline jsou David Guetta, Katy Perry a Skrillex; jde o navržený line-up fiktivního festivalu bez potvrzené účasti. Noisia je označený archivní poslechový blok.
+- Skutečný místní úvodní obrázek Výstaviště má 1600 × 900 px. Fotografie Bengta Nymana pochází z roku 2018, CC BY 2.0; není vydávaná za stav po rekonstrukci 2026. U 41 interpretů jsou licencované skutečné fotografie, zbývajících 19 má vlastní typografické plakáty. Ověřené metadata zdrojů, autorů, licencí a úprav jsou v `PHOTO-CREDITS.md`, `photo-credits.json` a viditelné části Info → Vizuály. Browser ověřil lokální načtení hlavní trojice a přístupnost autorství/zdroje/licence; všechny obrazové soubory prošly samostatnou kontrolou dekódování a rozměrů.
+- Odpočet „Festival startuje za“ správně rozkládá čas a rozlišuje začátek/konec, průběh a neplatný vstup bez záporných hodnot. Na úvodu jsou tři ceny a popisy balíčků s funkčními odkazy do nákupu. Tři novinky mají vlastní články, lokalizaci, bezpečný neznámý identifikátor a propojení s obsahem.
+- Contains hledání v datech i novinkách, normalizace diakritiky a velikosti písmen, bezpečné zacházení s HTML dotazem, filtry, detaily a trvalé oblíbené. Program je chronologicky seřazený podle dne a času a seskupený po dnech. CZ/EN zachovává interní hodnoty filtrů, názvy umělců i osobní údaje.
+- Na nové instalaci jsou všechna místa volná. Jednodenní objednávka blokuje místo v daném dni, třídenní sedadlo i stání všechny tři. Rychlý nákup 1–8 osob přiděluje jen volná místa, respektuje košík i obsazenost a při nedostatečné kapacitě nevytvoří částečný výběr. Kontrola dostupnosti a případných duplicit se opakuje při dokončení.
+- Ceny vycházejí z XML: třídenní VIP 1590 / Regular 990 / stání 490 Kč, jednodenní 590 / 390 / 190 Kč. Konečná cena obsahuje poplatky objednávky, které jsou 0 Kč. Proma PULSE10 odečítají 10 %, PRAHA200 odečítají 200 Kč nejvýše do výše součtu. Testy ověřily normalizaci kódu, chybný/nepotvrzený kód, změnu položek, obnovení stránky, opětovný výpočet a manipulaci s uloženou slevou. Součet nikdy není záporný.
+- Checkout má jméno, příjmení, e-mail a telefon s kontrolou vstupů. Karta, převod, hotovost, Apple Pay, Google Pay, Benefit Plus a faktura jsou označené simulace, bez údajů skutečné karty nebo napojení na poskytovatele. Formulář, metoda, souhlas a promo přežijí odebrání položky; změněný košík v jiné kartě vyžaduje novou kontrolu. Zkušební zamítnutí zachová výběr.
+- Guest i account nákup, převzetí košíku a promo při přihlášení, historie, nesprávné heslo, odhlášení a sedmidenní přihlášení včetně nového otevření a expirace prošly. Heslo je solený PBKDF2 hash. Starší objednávky bez edition zachovávají rok 2026 v historii i PDF a neblokují místa 2027.
+- PDF je skutečný dokument se stránkou pro každou vstupenku, českým osobním jménem, ID, kategorií, místem, hrubou cenou vstupenky, ročníkem a rozpisem součtu/slevy/celku objednávky. QR byly skutečně dekódované pomocí zxing-cpp. V anglickém průchodu 2 VIP mají 3180 Kč před slevou, PULSE10 odečte 318 Kč a celek je 2862 Kč; anglické PDF zachová osobní jméno a správné popisky.
+- V účtu ani dokončené objednávce nejsou tisk, zálohy ani import. Sociální odkazy mají pět přístupně pojmenovaných SVG ikon.
+- Soukromí nabízí přijmout vše / pouze nezbytné / nastavení. Odmítnutí brání požadavkům na Google Maps, přijetí mapu automaticky vloží i při dalších návštěvách a odvolání iframe odstraní. Souhlas přetrvá a je přeložený. Žádná analytika není nasazená.
+- Žádné JavaScriptové runtime chyby. Obsah, objednávka, fotografie a tvorba PDF fungují bez externích požadavků. Podmíněné vložení mapy se správnou URL bylo ověřené lokální testovací odpovědí; test netvrdí síťovou dostupnost Googlu v každém prohlížeči.
 
-## Prezentace a prototyp
+## Data a podklady
 
-Pět prezentací 02–06 má po šesti stránkách PDF a šesti editovatelných snímcích PPTX, poznámky řečníka a samostatný text poznámek. Kontrola znovu otevřela PPTX a PDF, ověřila text, identitu Pulse/2027, fonty, rozměry textových boxů a integritu ZIP. Prototyp má reálné filtry dne/scény, uložený program, 60 interpretů, detail a vazbu na koncert; prošel ve 320/768/1440 px bez runtime chyb. Podrobný záznam je v `course-source/prototype-validation.md`.
+XML je validní proti XSD, všech sedm XSLT transformací souhlasí s JSON výstupy i schématy. `data.xml` a `data/festival.xml` jsou stejné, `web/js/data.js` je reprodukovatelný. Kontrola zahrnuje všech deset HTML stránek, metadata, strukturu dokumentu, unikátní ID a místní závislosti.
 
-Podklady jsou dodatečné rekonstrukce milníků, nikoli důkaz minulých odevzdání. Cvičení 06 zůstává výslovně označenou metodickou šablonou, protože přidělený cizí projekt nebyl dodán. Nálezy ani přijaté cross-review nejsou vymyšlené.
+Pět prezentací 02–06 má po šesti PDF stránkách a editovatelných PPTX snímcích s poznámkami řečníka. Ověřena integrita PPTX, texty a identita Pulse/2027. Prototyp má filtry dne/scény, uložený program, 60 interpretů, detail a vazbu na koncert; prošel ve 320/768/1440 px bez runtime chyb. Záznam 74 kontrol je v `course-source/prototype-validation.md`.
 
-## Omezení
+Podklady jsou dodatečné rekonstrukce milníků, nikoli důkaz minulých odevzdání. Cvičení 06 zůstává metodickou šablonou, protože přidělený cizí projekt nebyl dodán. Přijaté review ani cizí nálezy nejsou vymyšlené.
 
-Přímé `file://` otevření blokuje spravovaná politika Chromium (`ERR_BLOCKED_BY_ADMINISTRATOR`); test je **přeskočený**, nikoli úspěšný. Web je dodán bez povinného serveru a browserové průchody byly provedené přes dočasný statický server. Neproběhl kompletní WCAG AA audit se čtečkou, plná HTML Living Standard validace, fyzický telefon/Safari/Firefox ani externí SEO audit. PPTX zde nebyl ručně otevřen v desktopovém PowerPointu/LibreOffice.
+## Online zdroje a omezení
 
-Dodané HTML Rock for People bylo prohlédnuté jako strukturální reference; živý web ani jeho skripty nebyly spouštěné. Síť dříve odmítla externí referenční a SEO/WAI stránky, proto netvrdíme novou kompletní online rešerši.
+Dne 18. 10. 2026 byly skutečně načtené a přečtené Google Search Central SEO Starter Guide, AI features and your website a W3C WAI Page Structure Tutorial. Konkrétní použití titulků, popisů, interních odkazů, textového obsahu, pravdivých strukturovaných dat a logické struktury je v dokumentaci. Nejde o externí SEO audit ani záruku indexace či doporučení AI vyhledávači. Dodané HTML Rock for People sloužilo jako strukturální reference; jeho skripty se nespouštěly a cizí značka/obrazové podklady se nepřebíraly.
 
-Tato klientská verze nemá skutečnou serverovou autentizaci, sdílenou rezervaci, platbu ani automatický e-mail. Úložiště patří danému prohlížeči; aplikace nezapisuje automaticky do souboru JSON. Tým musí doplnit skutečné review, jména/spolupráci, časovou osu a návaznost redesignu na schválené první výstupy.
+Po původní proxy blokaci se přístup k veřejným obrazovým zdrojům podařilo obnovit; fotografie byly získané z doložených zdrojů a licencí. Google obrázky sloužily k dohledání, nikoli jako licence. Limit API 429 byl respektovaný. U nedoložených fotografií jsou originální plakáty místo neověřených snímků.
+
+Přímé `file://` otevření blokuje spravovaná politika Chromium (`ERR_BLOCKED_BY_ADMINISTRATOR`); test je **přeskočený**, nikoli úspěšný. Web nevyžaduje runtime server. Funkční testy používají pouze dočasný statický server. Neproběhl kompletní WCAG AA audit se čtečkou, úplná HTML Living Standard validace, fyzický telefon/Safari/Firefox ani ruční kontrola v desktopovém PowerPointu/LibreOffice.
+
+Klientská verze nemá serverovou autentizaci, sdílené rezervace, skutečné platby ani automatický e-mail. Úložiště patří danému prohlížeči; aplikace nepřepisuje automaticky soubor JSON. Tým musí doplnit skutečné review, spolupráci a návaznost redesignu na schválené výstupy.
 
 ## Reprodukce
 
@@ -40,15 +46,18 @@ node --check web/js/app.js
 node --check web/js/i18n.js
 node --check web/js/design.js
 node --check web/js/site-shell.js
+node --check web/js/performer-art.js
+node --check web/js/artist-copy.js
+node --check web/js/news.js
 node --check web/js/privacy.js
 node --check web/js/ticket-pdf.js
 python tests/browser_smoke.py
 python tests/course_materials.py --folder odevzdani
 ```
 
-Testy spouštějí a ukončují vlastní dočasný statický server. Vývojové knihovny nejsou potřeba pro spuštění webu. Volitelné zxing-cpp a NumPy pro dekódování QR byly v této relaci instalované mimo projekt v `/tmp/prague-pulse-test-deps`; pro jejich zapojení byl použit `PYTHONPATH=/tmp/prague-pulse-test-deps python tests/browser_smoke.py`.
+Testy spouštějí a ukončují vlastní statický server. Vývojové knihovny nejsou potřeba pro otevření webu. Volitelné zxing-cpp a NumPy pro QR byly v této relaci dostupné přes `PYTHONPATH=/tmp/pulse-dark-test-deps`.
 
-## Záznam 256 browserových kontrol
+## Záznam 339 browserových kontrol
 
 ```text
 PASS Homepage initializes
@@ -66,27 +75,41 @@ PASS Countdown treats the full festival interval as live
 PASS Countdown shows an ended state after the festival instead of negative numbers
 PASS Countdown handles invalid dates without NaN or negative values
 PASS Homepage renders a visible countdown or current festival status
-PASS Hero references the local WebM film
-PASS Hero includes an MP4 fallback source
-PASS Hero video decodes in Chromium
-PASS Hero video can be paused
-PASS Hero video can resume
+PASS The homepage hero uses a loaded landscape venue image with sufficient resolution
+PASS The venue hero is stored locally and has descriptive alternative text
+PASS The homepage has no video controls or decorative sound bars
+PASS The countdown clearly says when the festival starts
+PASS The homepage highlights its three selected headliners
+PASS The homepage removes the generic slogans requested by the user
+PASS The homepage presents all three full-festival ticket categories
+PASS Homepage three-day prices are clearly visible and match the data catalogue
+PASS Each homepage ticket action preserves its category and three-day validity
+PASS The larger all-artists action does not acquire a second underline on hover
+PASS The homepage presents three current-news cards
+PASS Every news card links to its own article
+PASS The page background remains dark below the hero
 PASS Brand, navigation, search and language switch share one row at 1024px in en
+PASS The header spans the device width at 1024px in en
 PASS Header ticket button stays compact at 1024px in en
 PASS Laptop header fits 1024px in en
 PASS Brand, navigation, search and language switch share one row at 1024px in cs
+PASS The header spans the device width at 1024px in cs
 PASS Header ticket button stays compact at 1024px in cs
 PASS Laptop header fits 1024px in cs
 PASS Brand, navigation, search and language switch share one row at 1280px in en
+PASS The header spans the device width at 1280px in en
 PASS Header ticket button stays compact at 1280px in en
 PASS Laptop header fits 1280px in en
 PASS Brand, navigation, search and language switch share one row at 1280px in cs
+PASS The header spans the device width at 1280px in cs
 PASS Header ticket button stays compact at 1280px in cs
 PASS Laptop header fits 1280px in cs
 PASS Brand, navigation, search and language switch share one row at 1366px in en
+PASS The header spans the device width at 1366px in en
 PASS Header ticket button stays compact at 1366px in en
 PASS Laptop header fits 1366px in en
 PASS Brand, navigation, search and language switch share one row at 1366px in cs
+PASS The header spans the device width at 1366px in cs
 PASS Header ticket button stays compact at 1366px in cs
 PASS Laptop header fits 1366px in cs
 PASS Footer includes five recognizable vector social icons
@@ -96,64 +119,76 @@ PASS No horizontal overflow at 320px: program.html
 PASS No horizontal overflow at 320px: performers.html
 PASS No horizontal overflow at 320px: venues.html
 PASS No horizontal overflow at 320px: info.html
-PASS No horizontal overflow at 320px: search.html?q=Ada%20Morrow
+PASS No horizontal overflow at 320px: search.html?q=David%20Guetta
 PASS No horizontal overflow at 320px: tickets.html
 PASS No horizontal overflow at 320px: cart.html
 PASS No horizontal overflow at 320px: account.html
+PASS No horizontal overflow at 320px: news.html?id=vystaviste-tri-sceny
 PASS No horizontal overflow at 375px: index.html
 PASS No horizontal overflow at 375px: program.html
 PASS No horizontal overflow at 375px: performers.html
 PASS No horizontal overflow at 375px: venues.html
 PASS No horizontal overflow at 375px: info.html
-PASS No horizontal overflow at 375px: search.html?q=Ada%20Morrow
+PASS No horizontal overflow at 375px: search.html?q=David%20Guetta
 PASS No horizontal overflow at 375px: tickets.html
 PASS No horizontal overflow at 375px: cart.html
 PASS No horizontal overflow at 375px: account.html
+PASS No horizontal overflow at 375px: news.html?id=vystaviste-tri-sceny
 PASS No horizontal overflow at 430px: index.html
 PASS No horizontal overflow at 430px: program.html
 PASS No horizontal overflow at 430px: performers.html
 PASS No horizontal overflow at 430px: venues.html
 PASS No horizontal overflow at 430px: info.html
-PASS No horizontal overflow at 430px: search.html?q=Ada%20Morrow
+PASS No horizontal overflow at 430px: search.html?q=David%20Guetta
 PASS No horizontal overflow at 430px: tickets.html
 PASS No horizontal overflow at 430px: cart.html
 PASS No horizontal overflow at 430px: account.html
+PASS No horizontal overflow at 430px: news.html?id=vystaviste-tri-sceny
 PASS No horizontal overflow at 768px: index.html
 PASS No horizontal overflow at 768px: program.html
 PASS No horizontal overflow at 768px: performers.html
 PASS No horizontal overflow at 768px: venues.html
 PASS No horizontal overflow at 768px: info.html
-PASS No horizontal overflow at 768px: search.html?q=Ada%20Morrow
+PASS No horizontal overflow at 768px: search.html?q=David%20Guetta
 PASS No horizontal overflow at 768px: tickets.html
 PASS No horizontal overflow at 768px: cart.html
 PASS No horizontal overflow at 768px: account.html
+PASS No horizontal overflow at 768px: news.html?id=vystaviste-tri-sceny
 PASS No horizontal overflow at 1024px: index.html
 PASS No horizontal overflow at 1024px: program.html
 PASS No horizontal overflow at 1024px: performers.html
 PASS No horizontal overflow at 1024px: venues.html
 PASS No horizontal overflow at 1024px: info.html
-PASS No horizontal overflow at 1024px: search.html?q=Ada%20Morrow
+PASS No horizontal overflow at 1024px: search.html?q=David%20Guetta
 PASS No horizontal overflow at 1024px: tickets.html
 PASS No horizontal overflow at 1024px: cart.html
 PASS No horizontal overflow at 1024px: account.html
+PASS No horizontal overflow at 1024px: news.html?id=vystaviste-tri-sceny
 PASS No horizontal overflow at 1440px: index.html
 PASS No horizontal overflow at 1440px: program.html
 PASS No horizontal overflow at 1440px: performers.html
 PASS No horizontal overflow at 1440px: venues.html
 PASS No horizontal overflow at 1440px: info.html
-PASS No horizontal overflow at 1440px: search.html?q=Ada%20Morrow
+PASS No horizontal overflow at 1440px: search.html?q=David%20Guetta
 PASS No horizontal overflow at 1440px: tickets.html
 PASS No horizontal overflow at 1440px: cart.html
 PASS No horizontal overflow at 1440px: account.html
+PASS No horizontal overflow at 1440px: news.html?id=vystaviste-tri-sceny
 PASS No horizontal overflow at 1920px: index.html
 PASS No horizontal overflow at 1920px: program.html
 PASS No horizontal overflow at 1920px: performers.html
 PASS No horizontal overflow at 1920px: venues.html
 PASS No horizontal overflow at 1920px: info.html
-PASS No horizontal overflow at 1920px: search.html?q=Ada%20Morrow
+PASS No horizontal overflow at 1920px: search.html?q=David%20Guetta
 PASS No horizontal overflow at 1920px: tickets.html
 PASS No horizontal overflow at 1920px: cart.html
 PASS No horizontal overflow at 1920px: account.html
+PASS No horizontal overflow at 1920px: news.html?id=vystaviste-tri-sceny
+PASS News article loads its own title and full content: news.html?id=vystaviste-tri-sceny
+PASS News article loads its own title and full content: news.html?id=tri-dny-jedna-vstupenka
+PASS News article loads its own title and full content: news.html?id=do-holesovic-bez-auta
+PASS The three news links open distinct articles
+PASS An unknown or malicious news ID renders a safe fallback without injecting markup
 PASS English translation preserves genre filter values
 PASS Genre filtering works after language switching
 PASS English preference persists: index.html
@@ -171,9 +206,9 @@ PASS English metadata retains the identity: venues.html
 PASS English preference persists: info.html
 PASS English navigation is translated: info.html
 PASS English metadata retains the identity: info.html
-PASS English preference persists: search.html?q=Ada%20Morrow
-PASS English navigation is translated: search.html?q=Ada%20Morrow
-PASS English metadata retains the identity: search.html?q=Ada%20Morrow
+PASS English preference persists: search.html?q=David%20Guetta
+PASS English navigation is translated: search.html?q=David%20Guetta
+PASS English metadata retains the identity: search.html?q=David%20Guetta
 PASS English preference persists: tickets.html
 PASS English navigation is translated: tickets.html
 PASS English metadata retains the identity: tickets.html
@@ -183,6 +218,9 @@ PASS English metadata retains the identity: cart.html
 PASS English preference persists: account.html
 PASS English navigation is translated: account.html
 PASS English metadata retains the identity: account.html
+PASS English preference persists: news.html?id=vystaviste-tri-sceny
+PASS English navigation is translated: news.html?id=vystaviste-tri-sceny
+PASS English metadata retains the identity: news.html?id=vystaviste-tri-sceny
 PASS Practical information has English content
 PASS Artist detail is translated into English
 PASS Switching back to Czech retains original genre values
@@ -192,11 +230,16 @@ PASS Search treats markup as text
 PASS Search includes practical information
 PASS Search ignores Czech diacritics
 PASS All 60 performers load
-PASS All 60 performer cards have distinct portrait selections
+PASS All 60 performer cards have distinct local artwork
+PASS Headliner i1 uses a decoded, sufficiently sized local artist photograph
+PASS Headliner i2 uses a decoded, sufficiently sized local artist photograph
+PASS Headliner i3 uses a decoded, sufficiently sized local artist photograph
 PASS The last performer is searchable
 PASS Artist detail opens
 PASS Artist detail closes with Escape
 PASS All 60 events load
+PASS The full programme is ordered chronologically across all three days
+PASS Day filtering preserves chronological programme order
 PASS Favorite toggle retains keyboard focus
 PASS Favorites filter works
 PASS Favorites survive reload
@@ -233,6 +276,7 @@ PASS PDF page 1 includes the correct place
 PASS PDF page 1 includes the category
 PASS PDF page 1 uses the Prague Pulse Fest identity
 PASS PDF page 1 includes the three-day validity
+PASS PDF page 1 includes the ticket base price
 PASS PDF page 1 uses a landscape layout
 PASS PDF page 1 contains typography
 PASS PDF page 1 contains vector QR modules
@@ -244,6 +288,7 @@ PASS PDF page 2 includes the correct place
 PASS PDF page 2 includes the category
 PASS PDF page 2 uses the Prague Pulse Fest identity
 PASS PDF page 2 includes the three-day validity
+PASS PDF page 2 includes the ticket base price
 PASS PDF page 2 uses a landscape layout
 PASS PDF page 2 contains typography
 PASS PDF page 2 contains vector QR modules
@@ -292,6 +337,53 @@ PASS Cart review rerenders the new selection and preserves form state
 PASS Checkout rechecks local seat availability
 PASS No JavaScript runtime errors: []
 PASS All assets, purchases and PDF generation work without external network requests
+PASS A homepage VIP purchase preselects the full-festival category in the order flow
+PASS The group selector rejects quantities above eight without adding partial tickets
+PASS Quick purchase assigns distinct free VIP places for both people on all three days
+PASS Checkout initially totals both catalogue prices without additional fees
+PASS Invalid promo input leaves the total unchanged: NOTVALID
+PASS Invalid promo input leaves the total unchanged: __proto__
+PASS Invalid promo input leaves the total unchanged: <img src=x onerror=alert(1)>
+PASS Promo input cannot inject executable markup
+PASS An invalid promo code cannot be submitted as a discounted order
+PASS A typed known promotion must be applied before the order can be completed
+PASS The percentage promotion normalizes case and whitespace and applies exactly ten percent
+PASS Removing a ticket recalculates the applied promotion and preserves contact details
+PASS An applied known promotion survives reload and is recalculated from the cart
+PASS Tampered stored promotion amounts cannot override the catalogue calculation
+PASS A stale or unknown stored promotion is ignored instead of restoring a fabricated discount
+PASS The fixed promotion subtracts exactly 200 Kč
+PASS Checkout offers all seven requested simulated payment methods
+PASS A malformed phone number cannot complete or consume the selected ticket
+PASS The payment action displays the selected method and final discounted amount
+PASS The completed order records the full contact details and simulated payment method
+PASS The order records gross ticket prices separately from the discount and final total
+PASS Download is a genuine PDF document
+PASS PDF has one page per ticket
+PASS PDF page 1 includes the order ID
+PASS PDF page 1 preserves the Czech buyer name
+PASS PDF page 1 includes the correct place
+PASS PDF page 1 includes the category
+PASS PDF page 1 uses the Prague Pulse Fest identity
+PASS PDF page 1 includes the three-day validity
+PASS PDF page 1 includes the ticket base price
+PASS PDF page 1 includes the order subtotal, discount and final total
+PASS PDF page 1 uses a landscape layout
+PASS PDF page 1 contains typography
+PASS PDF page 1 contains vector QR modules
+PASS PDF page 1 contains one readable QR code
+PASS PDF page 1 QR contains the correct ticket identifier
+PASS Group purchase excludes a seat occupied by an earlier full-festival order
+PASS A second group purchase avoids seats already present in the same cart
+PASS One-day purchase links preselect the requested category and festival day
+PASS The maximum group size allocates eight distinct standing places for the selected day
+PASS Insufficient group capacity adds no partial selection or duplicate seats
+PASS A fixed promotion is capped at the cart subtotal and never creates a negative charge
+PASS Promotions, contact validation and group purchases produce no runtime errors
+PASS The venue photograph exposes its author, source and licence links in practical information
+PASS Photo attribution for David Guetta exposes both a source and a licence link
+PASS Photo attribution for Katy Perry exposes both a source and a licence link
+PASS Photo attribution for Skrillex exposes both a source and a licence link
 PASS Rejecting optional storage keeps Google Maps unembedded
 PASS Map has no extra manual loading step
 PASS Rejecting external maps prevents all third-party map requests
@@ -305,7 +397,7 @@ PASS Revoked consent prevents map requests on subsequent visits
 PASS Privacy settings and map permission are translated into English
 PASS Privacy settings, consent and map updates produce no JavaScript errors
 PASS The banner necessary-only action rejects external maps directly
-PASS Reduced motion disables automatic video playback
+PASS Reduced-motion visitors receive the same static venue hero without autoplay
 PASS Malformed local account storage does not break the homepage
 SKIP file:// blocked by browser policy ERR_BLOCKED_BY_ADMINISTRATOR; static HTTP checks passed
 ```

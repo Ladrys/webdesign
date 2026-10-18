@@ -15,7 +15,7 @@ o šest snímků přibližně na čtyři minuty. Prezentaci 06 je třeba po obdr
 cizího projektu doplnit skutečnými výsledky; připravená metodika je jasně označená.
 
 Skutečný přidělený projekt pro cross-review, přijaté review, jména týmu,
-časová osa a odsouhlasení výraznějšího redesignu nebyly poskytnuty. Nejsou
+časová osa a odsouhlasení výraznějšího redesignu a přechodu na skutečné interprety nebyly poskytnuty. Nejsou
 nahrazeny smyšlenými údaji. `c06-review-template.md` obsahuje přesný postup,
 tabulku nálezů i odlišené příklady vlastního ověření.
 

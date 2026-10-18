@@ -9,6 +9,7 @@
   const orange = '#FF5A1F';
   const gray = '#696960';
 
+  const tr = (cs,en) => window.PulseI18n?.lang==='en'?en:cs;
   const categories = { vip: 'VIP', regular: 'REGULAR', standing: window.PulseI18n?.lang==='en'?'STANDING':'STÁNÍ' };
   const money = value => new Intl.NumberFormat(window.PulseI18n?.lang==='en'?'en-GB':'cs-CZ', { style: 'currency', currency: 'CZK', maximumFractionDigits: 0 }).format(Number(value) || 0);
   let dependencies;
@@ -102,10 +103,7 @@
       text(doc, 'PRAGUE', 25, 40, 230, 25, true, paper);
       text(doc, 'PULSE', 23, 86, 260, 43, true, paper);
       text(doc, `FEST / ${edition}`, 26, 117, 230, 11, true, orange);
-      doc.setDrawColor(orange);
-      doc.setLineWidth(7);
-      const markX = split - 117;
-      doc.lines([[18, 0], [11, -29], [16, 60], [15, -44], [12, 13], [20, 0]], markX, 70, [1, 1], 'S', false);
+      text(doc, '01—03 / 08', split - 133, 72, 108, 17, true, orange);
 
       text(doc, 'FIKTIVNÍ FESTIVAL / VSTUPENKA', 26, 159, split - 52, 8, true);
       label(doc, 'JMÉNO V OBJEDNÁVCE', 26, 187, split - 52);
@@ -121,12 +119,19 @@
       label(doc, 'AREÁL', 26, 305, 170);
       text(doc, 'Vltava Park, Praha', 26, 325, 188, 12, true);
       text(doc, 'Výstaviště 67, Praha 7', 26, 341, 188, 8, false, gray);
-      label(doc, 'CENA VSTUPENKY', 228, 305, split - 254);
+      label(doc, tr('CENÍKOVÁ CENA VSTUPENKY','TICKET LIST PRICE'), 228, 305, split - 254);
       text(doc, money(ticket.price), 228, 327, split - 254, 15, true);
+      const subtotal=Number.isInteger(order.subtotal)?order.subtotal:order.tickets.reduce((sum,item)=>sum+item.price,0);
+      const discount=Number.isInteger(order.discount)?Math.min(subtotal,Math.max(0,order.discount)):0;
+      const total=Number.isInteger(order.total)?order.total:subtotal-discount;
+      label(doc, tr('CELKEM ZA OBJEDNÁVKU','ORDER TOTAL'), 26, 358, 190);
+      text(doc, money(total), 228, 358, split - 254, 11, true);
+      const breakdown=tr('Vstupenky','Tickets')+': '+money(subtotal)+' / '+tr('Sleva','Discount')+': '+money(discount)+(discount&&order.promoCode?' ('+order.promoCode+')':'');
+      text(doc, breakdown, 26, 370, split - 52, 8, false, gray, false);
 
-      text(doc, 'Doklad byl vytvořen lokálně jako součást školního projektu.', 26, height - 43, split - 52, 7, false, gray);
-      text(doc, 'Nepotvrzuje platbu ani nárok na skutečný vstup do areálu.', 26, height - 31, split - 52, 7, false, gray);
-      text(doc, `OBJEDNÁVKA ${order.id}`, 26, height - 15, split - 52, 7, true);
+      text(doc, 'Doklad byl vytvořen lokálně jako součást školního projektu.', 26, height - 37, split - 52, 7, false, gray);
+      text(doc, 'Nepotvrzuje platbu ani nárok na skutečný vstup do areálu.', 26, height - 25, split - 52, 7, false, gray);
+      text(doc, `OBJEDNÁVKA ${order.id}`, 26, height - 13, split - 52, 7, true);
 
       const sideX = split + 21;
       text(doc, 'ADMIT ONE / UKÁZKA', sideX, 32, 138, 8, true);

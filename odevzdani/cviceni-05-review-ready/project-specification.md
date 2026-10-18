@@ -13,19 +13,23 @@ schválení změn vyučujícím musí být doložena původním týmem.
 | Termín | 1.–3. srpna 2027 |
 | Charakter | Fiktivní třídenní městský hudební festival |
 | Žánry | Rock, indie, pop, elektronika, hip-hop, jazz a folk |
-| Rozsah dat | 3 dny, 3 scény, 60 účinkujících, 60 vystoupení |
+| Rozsah dat | 3 dny, 3 scény, 60 účinkujících, 60 programových položek |
 
 Identita, adresa a přesné názvy scén jsou ve finálním exportu odvozeny ze
 souboru `data.xml`. Lokalita Výstaviště Praha je reálná; festivalové uspořádání a označení Vltava Park jsou fiktivní. Kontaktní údaje jsou součástí fiktivní festivalové identity,
 nikoli ověřené kontakty skutečného pořadatele. Návštěvníci nesmějí být vedeni
-k tomu, že jde o existující prodávanou akci.
+k tomu, že jde o existující prodávanou akci. Line-up používá skutečné hudební
+interprety jako autorský návrh; neprohlašuje jejich potvrzenou účast. Noisia
+je uvedena pouze v archivním poslechovém bloku s informací o ukončení projektu
+v roce 2022, nikoli jako živě vystupující skupina.
 
 ## Účel webu
 
 Web umožňuje zjistit místo a termín, objevit účinkující, naplánovat návštěvu,
 vyhledat konkrétní informaci a projít školním objednávkovým tokem vstupenky.
 Primární akce jsou otevřít program, filtrovat vystoupení a uložit osobní program.
-Sekundární akce jsou porovnat tarify, vybrat místo a stáhnout PDF vstupenku.
+Sekundární akce jsou porovnat konečné ceny tarifů, vybrat množství nebo konkrétní
+místa, zadat promo kód, projít zkušební platbu a stáhnout PDF vstupenku.
 
 ## Cílové skupiny
 
@@ -41,7 +45,8 @@ Sekundární akce jsou porovnat tarify, vybrat místo a stáhnout PDF vstupenku.
 
 ```text
 Úvod
-├── Program → detail vystoupení → účinkující / scéna
+├── Novinky → samostatný článek
+├── Program → detail položky → účinkující / scéna
 ├── Účinkující → detail → příslušná vystoupení
 ├── Scény → program scény / doprava
 ├── Praktické informace → doprava, pobyt, pravidla, kontakt
@@ -61,8 +66,8 @@ kontext návratu. Program a osobní program používají stejná datová ID.
 | ID | Typ uživatele | Cíl | Výchozí situace | Očekávaný výsledek |
 | --- | --- | --- | --- | --- |
 | S1 | Návštěvník na telefonu | Naplánovat první den na River Stage | Je na úvodu, zná den a scénu, nezná kapely | Filtry ukážou jen odpovídající akce; vybraná akce zůstane v osobním programu i po obnovení |
-| S2 | Fanoušek kapely | Najít Atlas Motel a čas koncertu | Zadá část názvu „Atlas“ | Dostane odpovídající výsledky, otevře detail a přejde k datu a scéně vystoupení |
-| S3 | Návštěvník bez účtu | Získat třídenní vstupenku nebo konkrétní místa | Porovnává VIP, Regular a stání | Zná obsah a cenu, projde košík, po zkušebním dokončení stáhne PDF s ID objednávky; lokální obsazenost se aktualizuje |
+| S2 | Fanoušek kapely | Najít DARKZY a čas koncertu | Zadá dotaz „DARKZY“ | Dostane odpovídající výsledky, otevře detail a přejde k datu a scéně vystoupení |
+| S3 | Návštěvník bez účtu | Získat třídenní vstupenku nebo konkrétní místa | Porovnává VIP, Regular a stání | Zná obsah a konečnou cenu, vybere množství nebo místa, případně uplatní promo kód a projde košík; po zkušebním dokončení stáhne PDF s rozpisem a ID objednávky, lokální obsazenost se aktualizuje |
 | S4 | Vracející se návštěvník | Najít dřívější objednávku | Má lokální účet ve stejném prohlížeči | Přihlásí se, zobrazí svou historii a znovu stáhne PDF |
 | S5 | Zahraniční návštěvník | Najít dopravu anglicky | Nerozumí češtině a přichází na úvod | Přepne jazyk, otevře informace a najde mapu lokality |
 
@@ -85,7 +90,10 @@ nikoli podmínka spuštění webu. Vstupenky a obohacené texty respektují výs
 | Stání | 490 Kč | 190 Kč |
 
 Ceny a obsah tarifů se čtou z XML odvozených dat. Výběr konkrétních míst
-a třídenní balíčky jsou dvě cesty v téže klientské objednávce.
+a rychlý nákup 1–8 kusů podle kategorie a rozsahu jsou dvě cesty v téže
+klientské objednávce. Ceny již zahrnují poplatky. Promo `PULSE10` snižuje cenu
+o 10 % se zaokrouhlením na koruny; `PRAHA200` odečítá 200 Kč, nejvýše však cenu
+vstupenek. Slevy se nesčítají. Částky se při dokončení znovu počítají z tarifů.
 
 Kontrola dat ověřuje počty, unikátní ID, existenci referencí, návaznost dat
 a shodu přibaleného exportu. `data.xml` i JavaScript jsou součástí odevzdání.
@@ -97,7 +105,8 @@ Samotné přehrání prezentace nebo vizuální prohlídka datovou konzistenci n
 2. Vyhledávání obsahujícího řetězce bez závislosti na velikosti písmen a diakritice.
 3. Oblíbená vystoupení a osobní program přetrvávající po obnovení.
 4. Kontextové detaily propojující účinkující, vystoupení a scény.
-5. Výběr vstupenek, košík a lokální historie s exportem PDF.
+5. Výběr množství nebo míst, promo kód, košík a lokální historie s exportem PDF.
+6. Přehled novinek s odkazy na tři vlastní články.
 
 ## Technické hranice
 
@@ -117,7 +126,12 @@ a neblokují místa aktuálního ročníku.
 Zachovává se původní název Prague Pulse Fest. Po upřesnění uživatele byl
 obnoven po pracovní verzi s názvem Prague Rocks Festival. Termín se na jeho
 výslovnou volbu posunul z 1.–3. srpna 2026 na 1.–3. srpna 2027;
-programové vazby, počet dnů, scén a interpretů zůstaly zachované.
+programové vazby, počet dnů, scén a interpretů zůstaly zachované. Po dalším
+požadavku uživatele fiktivní jména nahradilo 60 skutečných interpretů s
+biografickými medailonky. Aktuální rozhraní obsahuje 41 skutečných licencovaných
+fotografií interpretů a 19 typografických náhrad; dřívější AI portréty
+fiktivních hudebníků se skutečným umělcům nepřiřazují. Úvodní fotografie
+Průmyslového paláce je z roku 2018 a není vydávána za stav areálu roku 2027.
 Výraznější grafický směr vznikl z požadavků uživatele. Není doloženo schválení
 rozsahu změn vyučujícím v limitu přibližně 15 %.
 Tým má před odevzdáním potvrdit návaznost na skutečně schválený první výstup.
@@ -129,5 +143,11 @@ Codex pomohl s rozborem zadání, návrhem struktury, texty, implementací,
 generováním podkladů a automatizovanými kontrolami. Vizuály mají původ uvedený
 v přibaleném `web/images/ASSETS.md`. Přijat byl mobile-first přístup,
 propojená data a originální festivalová identita. Odmítnuty byly backendové
-požadavky odporující zadání a kopie cizího loga. Konkrétní aktuální výsledky
+požadavky odporující zadání a kopie cizího loga. Pozdější výslovný požadavek
+uživatele na skutečné interprety a fotografie byl upřednostněn před větou
+přiloženého zadání o generování veškerého obsahu AI. Biografické medailonky
+jsou AI zpracované texty o skutečných umělcích, nikoli životopisy nových
+fiktivních hudebníků. Skutečné fotografie mají uvedeného
+autora, zdroj a licenci v `web/images/PHOTO-CREDITS.md`, metadatech JSON
+a dostupné stránce kreditů. Historická fotografie areálu má viditelné datum. Konkrétní aktuální výsledky
 jsou v `validation_report.md`, je-li přiložen; plán testu není vydáván za jeho výsledek.
