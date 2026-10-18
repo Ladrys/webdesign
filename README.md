@@ -1,7 +1,7 @@
 # Prague Pulse Fest
 
 [![Kontroly projektu](https://github.com/Ladrys/webdesign/actions/workflows/validate.yml/badge.svg)](https://github.com/Ladrys/webdesign/actions/workflows/validate.yml)
-[![Verze 1.0.0](https://img.shields.io/badge/verze-1.0.0-ff8155)](CHANGELOG.md)
+[![Verze 1.0.1](https://img.shields.io/badge/verze-1.0.1-ff8155)](CHANGELOG.md)
 ![HTML · CSS · JavaScript](https://img.shields.io/badge/web-HTML%20%C2%B7%20CSS%20%C2%B7%20JavaScript-222222)
 
 Responzivní web fiktivního hudebního festivalu **1.–3. srpna 2027 na Výstavišti Praha**. Česká i anglická verze, program, osobní výběr koncertů a objednávka vstupenek s PDF.

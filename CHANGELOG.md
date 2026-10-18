@@ -1,5 +1,11 @@
 # Verze projektu
 
+## 1.0.1 — 18. 10. 2026
+
+- Opravené cesty ke skutečným requirements souborům v GitHub Actions cache.
+- Automatické kontroly používají konkrétní Ubuntu 24.04.
+- Upřesněné cesty příkazů pro PowerShell ve vývojovém návodu.
+
 ## 1.0.0 — 18. 10. 2026
 
 První pojmenovaná verze repozitáře Prague Pulse Fest pro Webdesign.
