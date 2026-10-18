@@ -7,10 +7,10 @@ popisuje identitu, cílové skupiny, strukturu a scénáře. Tento review-ready 
 je vytvořen z aktuální verze, nikoli vydáván za doložené dřívější odevzdání.
 
 K dispozici jsou úvod, tři články novinek, program, 60 skutečných účinkujících s detaily, 3 scény, praktické
-informace, hledání s výsledky, třídenní tarify, výběr míst, lokální účet,
+informace, hledání s výsledky, tarify na 1/2/3 dny, výběr míst, lokální účet,
 košík a skutečně generovaný PDF soubor. Česká a anglická verze slouží různým
 cílovým skupinám. Datová základna obsahuje 60 programových položek během 3 dnů. Line-up je návrh,
-účast interpretů není potvrzená. Noisia je pouze archivní poslechový blok.
+účast interpretů není potvrzená. Scény se dělí na mezinárodní hlavní jména, českou scénu a klubovou elektroniku.
 
 ## Scénáře k nezávislému průchodu
 
@@ -18,11 +18,13 @@ cílovým skupinám. Datová základna obsahuje 60 programových položek během
    Přepněte osobní program a obnovte stránku. Zkontrolujte datum, scénu a zachování výběru.
 2. **S2 — hledání:** Hledejte „DARKZY“, otevřete DARKZY a najděte navazující
    vystoupení. Ověřte vazbu na konkrétní datum a scénu, vyzkoušejte prázdný výsledek.
-3. **S3 — vstupenka:** Porovnejte třídenní tarify, vyberte vstupenku nebo místa,
-   zkontrolujte košík, vyzkoušejte PULSE10 nebo PRAHA200 a projděte zkušební
-   dokončení jako host se smyšleným jménem, příjmením, e-mailem a telefonem.
-   Změňte metodu platby a ověřte simulované chování bez poskytovatele.
-   Stáhněte PDF a zkontrolujte cenu, ID a jméno. Zkuste návrat na výběr míst.
+3. **S3 — vlastní dny a kemp:** Vyberte první a třetí srpen, dvě VIP vstupenky
+   a ručně označte sedadla. Přidejte stan pro dvě osoby a potvrďte PULSE10.
+   Zkontrolujte 2 360 − 236 + 650 = 2 774 Kč včetně modelové DPH.
+   Projděte simulované dokončení jako host se smyšlenými kontakty. PDF má
+   obě přesná data a samostatný campingový voucher; druhý srpen zůstává
+   pro tato sedadla volný, pokud je neobsadila jiná lokální objednávka.
+   Zkontrolujte rozpis slevy, kempu, daně, jméno a ID objednávky.
 
 ## Aktuální testování
 
@@ -38,7 +40,7 @@ jako soubor, ne pouze jako screenshot potvrzení objednávky.
 - E-mail se automaticky neodesílá; objednávka poskytuje stažení PDF.
 - Externí mapa se načte automaticky až po povolení v panelu soukromí a vyžaduje spojení se službou Google; zbývající obsah má zůstat čitelný bez ní.
 - Fiktivní festivalová identita a kontakty nejsou ověřený reálný pořadatel; skuteční interpreti nemají potvrzenou účast.
-- Úvodní fotografie areálu pochází z roku 2018 a nedokládá stav pro rok 2027; 41 karet má skutečné fotografie s kredity, 19 vlastní typografii.
+- Úvodní fotografie areálu pochází z roku 2018 a nedokládá stav pro rok 2027; 42 karet má skutečné fotografie s kredity, 18 vlastní typografii.
 - Neproběhl plný audit WCAG AA, fyzické telefony ani všechny prohlížeče.
 - Skutečné přijaté cross-review zatím nebylo dodáno. Technické testy nejsou jeho náhradou.
 
@@ -55,3 +57,19 @@ AI pomohla připravit obsah, kód, původní grafiku a automatizované testy.
 Přijaté a odmítnuté návrhy i limity popisuje dokumentace. Každý výsledek
 cross-review musí hodnotitel ověřit sám. Zde nepředkládáme smyšlené nálezy
 cizího týmu ani nedoložená uživatelská měření.
+
+## Změny podle nejnovější audiozpětné vazby
+
+Tato zpětná vazba je od zadavatele, nikoli od přiděleného jiného týmu.
+Program nově rozděluje 20/20/20 interpretů mezi hlavní mezinárodní jména,
+českou scénu a klubovou elektroniku. Medailonky a konkrétní subžánry jsou v XML.
+Nákup sjednocuje jeden, dva libovolné nebo tři dny; VIP a Regular vyžadují ruční
+sedadla, stání množství. Objednávka přidá stan 350 Kč nebo karavan 850 Kč
+plus 150 Kč za osobu na 3 noci. PULSE10/PRAHA200 se vztahují jen na vstupenky.
+Rozpis ukazuje modelovou 12% DPH zahrnutou v cenách, nikoli další poplatek.
+Registrace má příjmení, telefon a potvrzení hesla, profil lze upravit.
+
+Offline plánek, podrobnější návštěvnické FAQ a skutečné fotografie novinek
+pomáhají při cestě; soukromí, podmínky a obrazové kredity mají vlastní stránky.
+Dva snímky (Hedex, AC Slater) mají CC BY-NC-SA 2.0 a patří pouze do nekomerčního
+školního rozsahu. Zdroje a úpravy jsou v PHOTO-CREDITS.md a na stránce Kredity.

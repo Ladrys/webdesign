@@ -7,11 +7,11 @@ Text upravte podle skutečné práce a jmen členů týmu. Nevydávejte podklady
 
 ## 1. Festival začíná u programu.
 
-Představujeme Prague Pulse Fest, fiktivní třídenní hudební festival v Praze. Cílem webu je umožnit návštěvníkovi rychle zjistit, kdy a kde hrají oblíbené kapely, a připravit si vlastní program. Jde o aktuálně připravený podklad k milníku, ne doklad historického odevzdání. Základem je specifikace a XML datová základna. Zachováváme tři dny, tři scény a šedesát účinkujících; původní název, posun termínu na srpen 2027 a výraznější grafický směr vznikly z požadavku zadavatele. Současná datová základna obsahuje skutečné interprety jako navržený line-up; nejde o potvrzení jejich účasti. Noisia je pouze archivní poslechový blok.
+Představujeme Prague Pulse Fest, fiktivní třídenní hudební festival v Praze. Cílem webu je umožnit návštěvníkovi rychle zjistit, kdy a kde hrají oblíbené kapely, a připravit si vlastní program. Jde o aktuálně připravený podklad k milníku, ne doklad historického odevzdání. Základem je specifikace a XML datová základna. Zachováváme tři dny, tři scény a šedesát účinkujících; původní název, posun termínu na srpen 2027 a výraznější grafický směr vznikly z požadavku zadavatele. Současná datová základna obsahuje skutečné interprety jako navržený line-up; nejde o potvrzení jejich účasti.
 
 ## 2. Jedna akce. Propojená data.
 
-Festival propojuje několik současných žánrů. První ročník se odehrává od prvního do třetího srpna 2027 ve fiktivně uspořádaném areálu Vltava Park u reálného Výstaviště Praha. XML obsahuje identitu festivalu, tři dny, tři scény, šedesát interpretů a šedesát programových položek. Každé vystoupení má odkaz na existující den, scénu a interpreta. Nejde tedy o čtyři nezávislé seznamy; vztahy lze zkontrolovat a použít pro program i detail kapely.
+Festival trvá od prvního do třetího srpna 2027 ve fiktivně uspořádaném areálu u reálného Výstaviště Praha. XML obsahuje tři dny, tři scény, šedesát skutečných interpretů a šedesát vystoupení. Každá scéna má dvacet jmen a jasné zaměření: Main Hall velká mezinárodní jména, River Stage českou scénu a Club Stage klubovou elektroniku. Každý interpret má jedno vystoupení, program je chronologický a scény nemají kolize. Skutečná jména ale neznamenají potvrzenou účast. Vztahy kontrolujeme podle jednoznačných ID.
 
 ## 3. Pro koho web připravujeme?
 
@@ -23,7 +23,7 @@ Z úvodní stránky vedeme do programu, účinkujících a praktických informac
 
 ## 5. Dva průchody, jasný výsledek.
 
-První scénář řeší návštěvníka na telefonu, který zná den a scénu. Filtrovaný seznam mu umožní uložit koncert a později se vrátit k vlastnímu programu. Ve druhém scénáři návštěvník zadá jen název DARKZY, otevře DARKZY a zjistí čas i scénu koncertu. Očekávané výsledky jsou měřitelné: filtry nesmějí vracet jiné dny a oblíbené musí vydržet obnovení. Třetím scénářem ve specifikaci je objednávka hosta s výstupem PDF.
+První scénář řeší návštěvníka na telefonu, který zná den a scénu. Filtrovaný seznam mu umožní uložit koncert a později se vrátit k vlastnímu programu. Ve druhém scénáři návštěvník zadá jen název DARKZY, otevře DARKZY a zjistí čas i scénu koncertu. Očekávané výsledky jsou měřitelné: filtry nesmějí vracet jiné dny a oblíbené musí vydržet obnovení. Třetím scénářem ve specifikaci je objednávka hosta s výstupem PDF. Třetí scénář nově dovoluje dva libovolné dny včetně prvního a třetího, vlastní sedadlo a kemp. Není nutné kupovat celý festival.
 
 ## 6. AI návrh potřebuje důkaz.
 

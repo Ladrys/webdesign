@@ -9,7 +9,7 @@ Text upravte podle skutečné práce a jmen členů týmu. Nevydávejte podklady
 
 ## 1. Review potřebuje skutečný důkaz.
 
-Tato prezentace je metodická příprava. Nemáme přidělený cizí web ani jeho specifikaci, a proto nemůžeme poctivě uvést skutečné nálezy. Před prezentací výsledků je nutné doplnit hodnocený projekt, verzi, podmínky a reálně provedené scénáře. Šablona ukazuje, jak použijeme dvě formalizované metody a jak budeme posuzovat závažnost. Není vhodné ji odevzdat jako hotové splnění cvičení šest bez doplnění výsledků. Na závěr jasně odlišíme příklady vlastního ověření od peer review.
+Tato prezentace je metodická příprava. Nemáme přidělený cizí web ani jeho specifikaci, a proto nemůžeme poctivě uvést skutečné nálezy. Před prezentací výsledků je nutné doplnit hodnocený projekt, verzi, podmínky a reálně provedené scénáře. Šablona ukazuje, jak použijeme dvě formalizované metody a jak budeme posuzovat závažnost. Není vhodné ji odevzdat jako hotové splnění cvičení šest bez doplnění výsledků. Na závěr jasně odlišíme příklady vlastního ověření od peer review. Audiozpětná vazba našeho zadavatele není hodnocením přiděleného cizího projektu a chybějící posudek nenahrazuje.
 
 ## 2. Dvě metody, odlišný pohled.
 

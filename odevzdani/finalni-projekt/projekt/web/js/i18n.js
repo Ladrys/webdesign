@@ -6,7 +6,15 @@
   try { lang = localStorage.getItem(key) === 'en' ? 'en' : 'cs'; } catch {}
   const dictionary = {
     ...(window.PulseArtistCopy || {}),
-    'Např. David nebo jazz': 'For example, David or jazz',
+    'Podmínky objednávky': 'Order terms',
+    'Fotografie a zdroje': 'Photo credits',
+    'Soukromí, místní úložiště a volitelné externí mapy Prague Pulse Fest.': 'Privacy, local storage and optional external maps for Prague Pulse Fest.',
+    'Platnost vstupenek, ceny, kempování a podmínky objednávky Prague Pulse Fest.': 'Ticket validity, prices, camping and order terms for Prague Pulse Fest.',
+    'Autoři, zdroje a licence fotografií Prague Pulse Fest.': 'Authors, sources and licences for Prague Pulse Fest photographs.',
+    'Soukromí a nastavení dat Prague Pulse Fest.': 'Privacy and data settings for Prague Pulse Fest.',
+    'Podmínky objednávky fiktivního Prague Pulse Fest.': 'Order terms for the fictional Prague Pulse Fest.',
+    'Fotografie a zdroje Prague Pulse Fest.': 'Photo credits and sources for Prague Pulse Fest.',
+    'Např. David nebo bassline': 'For example, David or bassline',
     'Např. David, VIP nebo doprava': 'For example, David, VIP or travel',
     'Napiš alespoň jeden znak. Zkus třeba „David“ nebo „VIP“.': 'Enter at least one character. Try “David” or “VIP”.',
     'Novinky': 'News',

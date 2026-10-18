@@ -1,16 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="festival" type="FestivalType">
     <!-- Vlastní omezení: referenční integrita mezi programem, dny, halami a interprety. -->
-    <xs:key name="dayKey"><xs:selector xpath="dny/den"/><xs:field xpath="@id"/></xs:key>
-    <xs:key name="venueKey"><xs:selector xpath="haly/hala"/><xs:field xpath="@id"/></xs:key>
-    <xs:key name="performerKey"><xs:selector xpath="interpreti/interpret"/><xs:field xpath="@id"/></xs:key>
-    <xs:key name="eventKey"><xs:selector xpath="sumakce/akce"/><xs:field xpath="@id"/></xs:key>
-    <xs:keyref name="eventDayRef" refer="dayKey"><xs:selector xpath="sumakce/akce"/><xs:field xpath="den_ref"/></xs:keyref>
-    <xs:keyref name="eventVenueRef" refer="venueKey"><xs:selector xpath="sumakce/akce"/><xs:field xpath="hala_ref"/></xs:keyref>
-    <xs:keyref name="eventPerformerRef" refer="performerKey"><xs:selector xpath="sumakce/akce/interpreti/interpret_ref"/><xs:field xpath="."/></xs:keyref>
+    <xs:key name="dayKey">
+      <xs:selector xpath="dny/den"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:key name="venueKey">
+      <xs:selector xpath="haly/hala"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:key name="performerKey">
+      <xs:selector xpath="interpreti/interpret"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:key name="eventKey">
+      <xs:selector xpath="sumakce/akce"/>
+      <xs:field xpath="@id"/>
+    </xs:key>
+    <xs:keyref name="eventDayRef" refer="dayKey">
+      <xs:selector xpath="sumakce/akce"/>
+      <xs:field xpath="den_ref"/>
+    </xs:keyref>
+    <xs:keyref name="eventVenueRef" refer="venueKey">
+      <xs:selector xpath="sumakce/akce"/>
+      <xs:field xpath="hala_ref"/>
+    </xs:keyref>
+    <xs:keyref name="eventPerformerRef" refer="performerKey">
+      <xs:selector xpath="sumakce/akce/interpreti/interpret_ref"/>
+      <xs:field xpath="."/>
+    </xs:keyref>
   </xs:element>
-
   <!-- Vlastní omezení: jazyk festivalu je omezen na cs nebo en -->
   <xs:simpleType name="FestivalLangType">
     <xs:restriction base="xs:string">
@@ -18,46 +38,115 @@
       <xs:enumeration value="en"/>
     </xs:restriction>
   </xs:simpleType>
-
   <!-- Vlastní omezení: PSČ ve formátu 123 45 -->
   <xs:simpleType name="PostalCodeType">
     <xs:restriction base="xs:string">
       <xs:pattern value="[0-9]{3} [0-9]{2}"/>
     </xs:restriction>
   </xs:simpleType>
-
   <!-- Vlastní omezení: ID haly musí začínat h, interpreta i, dne d, akce a -->
-  <xs:simpleType name="VenueIdType"><xs:restriction base="xs:ID"><xs:pattern value="h[0-9]+"/></xs:restriction></xs:simpleType>
-  <xs:simpleType name="PerformerIdType"><xs:restriction base="xs:ID"><xs:pattern value="i[0-9]+"/></xs:restriction></xs:simpleType>
-  <xs:simpleType name="DayIdType"><xs:restriction base="xs:ID"><xs:pattern value="d[0-9]+"/></xs:restriction></xs:simpleType>
-  <xs:simpleType name="EventIdType"><xs:restriction base="xs:ID"><xs:pattern value="a[0-9]+"/></xs:restriction></xs:simpleType>
-
+  <xs:simpleType name="VenueIdType">
+    <xs:restriction base="xs:ID">
+      <xs:pattern value="h[0-9]+"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PerformerIdType">
+    <xs:restriction base="xs:ID">
+      <xs:pattern value="i[0-9]+"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DayIdType">
+    <xs:restriction base="xs:ID">
+      <xs:pattern value="d[0-9]+"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EventIdType">
+    <xs:restriction base="xs:ID">
+      <xs:pattern value="a[0-9]+"/>
+    </xs:restriction>
+  </xs:simpleType>
   <!-- Vlastní omezení: kapacita haly musí být v rozumném rozsahu -->
-  <xs:simpleType name="CapacityType"><xs:restriction base="xs:positiveInteger"><xs:minInclusive value="500"/><xs:maxInclusive value="10000"/></xs:restriction></xs:simpleType>
-
+  <xs:simpleType name="CapacityType">
+    <xs:restriction base="xs:positiveInteger">
+      <xs:minInclusive value="500"/>
+      <xs:maxInclusive value="10000"/>
+    </xs:restriction>
+  </xs:simpleType>
   <!-- Vlastní omezení: typ interpreta je výčtový -->
-  <xs:simpleType name="PerformerTypeEnum"><xs:restriction base="xs:string"><xs:enumeration value="Solo"/><xs:enumeration value="Skupina"/></xs:restriction></xs:simpleType>
-
+  <xs:simpleType name="PerformerTypeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Solo"/>
+      <xs:enumeration value="Skupina"/>
+    </xs:restriction>
+  </xs:simpleType>
   <!-- Vlastní omezení: žánr je výčtový -->
-  <xs:simpleType name="GenreEnum"><xs:restriction base="xs:string"><xs:enumeration value="Rock"/><xs:enumeration value="Pop"/><xs:enumeration value="Jazz"/><xs:enumeration value="Elektronika"/><xs:enumeration value="Hip-Hop"/><xs:enumeration value="Folk"/></xs:restriction></xs:simpleType>
-
+  <xs:simpleType name="GenreEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Alternative R&amp;B"/>
+      <xs:enumeration value="Alternative hip-hop"/>
+      <xs:enumeration value="Alternative pop"/>
+      <xs:enumeration value="Alternative pop rock"/>
+      <xs:enumeration value="Alternative rock"/>
+      <xs:enumeration value="Alternative rock / nu metal"/>
+      <xs:enumeration value="Alternative rock / progressive rock"/>
+      <xs:enumeration value="Alternative rock / punk"/>
+      <xs:enumeration value="Bass house"/>
+      <xs:enumeration value="Bass house / UK garage"/>
+      <xs:enumeration value="Bassline / UK garage"/>
+      <xs:enumeration value="Bassline / bass house"/>
+      <xs:enumeration value="Big beat / breakbeat"/>
+      <xs:enumeration value="Big beat / techno"/>
+      <xs:enumeration value="Dance pop"/>
+      <xs:enumeration value="Dance pop / disco"/>
+      <xs:enumeration value="Dance pop / house"/>
+      <xs:enumeration value="Drum and bass / dancefloor"/>
+      <xs:enumeration value="Drum and bass / electronic rock"/>
+      <xs:enumeration value="Drum and bass / jump-up"/>
+      <xs:enumeration value="Drum and bass / jungle"/>
+      <xs:enumeration value="Dubstep / bass house"/>
+      <xs:enumeration value="Folk rock"/>
+      <xs:enumeration value="Gothic rock / post-punk"/>
+      <xs:enumeration value="Hard rock"/>
+      <xs:enumeration value="Hard techno"/>
+      <xs:enumeration value="Heavy metal"/>
+      <xs:enumeration value="Indie rock"/>
+      <xs:enumeration value="Industrial metal"/>
+      <xs:enumeration value="Liquid drum and bass"/>
+      <xs:enumeration value="Melodic rap"/>
+      <xs:enumeration value="Metalcore / alternative metal"/>
+      <xs:enumeration value="Pop rap / R&amp;B"/>
+      <xs:enumeration value="Pop rock"/>
+      <xs:enumeration value="Progressive house"/>
+      <xs:enumeration value="Punk rock"/>
+      <xs:enumeration value="R&amp;B / dance pop"/>
+      <xs:enumeration value="R&amp;B / synthpop"/>
+      <xs:enumeration value="Synthpop"/>
+      <xs:enumeration value="Trap"/>
+      <xs:enumeration value="Trap / gangsta rap"/>
+      <xs:enumeration value="Trap / rap"/>
+      <xs:enumeration value="UK bassline"/>
+      <xs:enumeration value="UK garage"/>
+      <xs:enumeration value="UK garage / speed garage"/>
+    </xs:restriction>
+  </xs:simpleType>
   <xs:complexType name="FestivalType">
     <xs:sequence>
       <xs:element name="nazev" type="xs:string"/>
       <xs:element name="mistokonani" type="LocationType"/>
       <xs:element name="popis_festivalu" type="xs:string"/>
+      <xs:element name="sazba_dph" type="VatRateType"/>
       <xs:element name="dny" type="DaysType"/>
       <xs:element name="haly" type="VenuesType"/>
       <xs:element name="interpreti" type="PerformersType"/>
       <xs:element name="sumakce" type="EventsType"/>
       <xs:element name="kontakt" type="ContactType"/>
       <xs:element name="vstupenky" type="TicketsType"/>
+      <xs:element name="kempovani" type="CampingType"/>
       <xs:element name="odkazy" type="LinksType"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
     <xs:attribute name="lang" type="FestivalLangType" use="required"/>
   </xs:complexType>
-
   <xs:complexType name="LocationType">
     <xs:sequence>
       <xs:element name="ulice" type="xs:string"/>
@@ -65,7 +154,6 @@
       <xs:element name="psc" type="PostalCodeType"/>
     </xs:sequence>
   </xs:complexType>
-
   <xs:complexType name="DayType">
     <xs:sequence>
       <xs:element name="nazev" type="xs:string"/>
@@ -77,8 +165,11 @@
     </xs:sequence>
     <xs:attribute name="id" type="DayIdType" use="required"/>
   </xs:complexType>
-  <xs:complexType name="DaysType"><xs:sequence><xs:element name="den" type="DayType" minOccurs="3" maxOccurs="unbounded"/></xs:sequence></xs:complexType>
-
+  <xs:complexType name="DaysType">
+    <xs:sequence>
+      <xs:element name="den" type="DayType" minOccurs="3" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
   <xs:complexType name="VenueType">
     <xs:sequence>
       <xs:element name="nazev" type="xs:string"/>
@@ -88,20 +179,31 @@
     </xs:sequence>
     <xs:attribute name="id" type="VenueIdType" use="required"/>
   </xs:complexType>
-  <xs:complexType name="VenuesType"><xs:sequence><xs:element name="hala" type="VenueType" minOccurs="2" maxOccurs="unbounded"/></xs:sequence></xs:complexType>
-
+  <xs:complexType name="VenuesType">
+    <xs:sequence>
+      <xs:element name="hala" type="VenueType" minOccurs="2" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
   <xs:complexType name="PerformerType">
     <xs:sequence>
       <xs:element name="nazev" type="xs:string"/>
       <xs:element name="typ_interpreta" type="PerformerTypeEnum"/>
       <xs:element name="zanr" type="GenreEnum"/>
       <xs:element name="popis" type="xs:string"/>
+      <xs:element name="odkazy" type="ArtistLinksType" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="id" type="PerformerIdType" use="required"/>
   </xs:complexType>
-  <xs:complexType name="PerformersType"><xs:sequence><xs:element name="interpret" type="PerformerType" minOccurs="60" maxOccurs="unbounded"/></xs:sequence></xs:complexType>
-
-  <xs:complexType name="InterpretRefsType"><xs:sequence><xs:element name="interpret_ref" type="xs:IDREF" minOccurs="1" maxOccurs="3"/></xs:sequence></xs:complexType>
+  <xs:complexType name="PerformersType">
+    <xs:sequence>
+      <xs:element name="interpret" type="PerformerType" minOccurs="60" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InterpretRefsType">
+    <xs:sequence>
+      <xs:element name="interpret_ref" type="xs:IDREF" minOccurs="1" maxOccurs="3"/>
+    </xs:sequence>
+  </xs:complexType>
   <xs:complexType name="EventType">
     <xs:sequence>
       <xs:element name="nazev" type="xs:string"/>
@@ -116,11 +218,99 @@
     </xs:sequence>
     <xs:attribute name="id" type="EventIdType" use="required"/>
   </xs:complexType>
-  <xs:complexType name="EventsType"><xs:sequence><xs:element name="akce" type="EventType" minOccurs="60" maxOccurs="unbounded"/></xs:sequence></xs:complexType>
-
-  <xs:complexType name="ContactType"><xs:sequence><xs:element name="email" type="xs:string"/><xs:element name="telefon" type="xs:string"/></xs:sequence></xs:complexType>
-  <xs:complexType name="TicketType"><xs:sequence><xs:element name="nazev" type="xs:string"/><xs:element name="cena" type="xs:positiveInteger"/><xs:element name="mena" type="xs:string"/><xs:element name="popis" type="xs:string"/></xs:sequence><xs:attribute name="id" type="xs:ID" use="required"/></xs:complexType>
-  <xs:complexType name="TicketsType"><xs:sequence><xs:element name="vstupenka" type="TicketType" minOccurs="1" maxOccurs="unbounded"/></xs:sequence></xs:complexType>
-  <xs:complexType name="LinkType"><xs:sequence><xs:element name="nazev" type="xs:string"/><xs:element name="url" type="xs:anyURI"/></xs:sequence><xs:attribute name="id" type="xs:ID" use="required"/></xs:complexType>
-  <xs:complexType name="LinksType"><xs:sequence><xs:element name="odkaz" type="LinkType" minOccurs="1" maxOccurs="unbounded"/></xs:sequence></xs:complexType>
+  <xs:complexType name="EventsType">
+    <xs:sequence>
+      <xs:element name="akce" type="EventType" minOccurs="60" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ContactType">
+    <xs:sequence>
+      <xs:element name="email" type="xs:string"/>
+      <xs:element name="telefon" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TicketType">
+    <xs:sequence>
+      <xs:element name="nazev" type="xs:string"/>
+      <xs:element name="cena" type="xs:positiveInteger"/>
+      <xs:element name="mena" type="xs:string"/>
+      <xs:element name="popis" type="xs:string"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="TicketsType">
+    <xs:sequence>
+      <xs:element name="vstupenka" type="TicketType" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LinkType">
+    <xs:sequence>
+      <xs:element name="nazev" type="xs:string"/>
+      <xs:element name="url" type="xs:anyURI"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="LinksType">
+    <xs:sequence>
+      <xs:element name="odkaz" type="LinkType" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="VatRateType">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="100"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="CampingType">
+    <xs:sequence>
+      <xs:element name="cena_osoby" type="xs:nonNegativeInteger"/>
+      <xs:element name="sazba_dph" type="VatRateType"/>
+      <xs:element name="datum_od" type="xs:date"/>
+      <xs:element name="datum_do" type="xs:date"/>
+      <xs:element name="typy">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="typ" type="CampingPitchType" minOccurs="1" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CampingPitchType">
+    <xs:sequence>
+      <xs:element name="nazev" type="xs:string"/>
+      <xs:element name="cena" type="xs:nonNegativeInteger"/>
+      <xs:element name="max_osob" type="xs:positiveInteger"/>
+      <xs:element name="kapacita" type="xs:positiveInteger"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="ArtistLinksType">
+    <xs:sequence>
+      <xs:element name="odkaz" type="ArtistLinkType" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArtistLinkType">
+    <xs:sequence>
+      <xs:element name="nazev" type="xs:string"/>
+      <xs:element name="url" type="xs:anyURI"/>
+      <xs:element name="zdroj" type="xs:anyURI"/>
+    </xs:sequence>
+    <xs:attribute name="platforma" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="spotify"/>
+          <xs:enumeration value="youtube"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="druh" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="profile"/>
+          <xs:enumeration value="search"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
 </xs:schema>

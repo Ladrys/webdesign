@@ -15,7 +15,7 @@ Web obsahuje všechny hlavní obsahové části, takže hodnocení nemusí stát
 
 ## 3. Tři úkoly pro hodnotící tým.
 
-Hodnotitelům doporučujeme nejprve plánování programu. Důkazem není kliknutí na tlačítko, ale správně omezený seznam a zachování oblíbeného po obnovení. Druhý úkol sleduje cestu od části názvu interpreta k času jeho koncertu. Třetí úkol kontroluje porozumění tarifům, košík a výstup PDF. Použijte smyšlené údaje, protože nejde o skutečný nákup. U každého úkolu zaznamenejte, kde vznikla nejistota, co se očekávalo a co rozhraní udělalo ve skutečnosti.
+Revieweři nejprve projdou plánování programu a hledání interpreta. Ve třetím scénáři zvolí první a třetí srpen a sami vyberou VIP sedadlo. V košíku přidají stan pro dvě osoby a promo PULSE10. Zkontrolují, že sleva snížila pouze vstupenky, ne kemp, a že DPH už je v ceně. PDF musí zachovat obě nesousedící data a obsahovat campingový voucher. Po nákupu se stejné sedadlo nesmí blokovat ve druhém dni jen kvůli tomuto nákupu. Použijí smyšlené kontakty a zkušební platbu.
 
 ## 4. Co už kontrolujeme sami?
 
@@ -23,8 +23,8 @@ Vlastní kontroly mají reviewerům ušetřit čas na základních chybách. Dat
 
 ## 5. Známé hranice jsou součást předání.
 
-Je důležité nehodnotit klientský školní projekt jako produkční ticketing. Účty a obsazenost se nešíří mezi zařízeními, PDF se stahuje místně a e-mail se automaticky neposílá. Mapa je doplněk závislý na připojení. Známé jsou také limity ověření: nemáme plný audit se čtečkou, všechna fyzická zařízení ani doložený výzkum s návštěvníky. Tyto informace neomlouvají chyby v základních scénářích, ale dávají reviewerům správný kontext a brání zavádějícím závěrům. Skuteční interpreti jsou návrh bez potvrzené účasti. Noisia nevystupuje živě. Aktuálně používáme 41 skutečných fotografií umělců s autorstvím a licencemi, 19 typografických náhrad a historickou fotografii areálu z roku 2018. Datum snímku je viditelné, takže jej nezaměňujeme za současný stav nebo instalaci pro rok 2027.
+Klientské účty a dostupnost zůstávají jen ve stejném prohlížeči, e-mail se automaticky neodesílá. Nový offline plánek funguje bez Googlu, externí mapa až po souhlasu. Skutečné fotografie mají ověřený zdroj a licenci; Hedex a AC Slater jsou CC BY-NC-SA a nejsou určeny pro automatický přenos do komerčního projektu. Historický úvodní snímek není dokladem stavu roku 2027. Nové fotografie rekonstrukce, dopravy a náramku mají přesná data a vysvětlení. Automatické kontroly nenahrazují plný audit WCAG nebo testy s návštěvníky.
 
 ## 6. Nález musí jít zopakovat.
 
-Prosíme o nálezy s přesnými kroky, důkazem a vysvětlením dopadu. Závažnost odvozujte od toho, zda problém blokuje cíl, způsobuje opakované chyby nebo jde o drobnost. Použít lze Nielsenovy heuristiky a kognitivní průchod; vlastní vizuální preference samy o sobě nejsou závada. AI může pomoci strukturovat záznam, ale každý problém musí člověk reprodukovat. Po přijetí review zapíšeme rozhodnutí a provedenou změnu do dokumentace. Zatím žádné skutečné review od druhého týmu poskytnuto nebylo.
+Prosíme o nálezy s přesnými kroky, důkazem a vysvětlením dopadu. Závažnost odvozujte od toho, zda problém blokuje cíl, způsobuje opakované chyby nebo jde o drobnost. Použít lze Nielsenovy heuristiky a kognitivní průchod; vlastní vizuální preference samy o sobě nejsou závada. AI může pomoci strukturovat záznam, ale každý problém musí člověk reprodukovat. Po přijetí review zapíšeme rozhodnutí a provedenou změnu do dokumentace. Zatím žádné skutečné review od druhého týmu poskytnuto nebylo. Poslední změny pocházejí z audiozpětné vazby zadavatele, což není cross-review od přiděleného jiného týmu.

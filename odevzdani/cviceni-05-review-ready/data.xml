@@ -7,6 +7,7 @@
     <psc>170 00</psc>
   </mistokonani>
   <popis_festivalu>Prague Pulse Fest je fiktivní třídenní festival na pražském Výstavišti. Line-up je autorský návrh se skutečnými interprety, nikoli oznámení jejich potvrzené účasti.</popis_festivalu>
+  <sazba_dph>12</sazba_dph>
   <dny>
     <den id="d1">
       <nazev>Den 1</nazev>
@@ -36,1105 +37,1885 @@
   <haly>
     <hala id="h1">
       <nazev>Main Hall</nazev>
-      <lokace>Areál – Hala A</lokace>
+      <lokace>Hlavní pavilon festivalového areálu</lokace>
       <velikost>5000</velikost>
-      <popis>Hlavní scéna v návrhu areálu Výstaviště pro velké koncerty a večerní program.</popis>
+      <popis>Světová jména popu, rocku a taneční hudby v hlavním pavilonu návrhu festivalového areálu. Zde hrají hlavní hvězdy večerního programu.</popis>
     </hala>
     <hala id="h2">
       <nazev>River Stage</nazev>
-      <lokace>Areál – Open Air</lokace>
+      <lokace>Venkovní scéna u Vltavy</lokace>
       <velikost>3000</velikost>
-      <popis>Venkovní scéna v návrhu areálu Výstaviště pro kytarové koncerty, pop a odpolední program.</popis>
+      <popis>Venkovní scéna u Vltavy v navrženém širším festivalovém areálu. Program patří českému rapu, pop rocku a domácím kapelám.</popis>
     </hala>
     <hala id="h3">
       <nazev>Club Stage</nazev>
-      <lokace>Areál – Hala B</lokace>
+      <lokace>Klubový pavilon festivalového areálu</lokace>
       <velikost>1500</velikost>
-      <popis>Klubová scéna v návrhu areálu Výstaviště pro elektronickou hudbu, bassline a drum and bass.</popis>
+      <popis>Klubová scéna pro drum and bass, UK garage, bassline a hard techno. Program propojuje britskou basovou scénu s taneční elektronikou.</popis>
     </hala>
   </haly>
   <interpreti>
     <interpret id="i1">
       <nazev>David Guetta</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Elektronika</zanr>
-      <popis>Francouzský DJ a producent, který propojuje taneční elektroniku s popovými vokály. Jeho tvorba sahá od klubového housu po velké rádiové spolupráce.</popis>
+      <zanr>Dance pop / house</zanr>
+      <popis>Francouzský DJ a producent, který propojuje taneční elektroniku s popovými vokály. Jeho tvorba sahá od klubového housu po velké rádiové spolupráce. Je spojený s Paříží a francouzskou houseovou scénou.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="profile">
+          <nazev>Spotify</nazev>
+          <url>https://open.spotify.com/artist/1Cs0zKBU1kc0i8ypK3B9ai</url>
+          <zdroj>https://www.wikidata.org/wiki/Q8298</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="profile">
+          <nazev>YouTube</nazev>
+          <url>https://www.youtube.com/channel/UC1l7wYrva1qCH-wgqcHaaRg</url>
+          <zdroj>https://www.wikidata.org/wiki/Q8298</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i2">
       <nazev>Katy Perry</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Pop</zanr>
-      <popis>Americká zpěvačka a autorka popových hitů. Její hudbu charakterizují výrazné refrény, taneční produkce a barevná vizuální estetika.</popis>
+      <zanr>Dance pop</zanr>
+      <popis>Americká zpěvačka a autorka popových hitů. Její hudbu charakterizují výrazné refrény, taneční produkce a barevná vizuální estetika. Pochází z kalifornské Santa Barbary; k jejím známým albům patří Teenage Dream.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="profile">
+          <nazev>Spotify</nazev>
+          <url>https://open.spotify.com/artist/6jJ0s89eD6GaHleKKya26X</url>
+          <zdroj>https://www.wikidata.org/wiki/Q42493</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="profile">
+          <nazev>YouTube</nazev>
+          <url>https://www.youtube.com/channel/UCYvmuw-JtVrTZQ-7Y4kd63Q</url>
+          <zdroj>https://www.wikidata.org/wiki/Q42493</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i3">
       <nazev>Skrillex</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Elektronika</zanr>
-      <popis>Americký producent a DJ Sonny Moore. V jeho tvorbě se potkávají dubstep, bass music, house i spolupráce napříč současnou populární hudbou.</popis>
+      <zanr>Dubstep / bass house</zanr>
+      <popis>Americký producent a DJ Sonny Moore. V jeho tvorbě se potkávají dubstep, bass music, house i spolupráce napříč současnou populární hudbou. Vyrůstal v Los Angeles a před sólovou elektronickou tvorbou působil v kapele From First to Last.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="profile">
+          <nazev>Spotify</nazev>
+          <url>https://open.spotify.com/artist/5he5w2lnU9x7JFhnwcekXX</url>
+          <zdroj>https://www.wikidata.org/wiki/Q19004</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="profile">
+          <nazev>YouTube</nazev>
+          <url>https://www.youtube.com/channel/UC_TVqp_SyG6j5hG-xVRy95A</url>
+          <zdroj>https://www.wikidata.org/wiki/Q19004</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i4">
       <nazev>Tiësto</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Elektronika</zanr>
-      <popis>Nizozemský DJ a producent s kořeny v trance. Postupně rozšířil svůj zvuk o house a další podoby taneční elektroniky.</popis>
+      <zanr>Progressive house</zanr>
+      <popis>Nizozemský DJ a producent s kořeny v trance. Postupně rozšířil svůj zvuk o house a další podoby taneční elektroniky. Pochází z nizozemské Bredy.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="profile">
+          <nazev>Spotify</nazev>
+          <url>https://open.spotify.com/artist/2o5jDhtHVPhrJdv3cEQ99Z</url>
+          <zdroj>https://www.wikidata.org/wiki/Q183508</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="profile">
+          <nazev>YouTube</nazev>
+          <url>https://www.youtube.com/channel/UCO59y9XJIJZS5i86lUOvMGA</url>
+          <zdroj>https://www.wikidata.org/wiki/Q183508</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i5">
       <nazev>Chase &amp; Status</nazev>
       <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Elektronika</zanr>
-      <popis>Britské producentské duo působící na pomezí drum and bassu, dubstepu a elektroniky. Jeho nahrávky často propojují výrazné basy s hostujícími vokalisty.</popis>
+      <zanr>Drum and bass / jungle</zanr>
+      <popis>Britské producentské duo působící na pomezí drum and bassu, dubstepu a elektroniky. Jeho nahrávky často propojují výrazné basy s hostujícími vokalisty. Duo vzniklo v Londýně.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="profile">
+          <nazev>Spotify</nazev>
+          <url>https://open.spotify.com/artist/3jNkaOXasoc7RsxdchvEVq</url>
+          <zdroj>https://www.wikidata.org/wiki/Q1067983</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="profile">
+          <nazev>YouTube</nazev>
+          <url>https://www.youtube.com/channel/UCSnULYPo-BA8zo5IcG4doIQ</url>
+          <zdroj>https://www.wikidata.org/wiki/Q1067983</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i6">
       <nazev>Sub Focus</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Elektronika</zanr>
-      <popis>Britský producent Nick Douwma, výrazná postava melodického drum and bassu. V jeho tvorbě se objevují také house, dubstep a synthpopové vlivy.</popis>
+      <zanr>Drum and bass / dancefloor</zanr>
+      <popis>Britský producent Nick Douwma, výrazná postava melodického drum and bassu. V jeho tvorbě se objevují také house, dubstep a synthpopové vlivy. Pochází z Londýna.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="profile">
+          <nazev>Spotify</nazev>
+          <url>https://open.spotify.com/artist/0QaSiI5TLA4N7mcsdxShDO</url>
+          <zdroj>https://www.wikidata.org/wiki/Q1848854</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="profile">
+          <nazev>YouTube</nazev>
+          <url>https://www.youtube.com/channel/UCWkMMrVPVVNxuJFHv4ApiDg</url>
+          <zdroj>https://www.wikidata.org/wiki/Q1848854</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i7">
       <nazev>Wilkinson</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Elektronika</zanr>
-      <popis>Britský DJ a producent Mark Wilkinson. Jeho drum and bass spojuje energické rytmy s melodickými motivy a zpívanými refrény.</popis>
+      <zanr>Drum and bass / dancefloor</zanr>
+      <popis>Britský DJ a producent Mark Wilkinson. Jeho drum and bass spojuje energické rytmy s melodickými motivy a zpívanými refrény. Pochází z jihozápadního Londýna.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="profile">
+          <nazev>Spotify</nazev>
+          <url>https://open.spotify.com/artist/6m8itYST9ADjBIYevXSb1r</url>
+          <zdroj>https://www.wikidata.org/wiki/Q15139979</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="profile">
+          <nazev>YouTube</nazev>
+          <url>https://www.youtube.com/channel/UCtaTjkogAC3Xh5J-ZPdX0BQ</url>
+          <zdroj>https://www.wikidata.org/wiki/Q15139979</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i8">
       <nazev>DARKZY</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Elektronika</zanr>
-      <popis>Britský DJ a producent spojený s UK bass a bassline scénou. Jeho zvuk stojí na hutných basových linkách a rytmice britských klubů.</popis>
+      <zanr>UK bassline</zanr>
+      <popis>Britský DJ a producent spojený s UK bass a bassline scénou. Jeho zvuk stojí na hutných basových linkách a rytmice britských klubů. Je spojený s klubovou scénou v Nottinghamu.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/DARKZY</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=DARKZY</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i9">
       <nazev>TS7</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Elektronika</zanr>
-      <popis>Britský producent a DJ Thomas Sampson. Ve své tvorbě se věnuje bassline, UK garage a dalším basově orientovaným klubovým stylům.</popis>
+      <zanr>Bassline / UK garage</zanr>
+      <popis>Britský producent a DJ Thomas Sampson. Ve své tvorbě se věnuje bassline, UK garage a dalším basově orientovaným klubovým stylům. Pochází z Bradfordu na severu Anglie.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/TS7</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=TS7</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i10">
       <nazev>Sammy Virji</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Elektronika</zanr>
-      <popis>Britský DJ a producent, který propojuje UK garage s basovou klubovou hudbou. Jeho skladby pracují s pružnou rytmikou a výraznými vokálními samply.</popis>
+      <zanr>UK garage / speed garage</zanr>
+      <popis>Britský DJ a producent, který propojuje UK garage s basovou klubovou hudbou. Jeho skladby pracují s pružnou rytmikou a výraznými vokálními samply. Vyrůstal v Oxfordshiru v Anglii.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="profile">
+          <nazev>Spotify</nazev>
+          <url>https://open.spotify.com/artist/1GuqTQbuixFHD6eBkFwVcb</url>
+          <zdroj>https://www.wikidata.org/wiki/Q127511530</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Sammy%20Virji</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i11">
       <nazev>Macky Gee</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Elektronika</zanr>
-      <popis>Britský producent a DJ zaměřený na drum and bass a jump-up. Jeho jméno je spojené také s kolektivem SASASAS.</popis>
+      <zanr>Drum and bass / jump-up</zanr>
+      <popis>Britský producent a DJ zaměřený na drum and bass a jump-up. Jeho jméno je spojené také s kolektivem SASASAS. Pochází z anglického Kentu.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Macky%20Gee</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Macky%20Gee</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i12">
       <nazev>Andy C</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Elektronika</zanr>
+      <zanr>Drum and bass / jungle</zanr>
       <popis>Britský drum and bassový DJ a producent. Patří k zakladatelům labelu RAM Records a je známý technicky propracovaným mixováním.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="profile">
+          <nazev>Spotify</nazev>
+          <url>https://open.spotify.com/artist/75HK7rgkmDMTnWwwmcN53N</url>
+          <zdroj>https://www.wikidata.org/wiki/Q387288</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="profile">
+          <nazev>YouTube</nazev>
+          <url>https://www.youtube.com/channel/UCa4HoeRdmCZ1JYy_jqLxFRw</url>
+          <zdroj>https://www.wikidata.org/wiki/Q387288</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i13">
       <nazev>Hybrid Minds</nazev>
       <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Elektronika</zanr>
+      <zanr>Liquid drum and bass</zanr>
       <popis>Britské producentské duo Matt Lowe a Josh White. Jejich liquid drum and bass staví na atmosférických plochách, melodiích a vokálech.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Hybrid%20Minds</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Hybrid%20Minds</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i14">
       <nazev>Dimension</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Elektronika</zanr>
+      <zanr>Drum and bass / dancefloor</zanr>
       <popis>Britský producent a DJ Robert Etheridge. Jeho drum and bass kombinuje klubový tah s výraznými syntezátorovými melodiemi.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Dimension</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Dimension</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i15">
       <nazev>Hedex</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Elektronika</zanr>
-      <popis>Britský drum and bassový producent a DJ. Vychází zejména z jump-upu, výrazných basových zvuků a rychlých klubových rytmů.</popis>
+      <zanr>Drum and bass / jump-up</zanr>
+      <popis>Britský drum and bassový producent a DJ. Vychází zejména z jump-upu, výrazných basových zvuků a rychlých klubových rytmů. Pochází z anglického Cambridge.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Hedex</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Hedex</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i16">
       <nazev>Bou</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Elektronika</zanr>
+      <zanr>Drum and bass / jump-up</zanr>
       <popis>Britský drum and bassový producent a DJ působící v Manchesteru. Jeho tvorba propojuje jump-up s dalšími proudy současné basové hudby.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Bou</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="profile">
+          <nazev>YouTube</nazev>
+          <url>https://www.youtube.com/channel/UC7ELSbVJY53NPpGQ9zzg_6A</url>
+          <zdroj>https://www.wikidata.org/wiki/Q123038448</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i17">
       <nazev>Kanine</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Elektronika</zanr>
+      <zanr>Drum and bass / dancefloor</zanr>
       <popis>Britský producent a DJ, jehož tvorba propojuje drum and bassové subžánry. Střídá melodické motivy s výraznými basovými dropy.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Kanine</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Kanine</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i18">
       <nazev>Friction</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Elektronika</zanr>
-      <popis>Britský DJ a producent Ed Keeley. Vedle drum and bassových setů je spojený také s vydavatelstvím Shogun Audio.</popis>
+      <zanr>Drum and bass / jungle</zanr>
+      <popis>Britský DJ a producent Ed Keeley. Vedle drum and bassových setů je spojený také s vydavatelstvím Shogun Audio. Pochází z Brightonu na jihu Anglie.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Friction</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Friction</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i19">
       <nazev>JOYRYDE</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Elektronika</zanr>
+      <zanr>Bass house</zanr>
       <popis>Britský producent a DJ John Ford. Jeho elektronická tvorba propojuje bass house s vlivy hip-hopu a dalších klubových žánrů.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/JOYRYDE</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=JOYRYDE</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i20">
       <nazev>AC Slater</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Elektronika</zanr>
-      <popis>Americký DJ a producent Aaron Clevenger. Zakladatel značky Night Bass propojuje house s britskými basovými a garage vlivy.</popis>
+      <zanr>Bass house / UK garage</zanr>
+      <popis>Americký DJ a producent Aaron Clevenger. Zakladatel značky Night Bass propojuje house s britskými basovými a garage vlivy. Pochází z USA a jeho značka je spojená s losangeleskou klubovou scénou.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/AC%20Slater</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=AC%20Slater</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i21">
       <nazev>Conducta</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Elektronika</zanr>
-      <popis>Britský DJ a producent spojený se současnou UK garage scénou. Stojí také za vydavatelstvím Kiwi Rekords.</popis>
+      <zanr>UK garage</zanr>
+      <popis>Britský DJ a producent spojený se současnou UK garage scénou. Stojí také za vydavatelstvím Kiwi Rekords. Pochází z anglického Bristolu.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Conducta</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Conducta</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i22">
-      <nazev>Noisia</nazev>
-      <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Elektronika</zanr>
-      <popis>Nizozemské producentské trio výrazně ovlivnilo neurofunk a bass music. Projekt ukončilo v roce 2022; v tomto návrhu je zastoupené archivním poslechovým blokem, nikoli oznámeným návratem.</popis>
+      <nazev>Skepsis</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Bassline / bass house</zanr>
+      <popis>Britský DJ a producent Scott Jenkins z Londýna. Jeho bassline a bass house propojují hutné basové linky s rytmikou UK garage; patří k britské scéně kolem značky Crucast.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Skepsis</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Skepsis</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i23">
       <nazev>Calin</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Hip-Hop</zanr>
-      <popis>Český rapper a zpěvák s moldavskými kořeny. Jeho tvorba propojuje rap, pop a R&amp;B s melodickými refrény.</popis>
+      <zanr>Pop rap / R&amp;B</zanr>
+      <popis>Český rapper a zpěvák s moldavskými kořeny. Jeho tvorba propojuje rap, pop a R&amp;B s melodickými refrény. Je spojený s Brnem a vydavatelstvím Rychlí kluci.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Calin</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Calin</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i24">
       <nazev>STEIN27</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Hip-Hop</zanr>
-      <popis>Český zpěvák a rapper David Stencl. V jeho skladbách se prolínají rap, R&amp;B, pop a osobně laděné texty.</popis>
+      <zanr>Alternative R&amp;B</zanr>
+      <popis>Český zpěvák a rapper David Stencel. V jeho skladbách se prolínají rap, R&amp;B, pop a osobně laděné texty. Pochází z Brna a je spojený s vydavatelstvím Rychlí kluci.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/STEIN27</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=STEIN27</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i25">
       <nazev>Viktor Sheen</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Hip-Hop</zanr>
-      <popis>Český rapper narozený v Kazachstánu. Jeho tvorba spojuje melodický rap, introspektivní texty a současnou hip-hopovou produkci.</popis>
+      <zanr>Melodic rap</zanr>
+      <popis>Český rapper narozený v Kazachstánu. Jeho tvorba spojuje melodický rap, introspektivní texty a současnou hip-hopovou produkci. Vyrůstal v Kladně.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Viktor%20Sheen</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Viktor%20Sheen</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i26">
       <nazev>Yzomandias</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Hip-Hop</zanr>
+      <zanr>Trap</zanr>
       <popis>Český rapper a člen hudebního uskupení Milion+. Jeho tvorba je spojená s trapem a současným českým rapem.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Yzomandias</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Yzomandias</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i27">
       <nazev>Nik Tendo</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Hip-Hop</zanr>
+      <zanr>Trap</zanr>
       <popis>Český rapper z Pardubic a člen uskupení Milion+. V jeho tvorbě se potkává trapová produkce s melodickým rapem.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Nik%20Tendo</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Nik%20Tendo</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i28">
       <nazev>Ben Cristovao</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Pop</zanr>
+      <zanr>R&amp;B / dance pop</zanr>
       <popis>Český zpěvák a autor s angolskými kořeny. Jeho hudba propojuje pop, R&amp;B a taneční rytmy.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Ben%20Cristovao</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Ben%20Cristovao</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i29">
       <nazev>Ewa Farna</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Pop</zanr>
-      <popis>Česko-polská zpěvačka s repertoárem v češtině i polštině. Její hudba vychází z popu a rocku.</popis>
+      <zanr>Pop rock</zanr>
+      <popis>Česko-polská zpěvačka s repertoárem v češtině i polštině. Její hudba vychází z popu a rocku. Pochází z české části Těšínska.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Ewa%20Farna</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Ewa%20Farna</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i30">
       <nazev>Mirai</nazev>
       <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Pop</zanr>
+      <zanr>Pop rock</zanr>
       <popis>Česká popová kapela z Frýdku-Místku. Její tvorba stojí na zpěvných refrénech, kytarách a současné popové produkci.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Mirai</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Mirai</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i31">
       <nazev>Kryštof</nazev>
       <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Pop</zanr>
+      <zanr>Pop rock</zanr>
       <popis>Česká kapela vedená zpěvákem Richardem Krajčem. Propojuje pop a rock s důrazem na melodii a české texty.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Kry%C5%A1tof</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Kry%C5%A1tof</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i32">
       <nazev>Chinaski</nazev>
       <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Rock</zanr>
+      <zanr>Pop rock</zanr>
       <popis>Česká poprocková kapela se zpěvákem Michalem Malátným. Její repertoár tvoří melodické písně s českými texty.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Chinaski</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Chinaski</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i33">
       <nazev>Kabát</nazev>
       <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Rock</zanr>
+      <zanr>Hard rock</zanr>
       <popis>Česká rocková kapela z Teplic se zpěvákem Josefem Vojtkem. Její zvuk stojí na kytarových riffech a výrazných refrénech.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Kab%C3%A1t</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Kab%C3%A1t</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i34">
       <nazev>Iron Maiden</nazev>
       <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Rock</zanr>
-      <popis>Britská heavymetalová kapela založená baskytaristou Stevem Harrisem. Její tvorbu charakterizují vícehlasé kytary a rozsáhlé příběhové skladby.</popis>
+      <zanr>Heavy metal</zanr>
+      <popis>Britská heavymetalová kapela založená baskytaristou Stevem Harrisem. Její tvorbu charakterizují vícehlasé kytary a rozsáhlé příběhové skladby. Kapela vznikla v Londýně.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Iron%20Maiden</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Iron%20Maiden</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i35">
       <nazev>The Cure</nazev>
       <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Rock</zanr>
-      <popis>Britská kapela vedená Robertem Smithem. Její tvorba sahá od post-punku a temného rocku po melodické popové písně.</popis>
+      <zanr>Gothic rock / post-punk</zanr>
+      <popis>Britská kapela vedená Robertem Smithem. Její tvorba sahá od post-punku a temného rocku po melodické popové písně. Kapela vznikla v Crawley v Anglii.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="profile">
+          <nazev>Spotify</nazev>
+          <url>https://open.spotify.com/artist/7bu3H8JO7d0UbMoVzbo70s</url>
+          <zdroj>https://www.wikidata.org/wiki/Q484427</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="profile">
+          <nazev>YouTube</nazev>
+          <url>https://www.youtube.com/channel/UCL_zMdXdM51oSi5XpxTvRtQ</url>
+          <zdroj>https://www.wikidata.org/wiki/Q484427</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i36">
       <nazev>Depeche Mode</nazev>
       <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Elektronika</zanr>
-      <popis>Britská kapela, která propojuje elektronickou hudbu, synthpop a rock. K jejím výrazným tvůrčím osobnostem patří Dave Gahan a Martin Gore.</popis>
+      <zanr>Synthpop</zanr>
+      <popis>Britská kapela, která propojuje elektronickou hudbu, synthpop a rock. K jejím výrazným tvůrčím osobnostem patří Dave Gahan a Martin Gore. Kapela vznikla v anglickém Basildonu.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="profile">
+          <nazev>Spotify</nazev>
+          <url>https://open.spotify.com/artist/762310PdDnwsDxAQxzQkfX</url>
+          <zdroj>https://www.wikidata.org/wiki/Q482964</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="profile">
+          <nazev>YouTube</nazev>
+          <url>https://www.youtube.com/channel/UCM-CWGUijAC-8idv6k6Fygw</url>
+          <zdroj>https://www.wikidata.org/wiki/Q482964</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i37">
       <nazev>The Offspring</nazev>
       <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Rock</zanr>
-      <popis>Americká punkrocková kapela z Kalifornie. Její tvorba spojuje rychlé kytary, melodické refrény a punkovou energii.</popis>
+      <zanr>Punk rock</zanr>
+      <popis>Americká punkrocková kapela z Kalifornie. Její tvorba spojuje rychlé kytary, melodické refrény a punkovou energii. Kapela vznikla v kalifornském Garden Grove.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="profile">
+          <nazev>Spotify</nazev>
+          <url>https://open.spotify.com/artist/5LfGQac0EIXyAN8aUwmNAQ</url>
+          <zdroj>https://www.wikidata.org/wiki/Q157041</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="profile">
+          <nazev>YouTube</nazev>
+          <url>https://www.youtube.com/channel/UCP3EX5VKeaG4Oa2qTKPuEFA</url>
+          <zdroj>https://www.wikidata.org/wiki/Q157041</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i38">
       <nazev>Green Day</nazev>
       <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Rock</zanr>
-      <popis>Americká punkrocková kapela v čele s Billiem Joem Armstrongem. Její tvorba propojuje punkové kořeny s popovými melodiemi a rockovými příběhy.</popis>
+      <zanr>Punk rock</zanr>
+      <popis>Americká punkrocková kapela v čele s Billiem Joem Armstrongem. Její tvorba propojuje punkové kořeny s popovými melodiemi a rockovými příběhy. Kapela vznikla v kalifornském East Bay.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="profile">
+          <nazev>Spotify</nazev>
+          <url>https://open.spotify.com/artist/7oPftvlwr6VrsViSDV7fJY</url>
+          <zdroj>https://www.wikidata.org/wiki/Q47871</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="profile">
+          <nazev>YouTube</nazev>
+          <url>https://www.youtube.com/channel/UCqC_GY2ZiENFz2pwL0cSfAw</url>
+          <zdroj>https://www.wikidata.org/wiki/Q47871</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i39">
       <nazev>Linkin Park</nazev>
       <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Rock</zanr>
-      <popis>Americká kapela propojující alternativní rock, elektroniku a rap. V jejím repertoáru se potkávají tvrdé kytary s melodickými i rapovanými vokály.</popis>
+      <zanr>Alternative rock / nu metal</zanr>
+      <popis>Americká kapela propojující alternativní rock, elektroniku a rap. V jejím repertoáru se potkávají tvrdé kytary s melodickými i rapovanými vokály. Kapela vznikla v kalifornském Agoura Hills.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="profile">
+          <nazev>Spotify</nazev>
+          <url>https://open.spotify.com/artist/6XyY86QOPPrYVGvF9ch6wz</url>
+          <zdroj>https://www.wikidata.org/wiki/Q261</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="profile">
+          <nazev>YouTube</nazev>
+          <url>https://www.youtube.com/channel/UCZU9T1ceaOgwfLRq7OKFU4Q</url>
+          <zdroj>https://www.wikidata.org/wiki/Q261</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i40">
       <nazev>Foo Fighters</nazev>
       <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Rock</zanr>
+      <zanr>Alternative rock</zanr>
       <popis>Americká rocková kapela založená Davem Grohlem. Její tvorba staví na kytarovém zvuku, výrazných melodiích a dynamických skladbách.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="profile">
+          <nazev>Spotify</nazev>
+          <url>https://open.spotify.com/artist/7jy3rLJdDQY21OgRLCZ9sD</url>
+          <zdroj>https://www.wikidata.org/wiki/Q483718</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="profile">
+          <nazev>YouTube</nazev>
+          <url>https://www.youtube.com/channel/UCi2KNss4Yx73NG0JARSFe0A</url>
+          <zdroj>https://www.wikidata.org/wiki/Q483718</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i41">
       <nazev>Muse</nazev>
       <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Rock</zanr>
-      <popis>Britské rockové trio Matt Bellamy, Chris Wolstenholme a Dominic Howard. Propojuje alternativní rock s elektronikou a progresivními vlivy.</popis>
+      <zanr>Alternative rock / progressive rock</zanr>
+      <popis>Britské rockové trio Matt Bellamy, Chris Wolstenholme a Dominic Howard. Propojuje alternativní rock s elektronikou a progresivními vlivy. Trio pochází z anglického Teignmouthu.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="profile">
+          <nazev>Spotify</nazev>
+          <url>https://open.spotify.com/artist/12Chz98pHFMPJEknJQMWvI</url>
+          <zdroj>https://www.wikidata.org/wiki/Q22151</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="profile">
+          <nazev>YouTube</nazev>
+          <url>https://www.youtube.com/channel/UCGGhM6XCSJFQ6DTRffnKRIw</url>
+          <zdroj>https://www.wikidata.org/wiki/Q22151</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i42">
-      <nazev>Placebo</nazev>
-      <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Rock</zanr>
-      <popis>Britská alternativně rocková kapela spojená se zpěvákem Brianem Molkem. Její tvorba kombinuje kytary, elektronické prvky a osobní texty.</popis>
+      <nazev>Billie Eilish</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Alternative pop</zanr>
+      <popis>Americká zpěvačka a autorka spolupracující s producentem FINNEASem. Její tvorba staví na osobitých vokálech, elektronice a intimních textech. Pochází z Los Angeles.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="profile">
+          <nazev>Spotify</nazev>
+          <url>https://open.spotify.com/artist/6qqNVTkY8uBg9cP3Jd7DAH</url>
+          <zdroj>https://www.wikidata.org/wiki/Q29564107</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="profile">
+          <nazev>YouTube</nazev>
+          <url>https://www.youtube.com/channel/UCiGm_E4ZwYSHV3bcW1pnSeQ</url>
+          <zdroj>https://www.wikidata.org/wiki/Q29564107</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i43">
-      <nazev>Franz Ferdinand</nazev>
+      <nazev>Arctic Monkeys</nazev>
       <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Rock</zanr>
-      <popis>Skotská kapela, která propojuje indie rock s taneční rytmikou. Její zvuk charakterizují úsporné kytarové riffy a výrazné basové linky.</popis>
+      <zanr>Indie rock</zanr>
+      <popis>Britská kapela ze Sheffieldu v čele s Alexem Turnerem. Její tvorba se pohybuje od kytarového indie rocku po propracované orchestrální a klávesové aranže.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="profile">
+          <nazev>Spotify</nazev>
+          <url>https://open.spotify.com/artist/7Ln80lUS6He07XvHI8qqHH</url>
+          <zdroj>https://www.wikidata.org/wiki/Q170599</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="profile">
+          <nazev>YouTube</nazev>
+          <url>https://www.youtube.com/channel/UC-KTRBl9_6AX10-Y7IKwKdw</url>
+          <zdroj>https://www.wikidata.org/wiki/Q170599</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i44">
       <nazev>The Prodigy</nazev>
       <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Elektronika</zanr>
+      <zanr>Big beat / breakbeat</zanr>
       <popis>Britská elektronická skupina založená Liamem Howlettem. Její tvorba propojuje rave, breakbeat a elektroniku s punkovou energií.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="profile">
+          <nazev>Spotify</nazev>
+          <url>https://open.spotify.com/artist/4k1ELeJKT1ISyDv8JivPpB</url>
+          <zdroj>https://www.wikidata.org/wiki/Q7256860</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="profile">
+          <nazev>YouTube</nazev>
+          <url>https://www.youtube.com/channel/UC7IZbkKDd20v6Ni_vFX63rQ</url>
+          <zdroj>https://www.wikidata.org/wiki/Q7256860</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i45">
       <nazev>The Chemical Brothers</nazev>
       <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Elektronika</zanr>
-      <popis>Britské elektronické duo Tom Rowlands a Ed Simons. Jejich tvorba propojuje big beat, house, psychedelické motivy a klubovou elektroniku.</popis>
+      <zanr>Big beat / techno</zanr>
+      <popis>Britské elektronické duo Tom Rowlands a Ed Simons. Jejich tvorba propojuje big beat, house, psychedelické motivy a klubovou elektroniku. Duo vzniklo v Manchesteru.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/The%20Chemical%20Brothers</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=The%20Chemical%20Brothers</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i46">
-      <nazev>Fatboy Slim</nazev>
-      <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Elektronika</zanr>
-      <popis>Britský DJ a producent Norman Cook. Pod jménem Fatboy Slim propojuje big beat, house a hravě využité samply.</popis>
+      <nazev>Bring Me the Horizon</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Metalcore / alternative metal</zanr>
+      <popis>Britská kapela ze Sheffieldu vedená Oliverem Sykesem. Její tvorba propojuje metalové a rockové kořeny s elektronikou a popovými prvky.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Bring%20Me%20the%20Horizon</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Bring%20Me%20the%20Horizon</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i47">
       <nazev>Pendulum</nazev>
       <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Elektronika</zanr>
-      <popis>Australská skupina propojující drum and bass s rockovou instrumentací. Její tvorba kombinuje rychlé elektronické rytmy s kytarami a zpěvem.</popis>
+      <zanr>Drum and bass / electronic rock</zanr>
+      <popis>Australská skupina propojující drum and bass s rockovou instrumentací. Její tvorba kombinuje rychlé elektronické rytmy s kytarami a zpěvem. Skupina vznikla v australském Perthu.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Pendulum</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Pendulum</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i48">
-      <nazev>RÜFÜS DU SOL</nazev>
-      <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Elektronika</zanr>
-      <popis>Australské elektronické trio. Jeho tvorba propojuje alternativní taneční hudbu, house, atmosférické syntezátory a zpívané melodie.</popis>
-    </interpret>
-    <interpret id="i49">
       <nazev>Dua Lipa</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Pop</zanr>
-      <popis>Britsko-albánská zpěvačka a autorka. Její popová tvorba čerpá také z disco hudby, funku a tanečních žánrů.</popis>
+      <zanr>Dance pop / disco</zanr>
+      <popis>Britsko-albánská zpěvačka a autorka. Její popová tvorba čerpá také z disco hudby, funku a tanečních žánrů. Narodila se v Londýně.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Dua%20Lipa</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Dua%20Lipa</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
-    <interpret id="i50">
+    <interpret id="i49">
       <nazev>The Weeknd</nazev>
       <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Pop</zanr>
-      <popis>Kanadský zpěvák a autor Abel Tesfaye. Jeho tvorba propojuje R&amp;B, pop a elektroniku s výraznou vizuální estetikou.</popis>
+      <zanr>R&amp;B / synthpop</zanr>
+      <popis>Kanadský zpěvák a autor Abel Tesfaye. Jeho tvorba propojuje R&amp;B, pop a elektroniku s výraznou vizuální estetikou. Pochází z kanadského Toronta.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="profile">
+          <nazev>Spotify</nazev>
+          <url>https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ</url>
+          <zdroj>https://www.wikidata.org/wiki/Q2121062</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="profile">
+          <nazev>YouTube</nazev>
+          <url>https://www.youtube.com/channel/UC0WP5P-ufpRfjbNrmOWwLBQ</url>
+          <zdroj>https://www.wikidata.org/wiki/Q2121062</zdroj>
+        </odkaz>
+      </odkazy>
+    </interpret>
+    <interpret id="i50">
+      <nazev>Imagine Dragons</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Alternative pop rock</zanr>
+      <popis>Americká kapela z Las Vegas vedená zpěvákem Danem Reynoldsem. Propojuje alternativní pop rock s elektronikou a výraznou rytmikou; mezi její známé skladby patří Radioactive a Believer.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="profile">
+          <nazev>Spotify</nazev>
+          <url>https://open.spotify.com/artist/53XhwfbYqKCa1cC15pYq2q</url>
+          <zdroj>https://www.wikidata.org/wiki/Q391348</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="profile">
+          <nazev>YouTube</nazev>
+          <url>https://www.youtube.com/channel/UC0aXrjVxG5pZr99v77wZdPQ</url>
+          <zdroj>https://www.wikidata.org/wiki/Q391348</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i51">
-      <nazev>Billie Eilish</nazev>
-      <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Pop</zanr>
-      <popis>Americká zpěvačka a autorka spolupracující s producentem FINNEASem. Její tvorba staví na osobitých vokálech, elektronice a intimních textech.</popis>
+      <nazev>Lucie</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Pop rock</zanr>
+      <popis>Česká rocková kapela vzniklá v Praze v osmdesátých letech. Její repertoár propojuje poprockové melodie s kytarovým zvukem; patří do něj skladby Černí andělé a Amerika.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Lucie</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Lucie</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i52">
-      <nazev>Gorillaz</nazev>
+      <nazev>Wohnout</nazev>
       <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Pop</zanr>
-      <popis>Britský virtuální hudební projekt Damona Albarna a Jamieho Hewletta. Propojuje alternativní pop, hip-hop, elektroniku a hostující interprety.</popis>
+      <zanr>Alternative rock</zanr>
+      <popis>Česká rocková kapela z Prahy, kterou tvoří mimo jiné bratři Matěj a Jan Homolovi. Její skladby spojují kytarové riffy, nadsázku a osobité české texty.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Wohnout</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Wohnout</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i53">
-      <nazev>Jamie Cullum</nazev>
-      <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Jazz</zanr>
-      <popis>Britský zpěvák, pianista a autor. V jeho tvorbě se jazzová tradice potkává s popem, rockem a vlastními úpravami známých skladeb.</popis>
+      <nazev>HOLY PRIEST</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Hard techno</zanr>
+      <popis>Německý hardtechno projekt s maskovanou vizuální identitou. Jeho zvuk staví na rychlém tempu, tvrdých kopácích a vlivech hard dance a rave.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/HOLY%20PRIEST</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=HOLY%20PRIEST</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i54">
-      <nazev>Norah Jones</nazev>
-      <typ_interpreta>Solo</typ_interpreta>
-      <zanr>Jazz</zanr>
-      <popis>Americká zpěvačka a pianistka. Její hudba propojuje jazz, soul, pop a country s důrazem na jemný vokální projev.</popis>
+      <nazev>Divokej Bill</nazev>
+      <typ_interpreta>Skupina</typ_interpreta>
+      <zanr>Folk rock</zanr>
+      <popis>Česká kapela z Úval propojující rock s akustickými nástroji. V jejím zvuku mají vedle kytar místo housle, banjo a akordeon; výraznou roli hrají vícehlasé refrény.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Divokej%20Bill</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Divokej%20Bill</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i55">
-      <nazev>The Lumineers</nazev>
+      <nazev>Vypsaná fiXa</nazev>
       <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Folk</zanr>
-      <popis>Americká folkrocková kapela. Její písně stojí na akustických nástrojích, příběhových textech a sborově zpívaných refrénech.</popis>
+      <zanr>Alternative rock / punk</zanr>
+      <popis>Česká alternativně rocková kapela z Pardubic vedená zpěvákem a kytaristou Márdim. Staví na přímočarých kytarách, punkové energii a obrazných českých textech.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Vypsan%C3%A1%20fiXa</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Vypsan%C3%A1%20fiXa</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i56">
-      <nazev>Of Monsters and Men</nazev>
+      <nazev>Dymytry</nazev>
       <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Folk</zanr>
-      <popis>Islandská kapela propojující indie folk a pop. Její zvuk staví na vícehlasých vokálech, melodiích a bohatých aranžích.</popis>
+      <zanr>Industrial metal</zanr>
+      <popis>Česká metalová kapela z Prahy, známá také svými maskami. Její tvorba propojuje hutné kytarové riffy, elektronické prvky a melodické refrény.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Dymytry</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Dymytry</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i57">
-      <nazev>Florence + The Machine</nazev>
-      <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Pop</zanr>
-      <popis>Britská kapela vedená zpěvačkou Florence Welch. Její tvorba spojuje art pop, indie rock a výrazné vokální linky.</popis>
+      <nazev>Sergei Barracuda</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Trap / gangsta rap</zanr>
+      <popis>Český rapper z Ostravy. Jeho tvorba vychází z trapu a gangsta rapu; je spojená s ostravskou rapovou scénou a uskupením Azurit Kingdom.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Sergei%20Barracuda</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Sergei%20Barracuda</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i58">
-      <nazev>Arctic Monkeys</nazev>
-      <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Rock</zanr>
-      <popis>Britská kapela ze Sheffieldu v čele s Alexem Turnerem. Její tvorba se pohybuje od kytarového indie rocku po propracované orchestrální a klávesové aranže.</popis>
+      <nazev>PTK</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Trap / rap</zanr>
+      <popis>Český rapper Jan Šustr původem z Chebu. Ve své tvorbě propojuje rap, trapovou produkci a melodické motivy a spolupracuje s dalšími jmény české scény.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/PTK</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=PTK</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i59">
-      <nazev>Bring Me the Horizon</nazev>
-      <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Rock</zanr>
-      <popis>Britská kapela ze Sheffieldu vedená Oliverem Sykesem. Její tvorba propojuje metalové a rockové kořeny s elektronikou a popovými prvky.</popis>
+      <nazev>Hugo Toxxx</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Alternative hip-hop</zanr>
+      <popis>Český rapper Jan Daněk z Prahy. Vzešel z dua Supercrooo a jeho sólová tvorba patří k osobitým podobám českého alternativního rapu.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Hugo%20Toxxx</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Hugo%20Toxxx</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
     <interpret id="i60">
-      <nazev>Massive Attack</nazev>
-      <typ_interpreta>Skupina</typ_interpreta>
-      <zanr>Elektronika</zanr>
-      <popis>Britská skupina z Bristolu spojená s trip-hopem. Její tvorba kombinuje pomalé rytmy, basové linky, elektroniku a hostující hlasy.</popis>
+      <nazev>Paulie Garand</nazev>
+      <typ_interpreta>Solo</typ_interpreta>
+      <zanr>Alternative hip-hop</zanr>
+      <popis>Český rapper a výtvarník Pavel Harant z Liberce. Jeho tvorba propojuje melodický rap, osobní texty a dlouhodobou spolupráci s producentem Kennym Roughem.</popis>
+      <odkazy>
+        <odkaz platforma="spotify" druh="search">
+          <nazev>Vyhledat na Spotify</nazev>
+          <url>https://open.spotify.com/search/Paulie%20Garand</url>
+          <zdroj>https://support.spotify.com/article/search/</zdroj>
+        </odkaz>
+        <odkaz platforma="youtube" druh="search">
+          <nazev>Vyhledat na YouTube</nazev>
+          <url>https://www.youtube.com/results?search_query=Paulie%20Garand</url>
+          <zdroj>https://support.google.com/youtube/answer/111997</zdroj>
+        </odkaz>
+      </odkazy>
     </interpret>
   </interpreti>
   <sumakce>
     <akce id="a1">
       <nazev>Tiësto</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>Tiësto v návrhu programu Prague Pulse Fest. Nizozemský DJ a producent s kořeny v trance. Postupně rozšířil svůj zvuk o house a další podoby taneční elektroniky.</popis_akce>
+      <tema_akce>Progressive house</tema_akce>
+      <popis_akce>Nizozemský DJ a producent s kořeny v trance. Postupně rozšířil svůj zvuk o house a další podoby taneční elektroniky. Pochází z nizozemské Bredy.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>09:00:00</casstart>
-      <caskonec>09:50:00</caskonec>
+      <casstart>13:00:00</casstart>
+      <caskonec>14:15:00</caskonec>
       <hala_ref>h1</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
-        <interpret_ref>i4</interpret_ref></interpreti>
+        <interpret_ref>i4</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a2">
-      <nazev>Chase &amp; Status</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>Chase &amp; Status v návrhu programu Prague Pulse Fest. Britské producentské duo působící na pomezí drum and bassu, dubstepu a elektroniky. Jeho nahrávky často propojují výrazné basy s hostujícími vokalisty.</popis_akce>
+      <nazev>Calin</nazev>
+      <tema_akce>Pop rap / R&amp;B</tema_akce>
+      <popis_akce>Český rapper a zpěvák s moldavskými kořeny. Jeho tvorba propojuje rap, pop a R&amp;B s melodickými refrény. Je spojený s Brnem a vydavatelstvím Rychlí kluci.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>10:05:00</casstart>
-      <caskonec>10:55:00</caskonec>
+      <casstart>13:00:00</casstart>
+      <caskonec>14:15:00</caskonec>
       <hala_ref>h2</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
-        <interpret_ref>i5</interpret_ref></interpreti>
+        <interpret_ref>i23</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a3">
-      <nazev>Sub Focus</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>Sub Focus v návrhu programu Prague Pulse Fest. Britský producent Nick Douwma, výrazná postava melodického drum and bassu. V jeho tvorbě se objevují také house, dubstep a synthpopové vlivy.</popis_akce>
+      <nazev>The Offspring</nazev>
+      <tema_akce>Punk rock</tema_akce>
+      <popis_akce>Americká punkrocková kapela z Kalifornie. Její tvorba spojuje rychlé kytary, melodické refrény a punkovou energii. Kapela vznikla v kalifornském Garden Grove.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>11:10:00</casstart>
-      <caskonec>12:00:00</caskonec>
-      <hala_ref>h3</hala_ref>
+      <casstart>14:30:00</casstart>
+      <caskonec>15:45:00</caskonec>
+      <hala_ref>h1</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
-        <interpret_ref>i6</interpret_ref></interpreti>
+        <interpret_ref>i37</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a4">
-      <nazev>Wilkinson</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>Wilkinson v návrhu programu Prague Pulse Fest. Britský DJ a producent Mark Wilkinson. Jeho drum and bass spojuje energické rytmy s melodickými motivy a zpívanými refrény.</popis_akce>
+      <nazev>STEIN27</nazev>
+      <tema_akce>Alternative R&amp;B</tema_akce>
+      <popis_akce>Český zpěvák a rapper David Stencel. V jeho skladbách se prolínají rap, R&amp;B, pop a osobně laděné texty. Pochází z Brna a je spojený s vydavatelstvím Rychlí kluci.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>12:15:00</casstart>
-      <caskonec>13:05:00</caskonec>
-      <hala_ref>h1</hala_ref>
+      <casstart>14:30:00</casstart>
+      <caskonec>15:45:00</caskonec>
+      <hala_ref>h2</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
-        <interpret_ref>i7</interpret_ref></interpreti>
+        <interpret_ref>i24</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a5">
-      <nazev>DARKZY</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>DARKZY v návrhu programu Prague Pulse Fest. Britský DJ a producent spojený s UK bass a bassline scénou. Jeho zvuk stojí na hutných basových linkách a rytmice britských klubů.</popis_akce>
+      <nazev>Chase &amp; Status</nazev>
+      <tema_akce>Drum and bass / jungle</tema_akce>
+      <popis_akce>Britské producentské duo působící na pomezí drum and bassu, dubstepu a elektroniky. Jeho nahrávky často propojují výrazné basy s hostujícími vokalisty. Duo vzniklo v Londýně.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>13:20:00</casstart>
-      <caskonec>14:10:00</caskonec>
-      <hala_ref>h2</hala_ref>
+      <casstart>14:30:00</casstart>
+      <caskonec>15:45:00</caskonec>
+      <hala_ref>h3</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
-        <interpret_ref>i8</interpret_ref></interpreti>
+        <interpret_ref>i5</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a6">
-      <nazev>TS7</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>TS7 v návrhu programu Prague Pulse Fest. Britský producent a DJ Thomas Sampson. Ve své tvorbě se věnuje bassline, UK garage a dalším basově orientovaným klubovým stylům.</popis_akce>
+      <nazev>Green Day</nazev>
+      <tema_akce>Punk rock</tema_akce>
+      <popis_akce>Americká punkrocková kapela v čele s Billiem Joem Armstrongem. Její tvorba propojuje punkové kořeny s popovými melodiemi a rockovými příběhy. Kapela vznikla v kalifornském East Bay.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>14:25:00</casstart>
-      <caskonec>15:15:00</caskonec>
-      <hala_ref>h3</hala_ref>
+      <casstart>16:00:00</casstart>
+      <caskonec>17:15:00</caskonec>
+      <hala_ref>h1</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
-        <interpret_ref>i9</interpret_ref></interpreti>
+        <interpret_ref>i38</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a7">
-      <nazev>Sammy Virji</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>Sammy Virji v návrhu programu Prague Pulse Fest. Britský DJ a producent, který propojuje UK garage s basovou klubovou hudbou. Jeho skladby pracují s pružnou rytmikou a výraznými vokálními samply.</popis_akce>
+      <nazev>Viktor Sheen</nazev>
+      <tema_akce>Melodic rap</tema_akce>
+      <popis_akce>Český rapper narozený v Kazachstánu. Jeho tvorba spojuje melodický rap, introspektivní texty a současnou hip-hopovou produkci. Vyrůstal v Kladně.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>15:30:00</casstart>
-      <caskonec>16:20:00</caskonec>
-      <hala_ref>h1</hala_ref>
-      <den_ref>d1</den_ref>
-      <interpreti>
-        <interpret_ref>i10</interpret_ref></interpreti>
-    </akce>
-    <akce id="a8">
-      <nazev>Macky Gee</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>Macky Gee v návrhu programu Prague Pulse Fest. Britský producent a DJ zaměřený na drum and bass a jump-up. Jeho jméno je spojené také s kolektivem SASASAS.</popis_akce>
-      <datumstart>2027-08-01</datumstart>
-      <casstart>16:35:00</casstart>
-      <caskonec>17:25:00</caskonec>
+      <casstart>16:00:00</casstart>
+      <caskonec>17:15:00</caskonec>
       <hala_ref>h2</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
-        <interpret_ref>i11</interpret_ref></interpreti>
+        <interpret_ref>i25</interpret_ref>
+      </interpreti>
     </akce>
-    <akce id="a9">
-      <nazev>Andy C</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>Andy C v návrhu programu Prague Pulse Fest. Britský drum and bassový DJ a producent. Patří k zakladatelům labelu RAM Records a je známý technicky propracovaným mixováním.</popis_akce>
+    <akce id="a8">
+      <nazev>Sub Focus</nazev>
+      <tema_akce>Drum and bass / dancefloor</tema_akce>
+      <popis_akce>Britský producent Nick Douwma, výrazná postava melodického drum and bassu. V jeho tvorbě se objevují také house, dubstep a synthpopové vlivy. Pochází z Londýna.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>17:40:00</casstart>
-      <caskonec>18:30:00</caskonec>
+      <casstart>16:00:00</casstart>
+      <caskonec>17:15:00</caskonec>
       <hala_ref>h3</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
-        <interpret_ref>i12</interpret_ref></interpreti>
+        <interpret_ref>i6</interpret_ref>
+      </interpreti>
     </akce>
-    <akce id="a10">
-      <nazev>Hybrid Minds</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>Hybrid Minds v návrhu programu Prague Pulse Fest. Britské producentské duo Matt Lowe a Josh White. Jejich liquid drum and bass staví na atmosférických plochách, melodiích a vokálech.</popis_akce>
+    <akce id="a9">
+      <nazev>Muse</nazev>
+      <tema_akce>Alternative rock / progressive rock</tema_akce>
+      <popis_akce>Britské rockové trio Matt Bellamy, Chris Wolstenholme a Dominic Howard. Propojuje alternativní rock s elektronikou a progresivními vlivy. Trio pochází z anglického Teignmouthu.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>18:45:00</casstart>
-      <caskonec>19:35:00</caskonec>
+      <casstart>17:30:00</casstart>
+      <caskonec>18:45:00</caskonec>
       <hala_ref>h1</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
-        <interpret_ref>i13</interpret_ref></interpreti>
+        <interpret_ref>i41</interpret_ref>
+      </interpreti>
     </akce>
-    <akce id="a11">
-      <nazev>Dimension</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>Dimension v návrhu programu Prague Pulse Fest. Britský producent a DJ Robert Etheridge. Jeho drum and bass kombinuje klubový tah s výraznými syntezátorovými melodiemi.</popis_akce>
+    <akce id="a10">
+      <nazev>Yzomandias</nazev>
+      <tema_akce>Trap</tema_akce>
+      <popis_akce>Český rapper a člen hudebního uskupení Milion+. Jeho tvorba je spojená s trapem a současným českým rapem.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>19:50:00</casstart>
-      <caskonec>20:40:00</caskonec>
+      <casstart>17:30:00</casstart>
+      <caskonec>18:45:00</caskonec>
       <hala_ref>h2</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
-        <interpret_ref>i14</interpret_ref></interpreti>
+        <interpret_ref>i26</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a11">
+      <nazev>Wilkinson</nazev>
+      <tema_akce>Drum and bass / dancefloor</tema_akce>
+      <popis_akce>Britský DJ a producent Mark Wilkinson. Jeho drum and bass spojuje energické rytmy s melodickými motivy a zpívanými refrény. Pochází z jihozápadního Londýna.</popis_akce>
+      <datumstart>2027-08-01</datumstart>
+      <casstart>17:30:00</casstart>
+      <caskonec>18:45:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i7</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a12">
-      <nazev>Hedex</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>Hedex v návrhu programu Prague Pulse Fest. Britský drum and bassový producent a DJ. Vychází zejména z jump-upu, výrazných basových zvuků a rychlých klubových rytmů.</popis_akce>
+      <nazev>The Weeknd</nazev>
+      <tema_akce>R&amp;B / synthpop</tema_akce>
+      <popis_akce>Kanadský zpěvák a autor Abel Tesfaye. Jeho tvorba propojuje R&amp;B, pop a elektroniku s výraznou vizuální estetikou. Pochází z kanadského Toronta.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>20:55:00</casstart>
+      <casstart>19:00:00</casstart>
+      <caskonec>20:15:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i49</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a14">
+      <nazev>Nik Tendo</nazev>
+      <tema_akce>Trap</tema_akce>
+      <popis_akce>Český rapper z Pardubic a člen uskupení Milion+. V jeho tvorbě se potkává trapová produkce s melodickým rapem.</popis_akce>
+      <datumstart>2027-08-01</datumstart>
+      <casstart>19:00:00</casstart>
+      <caskonec>20:15:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i27</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a15">
+      <nazev>DARKZY</nazev>
+      <tema_akce>UK bassline</tema_akce>
+      <popis_akce>Britský DJ a producent spojený s UK bass a bassline scénou. Jeho zvuk stojí na hutných basových linkách a rytmice britských klubů. Je spojený s klubovou scénou v Nottinghamu.</popis_akce>
+      <datumstart>2027-08-01</datumstart>
+      <casstart>19:00:00</casstart>
+      <caskonec>20:15:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i8</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a16">
+      <nazev>Imagine Dragons</nazev>
+      <tema_akce>Alternative pop rock</tema_akce>
+      <popis_akce>Americká kapela z Las Vegas vedená zpěvákem Danem Reynoldsem. Propojuje alternativní pop rock s elektronikou a výraznou rytmikou; mezi její známé skladby patří Radioactive a Believer.</popis_akce>
+      <datumstart>2027-08-01</datumstart>
+      <casstart>20:30:00</casstart>
+      <caskonec>21:45:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i50</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a17">
+      <nazev>Ben Cristovao</nazev>
+      <tema_akce>R&amp;B / dance pop</tema_akce>
+      <popis_akce>Český zpěvák a autor s angolskými kořeny. Jeho hudba propojuje pop, R&amp;B a taneční rytmy.</popis_akce>
+      <datumstart>2027-08-01</datumstart>
+      <casstart>20:30:00</casstart>
+      <caskonec>21:45:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d1</den_ref>
+      <interpreti>
+        <interpret_ref>i28</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a18">
+      <nazev>TS7</nazev>
+      <tema_akce>Bassline / UK garage</tema_akce>
+      <popis_akce>Britský producent a DJ Thomas Sampson. Ve své tvorbě se věnuje bassline, UK garage a dalším basově orientovaným klubovým stylům. Pochází z Bradfordu na severu Anglie.</popis_akce>
+      <datumstart>2027-08-01</datumstart>
+      <casstart>20:30:00</casstart>
       <caskonec>21:45:00</caskonec>
       <hala_ref>h3</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
-        <interpret_ref>i15</interpret_ref></interpreti>
+        <interpret_ref>i9</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a13">
       <nazev>David Guetta</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>David Guetta v návrhu programu Prague Pulse Fest. Francouzský DJ a producent, který propojuje taneční elektroniku s popovými vokály. Jeho tvorba sahá od klubového housu po velké rádiové spolupráce.</popis_akce>
+      <tema_akce>Dance pop / house</tema_akce>
+      <popis_akce>Francouzský DJ a producent, který propojuje taneční elektroniku s popovými vokály. Jeho tvorba sahá od klubového housu po velké rádiové spolupráce. Je spojený s Paříží a francouzskou houseovou scénou.</popis_akce>
       <datumstart>2027-08-01</datumstart>
       <casstart>22:00:00</casstart>
-      <caskonec>22:50:00</caskonec>
+      <caskonec>23:15:00</caskonec>
       <hala_ref>h1</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
-        <interpret_ref>i1</interpret_ref></interpreti>
-    </akce>
-    <akce id="a14">
-      <nazev>Bou</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>Bou v návrhu programu Prague Pulse Fest. Britský drum and bassový producent a DJ působící v Manchesteru. Jeho tvorba propojuje jump-up s dalšími proudy současné basové hudby.</popis_akce>
-      <datumstart>2027-08-01</datumstart>
-      <casstart>09:00:00</casstart>
-      <caskonec>09:50:00</caskonec>
-      <hala_ref>h2</hala_ref>
-      <den_ref>d1</den_ref>
-      <interpreti>
-        <interpret_ref>i16</interpret_ref></interpreti>
-    </akce>
-    <akce id="a15">
-      <nazev>Kanine</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>Kanine v návrhu programu Prague Pulse Fest. Britský producent a DJ, jehož tvorba propojuje drum and bassové subžánry. Střídá melodické motivy s výraznými basovými dropy.</popis_akce>
-      <datumstart>2027-08-01</datumstart>
-      <casstart>10:05:00</casstart>
-      <caskonec>10:55:00</caskonec>
-      <hala_ref>h3</hala_ref>
-      <den_ref>d1</den_ref>
-      <interpreti>
-        <interpret_ref>i17</interpret_ref></interpreti>
-    </akce>
-    <akce id="a16">
-      <nazev>Friction</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>Friction v návrhu programu Prague Pulse Fest. Britský DJ a producent Ed Keeley. Vedle drum and bassových setů je spojený také s vydavatelstvím Shogun Audio.</popis_akce>
-      <datumstart>2027-08-01</datumstart>
-      <casstart>11:10:00</casstart>
-      <caskonec>12:00:00</caskonec>
-      <hala_ref>h1</hala_ref>
-      <den_ref>d1</den_ref>
-      <interpreti>
-        <interpret_ref>i18</interpret_ref></interpreti>
-    </akce>
-    <akce id="a17">
-      <nazev>JOYRYDE</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>JOYRYDE v návrhu programu Prague Pulse Fest. Britský producent a DJ John Ford. Jeho elektronická tvorba propojuje bass house s vlivy hip-hopu a dalších klubových žánrů.</popis_akce>
-      <datumstart>2027-08-01</datumstart>
-      <casstart>12:15:00</casstart>
-      <caskonec>13:05:00</caskonec>
-      <hala_ref>h2</hala_ref>
-      <den_ref>d1</den_ref>
-      <interpreti>
-        <interpret_ref>i19</interpret_ref></interpreti>
-    </akce>
-    <akce id="a18">
-      <nazev>AC Slater</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>AC Slater v návrhu programu Prague Pulse Fest. Americký DJ a producent Aaron Clevenger. Zakladatel značky Night Bass propojuje house s britskými basovými a garage vlivy.</popis_akce>
-      <datumstart>2027-08-01</datumstart>
-      <casstart>13:20:00</casstart>
-      <caskonec>14:10:00</caskonec>
-      <hala_ref>h3</hala_ref>
-      <den_ref>d1</den_ref>
-      <interpreti>
-        <interpret_ref>i20</interpret_ref></interpreti>
+        <interpret_ref>i1</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a19">
-      <nazev>Conducta</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>Conducta v návrhu programu Prague Pulse Fest. Britský DJ a producent spojený se současnou UK garage scénou. Stojí také za vydavatelstvím Kiwi Rekords.</popis_akce>
+      <nazev>Ewa Farna</nazev>
+      <tema_akce>Pop rock</tema_akce>
+      <popis_akce>Česko-polská zpěvačka s repertoárem v češtině i polštině. Její hudba vychází z popu a rocku. Pochází z české části Těšínska.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>14:25:00</casstart>
-      <caskonec>15:15:00</caskonec>
-      <hala_ref>h1</hala_ref>
+      <casstart>22:00:00</casstart>
+      <caskonec>23:15:00</caskonec>
+      <hala_ref>h2</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
-        <interpret_ref>i21</interpret_ref></interpreti>
+        <interpret_ref>i29</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a20">
-      <nazev>Noisia: archivní poslechový blok</nazev>
-      <tema_akce>Archivní poslech</tema_akce>
-      <popis_akce>Výběr z tvorby nizozemského tria, které v roce 2022 ukončilo společné působení. Jde o archivní poslechový blok, ne o živé vystoupení Noisia.</popis_akce>
+      <nazev>Sammy Virji</nazev>
+      <tema_akce>UK garage / speed garage</tema_akce>
+      <popis_akce>Britský DJ a producent, který propojuje UK garage s basovou klubovou hudbou. Jeho skladby pracují s pružnou rytmikou a výraznými vokálními samply. Vyrůstal v Oxfordshiru v Anglii.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>15:30:00</casstart>
-      <caskonec>16:20:00</caskonec>
-      <hala_ref>h2</hala_ref>
+      <casstart>22:00:00</casstart>
+      <caskonec>23:15:00</caskonec>
+      <hala_ref>h3</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
-        <interpret_ref>i22</interpret_ref></interpreti>
+        <interpret_ref>i10</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a21">
-      <nazev>Calin</nazev>
-      <tema_akce>Rap / R&amp;B</tema_akce>
-      <popis_akce>Calin v návrhu programu Prague Pulse Fest. Český rapper a zpěvák s moldavskými kořeny. Jeho tvorba propojuje rap, pop a R&amp;B s melodickými refrény.</popis_akce>
+      <nazev>Billie Eilish</nazev>
+      <tema_akce>Alternative pop</tema_akce>
+      <popis_akce>Americká zpěvačka a autorka spolupracující s producentem FINNEASem. Její tvorba staví na osobitých vokálech, elektronice a intimních textech. Pochází z Los Angeles.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>09:00:00</casstart>
-      <caskonec>09:50:00</caskonec>
+      <casstart>13:00:00</casstart>
+      <caskonec>14:15:00</caskonec>
       <hala_ref>h1</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
-        <interpret_ref>i23</interpret_ref></interpreti>
+        <interpret_ref>i42</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a22">
-      <nazev>STEIN27</nazev>
-      <tema_akce>Rap / R&amp;B</tema_akce>
-      <popis_akce>STEIN27 v návrhu programu Prague Pulse Fest. Český zpěvák a rapper David Stencl. V jeho skladbách se prolínají rap, R&amp;B, pop a osobně laděné texty.</popis_akce>
+      <nazev>Macky Gee</nazev>
+      <tema_akce>Drum and bass / jump-up</tema_akce>
+      <popis_akce>Britský producent a DJ zaměřený na drum and bass a jump-up. Jeho jméno je spojené také s kolektivem SASASAS. Pochází z anglického Kentu.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>10:05:00</casstart>
-      <caskonec>10:55:00</caskonec>
-      <hala_ref>h2</hala_ref>
+      <casstart>13:00:00</casstart>
+      <caskonec>14:15:00</caskonec>
+      <hala_ref>h3</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
-        <interpret_ref>i24</interpret_ref></interpreti>
+        <interpret_ref>i11</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a23">
-      <nazev>Viktor Sheen</nazev>
-      <tema_akce>Rap / R&amp;B</tema_akce>
-      <popis_akce>Viktor Sheen v návrhu programu Prague Pulse Fest. Český rapper narozený v Kazachstánu. Jeho tvorba spojuje melodický rap, introspektivní texty a současnou hip-hopovou produkci.</popis_akce>
+      <nazev>Arctic Monkeys</nazev>
+      <tema_akce>Indie rock</tema_akce>
+      <popis_akce>Britská kapela ze Sheffieldu v čele s Alexem Turnerem. Její tvorba se pohybuje od kytarového indie rocku po propracované orchestrální a klávesové aranže.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>11:10:00</casstart>
-      <caskonec>12:00:00</caskonec>
-      <hala_ref>h3</hala_ref>
+      <casstart>14:30:00</casstart>
+      <caskonec>15:45:00</caskonec>
+      <hala_ref>h1</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
-        <interpret_ref>i25</interpret_ref></interpreti>
+        <interpret_ref>i43</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a24">
-      <nazev>Yzomandias</nazev>
-      <tema_akce>Rap / R&amp;B</tema_akce>
-      <popis_akce>Yzomandias v návrhu programu Prague Pulse Fest. Český rapper a člen hudebního uskupení Milion+. Jeho tvorba je spojená s trapem a současným českým rapem.</popis_akce>
+      <nazev>Mirai</nazev>
+      <tema_akce>Pop rock</tema_akce>
+      <popis_akce>Česká popová kapela z Frýdku-Místku. Její tvorba stojí na zpěvných refrénech, kytarách a současné popové produkci.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>12:15:00</casstart>
-      <caskonec>13:05:00</caskonec>
-      <hala_ref>h1</hala_ref>
+      <casstart>14:30:00</casstart>
+      <caskonec>15:45:00</caskonec>
+      <hala_ref>h2</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
-        <interpret_ref>i26</interpret_ref></interpreti>
+        <interpret_ref>i30</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a25">
-      <nazev>Nik Tendo</nazev>
-      <tema_akce>Rap / R&amp;B</tema_akce>
-      <popis_akce>Nik Tendo v návrhu programu Prague Pulse Fest. Český rapper z Pardubic a člen uskupení Milion+. V jeho tvorbě se potkává trapová produkce s melodickým rapem.</popis_akce>
+      <nazev>Andy C</nazev>
+      <tema_akce>Drum and bass / jungle</tema_akce>
+      <popis_akce>Britský drum and bassový DJ a producent. Patří k zakladatelům labelu RAM Records a je známý technicky propracovaným mixováním.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>13:20:00</casstart>
-      <caskonec>14:10:00</caskonec>
-      <hala_ref>h2</hala_ref>
-      <den_ref>d2</den_ref>
-      <interpreti>
-        <interpret_ref>i27</interpret_ref></interpreti>
-    </akce>
-    <akce id="a26">
-      <nazev>Ben Cristovao</nazev>
-      <tema_akce>Popový koncert</tema_akce>
-      <popis_akce>Ben Cristovao v návrhu programu Prague Pulse Fest. Český zpěvák a autor s angolskými kořeny. Jeho hudba propojuje pop, R&amp;B a taneční rytmy.</popis_akce>
-      <datumstart>2027-08-02</datumstart>
-      <casstart>14:25:00</casstart>
-      <caskonec>15:15:00</caskonec>
+      <casstart>14:30:00</casstart>
+      <caskonec>15:45:00</caskonec>
       <hala_ref>h3</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
-        <interpret_ref>i28</interpret_ref></interpreti>
+        <interpret_ref>i12</interpret_ref>
+      </interpreti>
     </akce>
-    <akce id="a27">
-      <nazev>Ewa Farna</nazev>
-      <tema_akce>Popový koncert</tema_akce>
-      <popis_akce>Ewa Farna v návrhu programu Prague Pulse Fest. Česko-polská zpěvačka s repertoárem v češtině i polštině. Její hudba vychází z popu a rocku.</popis_akce>
+    <akce id="a26">
+      <nazev>The Chemical Brothers</nazev>
+      <tema_akce>Big beat / techno</tema_akce>
+      <popis_akce>Britské elektronické duo Tom Rowlands a Ed Simons. Jejich tvorba propojuje big beat, house, psychedelické motivy a klubovou elektroniku. Duo vzniklo v Manchesteru.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>15:30:00</casstart>
-      <caskonec>16:20:00</caskonec>
+      <casstart>16:00:00</casstart>
+      <caskonec>17:15:00</caskonec>
       <hala_ref>h1</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
-        <interpret_ref>i29</interpret_ref></interpreti>
+        <interpret_ref>i45</interpret_ref>
+      </interpreti>
     </akce>
-    <akce id="a28">
-      <nazev>Mirai</nazev>
-      <tema_akce>Popový koncert</tema_akce>
-      <popis_akce>Mirai v návrhu programu Prague Pulse Fest. Česká popová kapela z Frýdku-Místku. Její tvorba stojí na zpěvných refrénech, kytarách a současné popové produkci.</popis_akce>
+    <akce id="a27">
+      <nazev>Kryštof</nazev>
+      <tema_akce>Pop rock</tema_akce>
+      <popis_akce>Česká kapela vedená zpěvákem Richardem Krajčem. Propojuje pop a rock s důrazem na melodii a české texty.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>16:35:00</casstart>
-      <caskonec>17:25:00</caskonec>
+      <casstart>16:00:00</casstart>
+      <caskonec>17:15:00</caskonec>
       <hala_ref>h2</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
-        <interpret_ref>i30</interpret_ref></interpreti>
+        <interpret_ref>i31</interpret_ref>
+      </interpreti>
     </akce>
-    <akce id="a29">
-      <nazev>Kryštof</nazev>
-      <tema_akce>Popový koncert</tema_akce>
-      <popis_akce>Kryštof v návrhu programu Prague Pulse Fest. Česká kapela vedená zpěvákem Richardem Krajčem. Propojuje pop a rock s důrazem na melodii a české texty.</popis_akce>
+    <akce id="a28">
+      <nazev>Hybrid Minds</nazev>
+      <tema_akce>Liquid drum and bass</tema_akce>
+      <popis_akce>Britské producentské duo Matt Lowe a Josh White. Jejich liquid drum and bass staví na atmosférických plochách, melodiích a vokálech.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>17:40:00</casstart>
-      <caskonec>18:30:00</caskonec>
+      <casstart>16:00:00</casstart>
+      <caskonec>17:15:00</caskonec>
       <hala_ref>h3</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
-        <interpret_ref>i31</interpret_ref></interpreti>
+        <interpret_ref>i13</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a29">
+      <nazev>Iron Maiden</nazev>
+      <tema_akce>Heavy metal</tema_akce>
+      <popis_akce>Britská heavymetalová kapela založená baskytaristou Stevem Harrisem. Její tvorbu charakterizují vícehlasé kytary a rozsáhlé příběhové skladby. Kapela vznikla v Londýně.</popis_akce>
+      <datumstart>2027-08-02</datumstart>
+      <casstart>17:30:00</casstart>
+      <caskonec>18:45:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i34</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a30">
       <nazev>Chinaski</nazev>
-      <tema_akce>Rockový koncert</tema_akce>
-      <popis_akce>Chinaski v návrhu programu Prague Pulse Fest. Česká poprocková kapela se zpěvákem Michalem Malátným. Její repertoár tvoří melodické písně s českými texty.</popis_akce>
+      <tema_akce>Pop rock</tema_akce>
+      <popis_akce>Česká poprocková kapela se zpěvákem Michalem Malátným. Její repertoár tvoří melodické písně s českými texty.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>18:45:00</casstart>
-      <caskonec>19:35:00</caskonec>
-      <hala_ref>h1</hala_ref>
-      <den_ref>d2</den_ref>
-      <interpreti>
-        <interpret_ref>i32</interpret_ref></interpreti>
-    </akce>
-    <akce id="a31">
-      <nazev>Kabát</nazev>
-      <tema_akce>Rockový koncert</tema_akce>
-      <popis_akce>Kabát v návrhu programu Prague Pulse Fest. Česká rocková kapela z Teplic se zpěvákem Josefem Vojtkem. Její zvuk stojí na kytarových riffech a výrazných refrénech.</popis_akce>
-      <datumstart>2027-08-02</datumstart>
-      <casstart>19:50:00</casstart>
-      <caskonec>20:40:00</caskonec>
+      <casstart>17:30:00</casstart>
+      <caskonec>18:45:00</caskonec>
       <hala_ref>h2</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
-        <interpret_ref>i33</interpret_ref></interpreti>
+        <interpret_ref>i32</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a31">
+      <nazev>Dimension</nazev>
+      <tema_akce>Drum and bass / dancefloor</tema_akce>
+      <popis_akce>Britský producent a DJ Robert Etheridge. Jeho drum and bass kombinuje klubový tah s výraznými syntezátorovými melodiemi.</popis_akce>
+      <datumstart>2027-08-02</datumstart>
+      <casstart>17:30:00</casstart>
+      <caskonec>18:45:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i14</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a32">
-      <nazev>Iron Maiden</nazev>
-      <tema_akce>Rockový koncert</tema_akce>
-      <popis_akce>Iron Maiden v návrhu programu Prague Pulse Fest. Britská heavymetalová kapela založená baskytaristou Stevem Harrisem. Její tvorbu charakterizují vícehlasé kytary a rozsáhlé příběhové skladby.</popis_akce>
+      <nazev>The Prodigy</nazev>
+      <tema_akce>Big beat / breakbeat</tema_akce>
+      <popis_akce>Britská elektronická skupina založená Liamem Howlettem. Její tvorba propojuje rave, breakbeat a elektroniku s punkovou energií.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>20:55:00</casstart>
+      <casstart>19:00:00</casstart>
+      <caskonec>20:15:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i44</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a34">
+      <nazev>Kabát</nazev>
+      <tema_akce>Hard rock</tema_akce>
+      <popis_akce>Česká rocková kapela z Teplic se zpěvákem Josefem Vojtkem. Její zvuk stojí na kytarových riffech a výrazných refrénech.</popis_akce>
+      <datumstart>2027-08-02</datumstart>
+      <casstart>19:00:00</casstart>
+      <caskonec>20:15:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i33</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a35">
+      <nazev>Hedex</nazev>
+      <tema_akce>Drum and bass / jump-up</tema_akce>
+      <popis_akce>Britský drum and bassový producent a DJ. Vychází zejména z jump-upu, výrazných basových zvuků a rychlých klubových rytmů. Pochází z anglického Cambridge.</popis_akce>
+      <datumstart>2027-08-02</datumstart>
+      <casstart>19:00:00</casstart>
+      <caskonec>20:15:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i15</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a36">
+      <nazev>Depeche Mode</nazev>
+      <tema_akce>Synthpop</tema_akce>
+      <popis_akce>Britská kapela, která propojuje elektronickou hudbu, synthpop a rock. K jejím výrazným tvůrčím osobnostem patří Dave Gahan a Martin Gore. Kapela vznikla v anglickém Basildonu.</popis_akce>
+      <datumstart>2027-08-02</datumstart>
+      <casstart>20:30:00</casstart>
+      <caskonec>21:45:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i36</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a37">
+      <nazev>Lucie</nazev>
+      <tema_akce>Pop rock</tema_akce>
+      <popis_akce>Česká rocková kapela vzniklá v Praze v osmdesátých letech. Její repertoár propojuje poprockové melodie s kytarovým zvukem; patří do něj skladby Černí andělé a Amerika.</popis_akce>
+      <datumstart>2027-08-02</datumstart>
+      <casstart>20:30:00</casstart>
+      <caskonec>21:45:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d2</den_ref>
+      <interpreti>
+        <interpret_ref>i51</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a38">
+      <nazev>Bou</nazev>
+      <tema_akce>Drum and bass / jump-up</tema_akce>
+      <popis_akce>Britský drum and bassový producent a DJ působící v Manchesteru. Jeho tvorba propojuje jump-up s dalšími proudy současné basové hudby.</popis_akce>
+      <datumstart>2027-08-02</datumstart>
+      <casstart>20:30:00</casstart>
       <caskonec>21:45:00</caskonec>
       <hala_ref>h3</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
-        <interpret_ref>i34</interpret_ref></interpreti>
+        <interpret_ref>i16</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a33">
       <nazev>Katy Perry</nazev>
-      <tema_akce>Popový koncert</tema_akce>
-      <popis_akce>Katy Perry v návrhu programu Prague Pulse Fest. Americká zpěvačka a autorka popových hitů. Její hudbu charakterizují výrazné refrény, taneční produkce a barevná vizuální estetika.</popis_akce>
+      <tema_akce>Dance pop</tema_akce>
+      <popis_akce>Americká zpěvačka a autorka popových hitů. Její hudbu charakterizují výrazné refrény, taneční produkce a barevná vizuální estetika. Pochází z kalifornské Santa Barbary; k jejím známým albům patří Teenage Dream.</popis_akce>
       <datumstart>2027-08-02</datumstart>
       <casstart>22:00:00</casstart>
-      <caskonec>22:50:00</caskonec>
+      <caskonec>23:15:00</caskonec>
       <hala_ref>h1</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
-        <interpret_ref>i2</interpret_ref></interpreti>
-    </akce>
-    <akce id="a34">
-      <nazev>The Cure</nazev>
-      <tema_akce>Rockový koncert</tema_akce>
-      <popis_akce>The Cure v návrhu programu Prague Pulse Fest. Britská kapela vedená Robertem Smithem. Její tvorba sahá od post-punku a temného rocku po melodické popové písně.</popis_akce>
-      <datumstart>2027-08-02</datumstart>
-      <casstart>09:00:00</casstart>
-      <caskonec>09:50:00</caskonec>
-      <hala_ref>h2</hala_ref>
-      <den_ref>d2</den_ref>
-      <interpreti>
-        <interpret_ref>i35</interpret_ref></interpreti>
-    </akce>
-    <akce id="a35">
-      <nazev>Depeche Mode</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>Depeche Mode v návrhu programu Prague Pulse Fest. Britská kapela, která propojuje elektronickou hudbu, synthpop a rock. K jejím výrazným tvůrčím osobnostem patří Dave Gahan a Martin Gore.</popis_akce>
-      <datumstart>2027-08-02</datumstart>
-      <casstart>10:05:00</casstart>
-      <caskonec>10:55:00</caskonec>
-      <hala_ref>h3</hala_ref>
-      <den_ref>d2</den_ref>
-      <interpreti>
-        <interpret_ref>i36</interpret_ref></interpreti>
-    </akce>
-    <akce id="a36">
-      <nazev>The Offspring</nazev>
-      <tema_akce>Rockový koncert</tema_akce>
-      <popis_akce>The Offspring v návrhu programu Prague Pulse Fest. Americká punkrocková kapela z Kalifornie. Její tvorba spojuje rychlé kytary, melodické refrény a punkovou energii.</popis_akce>
-      <datumstart>2027-08-02</datumstart>
-      <casstart>11:10:00</casstart>
-      <caskonec>12:00:00</caskonec>
-      <hala_ref>h1</hala_ref>
-      <den_ref>d2</den_ref>
-      <interpreti>
-        <interpret_ref>i37</interpret_ref></interpreti>
-    </akce>
-    <akce id="a37">
-      <nazev>Green Day</nazev>
-      <tema_akce>Rockový koncert</tema_akce>
-      <popis_akce>Green Day v návrhu programu Prague Pulse Fest. Americká punkrocková kapela v čele s Billiem Joem Armstrongem. Její tvorba propojuje punkové kořeny s popovými melodiemi a rockovými příběhy.</popis_akce>
-      <datumstart>2027-08-02</datumstart>
-      <casstart>12:15:00</casstart>
-      <caskonec>13:05:00</caskonec>
-      <hala_ref>h2</hala_ref>
-      <den_ref>d2</den_ref>
-      <interpreti>
-        <interpret_ref>i38</interpret_ref></interpreti>
-    </akce>
-    <akce id="a38">
-      <nazev>Linkin Park</nazev>
-      <tema_akce>Rockový koncert</tema_akce>
-      <popis_akce>Linkin Park v návrhu programu Prague Pulse Fest. Americká kapela propojující alternativní rock, elektroniku a rap. V jejím repertoáru se potkávají tvrdé kytary s melodickými i rapovanými vokály.</popis_akce>
-      <datumstart>2027-08-02</datumstart>
-      <casstart>13:20:00</casstart>
-      <caskonec>14:10:00</caskonec>
-      <hala_ref>h3</hala_ref>
-      <den_ref>d2</den_ref>
-      <interpreti>
-        <interpret_ref>i39</interpret_ref></interpreti>
+        <interpret_ref>i2</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a39">
-      <nazev>Foo Fighters</nazev>
-      <tema_akce>Rockový koncert</tema_akce>
-      <popis_akce>Foo Fighters v návrhu programu Prague Pulse Fest. Americká rocková kapela založená Davem Grohlem. Její tvorba staví na kytarovém zvuku, výrazných melodiích a dynamických skladbách.</popis_akce>
+      <nazev>Wohnout</nazev>
+      <tema_akce>Alternative rock</tema_akce>
+      <popis_akce>Česká rocková kapela z Prahy, kterou tvoří mimo jiné bratři Matěj a Jan Homolovi. Její skladby spojují kytarové riffy, nadsázku a osobité české texty.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>14:25:00</casstart>
-      <caskonec>15:15:00</caskonec>
-      <hala_ref>h1</hala_ref>
+      <casstart>22:00:00</casstart>
+      <caskonec>23:15:00</caskonec>
+      <hala_ref>h2</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
-        <interpret_ref>i40</interpret_ref></interpreti>
+        <interpret_ref>i52</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a40">
-      <nazev>Muse</nazev>
-      <tema_akce>Rockový koncert</tema_akce>
-      <popis_akce>Muse v návrhu programu Prague Pulse Fest. Britské rockové trio Matt Bellamy, Chris Wolstenholme a Dominic Howard. Propojuje alternativní rock s elektronikou a progresivními vlivy.</popis_akce>
+      <nazev>Kanine</nazev>
+      <tema_akce>Drum and bass / dancefloor</tema_akce>
+      <popis_akce>Britský producent a DJ, jehož tvorba propojuje drum and bassové subžánry. Střídá melodické motivy s výraznými basovými dropy.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>15:30:00</casstart>
-      <caskonec>16:20:00</caskonec>
-      <hala_ref>h2</hala_ref>
+      <casstart>22:00:00</casstart>
+      <caskonec>23:15:00</caskonec>
+      <hala_ref>h3</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
-        <interpret_ref>i41</interpret_ref></interpreti>
+        <interpret_ref>i17</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a41">
-      <nazev>Placebo</nazev>
-      <tema_akce>Rockový koncert</tema_akce>
-      <popis_akce>Placebo v návrhu programu Prague Pulse Fest. Britská alternativně rocková kapela spojená se zpěvákem Brianem Molkem. Její tvorba kombinuje kytary, elektronické prvky a osobní texty.</popis_akce>
+      <nazev>Divokej Bill</nazev>
+      <tema_akce>Folk rock</tema_akce>
+      <popis_akce>Česká kapela z Úval propojující rock s akustickými nástroji. V jejím zvuku mají vedle kytar místo housle, banjo a akordeon; výraznou roli hrají vícehlasé refrény.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>09:00:00</casstart>
-      <caskonec>09:50:00</caskonec>
-      <hala_ref>h1</hala_ref>
+      <casstart>13:00:00</casstart>
+      <caskonec>14:15:00</caskonec>
+      <hala_ref>h2</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
-        <interpret_ref>i42</interpret_ref></interpreti>
+        <interpret_ref>i54</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a42">
-      <nazev>Franz Ferdinand</nazev>
-      <tema_akce>Rockový koncert</tema_akce>
-      <popis_akce>Franz Ferdinand v návrhu programu Prague Pulse Fest. Skotská kapela, která propojuje indie rock s taneční rytmikou. Její zvuk charakterizují úsporné kytarové riffy a výrazné basové linky.</popis_akce>
+      <nazev>Friction</nazev>
+      <tema_akce>Drum and bass / jungle</tema_akce>
+      <popis_akce>Britský DJ a producent Ed Keeley. Vedle drum and bassových setů je spojený také s vydavatelstvím Shogun Audio. Pochází z Brightonu na jihu Anglie.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>10:05:00</casstart>
-      <caskonec>10:55:00</caskonec>
-      <hala_ref>h2</hala_ref>
+      <casstart>13:00:00</casstart>
+      <caskonec>14:15:00</caskonec>
+      <hala_ref>h3</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
-        <interpret_ref>i43</interpret_ref></interpreti>
+        <interpret_ref>i18</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a43">
-      <nazev>The Prodigy</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>The Prodigy v návrhu programu Prague Pulse Fest. Britská elektronická skupina založená Liamem Howlettem. Její tvorba propojuje rave, breakbeat a elektroniku s punkovou energií.</popis_akce>
+      <nazev>Linkin Park</nazev>
+      <tema_akce>Alternative rock / nu metal</tema_akce>
+      <popis_akce>Americká kapela propojující alternativní rock, elektroniku a rap. V jejím repertoáru se potkávají tvrdé kytary s melodickými i rapovanými vokály. Kapela vznikla v kalifornském Agoura Hills.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>11:10:00</casstart>
-      <caskonec>12:00:00</caskonec>
-      <hala_ref>h3</hala_ref>
+      <casstart>14:30:00</casstart>
+      <caskonec>15:45:00</caskonec>
+      <hala_ref>h1</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
-        <interpret_ref>i44</interpret_ref></interpreti>
+        <interpret_ref>i39</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a44">
-      <nazev>The Chemical Brothers</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>The Chemical Brothers v návrhu programu Prague Pulse Fest. Britské elektronické duo Tom Rowlands a Ed Simons. Jejich tvorba propojuje big beat, house, psychedelické motivy a klubovou elektroniku.</popis_akce>
+      <nazev>Vypsaná fiXa</nazev>
+      <tema_akce>Alternative rock / punk</tema_akce>
+      <popis_akce>Česká alternativně rocková kapela z Pardubic vedená zpěvákem a kytaristou Márdim. Staví na přímočarých kytarách, punkové energii a obrazných českých textech.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>12:15:00</casstart>
-      <caskonec>13:05:00</caskonec>
-      <hala_ref>h1</hala_ref>
+      <casstart>14:30:00</casstart>
+      <caskonec>15:45:00</caskonec>
+      <hala_ref>h2</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
-        <interpret_ref>i45</interpret_ref></interpreti>
+        <interpret_ref>i55</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a45">
-      <nazev>Fatboy Slim</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>Fatboy Slim v návrhu programu Prague Pulse Fest. Britský DJ a producent Norman Cook. Pod jménem Fatboy Slim propojuje big beat, house a hravě využité samply.</popis_akce>
+      <nazev>JOYRYDE</nazev>
+      <tema_akce>Bass house</tema_akce>
+      <popis_akce>Britský producent a DJ John Ford. Jeho elektronická tvorba propojuje bass house s vlivy hip-hopu a dalších klubových žánrů.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>13:20:00</casstart>
-      <caskonec>14:10:00</caskonec>
-      <hala_ref>h2</hala_ref>
+      <casstart>14:30:00</casstart>
+      <caskonec>15:45:00</caskonec>
+      <hala_ref>h3</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
-        <interpret_ref>i46</interpret_ref></interpreti>
+        <interpret_ref>i19</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a46">
-      <nazev>Pendulum</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>Pendulum v návrhu programu Prague Pulse Fest. Australská skupina propojující drum and bass s rockovou instrumentací. Její tvorba kombinuje rychlé elektronické rytmy s kytarami a zpěvem.</popis_akce>
+      <nazev>Foo Fighters</nazev>
+      <tema_akce>Alternative rock</tema_akce>
+      <popis_akce>Americká rocková kapela založená Davem Grohlem. Její tvorba staví na kytarovém zvuku, výrazných melodiích a dynamických skladbách.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>14:25:00</casstart>
-      <caskonec>15:15:00</caskonec>
-      <hala_ref>h3</hala_ref>
+      <casstart>16:00:00</casstart>
+      <caskonec>17:15:00</caskonec>
+      <hala_ref>h1</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
-        <interpret_ref>i47</interpret_ref></interpreti>
+        <interpret_ref>i40</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a47">
-      <nazev>RÜFÜS DU SOL</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>RÜFÜS DU SOL v návrhu programu Prague Pulse Fest. Australské elektronické trio. Jeho tvorba propojuje alternativní taneční hudbu, house, atmosférické syntezátory a zpívané melodie.</popis_akce>
+      <nazev>Dymytry</nazev>
+      <tema_akce>Industrial metal</tema_akce>
+      <popis_akce>Česká metalová kapela z Prahy, známá také svými maskami. Její tvorba propojuje hutné kytarové riffy, elektronické prvky a melodické refrény.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>15:30:00</casstart>
-      <caskonec>16:20:00</caskonec>
-      <hala_ref>h1</hala_ref>
-      <den_ref>d3</den_ref>
-      <interpreti>
-        <interpret_ref>i48</interpret_ref></interpreti>
-    </akce>
-    <akce id="a48">
-      <nazev>Dua Lipa</nazev>
-      <tema_akce>Popový koncert</tema_akce>
-      <popis_akce>Dua Lipa v návrhu programu Prague Pulse Fest. Britsko-albánská zpěvačka a autorka. Její popová tvorba čerpá také z disco hudby, funku a tanečních žánrů.</popis_akce>
-      <datumstart>2027-08-03</datumstart>
-      <casstart>16:35:00</casstart>
-      <caskonec>17:25:00</caskonec>
+      <casstart>16:00:00</casstart>
+      <caskonec>17:15:00</caskonec>
       <hala_ref>h2</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
-        <interpret_ref>i49</interpret_ref></interpreti>
+        <interpret_ref>i56</interpret_ref>
+      </interpreti>
     </akce>
-    <akce id="a49">
-      <nazev>The Weeknd</nazev>
-      <tema_akce>Popový koncert</tema_akce>
-      <popis_akce>The Weeknd v návrhu programu Prague Pulse Fest. Kanadský zpěvák a autor Abel Tesfaye. Jeho tvorba propojuje R&amp;B, pop a elektroniku s výraznou vizuální estetikou.</popis_akce>
+    <akce id="a48">
+      <nazev>AC Slater</nazev>
+      <tema_akce>Bass house / UK garage</tema_akce>
+      <popis_akce>Americký DJ a producent Aaron Clevenger. Zakladatel značky Night Bass propojuje house s britskými basovými a garage vlivy. Pochází z USA a jeho značka je spojená s losangeleskou klubovou scénou.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>17:40:00</casstart>
-      <caskonec>18:30:00</caskonec>
+      <casstart>16:00:00</casstart>
+      <caskonec>17:15:00</caskonec>
       <hala_ref>h3</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
-        <interpret_ref>i50</interpret_ref></interpreti>
+        <interpret_ref>i20</interpret_ref>
+      </interpreti>
     </akce>
-    <akce id="a50">
-      <nazev>Billie Eilish</nazev>
-      <tema_akce>Popový koncert</tema_akce>
-      <popis_akce>Billie Eilish v návrhu programu Prague Pulse Fest. Americká zpěvačka a autorka spolupracující s producentem FINNEASem. Její tvorba staví na osobitých vokálech, elektronice a intimních textech.</popis_akce>
+    <akce id="a49">
+      <nazev>The Cure</nazev>
+      <tema_akce>Gothic rock / post-punk</tema_akce>
+      <popis_akce>Britská kapela vedená Robertem Smithem. Její tvorba sahá od post-punku a temného rocku po melodické popové písně. Kapela vznikla v Crawley v Anglii.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>18:45:00</casstart>
-      <caskonec>19:35:00</caskonec>
+      <casstart>17:30:00</casstart>
+      <caskonec>18:45:00</caskonec>
       <hala_ref>h1</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
-        <interpret_ref>i51</interpret_ref></interpreti>
+        <interpret_ref>i35</interpret_ref>
+      </interpreti>
     </akce>
-    <akce id="a51">
-      <nazev>Gorillaz</nazev>
-      <tema_akce>Popový koncert</tema_akce>
-      <popis_akce>Gorillaz v návrhu programu Prague Pulse Fest. Britský virtuální hudební projekt Damona Albarna a Jamieho Hewletta. Propojuje alternativní pop, hip-hop, elektroniku a hostující interprety.</popis_akce>
+    <akce id="a50">
+      <nazev>Sergei Barracuda</nazev>
+      <tema_akce>Trap / gangsta rap</tema_akce>
+      <popis_akce>Český rapper z Ostravy. Jeho tvorba vychází z trapu a gangsta rapu; je spojená s ostravskou rapovou scénou a uskupením Azurit Kingdom.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>19:50:00</casstart>
-      <caskonec>20:40:00</caskonec>
+      <casstart>17:30:00</casstart>
+      <caskonec>18:45:00</caskonec>
       <hala_ref>h2</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
-        <interpret_ref>i52</interpret_ref></interpreti>
+        <interpret_ref>i57</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a51">
+      <nazev>Conducta</nazev>
+      <tema_akce>UK garage</tema_akce>
+      <popis_akce>Britský DJ a producent spojený se současnou UK garage scénou. Stojí také za vydavatelstvím Kiwi Rekords. Pochází z anglického Bristolu.</popis_akce>
+      <datumstart>2027-08-03</datumstart>
+      <casstart>17:30:00</casstart>
+      <caskonec>18:45:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i21</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a52">
-      <nazev>Jamie Cullum</nazev>
-      <tema_akce>Jazzový koncert</tema_akce>
-      <popis_akce>Jamie Cullum v návrhu programu Prague Pulse Fest. Britský zpěvák, pianista a autor. V jeho tvorbě se jazzová tradice potkává s popem, rockem a vlastními úpravami známých skladeb.</popis_akce>
+      <nazev>Bring Me the Horizon</nazev>
+      <tema_akce>Metalcore / alternative metal</tema_akce>
+      <popis_akce>Britská kapela ze Sheffieldu vedená Oliverem Sykesem. Její tvorba propojuje metalové a rockové kořeny s elektronikou a popovými prvky.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>20:55:00</casstart>
+      <casstart>19:00:00</casstart>
+      <caskonec>20:15:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i46</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a54">
+      <nazev>PTK</nazev>
+      <tema_akce>Trap / rap</tema_akce>
+      <popis_akce>Český rapper Jan Šustr původem z Chebu. Ve své tvorbě propojuje rap, trapovou produkci a melodické motivy a spolupracuje s dalšími jmény české scény.</popis_akce>
+      <datumstart>2027-08-03</datumstart>
+      <casstart>19:00:00</casstart>
+      <caskonec>20:15:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i58</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a55">
+      <nazev>Skepsis</nazev>
+      <tema_akce>Bassline / bass house</tema_akce>
+      <popis_akce>Britský DJ a producent Scott Jenkins z Londýna. Jeho bassline a bass house propojují hutné basové linky s rytmikou UK garage; patří k britské scéně kolem značky Crucast.</popis_akce>
+      <datumstart>2027-08-03</datumstart>
+      <casstart>19:00:00</casstart>
+      <caskonec>20:15:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i22</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a56">
+      <nazev>Dua Lipa</nazev>
+      <tema_akce>Dance pop / disco</tema_akce>
+      <popis_akce>Britsko-albánská zpěvačka a autorka. Její popová tvorba čerpá také z disco hudby, funku a tanečních žánrů. Narodila se v Londýně.</popis_akce>
+      <datumstart>2027-08-03</datumstart>
+      <casstart>20:30:00</casstart>
+      <caskonec>21:45:00</caskonec>
+      <hala_ref>h1</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i48</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a57">
+      <nazev>Hugo Toxxx</nazev>
+      <tema_akce>Alternative hip-hop</tema_akce>
+      <popis_akce>Český rapper Jan Daněk z Prahy. Vzešel z dua Supercrooo a jeho sólová tvorba patří k osobitým podobám českého alternativního rapu.</popis_akce>
+      <datumstart>2027-08-03</datumstart>
+      <casstart>20:30:00</casstart>
+      <caskonec>21:45:00</caskonec>
+      <hala_ref>h2</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i59</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a58">
+      <nazev>Pendulum</nazev>
+      <tema_akce>Drum and bass / electronic rock</tema_akce>
+      <popis_akce>Australská skupina propojující drum and bass s rockovou instrumentací. Její tvorba kombinuje rychlé elektronické rytmy s kytarami a zpěvem. Skupina vznikla v australském Perthu.</popis_akce>
+      <datumstart>2027-08-03</datumstart>
+      <casstart>20:30:00</casstart>
       <caskonec>21:45:00</caskonec>
       <hala_ref>h3</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
-        <interpret_ref>i53</interpret_ref></interpreti>
+        <interpret_ref>i47</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a53">
       <nazev>Skrillex</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>Skrillex v návrhu programu Prague Pulse Fest. Americký producent a DJ Sonny Moore. V jeho tvorbě se potkávají dubstep, bass music, house i spolupráce napříč současnou populární hudbou.</popis_akce>
+      <tema_akce>Dubstep / bass house</tema_akce>
+      <popis_akce>Americký producent a DJ Sonny Moore. V jeho tvorbě se potkávají dubstep, bass music, house i spolupráce napříč současnou populární hudbou. Vyrůstal v Los Angeles a před sólovou elektronickou tvorbou působil v kapele From First to Last.</popis_akce>
       <datumstart>2027-08-03</datumstart>
       <casstart>22:00:00</casstart>
-      <caskonec>22:50:00</caskonec>
+      <caskonec>23:15:00</caskonec>
       <hala_ref>h1</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
-        <interpret_ref>i3</interpret_ref></interpreti>
-    </akce>
-    <akce id="a54">
-      <nazev>Norah Jones</nazev>
-      <tema_akce>Jazzový koncert</tema_akce>
-      <popis_akce>Norah Jones v návrhu programu Prague Pulse Fest. Americká zpěvačka a pianistka. Její hudba propojuje jazz, soul, pop a country s důrazem na jemný vokální projev.</popis_akce>
-      <datumstart>2027-08-03</datumstart>
-      <casstart>09:00:00</casstart>
-      <caskonec>09:50:00</caskonec>
-      <hala_ref>h2</hala_ref>
-      <den_ref>d3</den_ref>
-      <interpreti>
-        <interpret_ref>i54</interpret_ref></interpreti>
-    </akce>
-    <akce id="a55">
-      <nazev>The Lumineers</nazev>
-      <tema_akce>Folk / indie</tema_akce>
-      <popis_akce>The Lumineers v návrhu programu Prague Pulse Fest. Americká folkrocková kapela. Její písně stojí na akustických nástrojích, příběhových textech a sborově zpívaných refrénech.</popis_akce>
-      <datumstart>2027-08-03</datumstart>
-      <casstart>10:05:00</casstart>
-      <caskonec>10:55:00</caskonec>
-      <hala_ref>h3</hala_ref>
-      <den_ref>d3</den_ref>
-      <interpreti>
-        <interpret_ref>i55</interpret_ref></interpreti>
-    </akce>
-    <akce id="a56">
-      <nazev>Of Monsters and Men</nazev>
-      <tema_akce>Folk / indie</tema_akce>
-      <popis_akce>Of Monsters and Men v návrhu programu Prague Pulse Fest. Islandská kapela propojující indie folk a pop. Její zvuk staví na vícehlasých vokálech, melodiích a bohatých aranžích.</popis_akce>
-      <datumstart>2027-08-03</datumstart>
-      <casstart>11:10:00</casstart>
-      <caskonec>12:00:00</caskonec>
-      <hala_ref>h1</hala_ref>
-      <den_ref>d3</den_ref>
-      <interpreti>
-        <interpret_ref>i56</interpret_ref></interpreti>
-    </akce>
-    <akce id="a57">
-      <nazev>Florence + The Machine</nazev>
-      <tema_akce>Popový koncert</tema_akce>
-      <popis_akce>Florence + The Machine v návrhu programu Prague Pulse Fest. Britská kapela vedená zpěvačkou Florence Welch. Její tvorba spojuje art pop, indie rock a výrazné vokální linky.</popis_akce>
-      <datumstart>2027-08-03</datumstart>
-      <casstart>12:15:00</casstart>
-      <caskonec>13:05:00</caskonec>
-      <hala_ref>h2</hala_ref>
-      <den_ref>d3</den_ref>
-      <interpreti>
-        <interpret_ref>i57</interpret_ref></interpreti>
-    </akce>
-    <akce id="a58">
-      <nazev>Arctic Monkeys</nazev>
-      <tema_akce>Rockový koncert</tema_akce>
-      <popis_akce>Arctic Monkeys v návrhu programu Prague Pulse Fest. Britská kapela ze Sheffieldu v čele s Alexem Turnerem. Její tvorba se pohybuje od kytarového indie rocku po propracované orchestrální a klávesové aranže.</popis_akce>
-      <datumstart>2027-08-03</datumstart>
-      <casstart>13:20:00</casstart>
-      <caskonec>14:10:00</caskonec>
-      <hala_ref>h3</hala_ref>
-      <den_ref>d3</den_ref>
-      <interpreti>
-        <interpret_ref>i58</interpret_ref></interpreti>
+        <interpret_ref>i3</interpret_ref>
+      </interpreti>
     </akce>
     <akce id="a59">
-      <nazev>Bring Me the Horizon</nazev>
-      <tema_akce>Rockový koncert</tema_akce>
-      <popis_akce>Bring Me the Horizon v návrhu programu Prague Pulse Fest. Britská kapela ze Sheffieldu vedená Oliverem Sykesem. Její tvorba propojuje metalové a rockové kořeny s elektronikou a popovými prvky.</popis_akce>
+      <nazev>Paulie Garand</nazev>
+      <tema_akce>Alternative hip-hop</tema_akce>
+      <popis_akce>Český rapper a výtvarník Pavel Harant z Liberce. Jeho tvorba propojuje melodický rap, osobní texty a dlouhodobou spolupráci s producentem Kennym Roughem.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>14:25:00</casstart>
-      <caskonec>15:15:00</caskonec>
-      <hala_ref>h1</hala_ref>
-      <den_ref>d3</den_ref>
-      <interpreti>
-        <interpret_ref>i59</interpret_ref></interpreti>
-    </akce>
-    <akce id="a60">
-      <nazev>Massive Attack</nazev>
-      <tema_akce>DJ set / elektronika</tema_akce>
-      <popis_akce>Massive Attack v návrhu programu Prague Pulse Fest. Britská skupina z Bristolu spojená s trip-hopem. Její tvorba kombinuje pomalé rytmy, basové linky, elektroniku a hostující hlasy.</popis_akce>
-      <datumstart>2027-08-03</datumstart>
-      <casstart>15:30:00</casstart>
-      <caskonec>16:20:00</caskonec>
+      <casstart>22:00:00</casstart>
+      <caskonec>23:15:00</caskonec>
       <hala_ref>h2</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
-        <interpret_ref>i60</interpret_ref></interpreti>
+        <interpret_ref>i60</interpret_ref>
+      </interpreti>
+    </akce>
+    <akce id="a60">
+      <nazev>HOLY PRIEST</nazev>
+      <tema_akce>Hard techno</tema_akce>
+      <popis_akce>Německý hardtechno projekt s maskovanou vizuální identitou. Jeho zvuk staví na rychlém tempu, tvrdých kopácích a vlivech hard dance a rave.</popis_akce>
+      <datumstart>2027-08-03</datumstart>
+      <casstart>22:00:00</casstart>
+      <caskonec>23:15:00</caskonec>
+      <hala_ref>h3</hala_ref>
+      <den_ref>d3</den_ref>
+      <interpreti>
+        <interpret_ref>i53</interpret_ref>
+      </interpreti>
     </akce>
   </sumakce>
   <kontakt>
@@ -1178,7 +1959,27 @@
       <mena>CZK</mena>
       <popis>Jednodenní vstup do zóny stání a na všechny scény. Konečná cena včetně všech poplatků; občerstvení, parkování a ubytování nejsou zahrnuté.</popis>
     </vstupenka>
-    </vstupenky>
+  </vstupenky>
+  <kempovani>
+    <cena_osoby>150</cena_osoby>
+    <sazba_dph>12</sazba_dph>
+    <datum_od>2027-08-01</datum_od>
+    <datum_do>2027-08-04</datum_do>
+    <typy>
+      <typ id="tent">
+        <nazev>Stan</nazev>
+        <cena>350</cena>
+        <max_osob>4</max_osob>
+        <kapacita>40</kapacita>
+      </typ>
+      <typ id="caravan">
+        <nazev>Karavan</nazev>
+        <cena>850</cena>
+        <max_osob>6</max_osob>
+        <kapacita>12</kapacita>
+      </typ>
+    </typy>
+  </kempovani>
   <odkazy>
     <odkaz id="l1">
       <nazev>Web</nazev>

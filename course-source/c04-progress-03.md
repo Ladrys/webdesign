@@ -4,7 +4,7 @@
 
 Složka `web/` obsahuje aktuální kompletní implementaci HTML/CSS/JavaScript.
 Je přiložena přímo, bez instalačního kroku. Úvod, Program, Účinkující, Scény,
-Info, Novinky, Vyhledávání, Vstupenky, Košík a Účet tvoří navzájem propojené části.
+Info, Novinky, Vyhledávání, Vstupenky, Košík, Účet, Soukromí, Podmínky a Kredity tvoří navzájem propojené části.
 Tento balíček byl připraven dodatečně ze současné verze; neprokazuje dřívější stav cvičení 04.
 
 ## Proti wireframu
@@ -13,8 +13,8 @@ Tento balíček byl připraven dodatečně ze současné verze; neprokazuje dř�
 | --- | --- | --- |
 | Jednoduché bloky a karty | Tmavá hlavička přes celou šířku, vlastní logo, historická fotografie areálu v úvodu | Výslovný požadavek na silnější identitu |
 | Jednojazyčný obsah | Přepínač češtiny a angličtiny | Orientace zahraničních návštěvníků |
-| Textové přehledy | 41 fotografií a 19 typografických náhrad skutečných interpretů, medailonky | Snazší rozlišení účinkujících |
-| S1 a S2 | Navíc množství, konečné ceny, mapa míst, promo kódy, košík, sedm zkušebních metod, účet a PDF | Rozšíření scénáře S3 |
+| Textové přehledy | 42 fotografií a 18 typografických náhrad skutečných interpretů, medailonky | Snazší rozlišení účinkujících |
+| S1 a S2 | Navíc 1/2/3 dny, ruční sedadla, stání, kemp, promo jen na vstupenky, 12% DPH, rozšířený profil a PDF | Rozšíření scénáře S3 |
 | Jednoduché zobrazení scén | Praktické informace a automatická mapa po povolení externích map | Snazší plánování cesty s možností odvolat souhlas |
 | Jednoduchá hlavička | Jednořádková navigace na notebooku a odpočet do 1. srpna 2027 | Oprava zalamování a návaznost na aktuální termín |
 
@@ -57,9 +57,25 @@ evidenci v `web/images/PHOTO-CREDITS.md`. Skutečné interprety používáme na
 pozdější výslovný požadavek uživatele; jejich účast není potvrzená a jejich
 umělce nevydáváme za osoby vytvořené AI; medailonky jsou shrnutí jejich tvorby.
 Síťová blokace byla vyřešena;
-41 fotografií interpretů a historická fotografie areálu mají konkrétní zdroj,
-autora a licenci. Devatenáct zbývajících karet používá vlastní typografii. Příklady promptů: „asymetrická festivalová
+42 fotografií interpretů a historická fotografie areálu mají konkrétní zdroj,
+autora a licenci. Osmnáct zbývajících karet používá vlastní typografii. Příklady promptů: „asymetrická festivalová
 identita s vlastním názvem“, „mobile-first program s filtrem scény“, „ověř
 shodu XML a přibalených dat“. Přijaty byly originální grafika a lokální datový
 export; odmítnuty kopie cizího loga a serverová integrace v klientském zadání.
 AI návrh sám není důkaz správnosti: ověřujeme skutečné chování a výsledný PDF soubor.
+
+## Změny podle nejnovější audiozpětné vazby
+
+Tato zpětná vazba je od zadavatele, nikoli od přiděleného jiného týmu.
+Program nově rozděluje 20/20/20 interpretů mezi hlavní mezinárodní jména,
+českou scénu a klubovou elektroniku. Medailonky a konkrétní subžánry jsou v XML.
+Nákup sjednocuje jeden, dva libovolné nebo tři dny; VIP a Regular vyžadují ruční
+sedadla, stání množství. Objednávka přidá stan 350 Kč nebo karavan 850 Kč
+plus 150 Kč za osobu na 3 noci. PULSE10/PRAHA200 se vztahují jen na vstupenky.
+Rozpis ukazuje modelovou 12% DPH zahrnutou v cenách, nikoli další poplatek.
+Registrace má příjmení, telefon a potvrzení hesla, profil lze upravit.
+
+Offline plánek, podrobnější návštěvnické FAQ a skutečné fotografie novinek
+pomáhají při cestě; soukromí, podmínky a obrazové kredity mají vlastní stránky.
+Dva snímky (Hedex, AC Slater) mají CC BY-NC-SA 2.0 a patří pouze do nekomerčního
+školního rozsahu. Zdroje a úpravy jsou v PHOTO-CREDITS.md a na stránce Kredity.

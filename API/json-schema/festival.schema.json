@@ -9,7 +9,9 @@
     "dates",
     "tickets",
     "links",
-    "contact"
+    "contact",
+    "taxRate",
+    "camping"
   ],
   "properties": {
     "id": {
@@ -70,6 +72,82 @@
         },
         "phone": {
           "type": "string"
+        }
+      }
+    },
+    "taxRate": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "camping": {
+      "type": "object",
+      "required": [
+        "personPrice",
+        "vatRate",
+        "dates",
+        "types"
+      ],
+      "properties": {
+        "personPrice": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "vatRate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "dates": {
+          "type": "object",
+          "required": [
+            "from",
+            "to"
+          ],
+          "properties": {
+            "from": {
+              "type": "string",
+              "format": "date"
+            },
+            "to": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        },
+        "types": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "name",
+              "price",
+              "maxPeople",
+              "capacity"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "price": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "maxPeople": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "capacity": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
         }
       }
     }

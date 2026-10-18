@@ -10,7 +10,7 @@ def generate():
           'venues':json.loads((ROOT/'API/json/venues.json').read_text())['items'],
           'performers':[]}
     for node in source.findall('.//interpret'):
-        data['performers'].append(dict(id=node.attrib['id'],name=node.findtext('nazev'),performerType=node.findtext('typ_interpreta'),genre=node.findtext('zanr'),description=node.findtext('popis')))
+        data['performers'].append(dict(id=node.attrib['id'],name=node.findtext('nazev'),performerType=node.findtext('typ_interpreta'),genre=node.findtext('zanr'),description=node.findtext('popis'),links=[dict(platform=link.attrib['platforma'],label=link.findtext('nazev'),url=link.findtext('url'),kind=link.attrib['druh'],source=link.findtext('zdroj')) for link in node.findall('odkazy/odkaz')]))
     return '/* Odvozeno z data/festival.xml a API/json; bez síťových požadavků. */\nwindow.FESTIVAL_DATA = '+json.dumps(data,ensure_ascii=False)+';\n'
 if __name__=='__main__':
     (ROOT/'web/js/data.js').write_text(generate(),encoding='utf-8')

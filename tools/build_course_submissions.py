@@ -7,18 +7,16 @@ Run without --include-web while the current website is still being edited.
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
 import shutil
-import textwrap
 import xml.etree.ElementTree as ET
 
 from pptx import Presentation
 from pptx.dml.color import RGBColor
 from pptx.enum.shapes import MSO_SHAPE
-from pptx.util import Inches, Pt
+from pptx.util import Pt
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
@@ -213,7 +211,7 @@ def copy_file(source: Path, target: Path):
 def build(output: Path, include_web: bool):
     data, checks = data_checks()
     output = output.resolve()
-    assert output != ROOT and ROOT not in output.parents[:0], 'Choose a separate output folder'
+    assert output != ROOT and output not in ROOT.parents, 'Choose a separate output folder'
     marker = output / '.course-generated'
     if output.exists() and any(output.iterdir()) and not marker.exists():
         raise SystemExit(f'Output {output} is not an owned generated folder; choose an empty directory.')
@@ -264,7 +262,8 @@ def build(output: Path, include_web: bool):
         else:
             (project/'review').mkdir()
             (project/'review/received-review.md').write_text('# Přijaté cross-review\n\nSkutečné hodnocení jiným týmem nebylo poskytnuto. Doplnit po provedení.\n',encoding='utf-8')
-        if (ROOT/'review/internal-review.md').exists():copy_file(ROOT/'review/internal-review.md',project/'review/internal-review.md')
+        for review_name in ['internal-review.md','audio-requirements-2026-10-18.md','browser-validation-2026-10-18.json']:
+            if (ROOT/'review'/review_name).exists():copy_file(ROOT/'review'/review_name,project/'review'/review_name)
         (final/'README.md').write_text('# Finální projekt\n\nSložka `projekt/` odpovídá povinné struktuře zadání. Otevřete `projekt/web/index.html`.\n\nPřed odevzdáním doplňte skutečné přijaté review, týmovou historii a potvrzení rozsahu změn.\n',encoding='utf-8')
     (output/'data-validation.md').write_text('# Kontrola dat při sestavení podkladů\n\n'+
         '\n'.join('- '+item for item in checks)+'\n\nKontrola se spouští při každém sestavení. Nejde o HTML validaci ani UX audit.\n',encoding='utf-8')
@@ -299,6 +298,9 @@ sestavený redukovaný interaktivní prototyp. Nepředkládejte je jako falešno
 4. Ověření posunu termínu na srpen 2027, přechodu na skutečné interprety a výraznějšího
    redesignu vůči schváleným prvním výstupům. Původní název Prague Pulse Fest zůstává;
    dodržení limitu změn cca 15 % nelze potvrdit bez těchto výstupů.
+5. Nejnovější audiozpětná vazba je požadavek zadavatele, nikoli cross-review.
+   Vstupenkový tok nově řeší 1/2/3 dny, vlastní místa, kemp a modelovou DPH.
+   Dva snímky CC BY-NC-SA jsou určeny jen pro nekomerční školní rozsah.
 
 ## Pravdivé ověření a AI
 
@@ -313,6 +315,8 @@ se podle zadání také nahrává před cvičením. Prezentace 06 je zatím pouz
     if not include_web:
         readme += '\n**Pracovní export:** současný web nebyl kopírován. Úplný export vyžaduje `--include-web`.\n'
     (output/'README.md').write_text(readme,encoding='utf-8')
+    if (SOURCE/'prototype-validation.md').exists():
+        copy_file(SOURCE/'prototype-validation.md',output/'prototype-validation.md')
     files=[]
     for path in sorted(output.rglob('*')):
         if path.is_file() and path.name not in {'.course-generated','manifest.json'}:

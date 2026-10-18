@@ -10,8 +10,7 @@
   const gray = '#696960';
 
   const tr = (cs,en) => window.PulseI18n?.lang==='en'?en:cs;
-  const categories = { vip: 'VIP', regular: 'REGULAR', standing: window.PulseI18n?.lang==='en'?'STANDING':'STÁNÍ' };
-  const money = value => new Intl.NumberFormat(window.PulseI18n?.lang==='en'?'en-GB':'cs-CZ', { style: 'currency', currency: 'CZK', maximumFractionDigits: 0 }).format(Number(value) || 0);
+  const money = (value, precise = false) => new Intl.NumberFormat(window.PulseI18n?.lang==='en'?'en-GB':'cs-CZ', { style: 'currency', currency: 'CZK', minimumFractionDigits: precise ? 2 : 0, maximumFractionDigits: 2 }).format(Number(value) || 0);
   let dependencies;
 
   function script(name, ready) {
@@ -76,14 +75,81 @@
     }
   }
 
+  const amount = (value, fallback = 0) => Number.isFinite(value) && value >= 0 ? value : fallback;
+  const roundMoney = value => Math.round((value + Number.EPSILON) * 100) / 100;
+
+  function orderSummary(order) {
+    const subtotal = amount(order.subtotal, order.tickets.reduce((sum, ticket) => sum + amount(ticket.price), 0));
+    const discount = Math.min(subtotal, amount(order.discount));
+    const camping = order.camping ? amount(order.campingTotal, amount(order.camping.price)) : 0;
+    const total = amount(order.total, roundMoney(subtotal - discount + camping));
+    const hasTax = Number.isFinite(order.tax?.rate) && Number.isFinite(order.tax?.net) && Number.isFinite(order.tax?.vat);
+    return { subtotal, discount, camping, total, hasTax, rate: order.tax?.rate, net: order.tax?.net, vat: order.tax?.vat };
+  }
+
+  function festivalCalendar(edition) {
+    const source = window.FESTIVAL_DATA?.festival?.dates;
+    const dates = Array.isArray(source) && source.length ? source : [
+      { id: 'd1', date: '2027-08-01' }, { id: 'd2', date: '2027-08-02' }, { id: 'd3', date: '2027-08-03' },
+    ];
+    return dates.map(day => ({ id: day.id, iso: day.date.replace(/^\d{4}/, String(edition)) }));
+  }
+
+  function dateParts(iso) { return String(iso).split('-').map(Number); }
+
+  function dateRange(from, to) {
+    const [year, month, day] = dateParts(from);
+    const [endYear, endMonth, endDay] = dateParts(to);
+    if (from === to) return `${day}. ${month}. ${year}`;
+    return year === endYear && month === endMonth
+      ? `${day}.–${endDay}. ${month}. ${year}`
+      : `${day}. ${month}. ${year} – ${endDay}. ${endMonth}. ${endYear}`;
+  }
+
+  function ticketValidity(ticket, calendar) {
+    const ids = ticket.scope === 'festival' ? calendar.map(day => day.id)
+      : ticket.scope === 'multi' ? ticket.days : [ticket.day];
+    const selected = calendar.filter(day => Array.isArray(ids) && ids.includes(day.id));
+    if (!selected.length || (ticket.scope === 'multi' && selected.length < 2)) {
+      throw new Error('Vstupenka nemá platné datum návštěvy.');
+    }
+    const first = selected[0];
+    const last = selected[selected.length - 1];
+    const isWholeFestival = selected.length === calendar.length;
+    const display = isWholeFestival ? dateRange(first.iso, last.iso)
+      : selected.length === 1 ? dateRange(first.iso, first.iso)
+        : selected.map(day => `${dateParts(day.iso)[2]}.`).join(' + ') + ` ${dateParts(last.iso)[1]}. ${dateParts(last.iso)[0]}`;
+    const header = selected.map(day => String(dateParts(day.iso)[2]).padStart(2, '0')).join(isWholeFestival ? '—' : ' + ')
+      + ` / ${String(dateParts(first.iso)[1]).padStart(2, '0')}`;
+    return {
+      display,
+      header: isWholeFestival ? `${String(dateParts(first.iso)[2]).padStart(2, '0')}—${String(dateParts(last.iso)[2]).padStart(2, '0')} / ${String(dateParts(first.iso)[1]).padStart(2, '0')}` : header,
+      caption: tr(`${selected.length} ${selected.length === 1 ? 'DEN' : 'DNY'} / VŠECHNY SCÉNY`, `${selected.length} ${selected.length === 1 ? 'DAY' : 'DAYS'} / ALL STAGES`),
+    };
+  }
+
+  function campingValidity(camping, edition) {
+    const from = String(camping.dates?.from || `${edition}-08-01`).replace(/^\d{4}/, String(edition));
+    const to = String(camping.dates?.to || `${edition}-08-04`).replace(/^\d{4}/, String(edition));
+    const nights = Math.max(1, Math.round((Date.parse(`${to}T00:00:00Z`) - Date.parse(`${from}T00:00:00Z`)) / 86400000)) || 3;
+    return { display: dateRange(from, to), nights };
+  }
+
+  function safeCode(suppliedCode, fallback) {
+    const value = String(suppliedCode || fallback);
+    return /^[A-Za-z0-9_-]{1,256}$/.test(value)
+      ? value : String(fallback).replace(/[^A-Za-z0-9_-]/g, '-').slice(0, 256);
+  }
+
   async function generate(order) {
     if (!order || !Array.isArray(order.tickets) || !order.tickets.length || order.tickets.length > 264) {
       throw new Error('Objednávka musí obsahovat 1 až 264 vstupenek.');
     }
+    if (window.PulseOrders?.normalize) order = window.PulseOrders.normalize(order);
     await loadDependencies();
     const edition=Number.isInteger(order.edition)?order.edition:2026;
-    const days={d1:`1. 8. ${edition}`,d2:`2. 8. ${edition}`,d3:`3. 8. ${edition}`};
-    const wholeFestival=`1.–3. 8. ${edition}`;
+    const calendar = festivalCalendar(edition);
+    const summary = orderSummary(order);
     const doc = new window.jspdf.jsPDF({ orientation: 'landscape', unit: 'pt', format: 'a5', compress: true, putOnlyUsedFonts: true });
     doc.addFileToVFS('DejaVuSans.ttf', window.PULSE_PDF_FONTS.regular);
     doc.addFont('DejaVuSans.ttf', 'PulseSans', 'normal');
@@ -94,63 +160,120 @@
     const height = doc.internal.pageSize.getHeight();
     const split = width - 175;
 
-    order.tickets.forEach((ticket, index) => {
-      if (index) doc.addPage('a5', 'landscape');
+    function pageBase(title, headerDate) {
       box(doc, 0, 0, width, height, paper);
       box(doc, split, 0, 175, height, orange);
-      box(doc, 0, 0, split, 136, ink);
+      box(doc, 0, 0, split, 126, ink);
 
       text(doc, 'PRAGUE', 25, 40, 230, 25, true, paper);
       text(doc, 'PULSE', 23, 86, 260, 43, true, paper);
       text(doc, `FEST / ${edition}`, 26, 117, 230, 11, true, orange);
-      text(doc, '01—03 / 08', split - 133, 72, 108, 17, true, orange);
+      font(doc, 13, true, orange);
+      const headerSize = Math.min(13, 13 * 107 / Math.max(1, doc.getTextWidth(headerDate)));
+      text(doc, headerDate, split - 133, 72, 108, headerSize, true, orange, false);
 
-      text(doc, 'FIKTIVNÍ FESTIVAL / VSTUPENKA', 26, 159, split - 52, 8, true);
-      label(doc, 'JMÉNO V OBJEDNÁVCE', 26, 187, split - 52);
-      text(doc, order.name || order.customer?.name || 'Návštěvník festivalu', 26, 214, split - 52, 21, true, ink, false);
+      text(doc, title, 26, 146, split - 52, 8, true);
+      label(doc, 'JMÉNO V OBJEDNÁVCE', 26, 165, split - 52);
+      text(doc, order.name || order.customer?.name || 'Návštěvník festivalu', 26, 190, split - 52, 21, true, ink, false);
       doc.setDrawColor('#CECCC2');
       doc.setLineWidth(0.6);
-      doc.line(26, 230, split - 26, 230);
+      doc.line(26, 205, split - 26, 205);
+    }
 
-      label(doc, 'DATUM', 26, 253, 165);
-      text(doc, ticket.scope==='festival'?wholeFestival:(days[ticket.day] || String(ticket.day || wholeFestival)), 26, 276, 180, 17, true);
-      label(doc, 'SEKTOR / MÍSTO', 228, 253, split - 254);
-      text(doc, ticket.category === 'standing' ? 'Volná plocha' : (ticket.seat || 'Volný vstup'), 228, 276, split - 254, 16, true);
-      label(doc, 'AREÁL', 26, 305, 170);
-      text(doc, 'Vltava Park, Praha', 26, 325, 188, 12, true);
-      text(doc, 'Výstaviště 67, Praha 7', 26, 341, 188, 8, false, gray);
-      label(doc, tr('CENÍKOVÁ CENA VSTUPENKY','TICKET LIST PRICE'), 228, 305, split - 254);
-      text(doc, money(ticket.price), 228, 327, split - 254, 15, true);
-      const subtotal=Number.isInteger(order.subtotal)?order.subtotal:order.tickets.reduce((sum,item)=>sum+item.price,0);
-      const discount=Number.isInteger(order.discount)?Math.min(subtotal,Math.max(0,order.discount)):0;
-      const total=Number.isInteger(order.total)?order.total:subtotal-discount;
-      label(doc, tr('CELKEM ZA OBJEDNÁVKU','ORDER TOTAL'), 26, 358, 190);
-      text(doc, money(total), 228, 358, split - 254, 11, true);
-      const breakdown=tr('Vstupenky','Tickets')+': '+money(subtotal)+' / '+tr('Sleva','Discount')+': '+money(discount)+(discount&&order.promoCode?' ('+order.promoCode+')':'');
-      text(doc, breakdown, 26, 370, split - 52, 8, false, gray, false);
+    function financialSummary() {
+      if (order.campingIssue) {
+        text(doc, tr('Údaje o kempu nejsou úplné.', 'Camping details are incomplete.'), 26, 307, split - 52, 10, true);
+        text(doc, tr('PDF obsahuje pouze festivalové vstupenky.', 'The PDF contains festival tickets only.'), 26, 325, split - 52, 9);
+        text(doc, tr('Uložená cena objednávky', 'Saved order total'), 26, 347, split - 170, 9, true);
+        text(doc, money(summary.total), split - 143, 347, 117, 12, true, ink, false);
+        return;
+      }
+      doc.setDrawColor('#CECCC2');
+      doc.line(26, 286, split - 26, 286);
+      const amountX = split - 143;
+      const labelWidth = amountX - 38;
+      const amountWidth = split - amountX - 26;
+      text(doc, tr('Vstupenky celkem', 'Ticket subtotal'), 26, 300, labelWidth, 8.5, false);
+      text(doc, money(summary.subtotal), amountX, 300, amountWidth, 8.5, true, ink, false);
+      const promo = summary.discount && order.promoCode ? ` · ${order.promoCode}` : '';
+      text(doc, tr('Sleva', 'Discount') + promo, 26, 313, labelWidth, 8.5, false, ink, false);
+      text(doc, money(summary.discount), amountX, 313, amountWidth, 8.5, true, ink, false);
+      text(doc, tr('Kemp celkem', 'Camping subtotal'), 26, 326, labelWidth, 8.5, false);
+      text(doc, money(summary.camping), amountX, 326, amountWidth, 8.5, true, ink, false);
+      text(doc, summary.hasTax ? tr('OBJEDNÁVKA CELKEM VČ. DPH', 'ORDER TOTAL INCL. VAT') : tr('OBJEDNÁVKA CELKEM', 'ORDER TOTAL'), 26, 343, labelWidth, 9, true);
+      text(doc, money(summary.total), amountX, 343, amountWidth, 12, true, ink, false);
+      if (summary.hasTax) {
+        text(doc, tr('Základ bez DPH: ', 'Net amount: ') + money(summary.net, true), 26, 359, 199, 8, false, gray, false);
+        text(doc, tr('DPH ', 'VAT ') + `${summary.rate}%: ` + money(summary.vat, true), 228, 359, split - 254, 8, false, gray, false);
+      }
+    }
 
+    function pageFooter() {
       text(doc, 'Doklad byl vytvořen lokálně jako součást školního projektu.', 26, height - 37, split - 52, 7, false, gray);
       text(doc, 'Nepotvrzuje platbu ani nárok na skutečný vstup do areálu.', 26, height - 25, split - 52, 7, false, gray);
       text(doc, `OBJEDNÁVKA ${order.id}`, 26, height - 13, split - 52, 7, true);
-
       const sideX = split + 21;
-      text(doc, 'ADMIT ONE / UKÁZKA', sideX, 32, 138, 8, true);
-      text(doc, categories[ticket.category] || String(ticket.category || 'REGULAR').toUpperCase(), sideX - 1, 72, 139, 23, true);
-      text(doc, ticket.scope==='festival'?wholeFestival:(days[ticket.day] || wholeFestival), sideX, 98, 138, 10);
-      const suppliedCode = String(ticket.code || `${order.id}-${index + 1}`);
-      // No name, email or URL is encoded. This local identifier is not a validated admission token.
-      const payload = /^[A-Za-z0-9_-]{1,256}$/.test(suppliedCode) ? suppliedCode : `${String(order.id).replace(/[^A-Za-z0-9_-]/g, '-').slice(0, 80)}-${index + 1}`;
-      qr(doc, payload, sideX - 2, 123, 137);
-      label(doc, 'VSTUPENKA', sideX, 290, 138);
-      text(doc, `${String(index + 1).padStart(2, '0')} / ${String(order.tickets.length).padStart(2, '0')}`, sideX - 1, 325, 138, 23, true);
-      text(doc, ticket.scope==='festival'?'3 DNY / VŠECHNY SCÉNY':'1 DEN / VŠECHNY SCÉNY', sideX, 347, 138, 7);
       text(doc, 'PRAGUE PULSE FEST', sideX, height - 24, 138, 8, true);
       doc.setDrawColor(ink);
       doc.setLineWidth(0.5);
       doc.setLineDashPattern([3, 4], 0);
       doc.line(split, 0, split, height);
       doc.setLineDashPattern([], 0);
+    }
+
+    const sideX = split + 21;
+    order.tickets.forEach((ticket, index) => {
+      if (index) doc.addPage('a5', 'landscape');
+      const validity = ticketValidity(ticket, calendar);
+      pageBase('FIKTIVNÍ FESTIVAL / VSTUPENKA', validity.header);
+      label(doc, 'DATUM', 26, 224, 180);
+      text(doc, validity.display, 26, 245, 185, 15, true, ink, false);
+      label(doc, 'SEKTOR / MÍSTO', 228, 224, split - 254);
+      text(doc, ticket.category === 'standing' ? 'Volná plocha' : (ticket.seat || 'Volný vstup'), 228, 245, split - 254, 16, true);
+      label(doc, 'AREÁL', 26, 263, 170);
+      text(doc, 'Výstaviště 67, Praha 7', 26, 279, 188, 10, true);
+      label(doc, tr('CENÍKOVÁ CENA VSTUPENKY', 'TICKET LIST PRICE'), 228, 263, split - 254);
+      text(doc, money(ticket.price), 228, 280, split - 254, 13, true, ink, false);
+      financialSummary();
+      text(doc, 'ADMIT ONE / UKÁZKA', sideX, 32, 138, 8, true);
+      const categories = { vip: 'VIP', regular: 'REGULAR', standing: tr('STÁNÍ', 'STANDING') };
+      text(doc, categories[ticket.category] || String(ticket.category || 'REGULAR').toUpperCase(), sideX - 1, 72, 139, 23, true);
+      text(doc, validity.display, sideX, 98, 138, 10, false, ink, false);
+      // No name, email or URL is encoded. This local identifier is not a validated admission token.
+      qr(doc, safeCode(ticket.code, `${order.id}-${index + 1}`), sideX - 2, 123, 137);
+      label(doc, 'VSTUPENKA', sideX, 290, 138);
+      text(doc, `${String(index + 1).padStart(2, '0')} / ${String(order.tickets.length).padStart(2, '0')}`, sideX - 1, 325, 138, 23, true);
+      text(doc, validity.caption, sideX, 347, 138, 7, false, ink, false);
+      pageFooter();
     });
+
+    if (order.camping) {
+      doc.addPage('a5', 'landscape');
+      const camping = order.camping;
+      const validity = campingValidity(camping, edition);
+      const people = Math.max(1, Math.floor(amount(camping.people, 1)));
+      const caravan = camping.type === 'caravan';
+      const pitch = caravan ? tr('Karavanové místo', 'Caravan pitch') : tr('Místo pro stan', 'Tent pitch');
+      const peopleLabel = tr(`${people} ${people === 1 ? 'osoba' : people < 5 ? 'osoby' : 'osob'}`, `${people} ${people === 1 ? 'person' : 'people'}`);
+      const basePrice = amount(camping.basePrice);
+      const personPrice = amount(camping.personPrice);
+      pageBase(tr('FIKTIVNÍ FESTIVAL / KEMP', 'FICTIONAL FESTIVAL / CAMPING'), tr(`KEMP / ${validity.nights} NOCI`, `CAMP / ${validity.nights} NIGHTS`));
+      label(doc, 'DATUM', 26, 224, 185);
+      text(doc, validity.display, 26, 245, 185, 15, true, ink, false);
+      label(doc, tr('TYP MÍSTA', 'PITCH TYPE'), 228, 224, split - 254);
+      text(doc, pitch, 228, 245, split - 254, 13, true, ink, false);
+      text(doc, tr('1 místo', '1 pitch') + ` · ${peopleLabel} · ` + tr(`${validity.nights} noci`, `${validity.nights} nights`), 26, 264, split - 52, 10, true, ink, false);
+      text(doc, tr('Místo ', 'Pitch ') + money(basePrice) + ` + ${people} × ` + money(personPrice) + tr(' za osobu', ' per person'), 26, 279, split - 52, 9, false, ink, false);
+      financialSummary();
+      text(doc, tr('KEMP / UKÁZKA', 'CAMPING / SAMPLE'), sideX, 32, 138, 8, true);
+      text(doc, caravan ? tr('KARAVAN','CARAVAN') : tr('STAN','TENT'), sideX - 1, 72, 139, 23, true);
+      text(doc, validity.display, sideX, 98, 138, 10, false, ink, false);
+      qr(doc, safeCode(`${order.id}-camp`, `${order.id}-camp`), sideX - 2, 123, 137);
+      label(doc, tr('KEMPINGOVÝ VOUCHER', 'CAMPING VOUCHER'), sideX, 290, 138);
+      text(doc, peopleLabel.toUpperCase(), sideX - 1, 325, 138, 23, true, ink, false);
+      text(doc, tr(`1 MÍSTO / ${validity.nights} NOCI`, `1 PITCH / ${validity.nights} NIGHTS`), sideX, 347, 138, 7, false, ink, false);
+      pageFooter();
+    }
     return doc.output('blob');
   }
 

@@ -1,48 +1,64 @@
 # Obrazové podklady — Prague Pulse Fest
 
-Ověřeno a staženo 18. října 2026. Uvedené skutečné osoby a skupiny tvoří **návrh programu fiktivního festivalu**; fotografie ani uvedení jmen neznamenají potvrzení účasti, pořadatelství nebo spolupráce s projektem.
+Ověřeno a aktualizováno 18. října 2026. Jde o návrh programu fiktivního festivalu. Fotografie a uvedení jmen nejsou potvrzením účasti, spolupráce nebo podpory projektu ze strany interpretů.
 
-## Fotografie úvodní stránky
+## Přehled
 
-- **Soubor:** `vystaviste-hero.webp`, 1600 × 900 px, přibližně 285 kB.
-- **Název originálu:** File:Prague NZ7 0640 (31348913328).jpg.
+- Skutečná fotografie Průmyslového paláce na úvodní stránce.
+- **42 autentických fotografií interpretů**, stabilně přiřazených podle aktuálních ID a jmen v XML. Hlavní trojice má fotografie z vystoupení: David Guetta za mixážním pultem, Katy Perry zpívající do mikrofonu a Skrillex při DJ setu.
+- **18 původních typografických náhrad** tam, kde nebyla ověřena použitelná fotografie správného interpreta s odpovídající licencí.
+- **3 skutečné fotografie v novinkách:** rekonstrukce Průmyslového paláce, ilustrační festivalový náramek a tramvaje na Výstavišti.
+- Fotografie jsou místní soubory. Pro jejich načtení není třeba externí obrazová služba ani síťové připojení. Karty používají `contain` a zachovávají celý obsah fotografie.
+
+## Licenční rozsah
+
+U každé fotografie jsou níže uvedeny konkrétní autor, zdroj a licence. Úpravy jsou omezeny na technické zmenšení se zachováním poměru stran a převod do WebP; obsah portrétů není retušován, domalován nebo generativně měněn. Při zobrazení se interpretům neořezává obličej ani ostatní obsah fotografie.
+
+Odvozené soubory WebP zůstávají pod stejnou licencí jako příslušné originály. U Public domain vede odkaz na licenční prohlášení původního souboru. Žádná fotografie označená All Rights Reserved ani žádný fair-use obrázek z anglické Wikipedie nebyly převzaty.
+
+**Pouze pro nekomerční použití:** fotografie Hedexe (`i15.webp`, Elias Kaltenberger) a AC Slatera (`i20.webp`, Mette Ohlendorff) jsou pod **CC BY-NC-SA 2.0**. Jejich použití odpovídá školnímu nekomerčnímu rozsahu tohoto projektu. Pro skutečný komerční festival nebo jiné komerční využití je nutné získat další oprávnění, případně tyto dvě fotografie nahradit. Soubory pod licencí ND se nepoužívají.
+
+## Úvodní fotografie
+
+- **Soubor:** `vystaviste-hero.webp`, 1600 × 900 px.
 - **Autor:** Bengt Nyman from Vaxholm, Sweden.
-- **Zdroj:** [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Prague_NZ7_0640_(31348913328).jpg).
+- **Originál:** [File:Prague NZ7 0640 (31348913328).jpg](https://commons.wikimedia.org/wiki/File:Prague_NZ7_0640_(31348913328).jpg).
 - **Licence:** [CC BY 2.0](https://creativecommons.org/licenses/by/2.0).
-- **Datum pořízení podle zdroje:** 2018-10-08 09:51.
+- **Datum podle zdroje:** 2018-10-08 09:51.
 - **Úpravy:** Oříznutí dolní části na poměr 16:9, zmenšení na 1600 × 900 px, převod do WebP. Bez retuše obsahu.
 
-Jde o skutečnou fotografii Průmyslového paláce na Výstavišti Praha, nikoli o původní AI vizualizaci. Fotografie byla pořízena roku 2018; web ji nevydává za fotografickou dokumentaci stavu po rekonstrukci v roce 2026 nebo za záběr skutečného festivalu Prague Pulse Fest. Dříve připravená AI ilustrace byla v souboru úvodní stránky nahrazena touto fotografií.
+Tato skutečná fotografie Průmyslového paláce byla pořízena roku 2018. Není vydávána za dokumentaci dokončené rekonstrukce v roce 2026 ani za snímek skutečného festivalu Prague Pulse Fest. Původní AI vizualizace byla ve verzi úvodní stránky nahrazena touto fotografií.
 
-## Fotografie interpretů — 41 místních souborů
+## Fotografie interpretů
 
-Přiřazení je stabilní podle ID `i1`–`i60` v XML. Totožnost byla ověřována pomocí odpovídajícího encyklopedického článku a popisu souboru na Wikimedia Commons. Pro nejednoznačná jména nebyly použity podobně pojmenované osoby; např. výsledky pro lék Hedex, jiného DJ Friction nebo japonská témata Mirai byly odmítnuty. Nebyly převzaty obrázky označené jako fair use ani lokální nevolné ilustrace z anglické Wikipedie.
-
-Úpravy každé fotografie: zmenšení se zachováním poměru stran a převod do WebP. Obsah nebyl generativně retušován. Ve webových kartách se používá pouze prezentační ořez CSS, u portrétů s posunem k obličeji. Odvozené soubory WebP zůstávají pod stejnou licencí jako příslušné originály. U děl označených Public domain odkaz vede na licenční prohlášení originálu.
+Při změně programu byla ID přemapována podle skutečného jména, takže po předchozím interpretovi nezůstává portrét jiné osoby. Totožnost byla ověřována pomocí odpovídajících encyklopedických článků, výroku P18 ve Wikidatech, popisu souboru na Wikimedia Commons nebo konkrétního popisu fotografie a hudebního kontextu na Flickru. Podobně pojmenované osoby, např. německý rapper PTK nebo jiný DJ Friction, nebyly přiřazeny k českému PTK a britskému drum & bass interpretovi Frictionovi.
 
 ### i1 — David Guetta
 
-- **Soubor:** `real-performers/i1.webp`, 701 × 1000 px.
-- **Autor:** Junta de Andalucía.
-- **Originál:** [File:2023-11-16 Gala de los Latin Grammy, 22 (David Guetta).jpg](https://commons.wikimedia.org/wiki/File:2023-11-16_Gala_de_los_Latin_Grammy,_22_(David_Guetta).jpg).
+- **Soubor:** `real-performers/i1.webp`, 1000 × 667 px.
+- **Autor:** Eva Rinaldi.
+- **Originál:** [File:David Guetta 2, 2012.jpg](https://commons.wikimedia.org/wiki/File:David_Guetta_2,_2012.jpg).
 - **Licence:** [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0).
-- **Datum podle zdroje:** 2023-11-16 22:28:32.
+- **Datum podle zdroje:** 2012-04-29.
+- **Úpravy:** Zmenšení se zachováním poměru stran a převod do WebP. Bez retuše a bez ořezu obsahu.
 
 ### i2 — Katy Perry
 
-- **Soubor:** `real-performers/i2.webp`, 727 × 1000 px.
-- **Autor:** Colleen Sturtevant.
-- **Originál:** [File:Katy Perry 2026 Tribeca Film Festival (cropped 1).jpg](https://commons.wikimedia.org/wiki/File:Katy_Perry_2026_Tribeca_Film_Festival_(cropped_1).jpg).
-- **Licence:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0).
-- **Datum podle zdroje:** 2026-06-08 20:09:54.
+- **Soubor:** `real-performers/i2.webp`, 1000 × 759 px.
+- **Autor:** Sleepyibis from New York City, USA; Uploaded by C.Jonel.
+- **Originál:** [File:Katy Perry - The Prismatic (Newark) 04 (cropped).jpg](https://commons.wikimedia.org/wiki/File:Katy_Perry_-_The_Prismatic_(Newark)_04_(cropped).jpg).
+- **Licence:** [CC BY 2.0](https://creativecommons.org/licenses/by/2.0).
+- **Datum podle zdroje:** 2014-07-12 21:34.
+- **Úpravy:** Zmenšení se zachováním poměru stran a převod do WebP. Bez retuše a bez ořezu obsahu.
 
 ### i3 — Skrillex
 
-- **Soubor:** `real-performers/i3.webp`, 505 × 720 px.
-- **Autor:** Carl Pocket.
-- **Originál:** [File:From First To Last - Emo Nite 2 - PH Carl Pocket (cropped).jpg](https://commons.wikimedia.org/wiki/File:From_First_To_Last_-_Emo_Nite_2_-_PH_Carl_Pocket_(cropped).jpg).
-- **Licence:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0).
-- **Datum podle zdroje:** 2017-02-07.
+- **Soubor:** `real-performers/i3.webp`, 1000 × 656 px.
+- **Autor:** Christopher Dube.
+- **Originál:** [File:Skrillex at Sasquatch 2011.jpg](https://commons.wikimedia.org/wiki/File:Skrillex_at_Sasquatch_2011.jpg).
+- **Licence:** [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0).
+- **Datum podle zdroje:** 2011-05-30.
+- **Úpravy:** Zmenšení se zachováním poměru stran a převod do WebP. Bez retuše a bez ořezu obsahu.
 
 ### i4 — Tiësto
 
@@ -51,6 +67,7 @@ Přiřazení je stabilní podle ID `i1`–`i60` v XML. Totožnost byla ověřov�
 - **Originál:** [File:Tiesto LIV Las Vegas.png](https://commons.wikimedia.org/wiki/File:Tiesto_LIV_Las_Vegas.png).
 - **Licence:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0).
 - **Datum podle zdroje:** 2026-03-20.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
 ### i5 — Chase & Status
 
@@ -59,6 +76,7 @@ Přiřazení je stabilní podle ID `i1`–`i60` v XML. Totožnost byla ověřov�
 - **Originál:** [File:Chase & Status on the decks! (cropped).jpg](https://commons.wikimedia.org/wiki/File:Chase_%26_Status_on_the_decks!_(cropped).jpg).
 - **Licence:** [CC BY 2.0](https://creativecommons.org/licenses/by/2.0).
 - **Datum podle zdroje:** 2012-07-11 02:54.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
 ### i6 — Sub Focus
 
@@ -67,6 +85,7 @@ Přiřazení je stabilní podle ID `i1`–`i60` v XML. Totožnost byla ověřov�
 - **Originál:** [File:Sub Focus @ Club Formation (4159729869).jpg](https://commons.wikimedia.org/wiki/File:Sub_Focus_@_Club_Formation_(4159729869).jpg).
 - **Licence:** [CC BY 2.0](https://creativecommons.org/licenses/by/2.0).
 - **Datum podle zdroje:** 2009-12-05 00:39.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
 ### i7 — Wilkinson
 
@@ -75,6 +94,7 @@ Přiřazení je stabilní podle ID `i1`–`i60` v XML. Totožnost byla ověřov�
 - **Originál:** [File:Wilkinson.tif](https://commons.wikimedia.org/wiki/File:Wilkinson.tif).
 - **Licence:** [CC BY 4.0](https://creativecommons.org/licenses/by/4.0).
 - **Datum podle zdroje:** 2026-06-12.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
 ### i11 — Macky Gee
 
@@ -83,6 +103,7 @@ Přiřazení je stabilní podle ID `i1`–`i60` v XML. Totožnost byla ověřov�
 - **Originál:** [File:Macky Gee.jpg](https://commons.wikimedia.org/wiki/File:Macky_Gee.jpg).
 - **Licence:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0).
 - **Datum podle zdroje:** 2015-11-05 01:30:04.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
 ### i12 — Andy C
 
@@ -91,6 +112,35 @@ Přiřazení je stabilní podle ID `i1`–`i60` v XML. Totožnost byla ověřov�
 - **Originál:** [File:Andy C live in 2011 3 (cropped).jpg](https://commons.wikimedia.org/wiki/File:Andy_C_live_in_2011_3_(cropped).jpg).
 - **Licence:** [CC BY 2.0](https://creativecommons.org/licenses/by/2.0).
 - **Datum podle zdroje:** 2014-09-19 10:46:12.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
+
+### i14 — Dimension
+
+- **Soubor:** `real-performers/i14.webp`, 783 × 1000 px.
+- **Autor:** Jakeworship.
+- **Originál:** [File:Rob LP Pic.jpg](https://commons.wikimedia.org/wiki/File:Rob_LP_Pic.jpg).
+- **Licence:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0).
+- **Datum podle zdroje:** 2021-04-13.
+- **Úpravy:** Zmenšení se zachováním poměru stran a převod do WebP. Bez retuše a bez ořezu obsahu.
+
+### i15 — Hedex
+
+- **Soubor:** `real-performers/i15.webp`, 1000 × 563 px.
+- **Autor:** Elias Kaltenberger.
+- **Originál:** [Hedex](https://www.flickr.com/photos/eliaskaltenberger/22741012202/).
+- **Licence:** [CC BY-NC-SA 2.0](https://creativecommons.org/licenses/by-nc-sa/2.0/).
+- **Datum podle zdroje:** v použitých metadatech neuvedeno.
+- **Úpravy:** Zmenšení se zachováním poměru stran a převod do WebP. Bez retuše a bez ořezu obsahu.
+- **Rozsah:** pouze nekomerční použití, v tomto projektu školní odevzdání.
+
+### i18 — Friction
+
+- **Soubor:** `real-performers/i18.webp`, 1000 × 667 px.
+- **Autor:** Hilary Perkins.
+- **Originál:** [DJ Friction](https://www.flickr.com/photos/cowbite/417941895/).
+- **Licence:** [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/).
+- **Datum podle zdroje:** v použitých metadatech neuvedeno.
+- **Úpravy:** Zmenšení se zachováním poměru stran a převod do WebP. Bez retuše a bez ořezu obsahu.
 
 ### i19 — JOYRYDE
 
@@ -99,14 +149,17 @@ Přiřazení je stabilní podle ID `i1`–`i60` v XML. Totožnost byla ověřov�
 - **Originál:** [File:Eskimo (28).jpg](https://commons.wikimedia.org/wiki/File:Eskimo_(28).jpg).
 - **Licence:** [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0).
 - **Datum podle zdroje:** 2009-05-01.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
-### i22 — Noisia
+### i20 — AC Slater
 
-- **Soubor:** `real-performers/i22.webp`, 900 × 506 px.
-- **Autor:** Emma Louise.
-- **Originál:** [File:Noisia, Ram Brixton Academy, New Year's Eve 2015.png](https://commons.wikimedia.org/wiki/File:Noisia,_Ram_Brixton_Academy,_New_Year%27s_Eve_2015.png).
-- **Licence:** [CC BY 3.0](https://creativecommons.org/licenses/by/3.0).
-- **Datum podle zdroje:** 2016-01-01.
+- **Soubor:** `real-performers/i20.webp`, 938 × 673 px.
+- **Autor:** Metz  [aka Mette Ohlendorff].
+- **Originál:** [AC Slater](https://www.flickr.com/photos/metteohlendorff/2799202549/).
+- **Licence:** [CC BY-NC-SA 2.0](https://creativecommons.org/licenses/by-nc-sa/2.0/).
+- **Datum podle zdroje:** v použitých metadatech neuvedeno.
+- **Úpravy:** Zmenšení se zachováním poměru stran a převod do WebP. Bez retuše a bez ořezu obsahu.
+- **Rozsah:** pouze nekomerční použití, v tomto projektu školní odevzdání.
 
 ### i28 — Ben Cristovao
 
@@ -115,6 +168,7 @@ Přiřazení je stabilní podle ID `i1`–`i60` v XML. Totožnost byla ověřov�
 - **Originál:** [File:Ben Cristovao (Sep 2023) (cropped).png](https://commons.wikimedia.org/wiki/File:Ben_Cristovao_(Sep_2023)_(cropped).png).
 - **Licence:** [CC BY 3.0](https://creativecommons.org/licenses/by/3.0).
 - **Datum podle zdroje:** 2023-09-21.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
 ### i29 — Ewa Farna
 
@@ -123,6 +177,7 @@ Přiřazení je stabilní podle ID `i1`–`i60` v XML. Totožnost byla ověřov�
 - **Originál:** [File:Ewa Farna 2017 (cropped background).jpg](https://commons.wikimedia.org/wiki/File:Ewa_Farna_2017_(cropped_background).jpg).
 - **Licence:** [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0).
 - **Datum podle zdroje:** 2017-06-03 08:41.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
 ### i31 — Kryštof
 
@@ -131,14 +186,16 @@ Přiřazení je stabilní podle ID `i1`–`i60` v XML. Totožnost byla ověřov�
 - **Originál:** [File:Krystof.jpg](https://commons.wikimedia.org/wiki/File:Krystof.jpg).
 - **Licence:** [CC BY 3.0](https://creativecommons.org/licenses/by/3.0).
 - **Datum podle zdroje:** 2007-06-24.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
 ### i32 — Chinaski
 
 - **Soubor:** `real-performers/i32.webp`, 900 × 616 px.
 - **Autor:** Kateřina Samková.
 - **Originál:** [File:Chinaski-koncert.jpg](https://commons.wikimedia.org/wiki/File:Chinaski-koncert.jpg).
-- **Licence:** [CC BY-SA 3.0](http://creativecommons.org/licenses/by-sa/3.0/).
+- **Licence:** [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
 - **Datum podle zdroje:** 2008-03-07.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
 ### i33 — Kabát
 
@@ -147,6 +204,7 @@ Přiřazení je stabilní podle ID `i1`–`i60` v XML. Totožnost byla ověřov�
 - **Originál:** [File:Kabát – Dejme dětem šanci 2019 03.jpg](https://commons.wikimedia.org/wiki/File:Kab%C3%A1t_%E2%80%93_Dejme_d%C4%9Btem_%C5%A1anci_2019_03.jpg).
 - **Licence:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0).
 - **Datum podle zdroje:** 2019-09-26 21:00:32.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
 ### i34 — Iron Maiden
 
@@ -155,6 +213,7 @@ Přiřazení je stabilní podle ID `i1`–`i60` v XML. Totožnost byla ověřov�
 - **Originál:** [File:IronMaidencollage2.jpg](https://commons.wikimedia.org/wiki/File:IronMaidencollage2.jpg).
 - **Licence:** [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0).
 - **Datum podle zdroje:** 2013-06-12 14:28:09.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
 ### i35 — The Cure
 
@@ -163,6 +222,7 @@ Přiřazení je stabilní podle ID `i1`–`i60` v XML. Totožnost byla ověřov�
 - **Originál:** [File:The Cure Live in Singapore 2- 1st August 2007.jpg](https://commons.wikimedia.org/wiki/File:The_Cure_Live_in_Singapore_2-_1st_August_2007.jpg).
 - **Licence:** [CC BY 2.0](https://creativecommons.org/licenses/by/2.0).
 - **Datum podle zdroje:** 2007-08-01 22:13.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
 ### i36 — Depeche Mode
 
@@ -171,6 +231,7 @@ Přiřazení je stabilní podle ID `i1`–`i60` v XML. Totožnost byla ověřov�
 - **Originál:** [File:Depeche mode in portland Nov 2023.jpg](https://commons.wikimedia.org/wiki/File:Depeche_mode_in_portland_Nov_2023.jpg).
 - **Licence:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0).
 - **Datum podle zdroje:** 2023-11-28.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
 ### i37 — The Offspring
 
@@ -179,6 +240,7 @@ Přiřazení je stabilní podle ID `i1`–`i60` v XML. Totožnost byla ověřov�
 - **Originál:** [File:Offspring2025Aichi Cropped.jpg](https://commons.wikimedia.org/wiki/File:Offspring2025Aichi_Cropped.jpg).
 - **Licence:** [CC BY 4.0](https://creativecommons.org/licenses/by/4.0).
 - **Datum podle zdroje:** 2025-04-29.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
 ### i38 — Green Day
 
@@ -187,6 +249,7 @@ Přiřazení je stabilní podle ID `i1`–`i60` v XML. Totožnost byla ověřov�
 - **Originál:** [File:GreenDay Isle of Wight Montage.jpg](https://commons.wikimedia.org/wiki/File:GreenDay_Isle_of_Wight_Montage.jpg).
 - **Licence:** [CC BY 4.0](https://creativecommons.org/licenses/by/4.0).
 - **Datum podle zdroje:** 2024-08-06.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
 ### i39 — Linkin Park
 
@@ -195,6 +258,7 @@ Přiřazení je stabilní podle ID `i1`–`i60` v XML. Totožnost byla ověřov�
 - **Originál:** [File:Linkin Park - From Zero Lead Press Photo - James Minchin III.jpg](https://commons.wikimedia.org/wiki/File:Linkin_Park_-_From_Zero_Lead_Press_Photo_-_James_Minchin_III.jpg).
 - **Licence:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0).
 - **Datum podle zdroje:** 2024-05-28 13:54:41.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
 ### i40 — Foo Fighters
 
@@ -203,6 +267,7 @@ Přiřazení je stabilní podle ID `i1`–`i60` v XML. Totožnost byla ověřov�
 - **Originál:** [File:Glasto2023.jpg](https://commons.wikimedia.org/wiki/File:Glasto2023.jpg).
 - **Licence:** [CC BY 2.0](https://creativecommons.org/licenses/by/2.0).
 - **Datum podle zdroje:** 2023-06-23 18:09.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
 ### i41 — Muse
 
@@ -211,22 +276,25 @@ Přiřazení je stabilní podle ID `i1`–`i60` v XML. Totožnost byla ověřov�
 - **Originál:** [File:MuseHammsmith100522 (47 of 76) (52089636284).jpg](https://commons.wikimedia.org/wiki/File:MuseHammsmith100522_(47_of_76)_(52089636284).jpg).
 - **Licence:** [CC BY 2.0](https://creativecommons.org/licenses/by/2.0).
 - **Datum podle zdroje:** 2022-05-10 21:22.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
-### i42 — Placebo
+### i42 — Billie Eilish
 
-- **Soubor:** `real-performers/i42.webp`, 900 × 600 px.
-- **Autor:** Sven Mandel.
-- **Originál:** [File:Placebo - 2022155210134 2022-06-04 Rock am Ring - Sven - 1D X MK II - 1915 - B70I0956.jpg](https://commons.wikimedia.org/wiki/File:Placebo_-_2022155210134_2022-06-04_Rock_am_Ring_-_Sven_-_1D_X_MK_II_-_1915_-_B70I0956.jpg).
-- **Licence:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0).
-- **Datum podle zdroje:** 2022-06-04.
+- **Soubor:** `real-performers/i42.webp`, 750 × 1000 px.
+- **Autor:** Raph_PH.
+- **Originál:** [File:BillieEilishO2140725-39 - 54665577407 (cropped).jpg](https://commons.wikimedia.org/wiki/File:BillieEilishO2140725-39_-_54665577407_(cropped).jpg).
+- **Licence:** [CC BY 4.0](https://creativecommons.org/licenses/by/4.0).
+- **Datum podle zdroje:** 2025-07-14 20:25:18.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
-### i43 — Franz Ferdinand
+### i43 — Arctic Monkeys
 
-- **Soubor:** `real-performers/i43.webp`, 900 × 675 px.
-- **Autor:** Mr22TJ.
-- **Originál:** [File:Franz Ferdinand live - House Of Blues Boston 2026 rotated.jpg](https://commons.wikimedia.org/wiki/File:Franz_Ferdinand_live_-_House_Of_Blues_Boston_2026_rotated.jpg).
-- **Licence:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0).
-- **Datum podle zdroje:** 2026-08-05.
+- **Soubor:** `real-performers/i43.webp`, 1000 × 667 px.
+- **Autor:** Bill Ebbesen.
+- **Originál:** [File:Arctic Monkeys - Orange Stage - Roskilde Festival 2014.jpg](https://commons.wikimedia.org/wiki/File:Arctic_Monkeys_-_Orange_Stage_-_Roskilde_Festival_2014.jpg).
+- **Licence:** [CC BY 3.0](https://creativecommons.org/licenses/by/3.0).
+- **Datum podle zdroje:** 2014-07-05 22:51:23.
+- **Úpravy:** Zmenšení se zachováním poměru stran a převod do WebP. Bez retuše a bez ořezu obsahu.
 
 ### i44 — The Prodigy
 
@@ -235,6 +303,7 @@ Přiřazení je stabilní podle ID `i1`–`i60` v XML. Totožnost byla ověřov�
 - **Originál:** [File:The Prodigy IMG 2972 (5353883317) (cropped).jpg](https://commons.wikimedia.org/wiki/File:The_Prodigy_IMG_2972_(5353883317)_(cropped).jpg).
 - **Licence:** [CC BY 2.0](https://creativecommons.org/licenses/by/2.0).
 - **Datum podle zdroje:** 2011-01-13 21:26.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
 ### i45 — The Chemical Brothers
 
@@ -243,14 +312,16 @@ Přiřazení je stabilní podle ID `i1`–`i60` v XML. Totožnost byla ověřov�
 - **Originál:** [File:The Chemical Brothers performing in Barcelona, Spain (2007).jpg](https://commons.wikimedia.org/wiki/File:The_Chemical_Brothers_performing_in_Barcelona,_Spain_(2007).jpg).
 - **Licence:** [CC BY 2.0](https://creativecommons.org/licenses/by/2.0).
 - **Datum podle zdroje:** 2007-11-30 23:24:14.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
-### i46 — Fatboy Slim
+### i46 — Bring Me the Horizon
 
-- **Soubor:** `real-performers/i46.webp`, 900 × 675 px.
-- **Autor:** Tadeáš Kirschner.
-- **Originál:** [File:Fatboy Slim, Iris Festival 2025.jpg](https://commons.wikimedia.org/wiki/File:Fatboy_Slim,_Iris_Festival_2025.jpg).
-- **Licence:** [CC BY 4.0](https://creativecommons.org/licenses/by/4.0).
-- **Datum podle zdroje:** 2025-05-03.
+- **Soubor:** `real-performers/i46.webp`, 900 × 600 px.
+- **Autor:** Birgit Fostervold.
+- **Originál:** [File:Bring Me The Horizon Tons of Rock 2026.jpg](https://commons.wikimedia.org/wiki/File:Bring_Me_The_Horizon_Tons_of_Rock_2026.jpg).
+- **Licence:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0).
+- **Datum podle zdroje:** 2026-06-24 20:29:43.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
 ### i47 — Pendulum
 
@@ -259,136 +330,165 @@ Přiřazení je stabilní podle ID `i1`–`i60` v XML. Totožnost byla ověřov�
 - **Originál:** [File:Pendulum Live Electric 2007.jpg](https://commons.wikimedia.org/wiki/File:Pendulum_Live_Electric_2007.jpg).
 - **Licence:** [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0).
 - **Datum podle zdroje:** 2007-11-28 22:41.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
-### i48 — RÜFÜS DU SOL
+### i48 — Dua Lipa
 
-- **Soubor:** `real-performers/i48.webp`, 900 × 600 px.
-- **Autor:** FifthLegend from Eagan, Minnesota, United States of America.
-- **Originál:** [File:Rufus Du Sol (29357069668).jpg](https://commons.wikimedia.org/wiki/File:Rufus_Du_Sol_(29357069668).jpg).
-- **Licence:** [CC BY 2.0](https://creativecommons.org/licenses/by/2.0).
-- **Datum podle zdroje:** 2018-07-01 19:33.
-
-### i49 — Dua Lipa
-
-- **Soubor:** `real-performers/i49.webp`, 650 × 1000 px.
+- **Soubor:** `real-performers/i48.webp`, 650 × 1000 px.
 - **Autor:** Harald Krichel.
 - **Originál:** [File:Dua Lipa-69798 (cropped).jpg](https://commons.wikimedia.org/wiki/File:Dua_Lipa-69798_(cropped).jpg).
 - **Licence:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0).
 - **Datum podle zdroje:** 2026-02-14.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
-### i50 — The Weeknd
+### i49 — The Weeknd
 
-- **Soubor:** `real-performers/i50.webp`, 667 × 1000 px.
+- **Soubor:** `real-performers/i49.webp`, 667 × 1000 px.
 - **Autor:** Brian Ziff.
 - **Originál:** [File:The Weeknd Portrait by Brian Ziff.jpg](https://commons.wikimedia.org/wiki/File:The_Weeknd_Portrait_by_Brian_Ziff.jpg).
 - **Licence:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0).
 - **Datum podle zdroje:** 2021-08-04.
+- **Úpravy:** Zmenšení a převod do WebP, bez retuše obsahu. Ořez ve stránce pouze pomocí CSS object-fit/background-size.
 
-### i51 — Billie Eilish
+### i50 — Imagine Dragons
 
-- **Soubor:** `real-performers/i51.webp`, 750 × 1000 px.
-- **Autor:** Raph_PH.
-- **Originál:** [File:BillieEilishO2140725-39 - 54665577407 (cropped).jpg](https://commons.wikimedia.org/wiki/File:BillieEilishO2140725-39_-_54665577407_(cropped).jpg).
-- **Licence:** [CC BY 4.0](https://creativecommons.org/licenses/by/4.0).
-- **Datum podle zdroje:** 2025-07-14 20:25:18.
-
-### i53 — Jamie Cullum
-
-- **Soubor:** `real-performers/i53.webp`, 842 × 1000 px.
-- **Autor:** Raph_PH.
-- **Originál:** [File:Jamie Cullum in 2018 (cropped).jpg](https://commons.wikimedia.org/wiki/File:Jamie_Cullum_in_2018_(cropped).jpg).
-- **Licence:** [CC BY 2.0](https://creativecommons.org/licenses/by/2.0).
-- **Datum podle zdroje:** 2018-04-21 19:57:40.
-
-### i54 — Norah Jones
-
-- **Soubor:** `real-performers/i54.webp`, 665 × 1000 px.
-- **Autor:** PhilipRomanoPhoto.
-- **Originál:** [File:NorahJones-byPhilipRomano3.jpg](https://commons.wikimedia.org/wiki/File:NorahJones-byPhilipRomano3.jpg).
-- **Licence:** [CC BY 4.0](https://creativecommons.org/licenses/by/4.0).
-- **Datum podle zdroje:** 2025-04-09 21:23:14.
-
-### i55 — The Lumineers
-
-- **Soubor:** `real-performers/i55.webp`, 900 × 600 px.
-- **Autor:** DiegoVigueras.
-- **Originál:** [File:The Lumineers performing at Wrigley Field in 2022.jpg](https://commons.wikimedia.org/wiki/File:The_Lumineers_performing_at_Wrigley_Field_in_2022.jpg).
+- **Soubor:** `real-performers/i50.webp`, 1000 × 666 px.
+- **Autor:** Danazar.
+- **Originál:** [File:Imagine Dragons - Uncasville CT - November 2017 - 2.jpg](https://commons.wikimedia.org/wiki/File:Imagine_Dragons_-_Uncasville_CT_-_November_2017_-_2.jpg).
 - **Licence:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0).
-- **Datum podle zdroje:** 2022-09-03 22:21:52.
+- **Datum podle zdroje:** 2017-11-04.
+- **Úpravy:** Zmenšení se zachováním poměru stran a převod do WebP. Bez retuše a bez ořezu obsahu.
 
-### i56 — Of Monsters and Men
+### i51 — Lucie
 
-- **Soubor:** `real-performers/i56.webp`, 900 × 506 px.
-- **Autor:** Pietro Montesarchio.
-- **Originál:** [File:Of Monsters and Men Firenze.jpeg](https://commons.wikimedia.org/wiki/File:Of_Monsters_and_Men_Firenze.jpeg).
-- **Licence:** [Public domain](https://commons.wikimedia.org/wiki/File:Of_Monsters_and_Men_Firenze.jpeg#Licensing).
-- **Datum podle zdroje:** neuvedeno v metadatech zdroje.
-
-### i57 — Florence + The Machine
-
-- **Soubor:** `real-performers/i57.webp`, 900 × 376 px.
-- **Autor:** Justin Higuchi from Los Angeles, CA, USA.
-- **Originál:** [File:Florence and the Machine 12 09 2018 -11 (32834296408) (cropped).jpg](https://commons.wikimedia.org/wiki/File:Florence_and_the_Machine_12_09_2018_-11_(32834296408)_(cropped).jpg).
-- **Licence:** [CC BY 2.0](https://creativecommons.org/licenses/by/2.0).
-- **Datum podle zdroje:** 2018-12-09 22:58.
-
-### i59 — Bring Me the Horizon
-
-- **Soubor:** `real-performers/i59.webp`, 900 × 600 px.
-- **Autor:** Birgit Fostervold.
-- **Originál:** [File:Bring Me The Horizon Tons of Rock 2026.jpg](https://commons.wikimedia.org/wiki/File:Bring_Me_The_Horizon_Tons_of_Rock_2026.jpg).
-- **Licence:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0).
-- **Datum podle zdroje:** 2026-06-24 20:29:43.
-
-### i60 — Massive Attack
-
-- **Soubor:** `real-performers/i60.webp`, 678 × 467 px.
-- **Autor:** Platonova Alina.
-- **Originál:** [File:Massive Attack, Saint-Petersburg, 2010-09-26 (cropped).jpg](https://commons.wikimedia.org/wiki/File:Massive_Attack,_Saint-Petersburg,_2010-09-26_(cropped).jpg).
+- **Soubor:** `real-performers/i51.webp`, 1000 × 750 px.
+- **Autor:** Xmetov.
+- **Originál:** [File:Lucie (2014).JPG](https://commons.wikimedia.org/wiki/File:Lucie_(2014).JPG).
 - **Licence:** [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0).
-- **Datum podle zdroje:** 2010-09-27 00:06:57.
+- **Datum podle zdroje:** 2014-03-30.
+- **Úpravy:** Zmenšení se zachováním poměru stran a převod do WebP. Bez retuše a bez ořezu obsahu.
 
-## Původní typografické náhrady
+### i52 — Wohnout
 
-U následujících jmen nebyla v rámci dostupných a ověřitelných zdrojů získána jednoznačná fotografie s použitelnou otevřenou licencí. Zobrazuje se původní typografický plakát, nikoli cizí nebo vymyšlený obličej:
+- **Soubor:** `real-performers/i52.webp`, 1000 × 750 px.
+- **Autor:** Pavel Ševela.
+- **Originál:** [File:Wohnout, Moravské hrady.cz, Veveří (4).jpg](https://commons.wikimedia.org/wiki/File:Wohnout,_Moravsk%C3%A9_hrady.cz,_Veve%C5%99%C3%AD_(4).jpg).
+- **Licence:** [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0).
+- **Datum podle zdroje:** 2010-08-21.
+- **Úpravy:** Zmenšení se zachováním poměru stran a převod do WebP. Bez retuše a bez ořezu obsahu.
+
+### i54 — Divokej Bill
+
+- **Soubor:** `real-performers/i54.webp`, 1000 × 666 px.
+- **Autor:** Chmee2.
+- **Originál:** [File:Music group Divokej Bill in Pisek in 2011 (31).JPG](https://commons.wikimedia.org/wiki/File:Music_group_Divokej_Bill_in_Pisek_in_2011_(31).JPG).
+- **Licence:** [CC BY 3.0](https://creativecommons.org/licenses/by/3.0).
+- **Datum podle zdroje:** 2011-06-10 22:26:18.
+- **Úpravy:** Zmenšení se zachováním poměru stran a převod do WebP. Bez retuše a bez ořezu obsahu.
+
+### i55 — Vypsaná fiXa
+
+- **Soubor:** `real-performers/i55.webp`, 524 × 700 px.
+- **Autor:** Fay2.
+- **Originál:** [File:Mardi2008.jpg](https://commons.wikimedia.org/wiki/File:Mardi2008.jpg).
+- **Licence:** [Public domain](https://commons.wikimedia.org/wiki/File:Mardi2008.jpg#Licensing).
+- **Datum podle zdroje:** v použitých metadatech neuvedeno.
+- **Úpravy:** Zmenšení se zachováním poměru stran a převod do WebP. Bez retuše a bez ořezu obsahu.
+
+### i56 — Dymytry
+
+- **Soubor:** `real-performers/i56.webp`, 1000 × 666 px.
+- **Autor:** Sven Mandel.
+- **Originál:** [File:Dymytry - 2022137201631 2022-05-17 Thundermother - Sven - 1D X MK II - 0028 - B70I8552.jpg](https://commons.wikimedia.org/wiki/File:Dymytry_-_2022137201631_2022-05-17_Thundermother_-_Sven_-_1D_X_MK_II_-_0028_-_B70I8552.jpg).
+- **Licence:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0).
+- **Datum podle zdroje:** 2022-05-17.
+- **Úpravy:** Zmenšení se zachováním poměru stran a převod do WebP. Bez retuše a bez ořezu obsahu.
+
+### i59 — Hugo Toxxx
+
+- **Soubor:** `real-performers/i59.webp`, 751 × 1000 px.
+- **Autor:** XireKro.
+- **Originál:** [File:HUGOTOXXX1.jpg](https://commons.wikimedia.org/wiki/File:HUGOTOXXX1.jpg).
+- **Licence:** [CC0](https://creativecommons.org/publicdomain/zero/1.0/deed.en).
+- **Datum podle zdroje:** 2026-10-17.
+- **Úpravy:** Zmenšení se zachováním poměru stran a převod do WebP. Bez retuše a bez ořezu obsahu.
+
+## Fotografie v novinkách
+
+### Průmyslový palác při rekonstrukci
+
+- **Soubor:** `news-reconstruction.webp`, 1337 × 1000 px.
+- **Autor:** Aktron.
+- **Originál:** [File:Praha, Výstaviště, obnova Průmyslového paláce.jpg](https://commons.wikimedia.org/wiki/File:Praha,_V%C3%BDstavi%C5%A1t%C4%9B,_obnova_Pr%C5%AFmyslov%C3%A9ho_pal%C3%A1ce.jpg).
+- **Licence:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0).
+- **Datum podle zdroje:** 2 June 2026 (according to Exif data).
+- **Úpravy:** Zmenšení se zachováním poměru stran a převod do WebP. Bez retuše a bez ořezu obsahu.
+
+Rekonstrukce Průmyslového paláce na Výstavišti Praha, 2. června 2026.
+
+### Festivalový náramek — ilustrační fotografie
+
+- **Soubor:** `news-tickets.webp`, 1280 × 960 px.
+- **Autor:** Richard Eriksson from Toronto, Canada.
+- **Originál:** [File:Vancouver Folk Music Festival Wristband (190525923).jpg](https://commons.wikimedia.org/wiki/File:Vancouver_Folk_Music_Festival_Wristband_(190525923).jpg).
+- **Licence:** [CC BY 2.0](https://creativecommons.org/licenses/by/2.0).
+- **Datum podle zdroje:** 2006-07-15 14:17.
+- **Úpravy:** Zmenšení se zachováním poměru stran a převod do WebP. Bez retuše a bez ořezu obsahu.
+
+Ilustrační fotografie festivalového náramku; nejde o vstupenku Prague Pulse Fest.
+
+### Tramvaje na Výstavišti Holešovice
+
+- **Soubor:** `news-transit.webp`, 1280 × 960 px.
+- **Autor:** Leif Jørgensen.
+- **Originál:** [File:DPP tram line 17 and 91 at Výstaviště Holešovice.jpg](https://commons.wikimedia.org/wiki/File:DPP_tram_line_17_and_91_at_V%C3%BDstavi%C5%A1t%C4%9B_Hole%C5%A1ovice.jpg).
+- **Licence:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0).
+- **Datum podle zdroje:** 2016-06-04 11:50:21.
+- **Úpravy:** Zmenšení se zachováním poměru stran a převod do WebP. Bez retuše a bez ořezu obsahu.
+
+Tramvaje ve smyčce Výstaviště Holešovice v Praze.
+
+Fotografie rekonstrukce dokládá stav 2. června 2026; sama o sobě není důkazem dokončení prací. Fotografie náramku pochází z jiného skutečného hudebního festivalu a slouží jako ilustrace tématu vstupenek, nikoli jako podoba vydané vstupenky Prague Pulse Fest. Fotografie tramvají ukazuje skutečnou smyčku Výstaviště Holešovice v roce 2016; není garancí jízdního řádu pro srpen 2027.
+
+## Typografické náhrady — 18 interpretů
+
+U následujících jmen nebyla po ověření Wikimedia Commons, české a anglické Wikipedie, dostupných výroků P18 ve Wikidatech a veřejného CC vyhledávání na Flickru nalezena jednoznačná fotografie s odpovídající licencí. Zůstává původní plakát se správným aktuálním jménem; není použit cizí ani vymyšlený obličej:
 
 - `i8.svg` — DARKZY
 - `i9.svg` — TS7
 - `i10.svg` — Sammy Virji
 - `i13.svg` — Hybrid Minds
-- `i14.svg` — Dimension
-- `i15.svg` — Hedex
 - `i16.svg` — Bou
 - `i17.svg` — Kanine
-- `i18.svg` — Friction
-- `i20.svg` — AC Slater
 - `i21.svg` — Conducta
+- `i22.svg` — Skepsis
 - `i23.svg` — Calin
 - `i24.svg` — STEIN27
 - `i25.svg` — Viktor Sheen
 - `i26.svg` — Yzomandias
 - `i27.svg` — Nik Tendo
 - `i30.svg` — Mirai
-- `i52.svg` — Gorillaz
-- `i58.svg` — Arctic Monkeys
+- `i53.svg` — HOLY PRIEST
+- `i57.svg` — Sergei Barracuda
+- `i58.svg` — PTK
+- `i60.svg` — Paulie Garand
 
-Každý plakát má rozměry 1000 × 1000, vlastní barevnou kompozici a číslo. Vznikl 18. října 2026 s OpenAI Codex; názvy jsou vektorové obrysy písma Noto Sans Display Bold (Google, SIL Open Font License 1.1). Jde o grafické dokumenty vytvořené s písmem; samotný font se těmito SVG nešíří. Zdroj rodiny a licence: [Noto fonts](https://github.com/notofonts/noto-fonts), [SIL OFL 1.1](https://openfontlicense.org/open-font-license-official-text/). Plakáty neobsahují portrét skutečného interpreta, obal alba ani cizí logo.
+Nenalezení není tvrzením, že žádná taková fotografie neexistuje. Například pro DARKZY byla nalezena veřejná fotografie s výslovným All Rights Reserved, která se nepoužila. Výsledky pro léčivo Hedex a pro nesouvisející osoby byly odmítnuty. Pro nahrazení zbývajících plakátů lze použít fotografii dodanou jejím autorem s oprávněním nebo jiný jednoznačně licencovaný podklad.
 
-V balíčku jsou zachovány i původní plakáty u ID s fotografií jako snadno dostupné náhradní podklady; `PerformerArt` u těchto ID zobrazuje fotografii. Starší AI portréty fiktivních hudebníků se ke skutečným interpretům nepřiřazují.
+Plakáty mají rozměry 1000 × 1000 a byly připraveny 18. října 2026 s OpenAI Codex. Každý obsahuje správné aktuální jméno z datové základny, vlastní barevnou kompozici a číslo. Používají vektorové obrysy Noto Sans Display Bold (Google, SIL Open Font License 1.1). Jde o grafické dokumenty vytvořené s písmem; samotný font se těmito SVG nešíří. Zdroj rodiny a licence: [Noto fonts](https://github.com/notofonts/noto-fonts), [SIL OFL 1.1](https://openfontlicense.org/open-font-license-official-text/).
 
-## Originální ilustrace v novinkách
+V balíčku jsou zachovány i plakáty k ID, u nichž fotografie existuje, jako připravené náhradní podklady. `PerformerArt` u těchto ID zobrazuje fotografii. Žádný plakát neobsahuje převzatý obal alba, logo interpreta nebo AI napodobeninu konkrétního obličeje.
 
-- **`vystaviste-illustration.svg`:** původní schematická architektonická kresba připravená s OpenAI Codex 18. října 2026. Zobrazuje stylizovanou hodinovou věž, prosklená boční křídla a předprostor Průmyslového paláce. Není fotografií, stavebním plánem ani dokladem skutečného stavu památky.
-- **`news-tickets.svg` a `news-travel.svg`:** původní vektorové grafiky vstupenek a dopravy vytvořené pro tento web s OpenAI Codex 18. října 2026. Neobsahují převzaté fotografie ani cizí festivalovou grafiku.
+## Další vlastní a starší podklady
 
-## Ověření a dostupnost
+`vystaviste-illustration.svg`, `news-tickets.svg` a `news-travel.svg` jsou původní vektorové ilustrace vytvořené s OpenAI Codex 18. října 2026 pro předchozí podobu novinek. Nejsou vydávány za fotografie. Aktuální novinky používají výše uvedené soubory WebP.
 
-Úvodní požadavky na veřejné fotografické zdroje byly v tomto cloudovém prostředí blokovány síťovou proxy (`403 Forbidden`). Po zpřístupnění sítě byly fotografie skutečně dohledány a staženy. Dočasné limity `429 Too Many Requests` byly respektovány; vyhledávání přešlo na menší počet dávkových dotazů. Tato omezení nebyla obcházena a u jmen bez ověřitelného výsledku zůstal typografický plakát.
+`festival-crowd.png`, koncertní video a koláže `performers/sheet-*.webp` vznikly pro starší verzi s fiktivními hudebníky. Nejsou fotografiemi nyní uvedených skutečných interpretů ani Průmyslového paláce. Aktuální verze je nepřiřazuje ke skutečným osobám. Jejich starší původ popisují `ASSETS.md`, `ROCKS-ASSETS.md` a `performers/README.md`.
 
-Autor, zdroj, licence a datum byly převzaty z `imageinfo/extmetadata` Wikimedia Commons, nikoli z Google Images. Výsledky Google slouží pouze k hledání původního zdroje, nejsou dokladem licence. Žádné materiály nebyly převzaty z webu Rock for People.
+## Zdroje metadat a ověření
 
-Strojově čitelné údaje jsou v `photo-credits.json`; stejná metadata zpřístupňuje `window.PulsePhotoCredits` pro viditelné uvedení autorů na informační stránce. Při otevření webu se všechny fotografie načítají z místní složky projektu, bez požadavku na vzdálený obrazový server.
+Licence Commons byly ověřeny přes veřejné `imageinfo/extmetadata`; u souboru Wohnout je použito výslovné požadované autorství Pavel Ševela z pole Attribution. Licence a autorství Flickru byly ověřeny na konkrétní veřejné stránce fotografie a v jejích licenčních metadatech, nikoli odhadnuty z náhledu. Google Images může pomoci najít zdroj, není však licencí k fotografii.
 
-## Starší materiály
+Počáteční síťové blokování 403 bylo odstraněno. Dočasné limity 429 byly respektovány; použily se menší počty dávkových dotazů. Omezení nebyla obcházena. Žádné obrazové podklady nebyly převzaty z webu Rock for People.
 
-`festival-crowd.png`, koncertní video a koláže `performers/sheet-*.webp` vznikly pro předchozí verzi s fiktivními hudebníky. Nejsou fotografiemi uvedených skutečných interpretů ani Průmyslového paláce a tato verze je pro tento účel nepoužívá. Jejich starší původ popisují `ASSETS.md`, `ROCKS-ASSETS.md` a `performers/README.md`.
+Strojová data jsou v `photo-credits.json`; stejná metadata zpřístupňuje `window.PulsePhotoCredits` s položkami `venue`, `performers`, `news` a `fallbacks`. Web je používá na samostatné stránce kreditů. Pro každý aktivní obrázek se kontroluje přiřazení správnému jménu, místní soubor, dekódování a rozměry, autor, zdroj a licence.

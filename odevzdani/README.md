@@ -29,6 +29,9 @@ sestavený redukovaný interaktivní prototyp. Nepředkládejte je jako falešno
 4. Ověření posunu termínu na srpen 2027, přechodu na skutečné interprety a výraznějšího
    redesignu vůči schváleným prvním výstupům. Původní název Prague Pulse Fest zůstává;
    dodržení limitu změn cca 15 % nelze potvrdit bez těchto výstupů.
+5. Nejnovější audiozpětná vazba je požadavek zadavatele, nikoli cross-review.
+   Vstupenkový tok nově řeší 1/2/3 dny, vlastní místa, kemp a modelovou DPH.
+   Dva snímky CC BY-NC-SA jsou určeny jen pro nekomerční školní rozsah.
 
 ## Pravdivé ověření a AI
 
