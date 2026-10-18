@@ -76,7 +76,7 @@ def main():
     ok('OpenAPI 3.1 obsahuje požadované endpointy, filtry, stránkování a odpovědi 200/400/404')
 
 
-    required_web = ['index.html','program.html','performers.html','venues.html','info.html','search.html','tickets.html','cart.html','account.html','news.html']
+    required_web = ['index.html','program.html','performers.html','venues.html','info.html','search.html','tickets.html','cart.html','account.html','news.html','privacy.html','terms.html','credits.html']
     from html.parser import HTMLParser
     class PageParser(HTMLParser):
         def __init__(self):
@@ -96,7 +96,7 @@ def main():
         for tag,attrs in parser.tags:
             if tag=='script' and attrs.get('src') or tag=='link' and attrs.get('href'):
                 rel=attrs.get('src') or attrs.get('href')
-                assert (html.parent/rel).is_file(),f'Chybí {rel}'
+                assert (html.parent/rel.split('?',1)[0]).is_file(),f'Chybí {rel}'
         assert 'API ověření' not in text
     assert not (ROOT/'web/api.html').exists()
     ok(f'{len(required_web)} stránek: metadata, struktura dokumentu, unikátní id a lokální závislosti')
