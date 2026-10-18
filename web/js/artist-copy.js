@@ -191,5 +191,6 @@ window.PulseArtistCopy = {
   "Klubový pavilon festivalového areálu": "Club pavilion of the festival grounds",
   "Stan": "Tent",
   "Karavan": "Caravan",
-  "Uvedené ceny jsou konečné včetně 12% DPH.": "Prices are final and include 12% VAT."
+  "Uvedené ceny jsou konečné včetně 12% DPH.": "Prices are final and include 12% VAT.",
+  "Závěrečné koncerty, český rap a klubové sety zakončí tři dny pražské hudby.": "Closing concerts, Czech rap and club sets round off three days of music in Prague."
 };

@@ -12,7 +12,9 @@ scénách. Skuteční interpreti jsou součástí návrhu fiktivního festivalu,
 jejich účast není potvrzená.
 
 Propojené jsou program, detaily, hledání, osobní výběr a praktické informace.
-Doplňková cesta nabízí vstupenku, košík, místní účet a stažení PDF. Hlavní
+Doplňková cesta nabízí vstupenku na všechny scény nebo vybranou scénu,
+košík, místní účet a stažení PDF. Main Hall má sedadla i stání, River a Club
+jen stání; každá scéna má vlastní kapacitu. Hlavní
 rozhodnutí zůstávají: klientské řešení, jednotný datový zdroj a objednávka
 i bez registrace.
 
@@ -25,13 +27,14 @@ i bez registrace.
 | S3 — objednávka hosta | 1. a 3. srpna → 2× VIP, ruční sedadla → stan pro 2 → PULSE10 → dokončení → PDF | Cena 2 360 − 236 + 650 = 2 774 Kč; dvě vybraná data a campingový voucher |
 
 Použijte smyšlené kontakty. Vyzkoušejte mobil i desktop, klávesnici, kombinaci
-filtrů a prázdný výsledek. Vyhledávání prochází také biografie; shoda vlastního
+filtrů, upozornění na překryvy uložených koncertů a prázdný výsledek. Vyhledávání prochází také biografie; shoda vlastního
 jména v popisu interpreta je záměrná.
 
 ## Co bylo testováno
 
 Datový validátor ověřuje XML, reference a export. Browserové testy procházejí
-scénáře, formuláře, účty, ceny, obsazenost a rozlišení obrazovek; PDF se
+scénáře, formuláře, účty, ceny, dostupnost jednotlivých scén i společného
+vstupu a rozlišení obrazovek; PDF se
 kontroluje jako soubor. Konkrétní výsledky jsou ve `validation_report.md`.
 Automatizace není externí review ani uživatelský výzkum.
 

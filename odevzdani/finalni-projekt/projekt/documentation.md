@@ -2,7 +2,7 @@
 
 **Předmět:** Webdesign · **Akademický rok:** 2026/2027
 **Autoři:** Michal Ladra, Matěj Mlejnek, Jan Martínek
-**Stav dokumentace:** 18. října 2026
+**Stav dokumentace:** 19. října 2026
 
 ## 1. Popis a rozsah projektu
 
@@ -19,7 +19,7 @@ Výstup pro Webdesign tvoří čistě klientský web a podklady ke cvičením.
 | Jazyky | Čeština a angličtina |
 | Běh aplikace | HTML, CSS a JavaScript přímo v prohlížeči |
 | Ukládání | Místní `localStorage` stejného prohlížeče |
-| Objednávka | Výběr 1/2/3 dnů, sedadla nebo stání, kemp, promo, PDF |
+| Objednávka | Všechny scény / jedna scéna, 1/2/3 dny, sedadla nebo stání, kemp, promo, PDF |
 
 Výstaviště a uvedení interpreti existují, festival a jejich účast jsou návrhem.
 Kontakty nejsou ověřenými kontakty reálného pořadatele. Web neprovádí skutečnou
@@ -79,17 +79,27 @@ JSON endpoint předvádí stránkování.
 | `festival/@id`, `nazev`, `popis_festivalu` | Identita a popis | Úvod a společná identita |
 | `mistokonani` | Ulice, město, PSČ | Praktické informace a strukturovaná data |
 | `dny/den/@id` | Klíč dne, název, datum a časy | Filtr programu a platnost vstupenek |
-| `haly/hala/@id` | Klíč scény, název, lokace, kapacita a popis | Scény a program |
+| `haly/hala/@id` | Klíč scény, název, lokace, kapacita, popis a ceník scény | Scény, program a dostupnost vstupů |
 | `interpreti/interpret/@id` | Klíč, jméno, typ, žánr a medailonek | Seznam a profil interpreta |
 | `interpret/odkazy/odkaz` | Platforma, URL, druh odkazu a zdroj | Doložený hudební profil nebo označené hledání |
 | `sumakce/akce/@id` | Klíč vystoupení, téma, popis a čas | Program a detail vystoupení |
 | `den_ref`, `hala_ref`, `interpret_ref` | Odkaz na existující ID příslušné entity | Jednoznačné propojení programu |
-| `vstupenky/vstupenka` | Šest záznamů: 3 kategorie × denní/celofestivalový tarif | Ceník a výpočet varianty na dva dny |
+| `vstupenky/vstupenka` | Šest záznamů: 3 kategorie × denní/celofestivalový tarif pro všechny scény | Ceník společného vstupu a varianty na dva dny |
+| `hala/vstupenky_sceny` | Kapacita stání, řady sedadel a ceny jednotlivé scény | Samostatný vstup a společná fyzická kapacita |
+| `akce/hlavni_vystoupeni` | Závěrečný koncert; v JSON a `data.js` jako `highlight` | Devět navazujících večerních koncertů |
 | `kempovani`, `sazba_dph` | Typy míst, ceny, kapacity, pobyt a modelová daň | Košík, poukaz a daňový rozpis |
 | `kontakt`, `odkazy` | Festivalové kontakty a odkazy | Info a patička |
 
 Program je řazen podle dne a začátku. Dvě vystoupení na stejné scéně se
-nepřekrývají; **různé scény mohou hrát souběžně**. Každá má 20 vystoupení.
+nepřekrývají; přestavba trvá nejméně 30 minut. **Různé scény mohou hrát
+souběžně.** Každá má 20 vystoupení, celkem je 20 setů za den. Běžný set má
+60 minut a hlavní koncert v Main Hall 90 minut.
+
+Tři závěrečné koncerty každý den navazují: River 18:30–19:30, Club 20:00–21:00
+a Main Hall 21:30–23:00. Mezi nimi zbývá 30 minut na přesun. Těchto devět
+položek označuje příznak `highlight`. Společná třídenní vstupenka umožňuje
+vidět všechny tyto koncerty; netvrdíme, že lze stihnout všech 60 celých setů.
+Osobní program upozorní na časové překryvy uložených vystoupení.
 
 ### 3.3 JSON není totéž co JSON-LD
 
@@ -138,21 +148,48 @@ diakritiku a velikost písmen a porovnává podřetězec i v medailoncích.
 
 ### 4.3 Objednávka a místní stav
 
-Vstupenka nyní platí pro všechny scény v jednom, dvou libovolných nebo třech
-dnech. VIP a Regular mají ruční volbu místa, stání počet osob. Model zahrnuje
-48 sedadel a 40 míst ke stání na den. Nejde o skutečnou kapacitu jednotlivých
-scén ani jejich samostatný rezervační systém; tuto změnu zadavatel odložil.
+Vstupenka rozlišuje všechny scény nebo jednu konkrétní scénu a jeden, dva
+libovolné či tři dny. Main Hall nabízí VIP a Regular sedadla i stání; River
+a Club pouze stání. U společného VIP/Regular vstupu je sedadlo v Main Hall,
+na ostatních scénách se stojí.
 
-Košík místo ještě nerezervuje. Při dokončení se znovu kontroluje cena,
-překryv dnů, obsazenost a kapacita kempu. Nákup 1. a 3. dne sám neobsadí
-2. den. Místní data nejsou sdílená mezi zařízeními. Objednávky staršího
-ročníku zůstávají v historii, ale neblokují aktuální ročník.
+| Scéna | Kapacita na den | Zóny |
+| --- | --- | --- |
+| Main Hall | 5 000 | 16 VIP, 32 Regular, 4 952 stání |
+| River Stage | 3 000 | Stání |
+| Club Stage | 1 500 | Stání |
 
-| Kategorie | 1 den | 2 libovolné dny | 3 dny |
-| --- | --- | --- | --- |
-| VIP | 590 Kč | 1 180 Kč | 1 590 Kč |
-| Regular | 390 Kč | 780 Kč | 990 Kč |
-| Stání | 190 Kč | 380 Kč | 490 Kč |
+Kapacity jsou návrhové pro fiktivní festival. Nejde o oficiální povolené
+kapacity Výstaviště. Společná vstupenka započítá jednu osobu na každé scéně
+v každém zvoleném dni, proto její dostupnost omezuje i nejmenší Club Stage.
+Samostatný vstup zabírá jen příslušnou scénu. Stejné fyzické sedadlo v Main
+Hall nelze prodat zároveň v samostatné a společné variantě. Stání má konečnou
+kapacitu, ale nevyžaduje kreslení tisíců tlačítek sedadel. Jeho interní číslo
+není rezervovaná pozice: při vícedenním vstupu rozhoduje volná kapacita
+každého dne, nikoli shodné číslo stání v různých dnech.
+
+Výběr dovoluje nejvýše osm osob najednou, celá objednávka nejvýše 264
+vstupenek. Vyšší počet se odmítne před přidáním i při dokončení objednávky,
+aby každou přijatou objednávku bylo možné stáhnout jako PDF.
+
+| Rozsah | Kategorie | 1 den | 2 libovolné dny | 3 dny |
+| --- | --- | --- | --- | --- |
+| Všechny scény | VIP | 590 Kč | 1 180 Kč | 1 590 Kč |
+| Všechny scény | Regular | 390 Kč | 780 Kč | 990 Kč |
+| Všechny scény | Stání | 190 Kč | 380 Kč | 490 Kč |
+| Main Hall | VIP | 490 Kč | 980 Kč | 1 290 Kč |
+| Main Hall | Regular | 290 Kč | 580 Kč | 790 Kč |
+| Main Hall | Stání | 150 Kč | 300 Kč | 390 Kč |
+| River Stage | Stání | 110 Kč | 220 Kč | 290 Kč |
+| Club Stage | Stání | 90 Kč | 180 Kč | 240 Kč |
+
+Košík místo ještě nerezervuje. Dostupnost pro další výběr zohlední prodané
+vstupy i obsah košíku; před dokončením se znovu kontroluje cena, překryv dnů,
+fyzická místa, dotčené kapacity scén a kemp. Nákup 1. a 3. dne sám neobsadí
+2. den. Jde o kapacitu na den, nikoli aktuální počet lidí u pódia. Místní
+data nejsou sdílená mezi zařízeními. Objednávky staršího ročníku zůstávají
+v historii, ale neblokují aktuální ročník. U záznamů bez `venueId` se zachová
+původní význam všech scén; `scope` nadále označuje délku, ne scénu.
 
 Kemp je jedno místo na objednávku s alespoň jednou vstupenkou: stan 350 Kč
 (nejvýše 4 osoby, 40 míst) nebo karavan 850 Kč (6 osob, 12 míst) plus 150 Kč
@@ -179,14 +216,20 @@ Registrace má jméno, příjmení, e-mail, telefon, heslo a jeho potvrzení.
 Profil dovoluje upravit kontakt bez změny údajů historické objednávky.
 Heslo se ukládá jako PBKDF2-SHA256 hash se 120 000 iteracemi a náhodnou
 solí; nejde o produkční autentizaci ani ověření vlastnictví e-mailu.
-Přihlášení vyprší za sedm dnů.
+Přihlášení vyprší za sedm dnů; toto vypršení kontroluje klientská aplikace.
 
 `localStorage` uchovává účet, košík, objednávky, osobní program a nastavení.
 Nevzniká automaticky měněný soubor JSON v adresáři projektu. Smazání místních
 dat smaže také zdejší účet a historii. Vstupy se escapují; dotaz není spouštěný
 regex a aplikace nepoužívá SQL.
 
-Volba soukromí platí 180 dnů. Google Maps se vloží až po souhlasu s externími
+Web sám nenastavuje HTTP cookies a nemá serverovou session. `sessionStorage`
+drží identifikátor relace aktuální karty a poslední objednávku hosta; obnovení
+stránky ho zachová, nová nezávislá relace data nesdílí. `localStorage` zůstává
+i po zavření prohlížeče, dokud jej uživatel nebo prohlížeč nevymaže.
+
+Volba soukromí v `localStorage` platí 180 dnů. Lišta tedy nepředstavuje databázi
+cookies, ale ovládání místního ukládání a externího obsahu. Google Maps se vloží až po souhlasu s externími
 mapami; po odvolání se odstraní. Vlastní SVG plánek a textová doprava fungují
 bez tohoto souhlasu. Analytika a reklamní sledování se nepoužívají.
 
@@ -269,6 +312,7 @@ Podklad GFŘ nepotvrzuje právní sazbu konkrétní akce v roce 2027.
 | Upřesnění zadavatele | Zachovat Prague Pulse Fest, přesunout termín na srpen 2027, vlastní tmavá identita | Oprava názvu a budoucího ročníku; shoda dat a rozhraní |
 | Zpětná vazba k rozhraní | Skuteční interpreti, podrobnější medailonky, vhodné fotografie, doprava a offline plánek | Konkrétní obsahové připomínky; kontrola vazeb a licencí |
 | Zpětná vazba k objednávce | Sjednotit 1/2/3 dny, ruční sedadla, kemp a daňový rozpis | Srozumitelný rozsah a cena; kontrola PDF a nesousedících dnů |
+| Požadavek na samostatné scény a přehledný program | Rozdílné kapacity, levnější vstup jedné scény, postupné večerní koncerty a upozornění na kolize | Srozumitelný rozsah vstupu bez zkrácení plných setů; ověření cen, kapacit a časů |
 | Aktuální požadavek na podklady | Zjednodušit prezentace a dokumentaci, doplnit autory a návod | Obsah jednotlivých cvičení porovnaný se zadáním |
 
 Podklady v `odevzdani/` jsou dodatečně připravené milníky, nikoli důkaz
@@ -313,6 +357,7 @@ licencované podklady; textové medailonky prošly AI zpracováním.
 | „Sjednoť nákup na jeden, dva nebo tři dny.“ | Přijata společná volba; opraveno vyjádření nesousedících dnů | Nákup 1. a 3. srpna, obsazenost a text staženého PDF |
 | „Kemp je místo plus počet osob, promo jen na vstupenky.“ | Přijat oddělený výpočet; daň se nepřičítá znovu | Přepočet příkladu 2 774 Kč, hranice slevy a kapacit |
 | „Použij skutečné interprety a fotografie.“ | Odmítnuty nedoložené snímky a AI tváře přiřazené reálným lidem | Záznam jména, autora, licence a zdroje; vlastní náhrada při chybějící fotografii |
+| „Navrhni kapacity scén a program, který dává smysl.“ | Přijaty různé kapacity; odmítnuto neomezené stání a slib stihnout všech 60 plných setů | Kapacity z katalogu, společné a samostatné vstupy, stejné sedadlo a návaznost večerních koncertů |
 | „Připrav podklady podle cvičení.“ | Přijato členění; odmítnut vymyšlený cizí posudek a historie týmu | Porovnání se zadáním, otevření PPTX/PDF a kontrola poznámek |
 
 Limity AI se projevily hlavně v příliš obecných textech, záměně festivalového

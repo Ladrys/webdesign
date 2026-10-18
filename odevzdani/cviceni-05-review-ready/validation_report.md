@@ -1,52 +1,58 @@
-# Ověření Prague Pulse Fest — 18. října 2026
+# Ověření Prague Pulse Fest — 19. října 2026
 
-Tento záznam se vztahuje k revizi podle hlasové zpětné vazby zadavatele: původní název Prague Pulse Fest, 1.–3. srpna 2027, čistě klientský web. Není přijatým cross-review jiného týmu ani úplným auditem WCAG.
+Záznam pro verzi **1.1.0**: samostatné scény, společný vstup, plné koncertní sety a sjednocené školní podklady. Jde o konkrétní místní kontroly, nikoli externí cross-review nebo úplný audit WCAG.
 
 | Ověření | Výsledek |
 | --- | --- |
-| `python validate_project.py` | Prošlo: XML/XSD, minimum 3 dnů / 3 scén / 60 interpretů / 60 akcí, 7 transformací a JSON schémat, OpenAPI, 13 HTML stránek a reprodukovatelnost `data.js` |
-| `python tests/browser_smoke.py` | 486 kontrol prošlo; skutečné akce v Chromium, vytváření a čtení PDF včetně dekódování QR |
-| `python tests/course_materials.py --folder odevzdani` | 139 kontrol prošlo; 5 prezentací, 30 snímků, shoda textu PPTX/PDF, autorství, hranice textu a interaktivní scénáře prototypu |
-| Samostatná kontrola rozložení | 182 kombinací: 13 stránek × 7 šířek × CZ/EN; bez horizontálního přetékání a chyb JavaScriptu |
-| Samostatná anglická kontrola | 13 stránek, 3 články a detail interpreta; seznam chybějících překladů prázdný |
-| Syntax všech `web/js/*.js` a `git diff --check` | Prošlo |
-| Obrazové podklady | 46 fotografických souborů dekódováno; 42 fotografií interpretů, 3 fotografie novinek a historický úvod. U zbývajících 18 interpretů správně pojmenované typografické plakáty |
-| Přímé otevření `file://` v řízeném Chromium | **Přeskočeno:** politika tohoto cloudového prohlížeče přístup blokuje; neoznačeno jako úspěšný test |
+| `python validate_project.py` | Prošlo: XML/XSD, 7 XSLT a JSON schémat, OpenAPI, 13 HTML vstupů, reprodukovatelnost dat, reference, kapacity, ceny a časový plán |
+| `python tests/browser_smoke.py` s QR dekodérem | **567 kontrol prošlo**, včetně skutečně stažených PDF a dekódování QR |
+| `python tests/course_materials.py --folder odevzdani` | **155 kontrol prošlo**: 5 prezentací × 6 snímků, PPTX/PDF, poznámky, autoři, prototyp, manifest, kopie webu a čtyřsouborový ZIP |
+| Responzivní rozložení | **224 kombinací prošlo** bez přetékání a chyb JavaScriptu: 13 stránek × 8 šířek × CZ/EN a dalších 16 pohledů výběru scén |
+| Anglické rozhraní | **17 pohledů prošlo**: 13 HTML vstupů, tři samostatné scény a osobní program s kolizí; žádný chybějící překlad ani chyba JavaScriptu |
+| Doplňková dokumentace PDF | 12 stran; všechny textové bloky uvnitř stran, vizuálně zkontrolovaný export |
+| Syntax `web/js/*.js` a `git diff --check` | Prošlo |
+| Přímé otevření `file://` v místním řízeném Chromium | **Přeskočeno:** politika `ERR_BLOCKED_BY_ADMINISTRATOR`; nepočítá se jako úspěšná kontrola |
 
-Podrobný seznam browserových kontrol je v `review/browser-validation-2026-10-18.json`. Výsledky se nepřenášejí automaticky na budoucí změny.
+Browserový průchod běžel s `numpy` a `zxing-cpp`; QR se skutečně načetly z rasterizovaných PDF. Testy používají dočasný vývojový statický server. Ten není součástí požadavků na spuštění hotového webu. GitHub Actions má vlastní výsledek pro konkrétní commit v historii workflow.
 
-## Co se skutečně ověřovalo
+## Program a data
 
-- **Rozhraní:** šířky 320, 375, 430, 768, 1024, 1440 a 1920 px. Kompaktní hlavička navíc při 1024, 1280 a 1366 px v obou jazycích. Vyplněný košík se stáním i kempováním při 320 px. Stav odpočtu před festivalem, během něj, po skončení i při neplatném datu.
-- **Obsah a fotografie:** původní název a datum, skutečná místní fotografie Výstaviště z roku 2018, nové koncertní fotografie Guetty, Katy Perry a Skrillexe se zachovaným obsahem bez ořezu. Dostupné autorství, licence a zdroje na samostatné stránce. Novinky používají skutečné fotografie a vysvětlují historický snímek náramku i stav rekonstrukce.
-- **Program:** všech 60 jedinečných jmen a 60 akcí, 20 akcí na každé scéně, žádná časová kolize na stejné scéně. Chronologické pořadí, denní a scénové filtry, oblíbené a jejich trvalost. Hlavní mezinárodní jména v Main Hall, česká scéna na River Stage a klubová hudba v Club Stage; Holy Priest a Skepsis na klubové scéně.
-- **Vyhledávání:** skutečné hledání typu contains v datech včetně medailonků a návštěvnických informací, české i anglické texty, normalizace diakritiky, poslední interpret v seznamu. Dotaz David může najít i STEIN27 díky jménu David Stencel. Detail interpreta, odkazy na poslech a přechod k jeho vystoupení.
-- **Plánek:** dostupný bez internetové mapy, ovládání přiblížení, reset, klávesnice a odkazy scén do programu. Popisky byly vizuálně zkontrolovány v CZ/EN. Jde o výslovně fiktivní orientační uspořádání, nikoli oficiální plán Výstaviště.
-- **Výběr vstupenek:** všechny ceny pro 1/2/3 dny; VIP a Regular vyžadují konkrétní označená sedadla a správný počet osob. Stání přejde do košíku podle množství. Změna kategorie zruší neplatný výběr. Dva dny musí být přesně dvě různá platná data.
-- **Dva nesousedící dny:** nákup na 1. a 3. srpna zachová přesná data v objednávce i PDF, obsadí sedadlo v obou zvolených dnech a sám nezablokuje 2. srpen. Neplatné dvoudenní položky se odmítnou.
-- **Košík a platba:** zachování kontaktních údajů po odebrání položky, host i účet, sedm zřetelně simulovaných metod, odmítnutá platba, změna košíku a obsazení místa v jiné kartě. Dokončení znovu ověřuje aktuální ceny a dostupnost.
-- **Promo a DPH:** PULSE10 a PRAHA200 včetně ořezu slevy na cenu vstupenek, změny a neplatného kódu. Sleva nezlevňuje kemp. Modelová 12% DPH je již v ceně; základ a daň se zaokrouhlují na haléře a dohromady dávají konečnou cenu.
-- **Kemp:** stan 350 Kč nebo karavan 850 Kč plus 150 Kč za každou osobu na celý pobyt 1.–4. srpna. Limity osob, trvalost výběru, samostatný součet, kapacita a její opětovná kontrola. Staré objednávky ročníku 2026 nesnižují kapacitu ročníku 2027.
-- **Poškozená uložená data:** neúplný kemp, nesprávný počet osob, datum, cena a počet parcel nevytvoří falešný poukaz ani neblokují kemp. Zakoupené koncertní vstupenky a jejich obsazenost zůstanou zachované. Neplatná daňová metadata nevytvoří nepravdivý rozpis ani NaN; platný kemp může zůstat zachovaný samostatně.
-- **Účty:** jméno, příjmení, telefon, e-mail a potvrzení hesla; kontroly chybných vstupů. Solený PBKDF2 hash místo otevřeného hesla, přihlášení/odhlášení, sedmidenní expirace, editace profilu, převzetí košíku/proma/kempu hosta a předvyplnění objednávky. Zachované starší účty a historie 2026.
-- **PDF:** skutečně stažené dokumenty, přesné dny, jméno, ID, kategorie, sedadlo, slevy a částky. Každá vstupenka má vlastní stránku; platný kemp přidává poukaz s počtem osob a pobytem. QR se dekóduje a porovnává s očekávaným identifikátorem. Starší PDF zachová ročník 2026.
-- **Soukromí:** nabídka při první návštěvě, nezbytné úložiště, přijetí/odmítnutí externích map a opětovné otevření nastavení. Google iframe vznikne až po souhlasu, při jeho odvolání se odstraní. Offline plánek souhlas nevyžaduje.
-- **Moodle:** pět PPTX se šesti editovatelnými snímky a poznámkami, shodné PDF, samostatné poznámky přednášejícího a funkční scénáře prototypu. Tři kopie současného webu mají všech 13 HTML stránek; soubory kontroluje SHA-256 manifest. Cvičení 06 zůstává jasně označenou šablonou.
+- Zachováno 3 dny, 3 scény, 60 jedinečných interpretů a 60 vystoupení; každý interpret právě jednou, 20 vystoupení denně a 20 na scénu.
+- Běžné sety trvají 60 minut, závěrečný koncert Main Hall 90 minut. Stejná scéna má nejméně 30 minut na technickou přestavbu.
+- Devět závěrečných koncertů je označeno v XML i exportu: každý den River 18:30–19:30, Club 20:00–21:00 a Main Hall 21:30–23:00. Půlhodinové přesuny byly ověřené; ostatní scény mohou hrát souběžně.
+- Osobní program označí skutečně se překrývající vybrané sety. Uložení všech devíti závěrečných koncertů kolizi nevyvolá. Koncert končící přesně při začátku dalšího není časový překryv.
+- XML, odvozené JSON a přibalené `data.js` souhlasí. Kořenové kopie XML/XSD souhlasí se zdroji v `data/`.
 
-## Ručně zkontrolované výstupy
+## Vstupenky a dostupnost
 
-`preview/web-desktop.png` a `preview/web-mobile.png` zachycují skutečně spuštěný web. `preview/vstupenky-ukazka.pdf` obsahuje dvě dvoudenní VIP vstupenky a kempovací poukaz se smyšlenými kontakty:
+- Main Hall má celkovou kapacitu 5 000: 16 VIP a 32 Regular sedadel, 4 952 stání. River má 3 000 stání, Club 1 500 stání. Jsou to návrhové kapacity fiktivního festivalu.
+- Samostatné ceny scén i původní společné tarify jsou ověřené pro jeden, dva a tři dny. River a Club nemohou nabídnout sedadlo. Společný VIP/Regular vstup má sedadlo pouze v Main Hall.
+- Společný vstup započítá návštěvníka do každé zahrnuté scény v každém platném dni. Samostatný vstup spotřebuje jen svou kapacitu. Zakoupené sedadlo Main Hall je stejné pro oba rozsahy vstupu.
+- Poslední volná kapacita Club Stage dovolí zvolit libovolné volné sedadlo Main Hall, například A8, ale nepovolí druhý společný vstup. Vyprodaný Club neblokuje dosud volný samostatný River.
+- Stání používá denní počty. Regrese s různými interními čísly v prvním a třetím dni zachová poslední dostupnou dvoudenní vstupenku. Při přihlášení se dva samostatné výběry na stání nesloučí do jedné osoby.
+- Závěrečná kontrola pod místním Web Lock znovu čte objednávky, ceny a kapacitu. Prověřené změny v druhé kartě a zastaralý formulář nevedou k přeprodeji. Web Locks zlepšuje souběh karet stejného původu; bez jeho podpory zůstává opakovaná místní kontrola, nikoli serverová garance.
+- Ověřený limit 264 vstupenek: přidání 265. je odmítnuto; upravený nadlimitní košík se nesmaže a lze ho opravit odebráním položky.
+- Chybná scéna, kategorie, cena, počet dnů a neplatné číslo jsou odmítnuté. Starší záznam bez scény znamená společný vstup, objednávka bez ročníku zachovává 2026 a neblokuje kapacitu 2027.
 
-**2 × 1 180 − 236 (PULSE10) + 350 + 2 × 150 = 2 774 Kč.** Základ bez DPH 2 476,79 Kč a zahrnutá DPH 297,21 Kč. Zkontrolována byla koncertní stránka i poukaz, rozložení textu a čitelnost kódu.
+## Zachované průchody
 
-Prezentace byly zjednodušeny na šest čitelných snímků s poznámkami na 3–5 minut; všechny mají autory Michal Ladra, Matěj Mlejnek a Jan Martínek. Vizuálně bylo zkontrolováno všech 30 snímků a desetistránková doplňková dokumentace PDF. Povinný Markdown, DOCX i PDF vznikají ze stejného dokumentačního zdroje. Nově je připraven GitHub Actions workflow; jeho vzdálený běh tento místní záznam nepotvrzuje. Provedené opravy jsou popsané v `review/internal-review.md`; uživatelská zpětná vazba v `review/audio-requirements-2026-10-18.md`.
+Plná sada znovu prověřila hledání typu contains, normalizaci diakritiky, detaily a filtry, oblíbené, účet a PBKDF2, profil, sedmidenní expiraci, košík hosta i účtu, promo kódy, zahrnutou 12% modelovou DPH, kemp, chybná uložená data, sedm simulovaných metod a PDF. Souhlas s externí mapou se ukládá na 180 dnů; odmítnutí zabrání vložení Google iframe, odvolání ho odstraní. Aplikace sama HTTP cookies nevytváří.
 
-## Rozsah a limity
+PDF správně uvádí scénu nebo společný vstup, přesná data, sedadlo u sedících kategorií, cenu a číslo objednávky. `preview/vstupenky-jedna-scena.pdf` má dvě River vstupenky a jednu Club vstupenku na první den, celkem 310 Kč. `preview/vstupenky-ukazka.pdf` ukazuje vstupenku na stání s promem PRAHA200 a stan pro dvě osoby: vstupenka po slevě 0 Kč + kemp 650 Kč. Kontakty jsou smyšlené testovací údaje.
 
-Testy běžely nad skutečným výsledným klientským webem přes dočasný vývojový statický server. Ten není součástí běhových požadavků odevzdání. Přímé otevření souboru je zamýšlený způsob spuštění; jeho kontrolu v tomto konkrétním řízeném Chromium blokuje politika, která nebyla obcházena.
+## Podklady a dohledatelnost
 
-Neproběhl úplný externí audit WCAG AA, test na fyzických telefonech, ve všech prohlížečích ani s reálnými návštěvníky. Uvedených 486 kontrol představuje konkrétní assertions, nikoli 486 nezávislých uživatelských studií. Externí Google služba a budoucí jízdní řády nejsou garantovány. Skutečné cross-review a údaje o spolupráci týmu musí dodat tým.
+- `review/browser-validation-2026-10-19.json`: jednotlivé assertions, čas a SHA-256 stromu webu.
+- `review/layout-validation-2026-10-19.json`: naměřené šířky a pohledy.
+- `review/language-validation-2026-10-19.json`: výsledek anglických pohledů.
+- `odevzdani/manifest.json`: SHA-256 všech exportovaných souborů.
+- `odevzdani/cviceni-02-k-odevzdani.zip`: právě specifikace, XML, XSD a jedna PPTX prezentace; žádné samostatné poznámky ani duplicitní PDF.
+- `preview/home.png`, `web-desktop.png`, `web-mobile.png`: nové snímky skutečně spuštěného webu. Vizuálně zkontrolované C02 a informační architektura, exportované prezentace mají kontrolované hranice textu a shodu PDF/PPTX.
 
-Účty a rezervace jsou místní, platby simulované a e-mail se neodesílá. Při budoucí změně katalogových cen je nutné zvlášť ověřit čtení historických objednávek; současné tarify se v této revizi nezměnily. Modelová DPH vychází z doloženého zdroje GFŘ pro rok 2024 a nepředstavuje právní potvrzení sazby v roce 2027.
+## Limity odevzdání
 
-Fotografie mají uvedené zdroje a licence. Dvě fotografie CC BY-NC-SA omezují aktuální obrazovou sadu na nekomerční školní použití. Historický úvod ani návrh scén nedokládají rezervaci prostor, partnerství Výstaviště nebo potvrzenou účast skutečných interpretů.
+Nebylo doplněno vymyšlené cross-review, historie spolupráce ani schválení změn proti prvním milníkům. Tým musí dodat skutečné podklady pro cvičení 6 a finální dokumentaci. Zadání uvádí čtyřčlenný tým, uživatel zadal tři uvedené autory. Požadavek na výhradně AI vizuály se liší od výslovného přání použít skutečné fotografie; rozdíl je zaznamenaný ve specifikaci a dokumentaci.
+
+Neproběhl úplný externí audit WCAG AA, validace všech vykreslených HTML stavů ani testování na fyzických telefonech a ve všech prohlížečích. Licencované fotografie a historický snímek nedokládají rezervaci areálu nebo účast interpretů. Dvě fotografie CC BY-NC-SA omezují obrazovou sadu na nekomerční školní použití.
+
+Účty a obsazenost zůstávají v prohlížeči, platby jsou simulované, e-mail se neodesílá. Změna katalogových cen v budoucnu vyžaduje samostatné ověření historických objednávek. Modelová DPH není právní potvrzení sazby pro rok 2027.

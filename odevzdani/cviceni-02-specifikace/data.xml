@@ -27,8 +27,8 @@
     </den>
     <den id="d3">
       <nazev>Den 3</nazev>
-      <tema_dne>Finale &amp; Afterparty</tema_dne>
-      <popis>Závěrečné koncerty a klubová afterparty zakončí tři dny pražské hudby.</popis>
+      <tema_dne>Finale</tema_dne>
+      <popis>Závěrečné koncerty, český rap a klubové sety zakončí tři dny pražské hudby.</popis>
       <datumstart>2027-08-03</datumstart>
       <casstart>09:00:00</casstart>
       <caskonec>23:59:00</caskonec>
@@ -40,18 +40,52 @@
       <lokace>Hlavní pavilon festivalového areálu</lokace>
       <velikost>5000</velikost>
       <popis>Světová jména popu, rocku a taneční hudby v hlavním pavilonu návrhu festivalového areálu. Zde hrají hlavní hvězdy večerního programu.</popis>
+      <vstupenky_sceny>
+        <kapacita_stani>4952</kapacita_stani>
+        <sedadla>
+          <sektor kategorie="vip" mist_v_rade="8">
+            <rada>A</rada>
+            <rada>B</rada>
+          </sektor>
+          <sektor kategorie="regular" mist_v_rade="8">
+            <rada>C</rada>
+            <rada>D</rada>
+            <rada>E</rada>
+            <rada>F</rada>
+          </sektor>
+        </sedadla>
+        <cenik>
+          <cena kategorie="vip" den="490" festival="1290"/>
+          <cena kategorie="regular" den="290" festival="790"/>
+          <cena kategorie="standing" den="150" festival="390"/>
+        </cenik>
+      </vstupenky_sceny>
     </hala>
     <hala id="h2">
       <nazev>River Stage</nazev>
       <lokace>Venkovní scéna u Vltavy</lokace>
       <velikost>3000</velikost>
       <popis>Venkovní scéna u Vltavy v navrženém širším festivalovém areálu. Program patří českému rapu, pop rocku a domácím kapelám.</popis>
+      <vstupenky_sceny>
+        <kapacita_stani>3000</kapacita_stani>
+        <sedadla/>
+        <cenik>
+          <cena kategorie="standing" den="110" festival="290"/>
+        </cenik>
+      </vstupenky_sceny>
     </hala>
     <hala id="h3">
       <nazev>Club Stage</nazev>
       <lokace>Klubový pavilon festivalového areálu</lokace>
       <velikost>1500</velikost>
       <popis>Klubová scéna pro drum and bass, UK garage, bassline a hard techno. Program propojuje britskou basovou scénu s taneční elektronikou.</popis>
+      <vstupenky_sceny>
+        <kapacita_stani>1500</kapacita_stani>
+        <sedadla/>
+        <cenik>
+          <cena kategorie="standing" den="90" festival="240"/>
+        </cenik>
+      </vstupenky_sceny>
     </hala>
   </haly>
   <interpreti>
@@ -1142,8 +1176,9 @@
       <tema_akce>Progressive house</tema_akce>
       <popis_akce>Nizozemský DJ a producent s kořeny v trance. Postupně rozšířil svůj zvuk o house a další podoby taneční elektroniky. Pochází z nizozemské Bredy.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>13:00:00</casstart>
-      <caskonec>14:15:00</caskonec>
+      <casstart>12:30:00</casstart>
+      <caskonec>13:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h1</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
@@ -1155,8 +1190,9 @@
       <tema_akce>Pop rap / R&amp;B</tema_akce>
       <popis_akce>Český rapper a zpěvák s moldavskými kořeny. Jeho tvorba propojuje rap, pop a R&amp;B s melodickými refrény. Je spojený s Brnem a vydavatelstvím Rychlí kluci.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>13:00:00</casstart>
-      <caskonec>14:15:00</caskonec>
+      <casstart>09:30:00</casstart>
+      <caskonec>10:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h2</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
@@ -1168,8 +1204,9 @@
       <tema_akce>Punk rock</tema_akce>
       <popis_akce>Americká punkrocková kapela z Kalifornie. Její tvorba spojuje rychlé kytary, melodické refrény a punkovou energii. Kapela vznikla v kalifornském Garden Grove.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>14:30:00</casstart>
-      <caskonec>15:45:00</caskonec>
+      <casstart>14:00:00</casstart>
+      <caskonec>15:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h1</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
@@ -1181,8 +1218,9 @@
       <tema_akce>Alternative R&amp;B</tema_akce>
       <popis_akce>Český zpěvák a rapper David Stencel. V jeho skladbách se prolínají rap, R&amp;B, pop a osobně laděné texty. Pochází z Brna a je spojený s vydavatelstvím Rychlí kluci.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>14:30:00</casstart>
-      <caskonec>15:45:00</caskonec>
+      <casstart>11:00:00</casstart>
+      <caskonec>12:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h2</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
@@ -1194,8 +1232,9 @@
       <tema_akce>Drum and bass / jungle</tema_akce>
       <popis_akce>Britské producentské duo působící na pomezí drum and bassu, dubstepu a elektroniky. Jeho nahrávky často propojují výrazné basy s hostujícími vokalisty. Duo vzniklo v Londýně.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>14:30:00</casstart>
-      <caskonec>15:45:00</caskonec>
+      <casstart>12:30:00</casstart>
+      <caskonec>13:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h3</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
@@ -1207,8 +1246,9 @@
       <tema_akce>Punk rock</tema_akce>
       <popis_akce>Americká punkrocková kapela v čele s Billiem Joem Armstrongem. Její tvorba propojuje punkové kořeny s popovými melodiemi a rockovými příběhy. Kapela vznikla v kalifornském East Bay.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>16:00:00</casstart>
-      <caskonec>17:15:00</caskonec>
+      <casstart>15:30:00</casstart>
+      <caskonec>16:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h1</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
@@ -1220,8 +1260,9 @@
       <tema_akce>Melodic rap</tema_akce>
       <popis_akce>Český rapper narozený v Kazachstánu. Jeho tvorba spojuje melodický rap, introspektivní texty a současnou hip-hopovou produkci. Vyrůstal v Kladně.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>16:00:00</casstart>
-      <caskonec>17:15:00</caskonec>
+      <casstart>12:30:00</casstart>
+      <caskonec>13:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h2</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
@@ -1233,8 +1274,9 @@
       <tema_akce>Drum and bass / dancefloor</tema_akce>
       <popis_akce>Britský producent Nick Douwma, výrazná postava melodického drum and bassu. V jeho tvorbě se objevují také house, dubstep a synthpopové vlivy. Pochází z Londýna.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>16:00:00</casstart>
-      <caskonec>17:15:00</caskonec>
+      <casstart>14:00:00</casstart>
+      <caskonec>15:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h3</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
@@ -1246,8 +1288,9 @@
       <tema_akce>Alternative rock / progressive rock</tema_akce>
       <popis_akce>Britské rockové trio Matt Bellamy, Chris Wolstenholme a Dominic Howard. Propojuje alternativní rock s elektronikou a progresivními vlivy. Trio pochází z anglického Teignmouthu.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>17:30:00</casstart>
-      <caskonec>18:45:00</caskonec>
+      <casstart>17:00:00</casstart>
+      <caskonec>18:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h1</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
@@ -1259,8 +1302,9 @@
       <tema_akce>Trap</tema_akce>
       <popis_akce>Český rapper a člen hudebního uskupení Milion+. Jeho tvorba je spojená s trapem a současným českým rapem.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>17:30:00</casstart>
-      <caskonec>18:45:00</caskonec>
+      <casstart>14:00:00</casstart>
+      <caskonec>15:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h2</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
@@ -1272,8 +1316,9 @@
       <tema_akce>Drum and bass / dancefloor</tema_akce>
       <popis_akce>Britský DJ a producent Mark Wilkinson. Jeho drum and bass spojuje energické rytmy s melodickými motivy a zpívanými refrény. Pochází z jihozápadního Londýna.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>17:30:00</casstart>
-      <caskonec>18:45:00</caskonec>
+      <casstart>15:30:00</casstart>
+      <caskonec>16:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h3</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
@@ -1285,8 +1330,9 @@
       <tema_akce>R&amp;B / synthpop</tema_akce>
       <popis_akce>Kanadský zpěvák a autor Abel Tesfaye. Jeho tvorba propojuje R&amp;B, pop a elektroniku s výraznou vizuální estetikou. Pochází z kanadského Toronta.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>19:00:00</casstart>
-      <caskonec>20:15:00</caskonec>
+      <casstart>18:30:00</casstart>
+      <caskonec>19:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h1</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
@@ -1298,8 +1344,9 @@
       <tema_akce>Trap</tema_akce>
       <popis_akce>Český rapper z Pardubic a člen uskupení Milion+. V jeho tvorbě se potkává trapová produkce s melodickým rapem.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>19:00:00</casstart>
-      <caskonec>20:15:00</caskonec>
+      <casstart>15:30:00</casstart>
+      <caskonec>16:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h2</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
@@ -1311,8 +1358,9 @@
       <tema_akce>UK bassline</tema_akce>
       <popis_akce>Britský DJ a producent spojený s UK bass a bassline scénou. Jeho zvuk stojí na hutných basových linkách a rytmice britských klubů. Je spojený s klubovou scénou v Nottinghamu.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>19:00:00</casstart>
-      <caskonec>20:15:00</caskonec>
+      <casstart>17:00:00</casstart>
+      <caskonec>18:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h3</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
@@ -1324,8 +1372,9 @@
       <tema_akce>Alternative pop rock</tema_akce>
       <popis_akce>Americká kapela z Las Vegas vedená zpěvákem Danem Reynoldsem. Propojuje alternativní pop rock s elektronikou a výraznou rytmikou; mezi její známé skladby patří Radioactive a Believer.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>20:30:00</casstart>
-      <caskonec>21:45:00</caskonec>
+      <casstart>20:00:00</casstart>
+      <caskonec>21:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h1</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
@@ -1337,8 +1386,9 @@
       <tema_akce>R&amp;B / dance pop</tema_akce>
       <popis_akce>Český zpěvák a autor s angolskými kořeny. Jeho hudba propojuje pop, R&amp;B a taneční rytmy.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>20:30:00</casstart>
-      <caskonec>21:45:00</caskonec>
+      <casstart>17:00:00</casstart>
+      <caskonec>18:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h2</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
@@ -1350,8 +1400,9 @@
       <tema_akce>Bassline / UK garage</tema_akce>
       <popis_akce>Britský producent a DJ Thomas Sampson. Ve své tvorbě se věnuje bassline, UK garage a dalším basově orientovaným klubovým stylům. Pochází z Bradfordu na severu Anglie.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>20:30:00</casstart>
-      <caskonec>21:45:00</caskonec>
+      <casstart>18:30:00</casstart>
+      <caskonec>19:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h3</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
@@ -1363,8 +1414,9 @@
       <tema_akce>Dance pop / house</tema_akce>
       <popis_akce>Francouzský DJ a producent, který propojuje taneční elektroniku s popovými vokály. Jeho tvorba sahá od klubového housu po velké rádiové spolupráce. Je spojený s Paříží a francouzskou houseovou scénou.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>22:00:00</casstart>
-      <caskonec>23:15:00</caskonec>
+      <casstart>21:30:00</casstart>
+      <caskonec>23:00:00</caskonec>
+      <hlavni_vystoupeni>true</hlavni_vystoupeni>
       <hala_ref>h1</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
@@ -1376,8 +1428,9 @@
       <tema_akce>Pop rock</tema_akce>
       <popis_akce>Česko-polská zpěvačka s repertoárem v češtině i polštině. Její hudba vychází z popu a rocku. Pochází z české části Těšínska.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>22:00:00</casstart>
-      <caskonec>23:15:00</caskonec>
+      <casstart>18:30:00</casstart>
+      <caskonec>19:30:00</caskonec>
+      <hlavni_vystoupeni>true</hlavni_vystoupeni>
       <hala_ref>h2</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
@@ -1389,8 +1442,9 @@
       <tema_akce>UK garage / speed garage</tema_akce>
       <popis_akce>Britský DJ a producent, který propojuje UK garage s basovou klubovou hudbou. Jeho skladby pracují s pružnou rytmikou a výraznými vokálními samply. Vyrůstal v Oxfordshiru v Anglii.</popis_akce>
       <datumstart>2027-08-01</datumstart>
-      <casstart>22:00:00</casstart>
-      <caskonec>23:15:00</caskonec>
+      <casstart>20:00:00</casstart>
+      <caskonec>21:00:00</caskonec>
+      <hlavni_vystoupeni>true</hlavni_vystoupeni>
       <hala_ref>h3</hala_ref>
       <den_ref>d1</den_ref>
       <interpreti>
@@ -1402,8 +1456,9 @@
       <tema_akce>Alternative pop</tema_akce>
       <popis_akce>Americká zpěvačka a autorka spolupracující s producentem FINNEASem. Její tvorba staví na osobitých vokálech, elektronice a intimních textech. Pochází z Los Angeles.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>13:00:00</casstart>
-      <caskonec>14:15:00</caskonec>
+      <casstart>12:30:00</casstart>
+      <caskonec>13:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h1</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
@@ -1415,8 +1470,9 @@
       <tema_akce>Drum and bass / jump-up</tema_akce>
       <popis_akce>Britský producent a DJ zaměřený na drum and bass a jump-up. Jeho jméno je spojené také s kolektivem SASASAS. Pochází z anglického Kentu.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>13:00:00</casstart>
-      <caskonec>14:15:00</caskonec>
+      <casstart>11:00:00</casstart>
+      <caskonec>12:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h3</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
@@ -1428,8 +1484,9 @@
       <tema_akce>Indie rock</tema_akce>
       <popis_akce>Britská kapela ze Sheffieldu v čele s Alexem Turnerem. Její tvorba se pohybuje od kytarového indie rocku po propracované orchestrální a klávesové aranže.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>14:30:00</casstart>
-      <caskonec>15:45:00</caskonec>
+      <casstart>14:00:00</casstart>
+      <caskonec>15:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h1</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
@@ -1441,8 +1498,9 @@
       <tema_akce>Pop rock</tema_akce>
       <popis_akce>Česká popová kapela z Frýdku-Místku. Její tvorba stojí na zpěvných refrénech, kytarách a současné popové produkci.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>14:30:00</casstart>
-      <caskonec>15:45:00</caskonec>
+      <casstart>11:00:00</casstart>
+      <caskonec>12:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h2</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
@@ -1454,8 +1512,9 @@
       <tema_akce>Drum and bass / jungle</tema_akce>
       <popis_akce>Britský drum and bassový DJ a producent. Patří k zakladatelům labelu RAM Records a je známý technicky propracovaným mixováním.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>14:30:00</casstart>
-      <caskonec>15:45:00</caskonec>
+      <casstart>12:30:00</casstart>
+      <caskonec>13:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h3</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
@@ -1467,8 +1526,9 @@
       <tema_akce>Big beat / techno</tema_akce>
       <popis_akce>Britské elektronické duo Tom Rowlands a Ed Simons. Jejich tvorba propojuje big beat, house, psychedelické motivy a klubovou elektroniku. Duo vzniklo v Manchesteru.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>16:00:00</casstart>
-      <caskonec>17:15:00</caskonec>
+      <casstart>15:30:00</casstart>
+      <caskonec>16:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h1</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
@@ -1480,8 +1540,9 @@
       <tema_akce>Pop rock</tema_akce>
       <popis_akce>Česká kapela vedená zpěvákem Richardem Krajčem. Propojuje pop a rock s důrazem na melodii a české texty.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>16:00:00</casstart>
-      <caskonec>17:15:00</caskonec>
+      <casstart>12:30:00</casstart>
+      <caskonec>13:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h2</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
@@ -1493,8 +1554,9 @@
       <tema_akce>Liquid drum and bass</tema_akce>
       <popis_akce>Britské producentské duo Matt Lowe a Josh White. Jejich liquid drum and bass staví na atmosférických plochách, melodiích a vokálech.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>16:00:00</casstart>
-      <caskonec>17:15:00</caskonec>
+      <casstart>14:00:00</casstart>
+      <caskonec>15:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h3</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
@@ -1506,8 +1568,9 @@
       <tema_akce>Heavy metal</tema_akce>
       <popis_akce>Britská heavymetalová kapela založená baskytaristou Stevem Harrisem. Její tvorbu charakterizují vícehlasé kytary a rozsáhlé příběhové skladby. Kapela vznikla v Londýně.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>17:30:00</casstart>
-      <caskonec>18:45:00</caskonec>
+      <casstart>17:00:00</casstart>
+      <caskonec>18:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h1</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
@@ -1519,8 +1582,9 @@
       <tema_akce>Pop rock</tema_akce>
       <popis_akce>Česká poprocková kapela se zpěvákem Michalem Malátným. Její repertoár tvoří melodické písně s českými texty.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>17:30:00</casstart>
-      <caskonec>18:45:00</caskonec>
+      <casstart>14:00:00</casstart>
+      <caskonec>15:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h2</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
@@ -1532,8 +1596,9 @@
       <tema_akce>Drum and bass / dancefloor</tema_akce>
       <popis_akce>Britský producent a DJ Robert Etheridge. Jeho drum and bass kombinuje klubový tah s výraznými syntezátorovými melodiemi.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>17:30:00</casstart>
-      <caskonec>18:45:00</caskonec>
+      <casstart>15:30:00</casstart>
+      <caskonec>16:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h3</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
@@ -1545,8 +1610,9 @@
       <tema_akce>Big beat / breakbeat</tema_akce>
       <popis_akce>Britská elektronická skupina založená Liamem Howlettem. Její tvorba propojuje rave, breakbeat a elektroniku s punkovou energií.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>19:00:00</casstart>
-      <caskonec>20:15:00</caskonec>
+      <casstart>18:30:00</casstart>
+      <caskonec>19:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h1</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
@@ -1558,8 +1624,9 @@
       <tema_akce>Hard rock</tema_akce>
       <popis_akce>Česká rocková kapela z Teplic se zpěvákem Josefem Vojtkem. Její zvuk stojí na kytarových riffech a výrazných refrénech.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>19:00:00</casstart>
-      <caskonec>20:15:00</caskonec>
+      <casstart>15:30:00</casstart>
+      <caskonec>16:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h2</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
@@ -1571,8 +1638,9 @@
       <tema_akce>Drum and bass / jump-up</tema_akce>
       <popis_akce>Britský drum and bassový producent a DJ. Vychází zejména z jump-upu, výrazných basových zvuků a rychlých klubových rytmů. Pochází z anglického Cambridge.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>19:00:00</casstart>
-      <caskonec>20:15:00</caskonec>
+      <casstart>17:00:00</casstart>
+      <caskonec>18:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h3</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
@@ -1584,8 +1652,9 @@
       <tema_akce>Synthpop</tema_akce>
       <popis_akce>Britská kapela, která propojuje elektronickou hudbu, synthpop a rock. K jejím výrazným tvůrčím osobnostem patří Dave Gahan a Martin Gore. Kapela vznikla v anglickém Basildonu.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>20:30:00</casstart>
-      <caskonec>21:45:00</caskonec>
+      <casstart>20:00:00</casstart>
+      <caskonec>21:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h1</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
@@ -1597,8 +1666,9 @@
       <tema_akce>Pop rock</tema_akce>
       <popis_akce>Česká rocková kapela vzniklá v Praze v osmdesátých letech. Její repertoár propojuje poprockové melodie s kytarovým zvukem; patří do něj skladby Černí andělé a Amerika.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>20:30:00</casstart>
-      <caskonec>21:45:00</caskonec>
+      <casstart>17:00:00</casstart>
+      <caskonec>18:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h2</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
@@ -1610,8 +1680,9 @@
       <tema_akce>Drum and bass / jump-up</tema_akce>
       <popis_akce>Britský drum and bassový producent a DJ působící v Manchesteru. Jeho tvorba propojuje jump-up s dalšími proudy současné basové hudby.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>20:30:00</casstart>
-      <caskonec>21:45:00</caskonec>
+      <casstart>18:30:00</casstart>
+      <caskonec>19:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h3</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
@@ -1623,8 +1694,9 @@
       <tema_akce>Dance pop</tema_akce>
       <popis_akce>Americká zpěvačka a autorka popových hitů. Její hudbu charakterizují výrazné refrény, taneční produkce a barevná vizuální estetika. Pochází z kalifornské Santa Barbary; k jejím známým albům patří Teenage Dream.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>22:00:00</casstart>
-      <caskonec>23:15:00</caskonec>
+      <casstart>21:30:00</casstart>
+      <caskonec>23:00:00</caskonec>
+      <hlavni_vystoupeni>true</hlavni_vystoupeni>
       <hala_ref>h1</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
@@ -1636,8 +1708,9 @@
       <tema_akce>Alternative rock</tema_akce>
       <popis_akce>Česká rocková kapela z Prahy, kterou tvoří mimo jiné bratři Matěj a Jan Homolovi. Její skladby spojují kytarové riffy, nadsázku a osobité české texty.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>22:00:00</casstart>
-      <caskonec>23:15:00</caskonec>
+      <casstart>18:30:00</casstart>
+      <caskonec>19:30:00</caskonec>
+      <hlavni_vystoupeni>true</hlavni_vystoupeni>
       <hala_ref>h2</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
@@ -1649,8 +1722,9 @@
       <tema_akce>Drum and bass / dancefloor</tema_akce>
       <popis_akce>Britský producent a DJ, jehož tvorba propojuje drum and bassové subžánry. Střídá melodické motivy s výraznými basovými dropy.</popis_akce>
       <datumstart>2027-08-02</datumstart>
-      <casstart>22:00:00</casstart>
-      <caskonec>23:15:00</caskonec>
+      <casstart>20:00:00</casstart>
+      <caskonec>21:00:00</caskonec>
+      <hlavni_vystoupeni>true</hlavni_vystoupeni>
       <hala_ref>h3</hala_ref>
       <den_ref>d2</den_ref>
       <interpreti>
@@ -1662,8 +1736,9 @@
       <tema_akce>Folk rock</tema_akce>
       <popis_akce>Česká kapela z Úval propojující rock s akustickými nástroji. V jejím zvuku mají vedle kytar místo housle, banjo a akordeon; výraznou roli hrají vícehlasé refrény.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>13:00:00</casstart>
-      <caskonec>14:15:00</caskonec>
+      <casstart>09:30:00</casstart>
+      <caskonec>10:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h2</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
@@ -1675,8 +1750,9 @@
       <tema_akce>Drum and bass / jungle</tema_akce>
       <popis_akce>Britský DJ a producent Ed Keeley. Vedle drum and bassových setů je spojený také s vydavatelstvím Shogun Audio. Pochází z Brightonu na jihu Anglie.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>13:00:00</casstart>
-      <caskonec>14:15:00</caskonec>
+      <casstart>11:00:00</casstart>
+      <caskonec>12:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h3</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
@@ -1688,8 +1764,9 @@
       <tema_akce>Alternative rock / nu metal</tema_akce>
       <popis_akce>Americká kapela propojující alternativní rock, elektroniku a rap. V jejím repertoáru se potkávají tvrdé kytary s melodickými i rapovanými vokály. Kapela vznikla v kalifornském Agoura Hills.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>14:30:00</casstart>
-      <caskonec>15:45:00</caskonec>
+      <casstart>14:00:00</casstart>
+      <caskonec>15:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h1</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
@@ -1701,8 +1778,9 @@
       <tema_akce>Alternative rock / punk</tema_akce>
       <popis_akce>Česká alternativně rocková kapela z Pardubic vedená zpěvákem a kytaristou Márdim. Staví na přímočarých kytarách, punkové energii a obrazných českých textech.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>14:30:00</casstart>
-      <caskonec>15:45:00</caskonec>
+      <casstart>11:00:00</casstart>
+      <caskonec>12:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h2</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
@@ -1714,8 +1792,9 @@
       <tema_akce>Bass house</tema_akce>
       <popis_akce>Britský producent a DJ John Ford. Jeho elektronická tvorba propojuje bass house s vlivy hip-hopu a dalších klubových žánrů.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>14:30:00</casstart>
-      <caskonec>15:45:00</caskonec>
+      <casstart>12:30:00</casstart>
+      <caskonec>13:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h3</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
@@ -1727,8 +1806,9 @@
       <tema_akce>Alternative rock</tema_akce>
       <popis_akce>Americká rocková kapela založená Davem Grohlem. Její tvorba staví na kytarovém zvuku, výrazných melodiích a dynamických skladbách.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>16:00:00</casstart>
-      <caskonec>17:15:00</caskonec>
+      <casstart>15:30:00</casstart>
+      <caskonec>16:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h1</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
@@ -1740,8 +1820,9 @@
       <tema_akce>Industrial metal</tema_akce>
       <popis_akce>Česká metalová kapela z Prahy, známá také svými maskami. Její tvorba propojuje hutné kytarové riffy, elektronické prvky a melodické refrény.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>16:00:00</casstart>
-      <caskonec>17:15:00</caskonec>
+      <casstart>12:30:00</casstart>
+      <caskonec>13:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h2</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
@@ -1753,8 +1834,9 @@
       <tema_akce>Bass house / UK garage</tema_akce>
       <popis_akce>Americký DJ a producent Aaron Clevenger. Zakladatel značky Night Bass propojuje house s britskými basovými a garage vlivy. Pochází z USA a jeho značka je spojená s losangeleskou klubovou scénou.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>16:00:00</casstart>
-      <caskonec>17:15:00</caskonec>
+      <casstart>14:00:00</casstart>
+      <caskonec>15:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h3</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
@@ -1766,8 +1848,9 @@
       <tema_akce>Gothic rock / post-punk</tema_akce>
       <popis_akce>Britská kapela vedená Robertem Smithem. Její tvorba sahá od post-punku a temného rocku po melodické popové písně. Kapela vznikla v Crawley v Anglii.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>17:30:00</casstart>
-      <caskonec>18:45:00</caskonec>
+      <casstart>17:00:00</casstart>
+      <caskonec>18:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h1</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
@@ -1779,8 +1862,9 @@
       <tema_akce>Trap / gangsta rap</tema_akce>
       <popis_akce>Český rapper z Ostravy. Jeho tvorba vychází z trapu a gangsta rapu; je spojená s ostravskou rapovou scénou a uskupením Azurit Kingdom.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>17:30:00</casstart>
-      <caskonec>18:45:00</caskonec>
+      <casstart>14:00:00</casstart>
+      <caskonec>15:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h2</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
@@ -1792,8 +1876,9 @@
       <tema_akce>UK garage</tema_akce>
       <popis_akce>Britský DJ a producent spojený se současnou UK garage scénou. Stojí také za vydavatelstvím Kiwi Rekords. Pochází z anglického Bristolu.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>17:30:00</casstart>
-      <caskonec>18:45:00</caskonec>
+      <casstart>15:30:00</casstart>
+      <caskonec>16:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h3</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
@@ -1805,8 +1890,9 @@
       <tema_akce>Metalcore / alternative metal</tema_akce>
       <popis_akce>Britská kapela ze Sheffieldu vedená Oliverem Sykesem. Její tvorba propojuje metalové a rockové kořeny s elektronikou a popovými prvky.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>19:00:00</casstart>
-      <caskonec>20:15:00</caskonec>
+      <casstart>18:30:00</casstart>
+      <caskonec>19:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h1</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
@@ -1818,8 +1904,9 @@
       <tema_akce>Trap / rap</tema_akce>
       <popis_akce>Český rapper Jan Šustr původem z Chebu. Ve své tvorbě propojuje rap, trapovou produkci a melodické motivy a spolupracuje s dalšími jmény české scény.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>19:00:00</casstart>
-      <caskonec>20:15:00</caskonec>
+      <casstart>15:30:00</casstart>
+      <caskonec>16:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h2</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
@@ -1831,8 +1918,9 @@
       <tema_akce>Bassline / bass house</tema_akce>
       <popis_akce>Britský DJ a producent Scott Jenkins z Londýna. Jeho bassline a bass house propojují hutné basové linky s rytmikou UK garage; patří k britské scéně kolem značky Crucast.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>19:00:00</casstart>
-      <caskonec>20:15:00</caskonec>
+      <casstart>17:00:00</casstart>
+      <caskonec>18:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h3</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
@@ -1844,8 +1932,9 @@
       <tema_akce>Dance pop / disco</tema_akce>
       <popis_akce>Britsko-albánská zpěvačka a autorka. Její popová tvorba čerpá také z disco hudby, funku a tanečních žánrů. Narodila se v Londýně.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>20:30:00</casstart>
-      <caskonec>21:45:00</caskonec>
+      <casstart>20:00:00</casstart>
+      <caskonec>21:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h1</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
@@ -1857,8 +1946,9 @@
       <tema_akce>Alternative hip-hop</tema_akce>
       <popis_akce>Český rapper Jan Daněk z Prahy. Vzešel z dua Supercrooo a jeho sólová tvorba patří k osobitým podobám českého alternativního rapu.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>20:30:00</casstart>
-      <caskonec>21:45:00</caskonec>
+      <casstart>17:00:00</casstart>
+      <caskonec>18:00:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h2</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
@@ -1870,8 +1960,9 @@
       <tema_akce>Drum and bass / electronic rock</tema_akce>
       <popis_akce>Australská skupina propojující drum and bass s rockovou instrumentací. Její tvorba kombinuje rychlé elektronické rytmy s kytarami a zpěvem. Skupina vznikla v australském Perthu.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>20:30:00</casstart>
-      <caskonec>21:45:00</caskonec>
+      <casstart>18:30:00</casstart>
+      <caskonec>19:30:00</caskonec>
+      <hlavni_vystoupeni>false</hlavni_vystoupeni>
       <hala_ref>h3</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
@@ -1883,8 +1974,9 @@
       <tema_akce>Dubstep / bass house</tema_akce>
       <popis_akce>Americký producent a DJ Sonny Moore. V jeho tvorbě se potkávají dubstep, bass music, house i spolupráce napříč současnou populární hudbou. Vyrůstal v Los Angeles a před sólovou elektronickou tvorbou působil v kapele From First to Last.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>22:00:00</casstart>
-      <caskonec>23:15:00</caskonec>
+      <casstart>21:30:00</casstart>
+      <caskonec>23:00:00</caskonec>
+      <hlavni_vystoupeni>true</hlavni_vystoupeni>
       <hala_ref>h1</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
@@ -1896,8 +1988,9 @@
       <tema_akce>Alternative hip-hop</tema_akce>
       <popis_akce>Český rapper a výtvarník Pavel Harant z Liberce. Jeho tvorba propojuje melodický rap, osobní texty a dlouhodobou spolupráci s producentem Kennym Roughem.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>22:00:00</casstart>
-      <caskonec>23:15:00</caskonec>
+      <casstart>18:30:00</casstart>
+      <caskonec>19:30:00</caskonec>
+      <hlavni_vystoupeni>true</hlavni_vystoupeni>
       <hala_ref>h2</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>
@@ -1909,8 +2002,9 @@
       <tema_akce>Hard techno</tema_akce>
       <popis_akce>Německý hardtechno projekt s maskovanou vizuální identitou. Jeho zvuk staví na rychlém tempu, tvrdých kopácích a vlivech hard dance a rave.</popis_akce>
       <datumstart>2027-08-03</datumstart>
-      <casstart>22:00:00</casstart>
-      <caskonec>23:15:00</caskonec>
+      <casstart>20:00:00</casstart>
+      <caskonec>21:00:00</caskonec>
+      <hlavni_vystoupeni>true</hlavni_vystoupeni>
       <hala_ref>h3</hala_ref>
       <den_ref>d3</den_ref>
       <interpreti>

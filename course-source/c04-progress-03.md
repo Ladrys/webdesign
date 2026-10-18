@@ -10,7 +10,8 @@ instalace a buildu. Propojuje úvod, program, účinkující s detaily, scény,
 praktické info, novinky a hledání. Podporuje češtinu a angličtinu.
 
 Fungují filtry, osobní program a objednávka hosta i přihlášeného uživatele.
-Vstupenky lze vybrat na jeden, dva nebo tři dny; doplňkem je kemp, promo kód
+Vstupenky lze vybrat na všechny scény nebo jednu scénu a jeden, dva či tři
+dny; doplňkem je kemp, promo kód
 a PDF. Účty, výběr i objednávky zůstávají v prohlížeči. Platba a e-mail nejsou
 napojené na skutečnou službu.
 
@@ -22,10 +23,13 @@ napojené na skutečnou službu.
 | Čeština a angličtina | Orientace zahraničních návštěvníků |
 | Rozšířené detaily a hudební odkazy | Snazší rozhodování o programu |
 | Košík, účet, kemp a PDF | Doplnění objednávkového scénáře S3 |
+| Rozdílné kapacity a vstup jen na jednu scénu | Přesný rozsah nákupu a levnější alternativa společného vstupu |
 | Samostatné soukromí, podmínky a kredity | Přehlednější návštěvnické informace |
 
-Základ S1 a S2 zůstává stejný. Případná změna vstupenek podle jednotlivých
-scén je odložená; tento balíček takovou změnu neobsahuje.
+Základ S1 a S2 zůstává stejný. Osobní program navíc označuje překryvy
+uložených setů. Tři závěrečné koncerty denně navazují s 30 minutami na přesun.
+Samostatné vstupenky scén sdílejí skutečná místa modelu se společným vstupem;
+River a Club mají pouze stání, Main Hall také sedadla.
 
 ## Použité postupy a trendy
 

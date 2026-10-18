@@ -3,7 +3,7 @@ from pathlib import Path
 from threading import Thread
 from functools import partial
 from http.server import SimpleHTTPRequestHandler,ThreadingHTTPServer
-import argparse,json,os,zipfile,re
+import argparse,hashlib,json,os,zipfile,re
 import fitz
 from pptx import Presentation
 from playwright.sync_api import sync_playwright
@@ -12,7 +12,28 @@ checks=[]
 def check(ok,label):
  assert ok,label
  checks.append(label);print('PASS',label)
-for folder in sorted(root.glob('cviceni-*')):
+project=Path(__file__).resolve().parents[1]
+manifest=json.loads((root/'manifest.json').read_text(encoding='utf-8'))
+check(all((root/item['path']).is_file()
+          and (root/item['path']).stat().st_size==item['bytes']
+          and hashlib.sha256((root/item['path']).read_bytes()).hexdigest()==item['sha256']
+          for item in manifest['files']), 'Submission manifest matches every generated artifact')
+with zipfile.ZipFile(root/'cviceni-02-k-odevzdani.zip') as archive:
+ check(archive.testzip() is None,'C02 upload ZIP has no damaged entries')
+ check(set(archive.namelist())=={'project-specification.md','data.xml','festival.xsd','prezentace.pptx'},
+       'C02 upload ZIP contains exactly the four intended files, without duplicate presentation or notes')
+ check(all(archive.read(name)==(root/'cviceni-02-specifikace'/name).read_bytes() for name in archive.namelist()),
+       'C02 upload ZIP agrees with the current specification, data, schema and presentation')
+for relative in ['cviceni-02-specifikace','cviceni-05-review-ready','finalni-projekt/projekt']:
+ folder=root/relative
+ for name in ['project-specification.md','data.xml','festival.xsd']:
+  check((folder/name).read_bytes()==(project/name).read_bytes(),relative+': '+name+' agrees with the current source')
+if manifest['complete_web_copies']:
+ expected={path.relative_to(project/'web'):path.read_bytes() for path in (project/'web').rglob('*') if path.is_file()}
+ for relative in ['cviceni-04-implementace/web','cviceni-05-review-ready/web','finalni-projekt/projekt/web']:
+  delivered={path.relative_to(root/relative):path.read_bytes() for path in (root/relative).rglob('*') if path.is_file()}
+  check(delivered==expected,relative+': complete website agrees with the current tested source')
+for folder in sorted(path for path in root.glob('cviceni-*') if path.is_dir()):
  pdf=fitz.open(folder/'prezentace.pdf');ppt=Presentation(folder/'prezentace.pptx')
  check(len(pdf)==6 and len(ppt.slides)==6,folder.name+': six PDF pages and editable PPTX slides')
  for i,(page,slide) in enumerate(zip(pdf,ppt.slides),1):
@@ -50,5 +71,5 @@ try:
   page.goto(base+'#performers');check(page.locator('main article').count()==60,'Prototype loads60artists');artist_name=page.evaluate('FESTIVAL_DATA.performers.find(p=>p.id==="i8").name');artist=page.locator('main article').filter(has=page.locator('h3',has_text=artist_name));artist.locator('button').click();check(page.locator('dialog').is_visible(),'Prototype scenarioS2 artist detail opens');page.locator('dialog a').click();page.wait_for_selector('#program-list article');check(page.locator('#program-list article').count()>0,'Prototype artist links to related shows')
   page.locator('#query').fill('<script>alert(1)</script>');page.locator('#search-form button').click();page.wait_for_function("document.querySelector('main').textContent.includes('Nic jsme')");check('Nic jsme' in page.locator('main').inner_text(),'Prototype search treats markup as text');check(not errors,'Prototype has no runtime errors');browser.close()
 finally:server.shutdown();server.server_close()
-(root/'prototype-validation.md').write_text('# Ověření podkladů a prototypu\n\n'+str(len(checks))+' kontrol prošlo.\n\n'+'\n'.join('- '+c for c in checks)+'\n\nKontroly proběhly v Chromium přes vývojový statický server; přímý file:// protokol blokuje politika tohoto prostředí.\n')
+(root/'prototype-validation.md').write_text('# Ověření podkladů a prototypu\n\n'+str(len(checks))+' kontrol prošlo.\n\n'+'\n'.join('- '+c for c in checks)+'\n\nKontroly proběhly v Chromium přes vývojový statický server; tento skript neověřuje přímé otevření file://.\n')
 print(f'{len(checks)} course/prototype checks passed.')

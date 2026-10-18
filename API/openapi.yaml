@@ -187,13 +187,52 @@ components:
             phone: {type: string}
     Venue:
       type: object
-      required: [id, name, location, capacity, description]
+      required: [id, name, location, capacity, description, ticketing]
       properties:
         id: {type: string}
         name: {type: string}
         location: {type: string}
         capacity: {type: integer}
         description: {type: string}
+        ticketing:
+          type: object
+          required: [standingCapacity, seats, prices]
+          properties:
+            standingCapacity: {type: integer, minimum: 1}
+            seats:
+              type: object
+              description: Prázdné pro scény pouze na stání; Main Hall má sektory vip a regular.
+              properties:
+                vip: {$ref: '#/components/schemas/SeatSector'}
+                regular: {$ref: '#/components/schemas/SeatSector'}
+              additionalProperties: false
+            prices:
+              type: object
+              required: [standing]
+              properties:
+                vip: {$ref: '#/components/schemas/AdmissionPrice'}
+                regular: {$ref: '#/components/schemas/AdmissionPrice'}
+                standing: {$ref: '#/components/schemas/AdmissionPrice'}
+              additionalProperties: false
+    SeatSector:
+      type: object
+      required: [rows, perRow]
+      properties:
+        rows:
+          type: array
+          minItems: 1
+          uniqueItems: true
+          items: {type: string, pattern: '^[A-Z]$'}
+        perRow: {type: integer, minimum: 1}
+      additionalProperties: false
+    AdmissionPrice:
+      type: object
+      description: Konečné ceny jedné scény v CZK včetně DPH; dva dny stojí dvojnásobek denní ceny.
+      required: [day, festival]
+      properties:
+        day: {type: integer, minimum: 1}
+        festival: {type: integer, minimum: 1}
+      additionalProperties: false
     VenueList:
       type: object
       required: [items, totalItems]
@@ -224,7 +263,7 @@ components:
           items: {$ref: '#/components/schemas/Performer'}
     Event:
       type: object
-      required: [id, name, theme, description, date, startTime, endTime, dayId, venueId, venueName, performerIds, performers]
+      required: [id, name, theme, description, date, startTime, endTime, highlight, dayId, venueId, venueName, performerIds, performers]
       properties:
         id: {type: string}
         name: {type: string}
@@ -233,6 +272,9 @@ components:
         date: {type: string, format: date}
         startTime: {type: string}
         endTime: {type: string}
+        highlight:
+          type: boolean
+          description: Závěrečné vystoupení scény; tři denní vrcholy mají 30 minut na přesun.
         dayId: {type: string}
         venueId: {type: string}
         venueName: {type: string}

@@ -176,6 +176,7 @@
       <xs:element name="lokace" type="xs:string"/>
       <xs:element name="velikost" type="CapacityType"/>
       <xs:element name="popis" type="xs:string"/>
+      <xs:element name="vstupenky_sceny" type="VenueTicketingType"/>
     </xs:sequence>
     <xs:attribute name="id" type="VenueIdType" use="required"/>
   </xs:complexType>
@@ -212,6 +213,7 @@
       <xs:element name="datumstart" type="xs:date"/>
       <xs:element name="casstart" type="xs:time"/>
       <xs:element name="caskonec" type="xs:time"/>
+      <xs:element name="hlavni_vystoupeni" type="xs:boolean"/>
       <xs:element name="hala_ref" type="xs:IDREF"/>
       <xs:element name="den_ref" type="xs:IDREF"/>
       <xs:element name="interpreti" type="InterpretRefsType"/>
@@ -312,5 +314,57 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
+  </xs:complexType>
+  <!-- Kapacity a ceny jsou návrhem tohoto fiktivního festivalu, nikoli údaji provozovatele areálu. -->
+  <xs:simpleType name="AdmissionCategoryType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="vip"/>
+      <xs:enumeration value="regular"/>
+      <xs:enumeration value="standing"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SeatedCategoryType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="vip"/>
+      <xs:enumeration value="regular"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SeatRowType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Z]"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="VenueTicketingType">
+    <xs:sequence>
+      <xs:element name="kapacita_stani" type="xs:positiveInteger"/>
+      <xs:element name="sedadla">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="sektor" minOccurs="0" maxOccurs="2">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="rada" type="SeatRowType" minOccurs="1" maxOccurs="unbounded"/>
+                </xs:sequence>
+                <xs:attribute name="kategorie" type="SeatedCategoryType" use="required"/>
+                <xs:attribute name="mist_v_rade" type="xs:positiveInteger" use="required"/>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="cenik">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="cena" minOccurs="1" maxOccurs="3">
+              <xs:complexType>
+                <xs:attribute name="kategorie" type="AdmissionCategoryType" use="required"/>
+                <xs:attribute name="den" type="xs:positiveInteger" use="required"/>
+                <xs:attribute name="festival" type="xs:positiveInteger" use="required"/>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
   </xs:complexType>
 </xs:schema>

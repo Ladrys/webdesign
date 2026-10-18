@@ -13,7 +13,7 @@ Milníky jsou připravené podklady, nikoli archiv dřívějších odevzdání. 
 
 ## 2. Co přibylo proti prototypu
 
-[35 s] Povinné obsahové části již neexistují jako oddělené ukázky. Z interpreta lze přejít ke koncertu a ze scény do filtrovaného programu. Hledání pokrývá všechna data včetně popisů. K jádru přibyly vstupenky na jeden, dva nebo tři dny, košík, kemp a PDF. Registrace i historie jsou lokální pro prohlížeč, účet není povinný. Nákup nyní nepředěláváme na vstupenky pro jednotlivé scény; toto rozhodnutí je ponechané k další samostatné úpravě.
+[35 s] Povinné obsahové části již neexistují jako oddělené ukázky. Z interpreta lze přejít ke koncertu a ze scény do filtrovaného programu. Hledání pokrývá všechna data včetně popisů. K jádru přibyly vstupenky na jeden, dva nebo tři dny, košík, kemp a PDF. Registrace i historie jsou lokální pro prohlížeč, účet není povinný. Vstup lze zvolit na všechny scény nebo jen na jednu. Main Hall má sedadla i stání, River a Club pouze stání. Každá scéna má vlastní kapacitu a společný vstup se do všech započítá. Tři závěrečné koncerty denně navazují s půlhodinou na přesun; plné běžné sety se mezi scénami mohou překrývat.
 
 ## 3. Mobilní a desktopové zobrazení
 

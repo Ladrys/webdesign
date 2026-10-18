@@ -25,7 +25,7 @@ Milníky jsou připravené podklady, nikoli archiv dřívějších odevzdání. 
 
 ## 5. Testy a známé limity
 
-[40 s] Aktuální provedené kontroly jsou v validation_report.md. Rozlišujeme datovou správnost, automatizovaný průchod a uživatelskou srozumitelnost. Lokální stav není sdílená databáze a není přenosný mezi zařízeními. Přímé file otevření blokuje politika zdejšího testovacího prostředí; zdejší testy proto používají vývojový statický server. To není runtime požadavek odevzdaného webu. Skutečnou účast interpretů ani oficiální areál netvrdíme. Nebyl proveden úplný audit WCAG, test všech prohlížečů ani výzkum s návštěvníky.
+[40 s] Aktuální provedené kontroly jsou v validation_report.md. Rozlišujeme datovou správnost, automatizovaný průchod a uživatelskou srozumitelnost. Lokální stav není sdílená databáze a není přenosný mezi zařízeními. Přímé file otevření blokuje politika zdejšího testovacího prostředí; zdejší testy proto používají vývojový statický server. To není runtime požadavek odevzdaného webu. Skutečnou účast interpretů ani oficiální areál netvrdíme. Nebyl proveden úplný audit WCAG, test všech prohlížečů ani výzkum s návštěvníky. Ověřují se také společné a samostatné vstupy: místo v Main Hall nelze prodat dvakrát a vyprodaný Club omezuje společný vstup, nikoli volnou River Stage.
 
 ## 6. AI, odpovědnost a zadání review
 

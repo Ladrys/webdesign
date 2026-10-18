@@ -11,12 +11,13 @@ from tempfile import gettempdir
 from threading import Thread
 from urllib.parse import quote
 import json
+import hashlib
 import os
 import unicodedata
 from decimal import Decimal, ROUND_HALF_UP
 
 import fitz
-from playwright.sync_api import Error, sync_playwright
+from playwright.sync_api import Error, expect, sync_playwright
 try:
     import numpy as np
     import zxingcpp
@@ -161,7 +162,8 @@ try:
         def no_overflow(message):
             check(page.evaluate('document.documentElement.scrollWidth <= innerWidth'), message)
 
-        def booking(target, duration=3, category='vip', quantity=1, days=('d1',), seats=()):
+        def booking(target, duration=3, category='vip', quantity=1, days=('d1',), seats=(), venue='all'):
+            target.locator('#ticket-venue').select_option(venue)
             target.locator('#ticket-duration').select_option(str(duration))
             target.locator('#ticket-category').select_option(category)
             target.locator('#ticket-quantity').fill(str(quantity))
@@ -417,6 +419,20 @@ try:
         check(''.join(stage_audit['holy'].split()).casefold() == 'holypriest' and stage_audit['skepsis'] == 'Skepsis'
               and stage_audit['holyVenue'] == 'h3' and stage_audit['skepsisVenue'] == 'h3' and stage_audit['calinVenue'] == 'h2',
               'Confirmed artist corrections and the international, Czech and club stage assignments match the requested programme')
+        closing_audit = page.evaluate('''() => {
+            const D=window.FESTIVAL_DATA, minutes=t=>Number(t.slice(0,2))*60+Number(t.slice(3,5));
+            return D.festival.dates.map(day=>{
+                const events=D.events.filter(e=>e.dayId===day.id), highlights=events.filter(e=>e.highlight).sort((a,b)=>a.startTime.localeCompare(b.startTime));
+                return {count:events.length,venues:highlights.map(e=>e.venueId),
+                    times:highlights.map(e=>[e.startTime,e.endTime]),
+                    gaps:highlights.slice(1).map((e,i)=>minutes(e.startTime)-minutes(highlights[i].endTime)),
+                    lengths:events.every(e=>minutes(e.endTime)-minutes(e.startTime)===(e.highlight&&e.venueId==='h1'?90:60))};
+            });
+        }''')
+        check(all(day['count'] == 20 and day['venues'] == ['h2','h3','h1']
+                  and day['times'] == [['18:30:00','19:30:00'],['20:00:00','21:00:00'],['21:30:00','23:00:00']]
+                  and day['gaps'] == [30,30] and day['lengths'] for day in closing_audit),
+              'Each day preserves twenty full concerts and three staggered evening highlights with thirty-minute transfer gaps')
         event_names_once = page.locator('#events article').evaluate_all('''nodes=>nodes.every(node=>{
             const artist=node.querySelector('[data-artist]')?.textContent.trim().toLocaleLowerCase();
             return !artist || node.innerText.toLocaleLowerCase().split(artist).length===2;
@@ -437,6 +453,25 @@ try:
         page.reload()
         page.locator('#only-favorites').check()
         check(page.locator('#events article').count() == 1, 'Favorites survive reload')
+        clash_pair = page.evaluate('''() => {
+            const events=window.FESTIVAL_DATA.events;
+            for(const a of events)for(const b of events)
+                if(a.id!==b.id && a.date===b.date && a.startTime<b.endTime && b.startTime<a.endTime)return [a.id,b.id];
+        }''')
+        page.evaluate('(ids)=>localStorage.setItem("pulse:favorites",JSON.stringify(ids))', clash_pair)
+        page.reload()
+        check(page.locator('#program-conflicts').is_visible()
+              and page.locator('[data-clash-event]').count() >= 2,
+              'Saving simultaneous concerts shows a specific personal-program clash warning')
+        page.locator(f'[data-fav="{clash_pair[1]}"]').click()
+        check(page.locator('#program-conflicts').is_hidden(),
+              'Removing one simultaneous concert clears the resolved personal-program clash')
+        page.evaluate('''() => localStorage.setItem('pulse:favorites',JSON.stringify(
+            window.FESTIVAL_DATA.events.filter(event=>event.highlight).map(event=>event.id)))''')
+        page.reload()
+        page.locator('#only-favorites').check()
+        check(page.locator('#events article').count() == 9 and page.locator('#program-conflicts').is_hidden(),
+              'All nine evening highlights fit the saved personal programme without a clash')
 
         go('tickets.html')
         check(page.locator('#quick-purchase, .package-grid, #add-cart').count() == 0,
@@ -454,8 +489,8 @@ try:
                   f'All thirty-two Regular seats start available on {day}')
             scope('day', day, 'standing')
             check(not page.locator('.booking-seat-section').is_visible()
-                  and '40' in page.locator('#booking-availability').inner_text(),
-                  f'Standing shows forty available places without an unnecessary seat map on {day}')
+                  and '1500' in ''.join(page.locator('#booking-availability').inner_text().split()),
+                  f'All-stage standing is limited by Club capacity without an unnecessary seat map on {day}')
         scope('day', 'd1', 'vip')
         check(page.locator('#booking-continue').is_disabled(), 'Seated tickets require an explicit seat choice')
         page.locator('[data-seat="A1"]').focus()
@@ -503,9 +538,11 @@ try:
         check(page.locator('#consent').is_checked() and page.locator('#payment').input_value() == 'declined',
               'Removing a ticket preserves consent and payment choice')
         page.locator('#checkout-submit').click()
+        expect(page.locator('#checkout-error')).to_contain_text('zamítnuta')
         check('zamítnuta' in page.locator('#checkout-error').inner_text(), 'Declined simulated payment preserves the cart')
         page.locator('#payment').select_option('success')
         page.locator('#checkout-submit').click()
+        page.wait_for_selector('.ticket-paper')
         check(page.locator('.ticket-paper').count() == 2, 'Guest checkout creates two tickets')
         check('host@example.test' in page.locator('.order').inner_text(), 'Guest email is retained')
         guest_order = page.evaluate("JSON.parse(localStorage.getItem('pulse:orders')).at(-1)")
@@ -528,10 +565,12 @@ try:
             check(page.locator('[data-seat="A1"]').is_disabled(), f'Three-day purchase reserves the same seat on {day}')
             check(page.locator('[data-seat="A3"]').is_enabled(), f'Unpurchased seats stay available on {day}')
             scope('day', day, 'standing')
-            check('39' in page.locator('#booking-availability').inner_text(), f'Three-day purchase also reserves its standing place on {day}')
+            check('1498' in ''.join(page.locator('#booking-availability').inner_text().split()),
+                  f'Three-day VIP and standing purchases each reserve an entry at every stage on {day}')
         scope('day', 'd2')
         page.locator('[data-seat="B1"]').click()
         page.locator('#booking-continue').click()
+        page.wait_for_url('**/cart.html')
         go('account.html?next=cart')
         page.locator('#register-tab').click()
         page.locator('#auth-name').fill('Tester')
@@ -556,6 +595,7 @@ try:
         page.locator('#buyer-phone').fill('+420 777 123 456')
         page.locator('#consent').check()
         page.locator('#checkout-submit').click()
+        page.wait_for_selector('.ticket-paper')
         check(page.locator('.ticket-paper').count() == 1, 'Registered checkout succeeds')
         registered_order = page.evaluate("JSON.parse(localStorage.getItem('pulse:orders')).at(-1)")
         check_tax(registered_order, 'Registered order')
@@ -690,6 +730,7 @@ try:
         scope('day')
         page.locator('[data-seat="B3"]').click()
         page.locator('#booking-continue').click()
+        page.wait_for_url('**/cart.html')
         go('cart.html')
         page.locator('#buyer-phone').fill('+420 777 123 456')
         page.locator('#consent').check()
@@ -701,6 +742,7 @@ try:
           localStorage.setItem(key, JSON.stringify(cart));
         }""")
         page.locator('#checkout-submit').click()
+        expect(page.locator('#checkout-error')).to_contain_text('Košík se mezitím změnil')
         check('Košík se mezitím změnil' in page.locator('#checkout-error').inner_text(),
               'A changed local cart requires review before checkout')
         check(page.locator('[data-remove]').count() == 2 and page.locator('#consent').is_checked(),
@@ -711,7 +753,8 @@ try:
           localStorage.setItem('pulse:orders', JSON.stringify(orders));
         }""")
         page.locator('#checkout-submit').click()
-        check('není dostupné' in page.locator('#checkout-error').inner_text(), 'Checkout rechecks local seat availability')
+        expect(page.locator('#checkout-error')).to_contain_text('dostupné')
+        check('dostupné' in page.locator('#checkout-error').inner_text(), 'Checkout rechecks local seat availability')
         check(not errors, 'No JavaScript runtime errors: ' + str(errors))
         check(not external_requests, 'All assets, purchases and PDF generation work without external network requests')
 
@@ -771,11 +814,13 @@ try:
                   f'Invalid promo input leaves the total unchanged: {invalid}')
         check(purchase.locator('img[src="x"]').count() == 0, 'Promo input cannot inject executable markup')
         purchase.locator('#checkout-submit').click()
+        expect(purchase.locator('#checkout-error')).to_contain_text('Promo kód neplatí')
         check('Promo kód neplatí' in purchase.locator('#checkout-error').inner_text()
               and purchase.evaluate("!localStorage.getItem('pulse:orders')"),
               'An invalid promo code cannot be submitted as a discounted order')
         purchase.locator('#promo-code').fill('  pulse10  ')
         purchase.locator('#checkout-submit').click()
+        expect(purchase.locator('#checkout-error')).to_contain_text('potvrď promo kód')
         check('potvrď promo kód' in purchase.locator('#checkout-error').inner_text(),
               'A typed known promotion must be applied before completing the order')
         purchase.locator('#apply-promo').click()
@@ -810,6 +855,7 @@ try:
         fill_buyer(purchase, phone='123abcdef')
         purchase.locator('#consent').check()
         purchase.locator('#checkout-submit').click()
+        expect(purchase.locator('#checkout-error')).to_contain_text('telefonní')
         check('telefonní' in purchase.locator('#checkout-error').inner_text()
               and purchase.locator('[data-remove]').count() == 1,
               'A malformed phone number cannot consume the selected ticket')
@@ -819,6 +865,7 @@ try:
               and '1\u00a0390' in purchase.locator('#checkout-submit').inner_text(),
               'The payment action displays the selected method and final discounted amount')
         purchase.locator('#checkout-submit').click()
+        purchase.wait_for_selector('.ticket-paper')
         promo_order = purchase.evaluate("JSON.parse(localStorage.getItem('pulse:orders')).at(-1)")
         check(promo_order['name'] == 'Žofie Černá' and promo_order['firstName'] == 'Žofie'
               and promo_order['lastName'] == 'Černá' and promo_order['phone'] == '+420 777 123 456'
@@ -908,6 +955,7 @@ try:
         purchase.locator('#apply-promo').click()
         purchase.locator('#consent').check()
         purchase.locator('#checkout-submit').click()
+        purchase.wait_for_selector('.ticket-paper')
         multi_order = purchase.evaluate("JSON.parse(localStorage.getItem('pulse:orders')).at(-1)")
         check(multi_order['subtotal'] == 780 and multi_order['discount'] == 78 and multi_order['total'] == 702,
               'The promotion uses the two-day ticket subtotal')
@@ -975,6 +1023,7 @@ try:
         fill_buyer(purchase)
         purchase.locator('#consent').check()
         purchase.locator('#checkout-submit').click()
+        purchase.wait_for_selector('.ticket-paper')
         camp_order = purchase.evaluate("JSON.parse(localStorage.getItem('pulse:orders')).at(-1)")
         camp = camp_order['camping']
         check(camp['type'] == 'tent' and camp['people'] == 2 and camp['units'] == 1
@@ -1015,6 +1064,7 @@ try:
               'The checkout reports the last remaining tent pitch')
         purchase.evaluate('(orders)=>localStorage.setItem("pulse:orders",JSON.stringify(orders))', capacity_orders)
         purchase.locator('#checkout-submit').click()
+        expect(purchase.locator('#checkout-error')).to_contain_text('vyprodaná')
         check('vyprodaná' in purchase.locator('#checkout-error').inner_text()
               and purchase.evaluate("JSON.parse(localStorage.getItem('pulse:orders')).length") == 40,
               'Checkout rechecks tent capacity and cannot oversell a pitch occupied after the form loaded')
@@ -1024,6 +1074,7 @@ try:
         purchase.locator('#consent').check()
         purchase.evaluate("localStorage.setItem('pulse:camping:cart:guest',JSON.stringify({enabled:true,type:'caravan',people:3}))")
         purchase.locator('#checkout-submit').click()
+        expect(purchase.locator('#checkout-error')).to_contain_text('Výběr kempu se změnil')
         check('Výběr kempu se změnil' in purchase.locator('#checkout-error').inner_text()
               and purchase.locator('#camping-type').input_value() == 'caravan'
               and purchase.locator('#camping-people').input_value() == '3'
@@ -1035,6 +1086,230 @@ try:
               'The customer can remove optional camping and continue with the ticket alone')
         check(not purchase_errors, 'Manual seats, promotions, two-day passes and camping produce no runtime errors')
         purchase_context.close()
+
+        # Stage products share only their actual admission/seat inventories.
+        stage_context = browser.new_context(accept_downloads=True)
+        stage_context.route(lambda url: url.startswith('https://'), lambda route: route.fulfill(status=200, content_type='text/html', body='<p>Unexpected external request</p>'))
+        stage = stage_context.new_page()
+        stage_errors = []
+        stage.on('pageerror', lambda error: stage_errors.append(str(error)))
+        stage.goto(BASE + 'tickets.html?venue=h2&duration=1&day=d1')
+        stage.locator('#cookie-reject').click()
+        check(stage.locator('#ticket-venue').input_value() == 'h2'
+              and stage.locator('#ticket-category option').evaluate_all('(options)=>options.map(option=>option.value)') == ['standing']
+              and stage.locator('.booking-seat-section').is_hidden(),
+              'A River Stage link selects standing admission and never invents a seating map')
+        stage_matrix = {}
+        stage_expected = {'h1': {'vip':[490,980,1290], 'regular':[290,580,790], 'standing':[150,300,390]},
+                          'h2': {'standing':[110,220,290]}, 'h3': {'standing':[90,180,240]}}
+        for venue, categories in stage_expected.items():
+            stage_matrix[venue] = {}
+            for category in categories:
+                prices = []
+                for duration in [1,2,3]:
+                    booking(stage, duration, category, days=('d1','d3'), venue=venue)
+                    prices.append(int(''.join(character for character in stage.locator('#booking-unit-price').inner_text() if character.isdigit())))
+                stage_matrix[venue][category] = prices
+        check(stage_matrix == stage_expected, 'Every single-stage product has its own correct one-, two- and three-day gross prices')
+        for venue, expected in [('h1',4952),('h2',3000),('h3',1500),('all',1500)]:
+            booking(stage, 1, 'standing', venue=venue)
+            check(str(expected) in ''.join(stage.locator('#booking-availability').inner_text().split()),
+                  f'Fresh standing availability respects the actual {venue} inventory: {expected}')
+        booking(stage, 1, 'standing', quantity=2, venue='h2')
+        stage.locator('#booking-continue').click()
+        stage.wait_for_url('**/cart.html')
+        stage.goto(BASE + 'tickets.html?venue=h3&duration=1&day=d1')
+        stage.locator('#booking-continue').click()
+        stage.wait_for_url('**/cart.html')
+        stage_cart = stage.evaluate("JSON.parse(localStorage.getItem('pulse:cart:guest'))")
+        check([(ticket['venueId'],ticket['seat'],ticket['price']) for ticket in stage_cart]
+              == [('h2','S1',110),('h2','S2',110),('h3','S1',90)],
+              'River S1 and Club S1 remain independent while repeated River tickets use distinct capacity units')
+        fill_buyer(stage)
+        stage.locator('#consent').check()
+        stage.locator('#checkout-submit').click()
+        stage.wait_for_selector('.ticket-paper')
+        stage_order = stage.evaluate("JSON.parse(localStorage.getItem('pulse:orders')).at(-1)")
+        check(stage_order['total'] == 310 and len(stage_order['tickets']) == 3,
+              'A mixed-stage guest order charges only its selected stage products')
+        check_tax(stage_order, 'Mixed-stage order')
+        with stage.expect_download() as stage_download:
+            stage.locator('[data-download]').click()
+        stage_pdf = ARTIFACTS / 'single-stage-tickets.pdf'
+        stage_download.value.save_as(str(stage_pdf))
+        validate_pdf(stage_pdf, stage_order, festival_dates)
+        with fitz.open(stage_pdf) as document:
+            check(all(('River Stage' if ticket['venueId']=='h2' else 'Club Stage') in document[index].get_text()
+                      for index,ticket in enumerate(stage_order['tickets'])),
+                  'Each single-stage PDF page names the stage that the purchased ticket admits')
+        for venue, expected in [('h2',2998),('h3',1499),('all',1499),('h1',4952)]:
+            stage.goto(BASE + 'tickets.html')
+            booking(stage, 1, 'standing', venue=venue)
+            check(str(expected) in ''.join(stage.locator('#booking-availability').inner_text().split()),
+                  f'A paid mixed-stage order consumes only the appropriate daily inventory: {venue}')
+
+        admission_checks = stage.evaluate('''edition => {
+            const A=window.PulseAdmission, make=(seat,venue='all',day='d1')=>A.ticketFor(day,seat,'day',undefined,venue);
+            const vip=make('A1'), h1=make('A1','h1'), river=make('S1','h2'), club=make('S1','h3');
+            const legacy={...vip};delete legacy.venueId;
+            const options={venueId:'all',category:'vip',days:['d1'],edition};
+            const old=[{edition:2026,tickets:[legacy]}], paid=[{edition,tickets:[legacy]}];
+            const fullStanding=Array.from({length:4952},(_,i)=>make('S'+(i+1),'h1'));
+            const standingOrder=[{edition,tickets:fullStanding}];
+            const fragmented=[{edition,tickets:[
+                ...Array.from({length:1499},(_,i)=>make('S'+(i+1),'h3','d1')),
+                ...Array.from({length:1499},(_,i)=>make('S'+(i+2),'h3','d3'))
+            ]}];
+            const twoDayStanding=A.ticketFor('d1','S1','multi',['d1','d3'],'h3');
+            return {
+                sharedChair:A.overlaps(vip,h1)&&A.conflicts([h1],[{edition,tickets:[vip]}],edition).size===1,
+                separateStanding:!A.overlaps(river,club)&&A.conflicts([river,club],[],edition).size===0,
+                differentDay:!A.overlaps(vip,make('A1','h1','d2')),
+                legacy:A.validTicket(legacy)&&A.conflicts([h1],paid,edition).size===1&&A.conflicts([h1],old,edition).size===0,
+                badVenue:!A.validTicket({...river,venueId:'__proto__'})&&!A.validTicket({...river,venueId:'missing'}),
+                badPrice:!A.validTicket({...river,price:1}),
+                badCategory:!A.validTicket({...river,category:'vip'})&&A.ticketFor('d1','A1','day',undefined,'h2')===null,
+                standingBounds:!!make('S4952','h1')&&make('S4953','h1')===null&&!!make('S3000','h2')&&make('S3001','h2')===null&&!!make('S1500','h3')&&make('S1501','h3')===null,
+                standingCounts:A.remaining({venueId:'h3',category:'standing',days:['d1','d3'],orders:fragmented,edition})===1
+                    &&A.conflicts([twoDayStanding],fragmented,edition).size===0,
+                h1Zone:A.remaining({venueId:'h1',category:'standing',days:['d1'],orders:standingOrder,edition})===0
+                    &&A.remaining({...options,orders:standingOrder})===16,
+                allEntries:['h1','h2','h3'].every(venue=>A.remaining({venueId:venue,category:'standing',days:['d1'],orders:paid,edition})===({h1:4952,h2:2999,h3:1499})[venue])
+            };
+        }''', current_edition)
+        for flag, label in {
+            'sharedChair':'An all-stage pass and a Main Hall pass cannot sell the same chair on a shared day',
+            'separateStanding':'Equal standing identifiers on different stages never create a false conflict',
+            'differentDay':'The same physical chair may be sold separately on nonoverlapping days',
+            'legacy':'Missing-venue legacy tickets retain all-stage admission while old editions do not consume 2027 stock',
+            'badVenue':'Unknown and prototype-like stage identifiers are rejected',
+            'badPrice':'A stored stage ticket cannot override its canonical price',
+            'badCategory':'River and Club cannot receive forged seated or VIP tickets',
+            'standingBounds':'Each stage accepts its last valid standing unit and rejects an out-of-capacity identifier',
+            'standingCounts':'A two-day standing pass uses remaining capacity on each date even when sold accounting-unit labels differ',
+            'h1Zone':'A full Main Hall standing zone does not consume its sixteen separate VIP chairs',
+            'allEntries':'A full-pass seated order consumes admission at all three stages and preserves Main Hall standing stock',
+        }.items():
+            check(admission_checks[flag], label)
+
+        # Keep one Club slot: any free Main Hall chair may use it, but two
+        # people may not. Capacity changes are checked again on final submit.
+        boundary_order = stage.evaluate('''edition => ({id:'club-boundary',edition,
+            tickets:Array.from({length:1499},(_,i)=>window.PulseAdmission.ticketFor('d1','S'+(i+1),'day',undefined,'h3'))})''', current_edition)
+        stage.evaluate('''order=>{
+            localStorage.setItem('pulse:orders',JSON.stringify([order]));
+            localStorage.setItem('pulse:cart:guest','[]');
+        }''', boundary_order)
+        stage.goto(BASE + 'tickets.html?venue=all&category=vip&duration=1&day=d1')
+        check(stage.locator('[data-seat="A8"]').is_enabled()
+              and stage.evaluate("PulseAdmission.remaining({venueId:'all',category:'vip',days:['d1'],orders:JSON.parse(localStorage.getItem('pulse:orders'))})") == 1,
+              'The last Club admission allows any available Main Hall chair rather than arbitrarily limiting the seat map')
+        stage.locator('#ticket-quantity').fill('2')
+        stage.locator('[data-seat="A7"]').click()
+        stage.locator('[data-seat="A8"]').click()
+        check(stage.locator('#booking-continue').is_disabled(),
+              'Two seated full passes cannot bypass a single remaining Club admission')
+        booking(stage, 1, 'vip', seats=('A8',))
+        stage.locator('#booking-continue').click()
+        stage.wait_for_url('**/cart.html')
+        fill_buyer(stage)
+        stage.locator('#consent').check()
+        stage.evaluate('''() => {
+            const orders=JSON.parse(localStorage.getItem('pulse:orders'));
+            orders[0].tickets.push(window.PulseAdmission.ticketFor('d1','S1500','day',undefined,'h3'));
+            localStorage.setItem('pulse:orders',JSON.stringify(orders));
+        }''')
+        stage.locator('#checkout-submit').click()
+        expect(stage.locator('#checkout-error')).to_contain_text('dostupné')
+        check('dostupné' in stage.locator('#checkout-error').inner_text()
+              and stage.evaluate("JSON.parse(localStorage.getItem('pulse:orders')).length") == 1
+              and stage.evaluate("JSON.parse(localStorage.getItem('pulse:cart:guest')).length") == 1,
+              'Final checkout refuses a full pass when another purchase has taken the last Club admission')
+        stage.locator('[data-remove]').click()
+        stage.goto(BASE + 'tickets.html?venue=h2&category=standing&duration=1&day=d1')
+        check('3000' in ''.join(stage.locator('#booking-availability').inner_text().split())
+              and stage.locator('#booking-continue').is_enabled(),
+              'A sold-out Club does not prevent an independent River Stage purchase')
+        stage.locator('#ticket-venue').select_option('all')
+        check(stage.locator('#booking-continue').is_disabled()
+              and '0' in stage.locator('#booking-availability').inner_text(),
+              'A sold-out required stage stops all-stage standing passes too')
+        stage_peer = stage_context.new_page()
+        stage_peer.goto(BASE + 'tickets.html')
+        stage_peer.evaluate("localStorage.setItem('pulse:orders','[]')")
+        expect(stage.locator('#booking-continue')).to_be_enabled()
+        check('1500' in ''.join(stage.locator('#booking-availability').inner_text().split()),
+              'Changing stage stock in a second browser tab immediately refreshes the open booking form')
+        stage_peer.evaluate('''edition => localStorage.setItem('pulse:orders',JSON.stringify([
+            {id:'other-tab-stage',edition,tickets:[window.PulseAdmission.ticketFor('d1','S1','day',undefined,'h3')]}
+        ]))''', current_edition)
+        expect(stage.locator('#booking-availability')).to_contain_text('1499')
+        check('1499' in ''.join(stage.locator('#booking-availability').inner_text().split()),
+              'A Club purchase from another tab reduces full-pass availability without a page reload')
+        stage_peer.close()
+        stage.evaluate('''() => {
+            localStorage.setItem('pulse:orders','[]');
+            localStorage.setItem('pulse:cart:guest',JSON.stringify(Array.from({length:263},(_,index)=>
+                window.PulseAdmission.ticketFor('d2','S'+(index+1),'day',undefined,'h2'))));
+        }''')
+        stage.goto(BASE + 'tickets.html?venue=h2&duration=1&day=d2')
+        stage.locator('#booking-continue').click()
+        stage.wait_for_url('**/cart.html')
+        check(stage.evaluate("JSON.parse(localStorage.getItem('pulse:cart:guest')).length") == 264,
+              'A final permitted ticket can fill the existing 264-ticket order limit exactly')
+        stage.goto(BASE + 'tickets.html?venue=h2&duration=1&day=d2')
+        stage.locator('#booking-continue').click()
+        expect(stage.locator('#booking-error')).to_contain_text('264')
+        check(stage.evaluate("JSON.parse(localStorage.getItem('pulse:cart:guest')).length") == 264,
+              'Booking refuses a 265th ticket without silently trimming or partially extending the cart')
+        stage.evaluate('''() => {
+            const cart=JSON.parse(localStorage.getItem('pulse:cart:guest'));
+            cart.push(window.PulseAdmission.ticketFor('d2','S265','day',undefined,'h2'));
+            localStorage.setItem('pulse:cart:guest',JSON.stringify(cart));
+        }''')
+        stage.goto(BASE + 'cart.html')
+        fill_buyer(stage)
+        stage.locator('#consent').check()
+        stage.locator('#checkout-submit').click()
+        expect(stage.locator('#checkout-error')).to_contain_text('264')
+        check(stage.evaluate("JSON.parse(localStorage.getItem('pulse:orders')).length") == 0
+              and stage.locator('[data-remove]').count() == 265,
+              'Checkout rejects a tampered 265-ticket cart while preserving every item for review')
+        stage.locator('[data-remove]').last.click()
+        stage.locator('#checkout-submit').click()
+        expect(stage.locator('.ticket-paper')).to_have_count(264)
+        check(stage.evaluate("JSON.parse(localStorage.getItem('pulse:orders')).at(-1).tickets.length") == 264,
+              'The customer can remove the excess item and complete an order at the supported 264-ticket boundary')
+        merge_password = 'StandingMerge123!'
+        merge_salt = '12' * 16
+        merge_user = {'id':'stage-merge-user','name':'Anna Nová','firstName':'Anna','lastName':'Nová',
+                      'email':'stage-merge@example.test','phone':'+420 777 123 456',
+                      'createdAt':'2026-10-19T12:00:00Z','salt':merge_salt,
+                      'hash':hashlib.pbkdf2_hmac('sha256',merge_password.encode(),merge_salt.encode(),120000).hex()}
+        stage.evaluate('''user => {
+            const ticket=window.PulseAdmission.ticketFor('d1','S1','day',undefined,'h2');
+            localStorage.setItem('pulse:orders','[]');
+            localStorage.setItem('pulse:users',JSON.stringify([user]));
+            localStorage.setItem('pulse:cart:'+user.id,JSON.stringify([ticket]));
+            localStorage.setItem('pulse:cart:guest',JSON.stringify([ticket]));
+        }''', merge_user)
+        stage.goto(BASE + 'account.html?next=cart')
+        stage.locator('#auth-email').fill(merge_user['email'])
+        stage.locator('#auth-password').fill(merge_password)
+        stage.locator('#auth-submit').click()
+        stage.wait_for_url('**/cart.html')
+        merged_standing = stage.evaluate("JSON.parse(localStorage.getItem('pulse:cart:stage-merge-user'))")
+        check(len(merged_standing) == 2 and len({ticket['seat'] for ticket in merged_standing}) == 2
+              and all(ticket['venueId']=='h2' and ticket['day']=='d1' and ticket['price']==110 for ticket in merged_standing)
+              and stage.evaluate("JSON.parse(localStorage.getItem('pulse:cart:guest')).length") == 0,
+              'Login merges guest and account standing quantities with fresh accounting references instead of silently dropping one')
+        stage.locator('#consent').check()
+        stage.locator('#checkout-submit').click()
+        expect(stage.locator('.ticket-paper')).to_have_count(2)
+        check(stage.evaluate("JSON.parse(localStorage.getItem('pulse:orders')).at(-1).total") == 220,
+              'The merged standing selection completes as two correctly priced stage admissions')
+        check(not stage_errors, 'Stage selection, independent inventories, boundary checks and PDF export produce no runtime errors')
+        stage_context.close()
 
         # Corrupt optional metadata must not erase otherwise valid ticket history or stock.
         damaged_context = browser.new_context(storage_state=context.storage_state(), accept_downloads=True)

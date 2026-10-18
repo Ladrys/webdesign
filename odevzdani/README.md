@@ -6,6 +6,10 @@ Nahrajte ZIP příslušné složky. Každá prezentace má šest snímků na 3�
 `prezentace.pptx` obsahuje upravitelný text a poznámky, `prezentace.pdf` slouží
 k pohodlnému promítání. `presenter-notes.md` je stručná příprava řečníka.
 
+Pro první odevzdání je připravený **`cviceni-02-k-odevzdani.zip`**: pouze
+specifikace, XML, odkazované XSD a PowerPoint. Poznámky ani druhou prezentaci
+obsahovat nemusí. Při promítání PDF nahraďte PPTX příslušným PDF.
+
 | Cvičení / složka | Požadované soubory a obsah |
 | --- | --- |
 | 02 — `cviceni-02-specifikace/` | `project-specification.md`, `data.xml`, `prezentace.pptx` nebo `prezentace.pdf`. Identita, účel, cílové skupiny, architektura, dva scénáře, AI a ověření. |

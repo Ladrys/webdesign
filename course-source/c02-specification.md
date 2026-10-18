@@ -88,7 +88,9 @@ programové položky, kontakty, tarify a kemp.
   a účinkujícího přes `interpreti/interpret_ref`.
 - Data používají ISO datum `YYYY-MM-DD` a čas `HH:MM:SS`.
 - XSD kontroluje typy, povolené hodnoty a existenci referencí.
-- Program nemá časové kolize na stejné scéně; různé scény mohou hrát souběžně.
+- Na stejné scéně se vystoupení nepřekrývají; mezi sety je nejméně 30 minut na přestavbu. Různé scény mohou hrát souběžně.
+- Každý den navazují tři závěrečné koncerty: River 18:30–19:30, Club 20:00–21:00 a Main Hall 21:30–23:00. Mezi nimi je 30 minut na přesun. V datech je odlišuje příznak `highlight`.
+- Běžný set má 60 minut, hlavní koncert v Main Hall 90 minut. Třídenní vstup na všechny scény umožňuje navštívit všech devět těchto závěrečných koncertů; všechny ostatní souběžné sety stihnout nelze.
 - `web/js/data.js` je přibalený export týchž dat pro běh bez serveru.
 
 JSON soubory v `API/json/` a OpenAPI popis zůstávají jako datové podklady
@@ -100,21 +102,48 @@ původního projektu. Nejde o běžící službu ani podmínku spuštění webu.
 | --- | --- |
 | Kombinovaný filtr programu podle dne a scény | Zúžit program na vlastní návštěvu |
 | Vyhledávání typu contains bez rozlišení velikosti písmen a diakritiky | Najít jméno, popis i praktickou informaci |
-| Oblíbená vystoupení a osobní program | Uložit si koncerty i po obnovení stránky |
+| Oblíbená vystoupení, osobní program a upozornění na kolize | Uložit si koncerty a poznat, které vybrané sety se překrývají |
 | Detaily propojující koncert, interpreta a scénu | Získat souvislosti bez nového hledání |
-| Výběr dnů, míst, košík, promo a PDF | Dokončit objednávkový scénář |
+| Výběr scény, dnů a míst, košík, promo a PDF | Koupit odpovídající rozsah vstupu a vidět jeho cenu |
 | Účet, profil a historie | Znovu otevřít vlastní objednávku |
 
 ## 8. Vstupenky a technické hranice
 
-Současné vstupenky platí na **všechny scény**, podle zvoleného počtu dnů.
-VIP a Regular používají ruční výběr sedadla; stání množství osob.
+Vstup lze zvolit na **všechny scény**, nebo levněji pouze na jednu scénu,
+a to na jeden, dva libovolné či všechny tři dny. Main Hall má VIP a Regular
+sedadla i stání; River Stage a Club Stage pouze stání. U společné VIP/Regular
+vstupenky je sedadlo pouze v Main Hall, na zbývajících scénách se stojí.
 
-| Kategorie | 1 den | 2 libovolné dny | 3 dny |
-| --- | --- | --- | --- |
-| VIP | 590 Kč | 1 180 Kč | 1 590 Kč |
-| Regular | 390 Kč | 780 Kč | 990 Kč |
-| Stání | 190 Kč | 380 Kč | 490 Kč |
+| Modelová scéna | Celková kapacita / den | Rozdělení |
+| --- | --- | --- |
+| Main Hall | 5 000 | 16 VIP sedadel, 32 Regular sedadel, 4 952 míst ke stání |
+| River Stage | 3 000 | Pouze stání |
+| Club Stage | 1 500 | Pouze stání |
+
+Jde o návrhové kapacity fiktivního uspořádání, nikoli oficiální kapacity
+Výstaviště. Vstup na všechny scény započítává jednu osobu do kapacity každé
+scény v každém zvoleném dni. Není proto závislý na odhadu, kolik lidí zrovna
+odejde; jeho prodej omezuje i nejmenší Club Stage. Samostatný vstup ovlivní
+jen vybranou scénu. Stání je konečné, nikoli neomezené.
+
+| Rozsah vstupu | Kategorie | 1 den | 2 libovolné dny | 3 dny |
+| --- | --- | --- | --- | --- |
+| Všechny scény | VIP | 590 Kč | 1 180 Kč | 1 590 Kč |
+| Všechny scény | Regular | 390 Kč | 780 Kč | 990 Kč |
+| Všechny scény | Stání | 190 Kč | 380 Kč | 490 Kč |
+| Main Hall | VIP | 490 Kč | 980 Kč | 1 290 Kč |
+| Main Hall | Regular | 290 Kč | 580 Kč | 790 Kč |
+| Main Hall | Stání | 150 Kč | 300 Kč | 390 Kč |
+| River Stage | Stání | 110 Kč | 220 Kč | 290 Kč |
+| Club Stage | Stání | 90 Kč | 180 Kč | 240 Kč |
+
+Ceny jsou symbolické pro návrh, nikoli nabídka skutečného prodeje.
+Košík neblokuje místo ostatním. Před dokončením objednávky se ověřují
+sedadla, počet osob a kapacita všech dotčených scén a dnů. Stejné sedadlo
+v Main Hall nemůže současně obsadit společný a samostatný vstup. Stání nemá
+rezervovanou fyzickou pozici; u vícedenního vstupu musí zbývat kapacita
+v každém vybraném dni. Jeden výběr má nejvýše osm osob, objednávka nejvýše
+264 vstupenek.
 
 Kemp je volitelný doplněk na 1.–4. srpna: stan 350 Kč nebo karavan 850 Kč
 a 150 Kč za osobu. PULSE10 snižuje pouze vstupenky o 10 %; PRAHA200
@@ -124,7 +153,10 @@ Podrobné výpočty a omezení popisuje `documentation.md`.
 Web běží jako HTML, CSS a JavaScript bez instalace, buildu, Node.js,
 databáze a vlastního backendu. Účty, košík a objednávky ukládá do
 `localStorage` stejného prohlížeče, nikoli do měněného souboru v repozitáři.
-Heslo se neukládá v otevřeném tvaru. Platba je simulovaná, e-mail se
+Heslo se neukládá v otevřeném tvaru. Přihlášení vyprší za sedm dnů;
+`sessionStorage` drží relaci aktuální karty a poslední objednávku hosta.
+Web sám nevytváří HTTP cookies. Volba soukromí v `localStorage` platí
+180 dnů a rozhoduje o načtení externích Google Maps. Platba je simulovaná, e-mail se
 automaticky neposílá a obsazenost není sdílená mezi zařízeními.
 
 ## 9. Návrhová rozhodnutí, AI a ověření

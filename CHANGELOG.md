@@ -1,5 +1,12 @@
 # Verze projektu
 
+## 1.1.0 — 19. 10. 2026
+
+- Samostatné vstupenky a kapacity scén: Main Hall se sedadly a stáním, River Stage a Club Stage pouze se stáním. Společný pas zahrnuje všechny tři scény.
+- Ceny jednotlivých scén jsou součástí XML a odvozených dat. Košík i PDF uvádějí rozsah vstupu; starší objednávky zůstávají čitelné.
+- Plné koncertní sety a tři postupné večerní vrcholy denně s časem na přesun. Osobní program upozorňuje na překrývající se koncerty.
+- Přehlednější festivalová prezentace, sjednocená specifikace a vysvětlení úložiště, soukromí a relace prohlížeče.
+
 ## 1.0.2 — 18. 10. 2026
 
 - Opravené zachytávání HTTPS požadavků v testech; mapy nahrazuje místní odpověď i v současném Playwrightu. Kontrola souhlasu čeká na tuto odpověď před počítáním požadavků.

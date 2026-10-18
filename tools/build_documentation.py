@@ -132,7 +132,8 @@ def render_docx(items, output):
     props.title = TITLE + ' — dokumentace projektu Webdesign'
     props.author = AUTHORS
     props.subject = 'Akademický rok 2026/2027; klientský festivalový web'
-    props.created = props.modified = datetime(2026, 10, 18, tzinfo=timezone.utc)
+    props.created = datetime(2026, 10, 18, tzinfo=timezone.utc)
+    props.modified = datetime(2026, 10, 19, tzinfo=timezone.utc)
     section = doc.sections[0]
     section.page_width = Cm(21); section.page_height = Cm(29.7)
     section.top_margin = Cm(2); section.bottom_margin = Cm(1.9)
@@ -170,7 +171,7 @@ def render_docx(items, output):
     paragraph = doc.add_paragraph('Fiktivní festivalový web\nHTML · CSS · JavaScript · XML')
     paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
     doc.add_paragraph().paragraph_format.space_after = Pt(70)
-    for line in [AUTHORS, '18. října 2026', 'Festival: 1.–3. srpna 2027']:
+    for line in [AUTHORS, '19. října 2026', 'Festival: 1.–3. srpna 2027']:
         paragraph = doc.add_paragraph(line)
         paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
     doc.add_page_break()
@@ -268,7 +269,7 @@ def render_pdf(items, output):
                   Spacer(1, 16), Paragraph('Webdesign · akademický rok 2026/2027', centered),
                   Paragraph('Fiktivní festivalový web', centered),
                   Paragraph('HTML · CSS · JavaScript · XML', centered), Spacer(1, 90),
-                  Paragraph(escape(AUTHORS), centered), Paragraph('18. října 2026', centered),
+                  Paragraph(escape(AUTHORS), centered), Paragraph('19. října 2026', centered),
                   Paragraph('Festival: 1.–3. srpna 2027', centered), PageBreak(),
                   Paragraph('Obsah', h2)])
     for kind, value in items:

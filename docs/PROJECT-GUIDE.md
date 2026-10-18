@@ -24,7 +24,7 @@ Každý HTML soubor obsahuje metadata, základ dokumentu a odkazy na společné 
 | `venues.html` | Přehled tří scén a odkazy do jejich programu. |
 | `info.html` | Doprava, plánek, parkování, kemp, přístupnost a dotazy. |
 | `search.html` | Výsledky hledání napříč daty a informačním obsahem. |
-| `tickets.html` | Výběr jednoho, dvou nebo tří dnů, kategorie a míst. |
+| `tickets.html` | Výběr všech scén nebo jedné scény, jednoho/dvou/tří dnů a míst. |
 | `cart.html` | Košík, kontakty, promo kód, kemp a dokončení objednávky. |
 | `account.html` | Registrace, přihlášení, úprava profilu a historie s PDF. |
 | `news.html` | Přehled novinek; `?id=...` zobrazí konkrétní článek. |
@@ -51,6 +51,7 @@ Při otevření z disku jsou interní adresy například `index.html?page=progra
 | `venue-map.js` | Vlastní orientační SVG plánek a jeho posun či přiblížení: `PulseVenueMap.markup()` a `mount()`. |
 | `visitor-pages.js` | Praktické informace, soukromí, podmínky a fotografické kredity: `PulseVisitor.render()`. FAQ poskytuje také vyhledávání. |
 | `privacy.js` | Volba nezbytného úložiště / externích map. `PulsePrivacy.mountMap()` načte Google Maps podle souhlasu; `showSettings()` otevře nastavení. |
+| `admission.js` | Společná pravidla rozsahu vstupenek: katalog, povolené kategorie, ceny a kapacity scén. Stejná pravidla používá nákup a PDF. |
 | `ticket-pdf.js` | Stažení skutečného PDF souboru: `PulseTickets.download()`. `generate()` vytváří stránky vstupenek a případný kempový voucher, `qr()` kreslí identifikátor jako QR. |
 
 V `app.js` jsou důležité ještě tyto společné kroky:
@@ -60,7 +61,7 @@ V `app.js` jsou důležité ještě tyto společné kroky:
 | `normalize()` / `localizedSearch()` | Připravují data pro hledání části textu bez ohledu na velikost písmen a diakritiku, včetně popisů a překladů. |
 | `esc()` | Převede speciální znaky textu před vložením do HTML, aby se například zadané `<script>` nezměnilo na spustitelný kód. |
 | `ticketFor()` / `validTicket()` | Určí cenu a dny platnosti; ověří uložený typ, místo a cenu proti katalogu. |
-| `occupied()` / `occupiedFor()` | Z objednávek současného ročníku získají obsazená místa pro zvolené dny. |
+| `occupiedFor()` / `PulseAdmission.remaining()` | Z objednávek současného ročníku získají obsazená sedadla a zbývající kapacitu pro zvolené dny. |
 | `promoTotals()` / `includedTax()` | Přepočítají slevu na vstupenky a rozklad již zahrnuté DPH. DPH se nepřičítá podruhé. |
 | `campingQuote()` / `campingAvailability()` | Spočítají kemp podle typu a počtu osob a ověří místní zbývající kapacitu. |
 | `passwordHash()` / `rememberLogin()` | Vytvoří solený PBKDF2 hash hesla a uloží přihlášení s vypršením po sedmi dnech. |
@@ -113,11 +114,36 @@ Web nepřepisuje `data.xml` ani žádný soubor `users.json`. Ukládá řetězce
 | `prf:language` | Volba češtiny nebo angličtiny. |
 | `pulse:privacy` | Souhlas s externími mapami a datum jeho uložení. |
 
-`sessionStorage` navíc drží `pulse:session` a `pulse:last-order` pro aktuální relaci/kartu. Umožňuje například znovu stáhnout právě dokončenou objednávku hosta.
+### Cookies, přihlášení a relace: co je rozdíl
+
+| Mechanismus | Co zde dělá | Jak dlouho platí |
+| --- | --- | --- |
+| HTTP cookies | Aplikace sama žádné nevytváří; nepoužívá serverovou session. | Nenastavuje se. |
+| `localStorage` | Účty, objednávky, košík, osobní program, jazyk a soukromí. | Zůstává po zavření prohlížeče do vymazání dat; některé položky mají vlastní expiraci. |
+| `pulse:auth` v `localStorage` | Pamatuje přihlášený profil a čas vypršení. | 7 dnů; při další kontrole se prošlý záznam odmítne. |
+| `pulse:privacy` v `localStorage` | Pamatuje volbu externích map. | 180 dnů, potom se souhlas ptá znovu. |
+| `sessionStorage` | `pulse:session` a `pulse:last-order`: relace karty a přístup k poslední objednávce hosta. | Pro aktuální relaci karty; obnovení stránky je zachová. |
+
+Lišta soukromí tedy není databáze. Umožňuje používat nezbytné místní ukládání a zvlášť povolit Google Maps. Bez souhlasu se externí iframe nenačítá; po odvolání se odstraní. Samotný Google může ve svém vloženém obsahu používat vlastní úložiště. Analytiku ani reklamní cookies web nemá. Vlastní plánek funguje bez Google Maps.
+
+„Session“ tady znamená klientský stav. Žádný PHP/Node server nepřiděluje autorizační token a mezi dvěma počítači se uživatel ani obsazenost nesynchronizují.
 
 Hash hesla používá Web Crypto, PBKDF2/SHA-256, 120 000 iterací a náhodnou sůl. Uživatel ale stále ovládá celé místní úložiště. Proto jde o klientský model účtu, nikoli serverové přihlašování či společný rezervační systém. Pro skutečné sdílené objednávky by byl potřeba backend, který školní zadání nepovoluje.
 
-Současná vstupenka platí na všechny scény ve vybraných dnech a pracuje s jedním modelem míst: VIP A–B, Regular C–F, stání S1–S40. Výběr samostatné vstupenky pro každou scénu a neomezené stání zatím implementované nejsou. Koncerty na různých scénách mohou probíhat současně; časové kolize na jedné scéně jsou jiná kontrola než dostupnost vstupenek.
+## Jak fungují scény, vstupenky a program
+
+- **Main Hall:** 5 000 osob = 16 VIP sedadel (A–B), 32 Regular sedadel (C–F) a 4 952 míst ke stání.
+- **River Stage:** 3 000 stojících. **Club Stage:** 1 500 stojících. Jde o návrh fiktivního uspořádání.
+- **Jedna scéna:** vstup ovlivní kapacitu jen této scény a zvolených dnů.
+- **Všechny scény:** vstup započítá osobu na každé scéně, aby další vstup nevyžadoval čekání na odchod někoho jiného. Prodej tak omezuje i kapacita Club Stage. VIP/Regular sedadlo je pouze v Main Hall.
+
+Vstupenka odděluje `venueId` (`all`, `h1`, `h2`, `h3`) od doby platnosti `scope` (`day`, `multi`, `festival`). Seznam `days` určuje přesné dny. Starší záznam bez `venueId` znamená všechny scény. Sedadlo stejné řady v Main Hall je společné pro oba rozsahy vstupu. U stání je `S1` pouze interní označení položky, nikoli vyhrazené fyzické místo; dostupnost určuje počet vstupenek v každém dni a příslušné scéně.
+
+Jedním výběrem lze přidat nejvýše osm osob; objednávka může obsahovat nejvýše 264 vstupenek. Limit objednávky se kontroluje také při dokončení a odpovídá podporovanému rozsahu exportu PDF.
+
+Košík místo neblokuje ostatním. Počet už prodaných míst a rozpracovaný výběr se zohlední při nabízení dalších vstupenek; před dokončením se znovu prověří cena, místa a dotčené kapacity. Jde o konzervativní kapacitu na den, nikoli živé sledování návštěvníků u turniketu. Změny se sdílejí mezi kartami stejného prohlížeče, nikoli mezi zařízeními. Když prohlížeč podporuje Web Locks, zámek `pulse:inventory` řadí změny košíku a dokončení objednávek za sebe i napříč kartami. Bez této podpory se stav znovu místně kontroluje; serverovou garanci společného prodeje to nenahrazuje.
+
+Program obsahuje 20 plnohodnotných setů denně. Na stejné scéně je nejméně 30 minut na přestavbu. Různé scény mohou hrát současně; osobní program na překryvy upozorní. Každý den lze postupně navštívit tři závěrečné koncerty: River 18:30–19:30 → Club 20:00–21:00 → Main Hall 21:30–23:00. Mezi nimi je 30 minut na přesun. Všech 60 plných setů bez překryvů by vyžadovalo jiný festivalový formát.
 
 ## Obrázky, fonty a knihovny
 

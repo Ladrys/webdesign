@@ -1,4 +1,6 @@
 from pathlib import Path
+from collections import Counter
+from datetime import datetime, timedelta
 from lxml import etree
 import json
 import yaml
@@ -31,6 +33,76 @@ xslt_pairs = {
 def ok(label):
     print(f'[OK] {label}')
 
+def validate_festival_model():
+    """Check real visitor promises beyond the structural XML/JSON schemas."""
+    festival = json.loads((API / 'json/festival.json').read_text(encoding='utf-8'))
+    venues = json.loads((API / 'json/venues.json').read_text(encoding='utf-8'))['items']
+    # The API example deliberately paginates performers (20 of 60); count the
+    # complete source catalogue rather than treating its first page as all data.
+    performers = etree.parse(str(XML)).findall('.//interpret')
+    events = json.loads((API / 'json/events.json').read_text(encoding='utf-8'))['items']
+    days = {day['id']: day for day in festival['dates']}
+    venue_ids = {venue['id'] for venue in venues}
+    performer_ids = {performer.get('id') for performer in performers}
+    assert len(days) == 3 and venue_ids == {'h1', 'h2', 'h3'}
+    assert len(performer_ids) == len(performers) == len(events) == 60
+    assert len({event['id'] for event in events}) == len(events)
+    assert Counter(event['dayId'] for event in events) == {day: 20 for day in days}
+    assert Counter(event['venueId'] for event in events) == {venue: 20 for venue in venue_ids}
+    assert Counter(performer for event in events for performer in event['performerIds']) == {
+        performer: 1 for performer in performer_ids}
+    for event in events:
+        assert event['dayId'] in days and event['venueId'] in venue_ids
+        assert event['date'] == days[event['dayId']]['date']
+        assert set(event['performerIds']) <= performer_ids
+    ok('60 jednoznačně provázaných vystoupení: 20 za den, 20 na scénu, každý interpret právě jednou')
+
+    def at(event, key):
+        return datetime.fromisoformat(event['date'] + 'T' + event[key])
+
+    highlights = [event for event in events if event.get('highlight') is True]
+    assert len(highlights) == 9
+    closing_times = {'h2': ('18:30:00', '19:30:00'), 'h3': ('20:00:00', '21:00:00'),
+                     'h1': ('21:30:00', '23:00:00')}
+    for day_id, day in days.items():
+        closing = sorted((event for event in highlights if event['dayId'] == day_id), key=lambda event: event['startTime'])
+        assert [event['venueId'] for event in closing] == ['h2', 'h3', 'h1']
+        for event in closing:
+            assert (event['startTime'], event['endTime']) == closing_times[event['venueId']]
+        assert all(at(later, 'startTime') - at(earlier, 'endTime') >= timedelta(minutes=30)
+                   for earlier, later in zip(closing, closing[1:]))
+        for venue_id in venue_ids:
+            group = sorted((event for event in events if event['dayId'] == day_id and event['venueId'] == venue_id),
+                           key=lambda event: event['startTime'])
+            assert group[-1] in closing
+            assert all(at(later, 'startTime') - at(earlier, 'endTime') >= timedelta(minutes=30)
+                       for earlier, later in zip(group, group[1:]))
+            for event in group:
+                expected_minutes = 90 if event.get('highlight') and venue_id == 'h1' else 60
+                assert at(event, 'endTime') - at(event, 'startTime') == timedelta(minutes=expected_minutes)
+                assert day['startTime'] <= event['startTime'] < event['endTime'] <= day['endTime']
+    ok('Plné 60/90minutové sety, 30 minut technické přestavby a devět postupných večerních highlightů s přesuny')
+
+    expected = {
+        'h1': (5000, 4952, {'vip': {'day': 490, 'festival': 1290},
+                          'regular': {'day': 290, 'festival': 790}, 'standing': {'day': 150, 'festival': 390}}),
+        'h2': (3000, 3000, {'standing': {'day': 110, 'festival': 290}}),
+        'h3': (1500, 1500, {'standing': {'day': 90, 'festival': 240}}),
+    }
+    for venue in venues:
+        capacity, standing_capacity, prices = expected[venue['id']]
+        ticketing = venue['ticketing']
+        assert venue['capacity'] == capacity and ticketing['standingCapacity'] == standing_capacity
+        assert ticketing['prices'] == prices
+        seats = ticketing['seats']
+        assert standing_capacity + sum(len(group['rows']) * group['perRow'] for group in seats.values()) == capacity
+        if venue['id'] == 'h1':
+            assert seats == {'vip': {'rows': ['A', 'B'], 'perRow': 8},
+                             'regular': {'rows': ['C', 'D', 'E', 'F'], 'perRow': 8}}
+        else:
+            assert seats == {}, 'River a Club nemají nabízet sedadla'
+    ok('Každá scéna má vlastní kapacitu, ceny a zóny; 48 sedadel je součástí kapacity Main Hall')
+
 def main():
     xml = etree.parse(str(XML))
     schema = etree.XMLSchema(etree.parse(str(XSD)))
@@ -61,6 +133,8 @@ def main():
         Draft202012Validator.check_schema(schema_data)
         Draft202012Validator(schema_data).validate(data)
         ok(f'API/json/{json_name} odpovídá API/json-schema/{schema_name}')
+
+    validate_festival_model()
 
     openapi = yaml.safe_load((API / 'openapi.yaml').read_text(encoding='utf-8'))
     assert openapi.get('openapi', '').startswith('3.1')
@@ -103,6 +177,7 @@ def main():
     from tools.generate_data import generate
     assert generate()==(ROOT/'web/js/data.js').read_text(encoding='utf-8')
     assert (ROOT/'data.xml').read_bytes()==XML.read_bytes()
+    assert (ROOT/'festival.xsd').read_bytes()==XSD.read_bytes()
     ok('Offline data.js je reprodukovatelný z datové základny; kořenové data.xml je shodné')
     ok('Funkční scénáře a responzivitu ověřuje tests/browser_smoke.py')
 

@@ -1,7 +1,23 @@
 # Ověření podkladů a prototypu
 
-139 kontrol prošlo.
+155 kontrol prošlo.
 
+- Submission manifest matches every generated artifact
+- C02 upload ZIP has no damaged entries
+- C02 upload ZIP contains exactly the four intended files, without duplicate presentation or notes
+- C02 upload ZIP agrees with the current specification, data, schema and presentation
+- cviceni-02-specifikace: project-specification.md agrees with the current source
+- cviceni-02-specifikace: data.xml agrees with the current source
+- cviceni-02-specifikace: festival.xsd agrees with the current source
+- cviceni-05-review-ready: project-specification.md agrees with the current source
+- cviceni-05-review-ready: data.xml agrees with the current source
+- cviceni-05-review-ready: festival.xsd agrees with the current source
+- finalni-projekt/projekt: project-specification.md agrees with the current source
+- finalni-projekt/projekt: data.xml agrees with the current source
+- finalni-projekt/projekt: festival.xsd agrees with the current source
+- cviceni-04-implementace/web: complete website agrees with the current tested source
+- cviceni-05-review-ready/web: complete website agrees with the current tested source
+- finalni-projekt/projekt/web: complete website agrees with the current tested source
 - cviceni-02-specifikace: six PDF pages and editable PPTX slides
 - cviceni-02-specifikace: slide1 text and presenter notes
 - cviceni-02-specifikace: slide1 PDF text stays inside page
@@ -142,4 +158,4 @@
 - Prototype search treats markup as text
 - Prototype has no runtime errors
 
-Kontroly proběhly v Chromium přes vývojový statický server; přímý file:// protokol blokuje politika tohoto prostředí.
+Kontroly proběhly v Chromium přes vývojový statický server; tento skript neověřuje přímé otevření file://.

@@ -116,6 +116,7 @@
     const first = selected[0];
     const last = selected[selected.length - 1];
     const isWholeFestival = selected.length === calendar.length;
+    const admission = window.PulseAdmission?.venueLabel(ticket.venueId || 'all', window.PulseI18n?.lang || 'cs') || tr('Všechny scény', 'All stages');
     const display = isWholeFestival ? dateRange(first.iso, last.iso)
       : selected.length === 1 ? dateRange(first.iso, first.iso)
         : selected.map(day => `${dateParts(day.iso)[2]}.`).join(' + ') + ` ${dateParts(last.iso)[1]}. ${dateParts(last.iso)[0]}`;
@@ -124,7 +125,8 @@
     return {
       display,
       header: isWholeFestival ? `${String(dateParts(first.iso)[2]).padStart(2, '0')}—${String(dateParts(last.iso)[2]).padStart(2, '0')} / ${String(dateParts(first.iso)[1]).padStart(2, '0')}` : header,
-      caption: tr(`${selected.length} ${selected.length === 1 ? 'DEN' : 'DNY'} / VŠECHNY SCÉNY`, `${selected.length} ${selected.length === 1 ? 'DAY' : 'DAYS'} / ALL STAGES`),
+      caption: tr(`${selected.length} ${selected.length === 1 ? 'DEN' : 'DNY'}`, `${selected.length} ${selected.length === 1 ? 'DAY' : 'DAYS'}`) + ' / ' + admission.toUpperCase(),
+      admission,
     };
   }
 
@@ -225,11 +227,11 @@
     order.tickets.forEach((ticket, index) => {
       if (index) doc.addPage('a5', 'landscape');
       const validity = ticketValidity(ticket, calendar);
-      pageBase('FIKTIVNÍ FESTIVAL / VSTUPENKA', validity.header);
+      pageBase(tr('FIKTIVNÍ FESTIVAL / VSTUPENKA', 'FICTIONAL FESTIVAL / TICKET') + ' · ' + validity.admission, validity.header);
       label(doc, 'DATUM', 26, 224, 180);
       text(doc, validity.display, 26, 245, 185, 15, true, ink, false);
       label(doc, 'SEKTOR / MÍSTO', 228, 224, split - 254);
-      text(doc, ticket.category === 'standing' ? 'Volná plocha' : (ticket.seat || 'Volný vstup'), 228, 245, split - 254, 16, true);
+      text(doc, ticket.category === 'standing' ? tr('Volná plocha', 'Standing area') : 'Main Hall · ' + (ticket.seat || ''), 228, 245, split - 254, ticket.category === 'standing' ? 16 : 12, true);
       label(doc, 'AREÁL', 26, 263, 170);
       text(doc, 'Výstaviště 67, Praha 7', 26, 279, 188, 10, true);
       label(doc, tr('CENÍKOVÁ CENA VSTUPENKY', 'TICKET LIST PRICE'), 228, 263, split - 254);

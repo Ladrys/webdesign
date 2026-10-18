@@ -13,7 +13,11 @@ Autoři: **Michal Ladra, Matěj Mlejnek, Jan Martínek**. Připravené soubory j
 
 XML je naše zvolená datová základna; není nutné odevzdávat současně XML, JSON i Excel. Složky `web/` a `prototype/` odevzdávejte celé, včetně skriptů, stylů a obrázků. Pokud zadání v Moodlu umožňuje ZIP, zabalte obsah příslušné složky cvičení. Samotné `index.html` nestačí.
 
-`presenter-notes.md` jsou pomůcka pro řečníka. `festival.xsd`, validační reporty a dokumentace u průběžných složek jsou doplňkové materiály; tabulka výše rozlišuje povinné minimum. U prezentací je přiložen editovatelný PowerPoint a PDF se stejným obsahem. Odevzdejte všechny verze, které budete při prezentaci používat.
+Pro **cvičení 2** tedy stačí `project-specification.md`, `data.xml` a **jedna použitá prezentace**. Přiložit doporučujeme i `festival.xsd`, protože na něj XML odkazuje: celkem čtyři soubory. PDF a PPTX nemusíte nahrávat oba, pokud budete promítat jen jeden.
+
+[Připravený ZIP pro cvičení 2](../odevzdani/cviceni-02-k-odevzdani.zip) obsahuje právě tyto čtyři soubory s PowerPointem. Pokud budete promítat PDF, nahraďte v balíčku PPTX odpovídajícím PDF.
+
+`presenter-notes.md` si nechte k přípravě řečníka. Validační reporty a dokumentace u průběžných složek jsou doplňkové materiály; tabulka výše rozlišuje povinné minimum. U prezentací je přiložen editovatelný PowerPoint a PDF se stejným obsahem. Odevzdejte všechny verze, které budete při prezentaci používat.
 
 ## Co stručně ukázat
 

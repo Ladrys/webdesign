@@ -1,7 +1,7 @@
 # Prague Pulse Fest
 
 [![Kontroly projektu](https://github.com/Ladrys/webdesign/actions/workflows/validate.yml/badge.svg)](https://github.com/Ladrys/webdesign/actions/workflows/validate.yml)
-[![Verze 1.0.2](https://img.shields.io/badge/verze-1.0.2-ff8155)](CHANGELOG.md)
+[![Verze 1.1.0](https://img.shields.io/badge/verze-1.1.0-ff8155)](CHANGELOG.md)
 ![HTML · CSS · JavaScript](https://img.shields.io/badge/web-HTML%20%C2%B7%20CSS%20%C2%B7%20JavaScript-222222)
 
 Responzivní web fiktivního hudebního festivalu **1.–3. srpna 2027 na Výstavišti Praha**. Česká i anglická verze, program, osobní výběr koncertů a objednávka vstupenek s PDF.
@@ -22,13 +22,13 @@ Python, Node.js ani instalace balíčků nejsou pro web potřeba. Povol JavaScri
 
 ## Funkce
 
-- Program 60 vystoupení na třech scénách, filtry podle dne a scény, oblíbené koncerty.
+- Program 60 vystoupení na třech scénách, filtry, oblíbené koncerty a upozornění na kolize vlastního výběru.
 - Vyhledávání v datech festivalu, detaily interpretů a přepínání CZ/EN.
-- Výběr vstupenek na 1/2/3 dny, sedadla nebo stání, promo kódy a volitelný kemp.
+- Vstupenky na všechny scény nebo jednu scénu, 1/2/3 dny, dostupnost podle kapacit, promo kódy a kemp.
 - Místní účet, profil, historie objednávek a stažení PDF vstupenek i kempovacího poukazu.
 - Praktické informace, offline plánek a volitelná Google mapa.
 
-Jde o klientský školní projekt: účty a objednávky zůstávají v daném prohlížeči, platby jsou zkušební a e-mail se neodesílá. Současná vstupenka platí pro všechny scény ve vybraných dnech.
+Jde o klientský školní projekt: účty a objednávky zůstávají v daném prohlížeči, platby jsou zkušební a e-mail se neodesílá. Scény mají rozdílné modelové kapacity; sedadla jsou pouze v Main Hall. Každý večer navazují tři závěrečné koncerty s časem na přesun, ostatní sety se mohou překrývat.
 
 ## Orientace v repozitáři
 
@@ -46,6 +46,8 @@ Jde o klientský školní projekt: účty a objednávky zůstávají v daném pr
 Podrobný [průvodce vysvětluje jednotlivé soubory, funkce, ukládání dat i rozdíl mezi XML, JSON a JSON-LD](docs/PROJECT-GUIDE.md). [Vývojový návod](docs/DEVELOPMENT.md) popisuje instalaci Pythonu a spuštění testů. Výsledky ověření jsou v [`validation_report.md`](validation_report.md); historie verzí v [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Podklady do školy
+
+[ZIP pro cvičení 2 — čtyři soubory k odevzdání](odevzdani/cviceni-02-k-odevzdani.zip)
 
 [Seznam požadovaných souborů a obsahu prezentací pro každé cvičení](docs/ODEVZDANI.md) · [Projektová specifikace](project-specification.md) · [Dokumentace Word](docs/documentation.docx)
 

@@ -29,3 +29,16 @@ Tento záznam je vlastní technická a UX kontrola současného webu, nikoli př
 | Titulky a metadata nových právních stránek zůstaly v angličtině částečně česky | Drobný | Anglický průchod 13 stránkami a diagnostika překladů | Doplněný slovník; zopakovaný průchod má prázdný seznam chybějících překladů |
 
 Kontroly se vztahují k této implementaci. Nepotvrzují kompletní WCAG AA audit, skutečný prodej ani právní soulad dokumentu GDPR.
+
+## Doplnění k samostatným scénám — 19. října 2026
+
+| Nález | Závažnost | Jak byl zjištěn / proč vadí | Provedená úprava |
+| --- | --- | --- | --- |
+| Společný inventář nerozlišoval kapacity scén uvedené v XML | Významný | Porovnání modelu vstupenek s daty a požadavkem na návštěvu jedné scény | Ceny a zóny scén v XML; samostatný vstup ovlivní vybranou scénu, společný pas každou zahrnutou scénu |
+| Zbývající společná kapacita mohla zbytečně omezit výběr na první volná sedadla | Významný | Model s posledním místem v Club Stage a fyzicky volným sedadlem A8 v Main Hall | Oddělený počet dostupných vstupů a seznam volných sedadel; libovolné volné sedadlo lze vybrat do zbývající kapacity |
+| Osobní výběr neupozorňoval na souběžné koncerty | Významný | Uložení dvou časově se překrývajících vystoupení na různých scénách | Upozornění a značky kolizí; tři závěrečné koncerty denně navazují s půlhodinou na přesun |
+| Diagram v prezentaci mohl zaměnit sousední sekce za vztah rodič–potomek | Drobný | Vizuální kontrola exportované informační architektury | Každá z šesti sekcí má vlastní větev od úvodu |
+| Vícedenní stání mohlo hlásit vyprodáno navzdory volné denní kapacitě | Významný | V každém ze dvou dnů zbývala jedna vstupenka, ale s různým interním číslem | Stání používá počty za každý den; čísla položek nejsou fyzicky rezervované pozice |
+| Převzetí košíku mohlo sloučit dvě vstupenky na stání do jedné | Významný | Přihlášení s jednou vstupenkou S1 v košíku hosta i účtu | Druhá položka dostane nové interní číslo; počet osob a cena zůstanou zachované |
+
+Tato doplnění vycházejí z aktuální uživatelské zpětné vazby a interního ověření. Nejde o nálezy přijatého externího cross-review.

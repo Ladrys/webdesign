@@ -12,6 +12,7 @@ import json
 from pathlib import Path
 import shutil
 import xml.etree.ElementTree as ET
+import zipfile
 
 from pptx import Presentation
 from pptx.dml.color import RGBColor
@@ -25,8 +26,8 @@ from reportlab.pdfgen import canvas
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'course-source'
 WIDTH, HEIGHT = 960, 540
-INK, PAPER, ORANGE, MUTED = '#191b20', '#ffffff', '#e55024', '#626773'
-PALE, LINE = '#f5f6f8', '#dfe2e7'
+INK, PAPER, ORANGE, MUTED = '#f5f6fa', '#101217', '#ff885d', '#b7bfcc'
+PALE, LINE, MINT = '#1d222c', '#3d4552', '#ade6d5'
 FONT = 'Arial'
 # Liberation Sans is metrically compatible with Arial. Both exports therefore use
 # the same explicit line breaks; the PDF embeds a font with all Czech glyphs.
@@ -69,7 +70,7 @@ def data_checks() -> tuple[dict, list[str]]:
 
 
 class Deck:
-    """Render one restrained, readable layout to editable PowerPoint and PDF.
+    """Render one festival identity to editable PowerPoint and matching PDF.
 
     Slide text stays short; the explanation belongs in presenter notes. Layout
     measurement uses the actual embedded PDF font rather than a character count.
@@ -169,12 +170,20 @@ class Deck:
             size -= .5
         raise ValueError(f'Cvičení {self.number}: zkraťte text snímku: {str(text)[:100]}')
 
+    def connector(self, x1, y1, x2, y2, color=LINE):
+        """The same vector connector is written to both native output formats."""
+        shape = self.slide.shapes.add_connector(1, Pt(x1), Pt(y1), Pt(x2), Pt(y2))
+        shape.line.color.rgb = rgb(color)
+        shape.line.width = Pt(1.5)
+        self.pdf.setStrokeColor(color); self.pdf.setLineWidth(1.5)
+        self.pdf.line(x1, HEIGHT-y1, x2, HEIGHT-y2)
+
     def footer(self, index):
-        self.rect(56,492,848,1,LINE)
+        self.rect(48,494,864,1,LINE)
         label = ('ŠABLONA · doplnit skutečný cizí projekt' if self.number == '06'
                  else 'Prague Pulse Fest · Výstaviště Praha · 2027')
-        self.text(56,507,760,label,11,MUTED)
-        self.text(851,505,53,f'{index} / 6',12,MUTED)
+        self.text(48,509,780,label,11,MUTED)
+        self.text(864,507,48,f'{index} / 6',12,MUTED)
 
     def bullets(self, values, top, bottom, lead=''):
         if not 1 <= len(values) <= 4:
@@ -183,7 +192,7 @@ class Deck:
         if lead:
             lead_h = 49 if len(self.lines(lead,848,18)) > 1 else 28
         available = bottom-top-lead_h-(18 if lead else 0)
-        gap = 22
+        gap = 20
         size = 28
         while size >= 24:
             heights = [size + max(0,len(self.lines(v,800,size))-1)*size*1.2+5
@@ -195,11 +204,83 @@ class Deck:
             raise ValueError(f'Cvičení {self.number}: body jsou příliš dlouhé pro čitelný snímek.')
         y = top
         for value,height in zip(values,heights):
-            self.rect(57,y+10,8,8,ORANGE)
+            self.rect(56,y+10,8,8,ORANGE)
             self.text(84,y,800,value,size,INK,h=height,spacing=1.2)
             y += height+gap
         if lead:
             self.text(56,bottom-lead_h,848,lead,18,MUTED,h=lead_h)
+
+    def audience(self, item, top):
+        for i,(heading,question,answer) in enumerate(item['cards']):
+            x=48+i*294
+            self.rect(x,top,276,249,PALE)
+            self.rect(x,top,276,4,ORANGE if i!=1 else MINT)
+            self.text(x+18,top+18,240,f'0{i+1}',15,ORANGE,True)
+            self.text(x+18,top+50,240,heading,24,INK,True,h=61)
+            self.text(x+18,top+121,240,question,20,MINT,h=56)
+            self.text(x+18,top+184,240,answer,19,MUTED,h=56)
+        self.text(48,top+267,864,item['lead'],18,MUTED,h=38)
+
+    def data_venues(self, item, top):
+        for i,(value,label) in enumerate(item['metrics']):
+            x=48+i*221
+            self.text(x,top,200,value,57,ORANGE,True,h=68)
+            self.text(x,top+66,200,label,21,INK,h=29)
+        for i,(name,capacity,zones) in enumerate(item['venues']):
+            x=48+i*294
+            self.rect(x,top+123,276,112,PALE)
+            self.rect(x,top+123,4,112,MINT if i==1 else ORANGE)
+            self.text(x+18,top+137,240,name,24,INK,True,h=33)
+            self.text(x+18,top+173,240,capacity,24,MINT,True,h=32)
+            self.text(x+18,top+209,240,zones,15,MUTED,h=22)
+        self.text(48,top+259,864,item['lead'],18,MUTED,h=38)
+
+    def sitemap(self, item, top):
+        # Branching lines show a sitemap; content links remain explicit in cards.
+        center=480; root_y=top-7
+        self.rect(352,root_y,256,41,ORANGE)
+        self.text(370,root_y+7,220,item['root'],23,PAPER,True,h=29)
+        bar_y=root_y+54
+        self.connector(center,root_y+41,center,bar_y)
+        # Six siblings share root branches. The vertical trunks stay outside
+        # cards, so the second row cannot appear to be a child of the first.
+        self.connector(38,bar_y,626,bar_y)
+        for col in range(3):
+            self.connector(38+294*col,bar_y,38+294*col,root_y+69+86+38)
+        for i,(heading,body) in enumerate(item['nodes']):
+            col,row=i%3,i//3; x=48+294*col; y=root_y+69+row*86
+            self.connector(x-10,y+38,x,y+38)
+            self.rect(x,y,276,77,PALE)
+            self.text(x+15,y+10,246,heading,24,INK,True,h=34)
+            self.text(x+15,y+48,246,body,16,MUTED,h=25)
+        self.text(48,top+259,864,item['lead'],18,MUTED,h=38)
+
+    def scenarios(self, item, top):
+        for i,scenario in enumerate(item['scenarios']):
+            x=48+i*442
+            self.rect(x,top,422,256,PALE)
+            self.rect(x,top,52,39,ORANGE if i==0 else MINT)
+            self.text(x+10,top+7,38,scenario['id'],21,PAPER,True,h=29)
+            self.text(x+66,top+8,339,scenario['title'],23,INK,True,h=34)
+            self.text(x+18,top+63,386,scenario['who'],20,MINT,True,h=29)
+            self.text(x+18,top+101,386,scenario['start'],19,MUTED,h=32)
+            self.text(x+18,top+148,386,scenario['steps'],21,INK,h=58)
+            self.rect(x+18,top+219,386,1,LINE)
+            self.text(x+18,top+231,386,scenario['result'],18,ORANGE,h=25)
+        self.text(48,top+274,864,item['lead'],18,MUTED,h=33)
+
+    def verification(self, item, top):
+        for i,(label,body) in enumerate(item['decisions']):
+            x=48+i*294
+            self.rect(x,top,276,113,PALE)
+            self.text(x+18,top+16,240,label,23,ORANGE,True,h=33)
+            self.text(x+18,top+59,240,body,20,INK,h=49)
+        self.text(48,top+145,864,'Konkrétní ověření dat',22,MINT,True,h=32)
+        for i,label in enumerate(item['checks']):
+            x=48+i*294
+            self.text(x,top+193,31,f'{i+1}.',21,ORANGE,True,h=31)
+            self.text(x+34,top+193,242,label,21,INK,h=56)
+        self.text(48,top+269,864,item['lead'],18,MUTED,h=33)
 
     def page(self, item, index):
         self.slide = self.ppt.slides.add_slide(self.ppt.slide_layouts[6])
@@ -208,29 +289,36 @@ class Deck:
         self.notes.append(item['notes'])
         self.slide.notes_slide.notes_text_frame.text = item['notes']
         if cover:
-            self.rect(56,48,6,30,ORANGE)
-            self.text(77,51,827,'PRAGUE PULSE FEST',20,INK,True)
-            self.text(56,126,848,item['kicker'],14,ORANGE,True)
-            size=self.fit(item['title'],848,143,48,38,True,1.12)
-            self.text(54,169,850,item['title'],size,INK,True,h=143,spacing=1.12)
-            self.text(56,330,848,item['lead'],23,MUTED,h=80)
-            self.text(56,441,848,' · '.join(self.authors),19,INK)
+            # An original type-based festival cover, fully editable in PowerPoint.
+            self.rect(0,0,12,HEIGHT,ORANGE)
+            self.rect(650,0,310,HEIGHT,PALE)
+            self.rect(650,0,310,8,ORANGE)
+            self.text(48,43,864,item['kicker'],14,ORANGE,True,h=24)
+            self.text(45,94,865,'PRAGUE\nPULSE FEST',66,INK,True,h=148,spacing=.98)
+            size=self.fit(item['title'],855,86,38,31,True,1.06)
+            self.text(48,275,855,item['title'],size,ORANGE,True,h=86,spacing=1.06)
+            self.text(48,385,855,item['lead'],23,MUTED,h=65)
+            self.text(48,463,864,' · '.join(self.authors),18,INK,h=26)
         else:
-            self.text(56,36,848,item['kicker'],13,MUTED,True)
-            self.rect(56,69,49,4,ORANGE)
-            title_size=self.fit(item['title'],848,92,36,30,True,1.12)
-            self.text(54,99,850,item['title'],title_size,INK,True,h=92,spacing=1.12)
-            title_lines=len(self.lines(item['title'],848,title_size,True))
-            top=169 if title_lines==1 else 202
+            self.rect(0,0,8,HEIGHT,ORANGE)
+            self.text(48,35,864,item['kicker'],13,MUTED,True,h=22)
+            self.rect(48,69,54,4,ORANGE)
+            title_size=self.fit(item['title'],864,89,36,30,True,1.12)
+            self.text(46,95,866,item['title'],title_size,INK,True,h=89,spacing=1.12)
+            title_lines=len(self.lines(item['title'],864,title_size,True))
+            top=174 if title_lines==1 else 204
             layout = item['layout']
-            if layout == 'bullets':
-                self.bullets(item['bullets'],top,463,item.get('lead',''))
+            if layout == 'audience': self.audience(item,top)
+            elif layout == 'data-venues': self.data_venues(item,top)
+            elif layout == 'sitemap': self.sitemap(item,top)
+            elif layout == 'scenarios': self.scenarios(item,top)
+            elif layout == 'verification': self.verification(item,top)
+            elif layout == 'bullets':
+                self.bullets(item['bullets'],top,474,item.get('lead',''))
             elif layout in ('cards','split'):
-                # Backward-compatible source format without the former narrow
-                # cards: each short section is a full-width point.
                 values=[f'{heading}: {body.replace(chr(10), " ")}'
                         for heading,body in item['cards']]
-                self.bullets(values,top,463,item.get('lead',''))
+                self.bullets(values,top,474,item.get('lead',''))
             elif layout=='metrics':
                 assert len(item['metrics']) == 4, 'Metrics layout expects four values'
                 for i,(value,label) in enumerate(item['metrics']):
@@ -242,11 +330,12 @@ class Deck:
                 assert len(item['steps']) <= 4, 'Route layout supports at most four steps'
                 for i,(heading,body) in enumerate(item['steps']):
                     y=top+i*(65 if title_lines==1 else 57)
-                    self.text(56,y,38,f'{i+1:02}',23,ORANGE,True)
-                    self.text(106,y,274,heading,24,INK,True,h=54)
-                    self.text(391,y+2,513,body,23,MUTED,h=55)
+                    self.rect(48,y,48,38,PALE)
+                    self.text(58,y+6,38,f'{i+1:02}',21,ORANGE,True,h=29)
+                    self.text(112,y+3,268,heading,24,INK,True,h=54)
+                    self.text(391,y+5,513,body,23,MUTED,h=55)
                 if item.get('lead'):
-                    self.text(56,431,848,item['lead'],18,MUTED,h=47)
+                    self.text(48,445,864,item['lead'],18,MUTED,h=40)
             else:
                 raise ValueError(f'Unknown slide layout: {layout}')
         self.footer(index)
@@ -301,6 +390,11 @@ def build(output: Path, include_web: bool):
         copy_file(ROOT/'project-specification.md',folder/'project-specification.md')
         copy_file(ROOT/'data.xml',folder/'data.xml')
         if (ROOT/'data/festival.xsd').exists():copy_file(ROOT/'data/festival.xsd',folder/'festival.xsd')
+    # The first submission needs one presentation, its data and specification.
+    # Keep speaker notes and duplicate PDF exports out of this upload package.
+    with zipfile.ZipFile(output/'cviceni-02-k-odevzdani.zip','w',zipfile.ZIP_DEFLATED) as archive:
+        for name in ['project-specification.md','data.xml','festival.xsd','prezentace.pptx']:
+            archive.write(c02/name,arcname=name)
     for source,target in [('c03-progress-02.md',c03/'progress-02.md'),
                           ('c04-progress-03.md',c04/'progress-03.md'),
                           ('c05-progress-04.md',c05/'progress-04.md'),
@@ -334,7 +428,9 @@ def build(output: Path, include_web: bool):
         else:
             (project/'review').mkdir()
             (project/'review/received-review.md').write_text('# Přijaté cross-review\n\nSkutečné hodnocení jiným týmem nebylo poskytnuto. Doplnit po provedení.\n',encoding='utf-8')
-        for review_name in ['internal-review.md','audio-requirements-2026-10-18.md','browser-validation-2026-10-18.json']:
+        review_names = ['internal-review.md', 'audio-requirements-2026-10-18.md']
+        review_names += [path.name for path in sorted((ROOT/'review').glob('*-validation-*.json'))]
+        for review_name in review_names:
             if (ROOT/'review'/review_name).exists():copy_file(ROOT/'review'/review_name,project/'review'/review_name)
         (final/'README.md').write_text('# Finální projekt\n\nSložka `projekt/` odpovídá povinné struktuře zadání. Otevřete `projekt/web/index.html`.\n\nPřed odevzdáním doplňte skutečné přijaté review, týmovou historii a potvrzení rozsahu změn.\n',encoding='utf-8')
     (output/'data-validation.md').write_text('# Kontrola dat při sestavení podkladů\n\n'+
@@ -346,6 +442,10 @@ def build(output: Path, include_web: bool):
 Nahrajte ZIP příslušné složky. Každá prezentace má šest snímků na 3–5 minut;
 `prezentace.pptx` obsahuje upravitelný text a poznámky, `prezentace.pdf` slouží
 k pohodlnému promítání. `presenter-notes.md` je stručná příprava řečníka.
+
+Pro první odevzdání je připravený **`cviceni-02-k-odevzdani.zip`**: pouze
+specifikace, XML, odkazované XSD a PowerPoint. Poznámky ani druhou prezentaci
+obsahovat nemusí. Při promítání PDF nahraďte PPTX příslušným PDF.
 
 | Cvičení / složka | Požadované soubory a obsah |
 | --- | --- |
