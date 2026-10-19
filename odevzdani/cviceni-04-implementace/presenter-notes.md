@@ -5,15 +5,15 @@ První funkční implementace
 **Autoři:** Michal Ladra, Matěj Mlejnek, Jan Martínek
 
 Šest snímků, přibližně 35–45 sekund na snímek; celkem 3–5 minut.
-Milníky jsou připravené podklady, nikoli archiv dřívějších odevzdání. Popis spolupráce a dřívější rozhodnutí upravte podle skutečného průběhu.
+Poznámky jsou příprava k mluvenému projevu; na Moodle se neodevzdávají.
 
 ## 1. První funkční implementace
 
-[30 s] Oproti wireframu ukazujeme současný hotový web s vlastní vizuální identitou, češtinou a angličtinou a rozšířenými funkcemi. Základem zůstává HTML, CSS a JavaScript bez backendu a instalačního kroku. Balíček obsahuje dnešní verzi webu, nikoli nedoložený historický stav ze cvičení. Při prezentaci se zaměříme na mobilní i desktopové zobrazení, funkční navigaci a dva stejné scénáře jako v prototypu.
+[30 s] Oproti wireframu ukazujeme současný hotový web s vlastní vizuální identitou, češtinou a angličtinou a rozšířenými funkcemi. Základem zůstává HTML, CSS a JavaScript bez backendu a instalačního kroku.  Při prezentaci se zaměříme na mobilní i desktopové zobrazení, funkční navigaci a dva stejné scénáře jako v prototypu.
 
 ## 2. Co přibylo proti prototypu
 
-[35 s] Povinné obsahové části již neexistují jako oddělené ukázky. Z interpreta lze přejít ke koncertu a ze scény do filtrovaného programu. Hledání pokrývá všechna data včetně popisů. K jádru přibyly vstupenky na jeden, dva nebo tři dny, košík, kemp a PDF. Registrace i historie jsou lokální pro prohlížeč, účet není povinný. Vstup lze zvolit na všechny scény nebo jen na jednu. Main Hall má sedadla i stání, River a Club pouze stání. Každá scéna má vlastní kapacitu a společný vstup se do všech započítá. Tři závěrečné koncerty denně navazují s půlhodinou na přesun; plné běžné sety se mezi scénami mohou překrývat.
+[40 s] Proti wireframu máme propojený nákup. Detail interpreta používá jeho skutečné vystoupení a předvyplní den a scénu. Návštěvník může přepnout na jiné dny či společný vstup. U sedadel počet osob vychází z počtu označených míst, u stání ho zadává. Dvoudenní vstup vyžaduje dvě různé zvolené hodnoty. Změna výběru i odebrání z košíku okamžitě přepočítají cenu. Kapacita vychází z platných objednávek a před dokončením se znovu kontroluje. Stejná objednávka je zdrojem historie a PDF, včetně použitého kódu a slevy.
 
 ## 3. Mobilní a desktopové zobrazení
 
@@ -21,7 +21,7 @@ Milníky jsou připravené podklady, nikoli archiv dřívějších odevzdání. 
 
 ## 4. Dva scénáře ve finálním rozhraní
 
-[50 s včetně ukázky] Nejprve předvedeme filtr prvního dne a River Stage a uložíme koncert do osobního programu. Potom přes globální hledání najdeme DARKZY, otevřeme detail a přejdeme ke koncertu. Sledujeme správnost údajů a srozumitelnost cesty, ne pouze animace. Krátce ukážeme focus klávesnice, zavření dialogu a návrat k obsahu. Stejné ID propojuje seznam i detail, takže nevznikají rozdílné ručně napsané časy. Tyto scénáře budou moci zopakovat hodnotitelé v dalším milníku.
+[45 s včetně ukázky] V prvním průchodu vybereme první srpen a River Stage a uložíme koncert. Otevřeme osobní program a po obnovení ověříme zachování výběru. Potom vyhledáme DARKZY a z jeho detailu přejdeme na vstup pro jeho koncert. Ukážeme předvolenou scénu a den, zbývající kapacitu a cenu. Přidáme vstup do košíku a po odebrání zkontrolujeme nový součet. Důležité funkce nejsou pevné odkazy na náhodnou nabídku: hodnoty se odvozují z propojených objektů. Stejné kroky lze zopakovat na telefonu a klávesnicí.
 
 ## 5. Konkrétní principy UX, přístupnosti a SEO
 

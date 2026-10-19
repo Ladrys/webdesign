@@ -1,58 +1,52 @@
 # Prague Pulse Fest
 
-[![Kontroly projektu](https://github.com/Ladrys/webdesign/actions/workflows/validate.yml/badge.svg)](https://github.com/Ladrys/webdesign/actions/workflows/validate.yml)
-[![Verze 1.1.0](https://img.shields.io/badge/verze-1.1.0-ff8155)](CHANGELOG.md)
-![HTML · CSS · JavaScript](https://img.shields.io/badge/web-HTML%20%C2%B7%20CSS%20%C2%B7%20JavaScript-222222)
+[![Kontroly](https://github.com/Ladrys/webdesign/actions/workflows/validate.yml/badge.svg)](https://github.com/Ladrys/webdesign/actions/workflows/validate.yml)
+![HTML · CSS · JavaScript](https://img.shields.io/badge/HTML%20%C2%B7%20CSS%20%C2%B7%20JavaScript-171b20?labelColor=171b20&color=ff8155)
 
-Responzivní web fiktivního hudebního festivalu **1.–3. srpna 2027 na Výstavišti Praha**. Česká i anglická verze, program, osobní výběr koncertů a objednávka vstupenek s PDF.
+**Najít koncert. Naplánovat návštěvu. Vybrat odpovídající vstup.**
 
-**Autoři:** Michal Ladra · Matěj Mlejnek · Jan Martínek
+Responzivní web fiktivního festivalu **1.–3. srpna 2027 · Výstaviště Praha**.
+Jeden datový základ propojuje 60 interpretů, program tří scén a nákup vstupenek.
 
-[Spuštění](#spuštění) · [Soubory k odevzdání](docs/ODEVZDANI.md) · [Jak projekt funguje](docs/PROJECT-GUIDE.md) · [Dokumentace](documentation.md)
-
-![Úvodní stránka Prague Pulse Fest](preview/home.png)
+![Prague Pulse Fest — úvodní stránka](preview/home.png)
 
 ## Spuštění
 
-1. [Stáhni ZIP projektu](https://github.com/Ladrys/webdesign/archive/refs/heads/main.zip) nebo použij **Code → Download ZIP**.
-2. **Rozbal celý archiv.**
-3. Otevři **`web/index.html`** v prohlížeči.
+[**Stáhnout projekt**](https://github.com/Ladrys/webdesign/archive/refs/heads/main.zip)
+→ rozbalit celý ZIP → otevřít **`web/index.html`** v prohlížeči.
 
-Python, Node.js ani instalace balíčků nejsou pro web potřeba. Povol JavaScript a místní úložiště. Fotografie, fonty i PDF knihovny jsou přibalené; externí Google mapa vyžaduje připojení a souhlas.
+Bez instalace a buildu. Pro web stačí JavaScript a povolené místní úložiště.
 
-## Funkce
+## Co web nabízí
 
-- Program 60 vystoupení na třech scénách, filtry, oblíbené koncerty a upozornění na kolize vlastního výběru.
-- Vyhledávání v datech festivalu, detaily interpretů a přepínání CZ/EN.
-- Vstupenky na všechny scény nebo jednu scénu, 1/2/3 dny, dostupnost podle kapacit, promo kódy a kemp.
-- Místní účet, profil, historie objednávek a stažení PDF vstupenek i kempovacího poukazu.
-- Praktické informace, offline plánek a volitelná Google mapa.
+- **Program podle návštěvníka:** den, scéna, žánr, hledání a uložené koncerty.
+- **Od interpreta ke vstupence:** předvolená scéna a den, vlastní úprava výběru.
+- **Přehledný nákup:** 1/2/3 dny, jedna nebo všechny scény, dostupnost a aktuální cena.
+- **Účet a PDF:** profil, historie, změna hesla a vstupenky s údaji objednávky.
+- **Návštěva areálu:** přibližovací plánek, praktické informace a čeština / angličtina.
 
-Jde o klientský školní projekt: účty a objednávky zůstávají v daném prohlížeči, platby jsou zkušební a e-mail se neodesílá. Scény mají rozdílné modelové kapacity; sedadla jsou pouze v Main Hall. Každý večer navazují tři závěrečné koncerty s časem na přesun, ostatní sety se mohou překrývat.
+## Podklady
 
-## Orientace v repozitáři
-
-| Umístění | Účel |
+| Pro návštěvníka | Pro tým |
 | --- | --- |
-| [`web/`](web/) | Hotový web; začni souborem `index.html`. |
-| [`data/festival.xml`](data/festival.xml) | Zdrojová data; kořenový `data.xml` je kopie pro odevzdání. |
-| [`API/`](API/) | XML schémata, XSLT, JSON příklady a OpenAPI z datové části; nejde o běžící server. |
-| [`prototype/`](prototype/) | Jednoduchý interaktivní wireframe pro ověření scénářů. |
-| [`course-source/`](course-source/) | Upravitelné podklady prezentací a průběžných zpráv. |
-| [`odevzdani/`](odevzdani/README.md) | Připravené složky pro cvičení 2–6 a finální projekt. |
-| [`tests/`](tests/README.md) · [`tools/`](tools/README.md) | Volitelné vývojové kontroly a generátory podkladů. |
-| [`docs/`](docs/PROJECT-GUIDE.md) · [`review/`](review/) | Průvodce soubory, dokumentace a záznamy hodnocení. |
+| [Hotový web](web/) | [Projektová specifikace](project-specification.md) |
+| [Cvičení 2 — ZIP k odevzdání](odevzdani/cviceni-02-k-odevzdani.zip) | [Data a struktura projektu](docs/PROJECT-GUIDE.md) |
+| [Další cvičení](docs/ODEVZDANI.md) | [Dokumentace](documentation.md) |
 
-Podrobný [průvodce vysvětluje jednotlivé soubory, funkce, ukládání dat i rozdíl mezi XML, JSON a JSON-LD](docs/PROJECT-GUIDE.md). [Vývojový návod](docs/DEVELOPMENT.md) popisuje instalaci Pythonu a spuštění testů. Výsledky ověření jsou v [`validation_report.md`](validation_report.md); historie verzí v [`CHANGELOG.md`](CHANGELOG.md).
+```text
+web/           hotové stránky, skripty a obrázky
+data/         XML, XSD a odvozené JSON exporty
+prototype/     interaktivní wireframe
+course-source/ zdroje prezentací a průběžných zpráv
+odevzdani/     připravené školní výstupy
+docs/         průvodce a vývojový návod
+review/        vlastní a přijatá hodnocení
+tests/ tools/ kontroly a tvorba podkladů
+```
 
-## Podklady do školy
+Účty, košík a obsazenost se ukládají v daném prohlížeči. Platba je zkušební;
+e-mailová služba není připojená. Technické podrobnosti a rozsah ověření uvádí dokumentace.
 
-[ZIP pro cvičení 2 — čtyři soubory k odevzdání](odevzdani/cviceni-02-k-odevzdani.zip)
+**Michal Ladra · Matěj Mlejnek · Jan Martínek** · Webdesign 2026/2027
 
-[Seznam požadovaných souborů a obsahu prezentací pro každé cvičení](docs/ODEVZDANI.md) · [Projektová specifikace](project-specification.md) · [Dokumentace Word](docs/documentation.docx)
-
-Prezentace jsou připravené jako PPTX i PDF s poznámkami pro 3–5 minut. Cvičení 6 je šablona, dokud tým nedoplní skutečné hodnocení přiděleného projektu. Údaje o historických odevzdáních ani externím review se nedoplňují odhadem.
-
-## Zdroje
-
-[Autoři a licence fotografií](web/images/PHOTO-CREDITS.md) · [Knihovny PDF a QR](web/vendor/README.md). Dvě fotografie CC BY-NC-SA omezují aktuální sadu na nekomerční školní použití. Účast uvedených skutečných interpretů na fiktivním festivalu není potvrzená.
+[Licence fotografií](web/images/PHOTO-CREDITS.md) · [Použité knihovny](web/vendor/README.md) · [Vývoj](docs/DEVELOPMENT.md) · [Verze](CHANGELOG.md)

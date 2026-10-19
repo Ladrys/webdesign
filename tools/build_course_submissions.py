@@ -82,7 +82,7 @@ class Deck:
         self.ppt = Presentation()
         self.ppt.slide_width, self.ppt.slide_height = Pt(WIDTH), Pt(HEIGHT)
         self.ppt.core_properties.title = f"Prague Pulse Fest — cvičení {number}: {info['name']}"
-        self.ppt.core_properties.subject = 'Dodatečně připravený milník podle zadání; nikoli doložená historie semestru.'
+        self.ppt.core_properties.subject = 'Webdesign: návrh, data, uživatelské scénáře a ověření Prague Pulse Fest.'
         self.authors = info.get('authors', AUTHORS)
         self.ppt.core_properties.author = ', '.join(self.authors)
         pdfmetrics.registerFont(TTFont('PRF-Regular', str(FONT_DIR / 'LiberationSans-Regular.ttf')))
@@ -222,18 +222,21 @@ class Deck:
         self.text(48,top+267,864,item['lead'],18,MUTED,h=38)
 
     def data_venues(self, item, top):
+        # Show the same ID relationship that drives filters and ticket prefills.
         for i,(value,label) in enumerate(item['metrics']):
             x=48+i*221
-            self.text(x,top,200,value,57,ORANGE,True,h=68)
-            self.text(x,top+66,200,label,21,INK,h=29)
-        for i,(name,capacity,zones) in enumerate(item['venues']):
-            x=48+i*294
-            self.rect(x,top+123,276,112,PALE)
-            self.rect(x,top+123,4,112,MINT if i==1 else ORANGE)
-            self.text(x+18,top+137,240,name,24,INK,True,h=33)
-            self.text(x+18,top+173,240,capacity,24,MINT,True,h=32)
-            self.text(x+18,top+209,240,zones,15,MUTED,h=22)
-        self.text(48,top+259,864,item['lead'],18,MUTED,h=38)
+            self.text(x,top-3,200,value,45,ORANGE,True,h=55)
+            self.text(x,top+46,200,label,18,INK,h=28)
+        for i,(heading,body) in enumerate(item['entities']):
+            x=48+i*221
+            if i:
+                self.connector(x-14,top+130,x-4,top+130,ORANGE)
+            self.rect(x,top+93,201,99,PALE)
+            self.rect(x,top+93,201,3,MINT if i==1 else ORANGE)
+            self.text(x+13,top+108,175,heading,23,INK,True,h=32)
+            self.text(x+13,top+149,175,body,16,MUTED,h=35)
+        self.text(48,top+219,864,item['pipeline'],20,MINT,True,h=32)
+        self.text(48,top+262,864,item['lead'],17,MUTED,h=39)
 
     def sitemap(self, item, top):
         # Branching lines show a sitemap; content links remain explicit in cards.
@@ -349,8 +352,7 @@ class Deck:
                  self.info['name'],'',
                  '**Autoři:** '+', '.join(self.authors),'',
                  'Šest snímků, přibližně 35–45 sekund na snímek; celkem 3–5 minut.',
-                 'Milníky jsou připravené podklady, nikoli archiv dřívějších odevzdání. '
-                 'Popis spolupráce a dřívější rozhodnutí upravte podle skutečného průběhu.','']
+                 'Poznámky jsou příprava k mluvenému projevu; na Moodle se neodevzdávají.','']
         if self.number=='06':
             notes += ['**Nejde o dokončené peer review. Nejdříve doplňte cizí projekt a skutečné nálezy.**','']
         for i,(slide,note) in enumerate(zip(self.info['slides'],self.notes),1):
@@ -384,6 +386,13 @@ def build(output: Path, include_web: bool):
         deck=Deck(folder,number,info)
         for i,item in enumerate(info['slides'],1):deck.page(item,i)
         deck.finish()
+        if number == '02':
+            # Keep the upload directory minimal; previews and preparation stay separate.
+            for subdir, source_name, output_name in [
+                ('nahledy','prezentace.pdf','cviceni-02.pdf'),
+                ('poznamky','presenter-notes.md','cviceni-02.md')]:
+                extra=output/subdir; extra.mkdir(exist_ok=True)
+                shutil.move(str(folder/source_name),str(extra/output_name))
     c02=output/folder_names['02']; c03=output/folder_names['03']
     c04=output/folder_names['04']; c05=output/folder_names['05']; c06=output/folder_names['06']
     for folder in [c02,c05]:
@@ -435,45 +444,41 @@ def build(output: Path, include_web: bool):
         (final/'README.md').write_text('# Finální projekt\n\nSložka `projekt/` odpovídá povinné struktuře zadání. Otevřete `projekt/web/index.html`.\n\nPřed odevzdáním doplňte skutečné přijaté review, týmovou historii a potvrzení rozsahu změn.\n',encoding='utf-8')
     (output/'data-validation.md').write_text('# Kontrola dat při sestavení podkladů\n\n'+
         '\n'.join('- '+item for item in checks)+'\n\nKontrola se spouští při každém sestavení. Nejde o HTML validaci ani UX audit.\n',encoding='utf-8')
-    readme = '''# Prague Pulse Fest — odevzdání na Moodle
+    readme = """# Podklady k odevzdání
 
-**Autoři:** Michal Ladra, Matěj Mlejnek, Jan Martínek · akademický rok 2026/2027
+## Cvičení 2
 
-Nahrajte ZIP příslušné složky. Každá prezentace má šest snímků na 3–5 minut;
-`prezentace.pptx` obsahuje upravitelný text a poznámky, `prezentace.pdf` slouží
-k pohodlnému promítání. `presenter-notes.md` je stručná příprava řečníka.
+Použijte **`cviceni-02-k-odevzdani.zip`**, nebo nahrajte obsah
+`cviceni-02-specifikace/`. Obsahuje pouze čtyři soubory:
 
-Pro první odevzdání je připravený **`cviceni-02-k-odevzdani.zip`**: pouze
-specifikace, XML, odkazované XSD a PowerPoint. Poznámky ani druhou prezentaci
-obsahovat nemusí. Při promítání PDF nahraďte PPTX příslušným PDF.
+- `project-specification.md`
+- `data.xml`
+- `festival.xsd`
+- `prezentace.pptx`
 
-| Cvičení / složka | Požadované soubory a obsah |
+Poznámky jsou zvlášť v `poznamky/cviceni-02.md` a také uvnitř PowerPointu.
+PDF náhled je v `nahledy/cviceni-02.pdf`. Tyto soubory k odevzdání nepřidávejte,
+pokud PDF nepoužijete místo PowerPointu k promítání.
+
+## Další výstupy
+
+| Složka | Obsah k odevzdání |
 | --- | --- |
-| 02 — `cviceni-02-specifikace/` | `project-specification.md`, `data.xml`, `prezentace.pptx` nebo `prezentace.pdf`. Identita, účel, cílové skupiny, architektura, dva scénáře, AI a ověření. |
-| 03 — `cviceni-03-prototyp/` | Celá složka `prototype/`, `progress-02.md`, prezentace. Spustitelný návrh pro mobil i desktop, dva průchody a nejméně tři smysluplné funkce. |
-| 04 — `cviceni-04-implementace/` | Celá složka `web/`, `progress-03.md`, prezentace. Úvod a odlišná obsahová stránka, navigace, interaktivita a responzivita. |
-| 05 — `cviceni-05-review-ready/` | `web/`, `project-specification.md`, `progress-04.md`, prezentace. Kompletní verze pro druhý tým; přibalená data podporují nezávislé ověření. |
-| 06 — `cviceni-06-cross-review/` | `review.md`, prezentace výsledků cizího webu. Dva scénáře, dvě formalizované metody, 3–5 nálezů s důkazy, závažností a doporučením. **Zatím šablona k doplnění.** |
-| Finální projekt — `finalni-projekt/projekt/` | `project-specification.md`, `prototype/`, `documentation.md`, `data.xml`, `web/`, `review/received-review.md`. Volitelně `docs/` s Word/PDF dokumentací. |
+| `cviceni-03-prototyp/` | `prototype/`, `progress-02.md`, použitá prezentace |
+| `cviceni-04-implementace/` | `web/`, `progress-03.md`, použitá prezentace |
+| `cviceni-05-review-ready/` | `web/`, specifikace, `progress-04.md`, použitá prezentace |
+| `cviceni-06-cross-review/` | `review.md` a prezentace nálezů cizího projektu; zatím šablona |
+| `finalni-projekt/projekt/` | Specifikace, data, prototyp, web, dokumentace a přijaté review |
 
-Před cvičením odevzdejte i prezentaci, kterou budete ukazovat. Web spustíte
-otevřením `web/index.html`, prototyp otevřením `prototype/index.html`; instalace
-není potřeba. Pythonové nástroje jsou pouze pro údržbu a ověření projektu.
+Prezentace mají šest snímků a poznámky na 3–5 minut. Pro cvičení 3–6 je
+přiložen PowerPoint i PDF; odevzdejte formát, který budete promítat.
+Složky webu a prototypu vždy ponechte celé.
 
-## Před odevzdáním
-
-Podklady milníků jsou připravené podle zadání, nikoli archiv minulých odevzdání.
-Cvičení 04 a 05 obsahují stejný současný web. Tým doplní skutečný průběh spolupráce,
-přijaté cross-review a odůvodnění změn proti schválené specifikaci. Bez původních
-schválených výstupů nelze potvrdit dodržení limitu změn přibližně 15 %.
-
-Pro cvičení 06 chybí přidělený cizí projekt a skutečné nálezy; šablonu proto nelze
-odevzdat jako hotové hodnocení. Zpětná vazba zadavatele není přijatým cross-review.
-
-Použití AI, konkrétní kontroly a jejich omezení uvádí prezentace, poznámky a
-`documentation.md`. Výsledky kontroly dat jsou v `data-validation.md`, ověření
-webu ve `validation_report.md` a prototypu v `prototype-validation.md`.
-'''
+`manifest.json` zaznamenává soubory a jejich kontrolní otisky. Záznamy
+`data-validation.md` a `prototype-validation.md` slouží ke kontrole podkladů.
+Cvičení 6 vyžaduje doplnit skutečné nálezy přiděleného projektu; vlastní
+kontroly se nevydávají za přijaté externí review.
+"""
     if not include_web:
         readme += '\n**Pracovní export:** současný web nebyl kopírován. Úplný export vyžaduje `--include-web`.\n'
     (output/'README.md').write_text(readme,encoding='utf-8')

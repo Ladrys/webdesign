@@ -5,7 +5,7 @@ Cross-review — šablona k doplnění
 **Autoři:** Michal Ladra, Matěj Mlejnek, Jan Martínek
 
 Šest snímků, přibližně 35–45 sekund na snímek; celkem 3–5 minut.
-Milníky jsou připravené podklady, nikoli archiv dřívějších odevzdání. Popis spolupráce a dřívější rozhodnutí upravte podle skutečného průběhu.
+Poznámky jsou příprava k mluvenému projevu; na Moodle se neodevzdávají.
 
 **Nejde o dokončené peer review. Nejdříve doplňte cizí projekt a skutečné nálezy.**
 

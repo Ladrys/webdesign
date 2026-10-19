@@ -5,11 +5,11 @@ UX návrh a interaktivní prototyp
 **Autoři:** Michal Ladra, Matěj Mlejnek, Jan Martínek
 
 Šest snímků, přibližně 35–45 sekund na snímek; celkem 3–5 minut.
-Milníky jsou připravené podklady, nikoli archiv dřívějších odevzdání. Popis spolupráce a dřívější rozhodnutí upravte podle skutečného průběhu.
+Poznámky jsou příprava k mluvenému projevu; na Moodle se neodevzdávají.
 
 ## 1. UX návrh a prototyp
 
-[30 s] Oproti specifikaci máme spustitelný HTML wireframe. Otevře se bez instalace a používá stejnou datovou základnu jako web. Záměrně má jednoduchou grafiku: ověřujeme pořadí obsahu, navigaci a dva klíčové scénáře. Prototyp není šablona, kterou by hotový web při spuštění načítal; je to samostatná návrhová ukázka. Nynější prototyp byl sestaven pro tyto podklady, nepředstavujeme ho jako doložený historický export ze semestru.
+[30 s] Oproti specifikaci máme spustitelný HTML wireframe. Otevře se bez instalace a používá stejnou datovou základnu jako web. Záměrně má jednoduchou grafiku: ověřujeme pořadí obsahu, navigaci a dva klíčové scénáře. Prototyp není šablona, kterou by hotový web při spuštění načítal; je to samostatná návrhová ukázka.
 
 ## 2. Od specifikace k wireframu
 
@@ -21,7 +21,7 @@ Milníky jsou připravené podklady, nikoli archiv dřívějších odevzdání. 
 
 ## 4. S1: sestavení osobního programu
 
-[45 s včetně ukázky] Otevřeme prototyp, přejdeme na Program a zvolíme první srpen s River Stage. Ověříme datum a scénu výsledků, ne jen počet karet. Vybraný koncert uložíme a zapneme Jen uložené. Po obnovení stránky se k výběru vrátíme. Pokud není žádný výsledek, rozhraní má nabídnout pochopitelnou cestu ke změně filtrů. Tento průchod je součástí browserového ověření prototypu; není to výzkum s reprezentativním vzorkem uživatelů.
+[45 s včetně ukázky] Otevřeme prototyp, přejdeme na Program a zvolíme první srpen s River Stage. Ověříme datum a scénu výsledků, ne jen počet karet. Vybraný koncert uložíme a zapneme Jen uložené. Po obnovení stránky se k výběru vrátíme. Pokud není žádný výsledek, rozhraní má nabídnout pochopitelnou cestu ke změně filtrů. Při kontrole musí uložené ID odpovídat stejnému vystoupení ve zdrojových datech.
 
 ## 5. S2: od hledání ke koncertu
 

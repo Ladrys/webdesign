@@ -5,11 +5,11 @@ Verze připravená pro review
 **Autoři:** Michal Ladra, Matěj Mlejnek, Jan Martínek
 
 Šest snímků, přibližně 35–45 sekund na snímek; celkem 3–5 minut.
-Milníky jsou připravené podklady, nikoli archiv dřívějších odevzdání. Popis spolupráce a dřívější rozhodnutí upravte podle skutečného průběhu.
+Poznámky jsou příprava k mluvenému projevu; na Moodle se neodevzdávají.
 
 ## 1. Web připravený pro review
 
-[30 s] Předáváme web, specifikaci a popis scénářů tak, aby jiný tým mohl samostatně provést hodnocení. Oproti návrhu už jsou dostupné všechny hlavní části, obě jazykové varianty a lokální objednávka s PDF. Podklady cvičení čtyři a pět vycházejí ze stejné současné verze: skutečné historické snapshoty nebyly poskytnuty. Netvrdíme tedy neexistující časový vývoj. Nyní ukážeme obsah balíčku, dva hlavní průchody a přesně vymezené limity.
+[30 s] Předáváme web, specifikaci a popis scénářů tak, aby jiný tým mohl samostatně provést hodnocení. Oproti návrhu už jsou dostupné všechny hlavní části, obě jazykové varianty a lokální objednávka s PDF.  Nyní ukážeme obsah balíčku, dva hlavní průchody a přesně vymezené limity.
 
 ## 2. Co je připravené pro review
 
@@ -19,9 +19,9 @@ Milníky jsou připravené podklady, nikoli archiv dřívějších odevzdání. 
 
 [45 s včetně ukázky] Hodnotitel postupuje podle tohoto krátkého scénáře. Nejprve ověří, že oba filtry působí společně a ukazují jen očekávané akce. Po uložení koncertu zobrazí osobní program a obnoví stránku. Výběr se má zachovat. Stejný průchod doporučujeme na mobilní šířce i desktopu a alespoň jednou klávesnicí. Když něco nefunguje, má záznam obsahovat původní stav, kroky, očekávání, skutečný výsledek a důkaz. Pouhý obecný dojem není reprodukovatelný nález.
 
-## 4. S2: hledání a detail interpreta
+## 4. S2: interpret a odpovídající vstup
 
-[45 s včetně ukázky] U druhého scénáře je cílem zjistit termín známého interpreta. Hledáme DARKZY, otevřeme detail a navazující program. Porovnáme údaje se specifikací a daty. Dále zkusíme neexistující dotaz a zavření dialogu klávesou Escape. Hledání v biografiích je záměr: například dotaz David může najít i interpreta uvedeného vlastním jménem v popisu. To není chyba podobnosti jmen. Výsledky mají vysvětlit nalezený objekt a nabídnout smysluplný přechod, nikoli zobrazit pouze bezkontextový seznam.
+[45 s včetně ukázky] Druhý scénář končí odpovídající vstupenkou. Známe jméno DARKZY, v hledání otevřeme interpreta a jeho vstup. Porovnáme předvolený den a Club Stage s vystoupením v XML. Zkontrolujeme kapacitu pro tento den, vložíme vstup do košíku a ověříme cenu i rozsah. Rozsah lze změnit podle dalších plánovaných koncertů. Po odstranění položky musí celková cena odpovídat tomu, co skutečně zůstalo v košíku. Na stejné principy navazuje scénář S3 s dvěma dny, kde bez obou vybraných dat nelze pokračovat.
 
 ## 5. Testy a známé limity
 

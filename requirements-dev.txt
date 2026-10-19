@@ -1,7 +1,5 @@
 # Pouze pro vyvoj, testy a export prezentaci. Web je nepotrebuje.
 lxml==6.1.1
-PyYAML==6.0.3
-jsonschema==4.26.0
 playwright==1.62.0
 PyMuPDF==1.26.6
 python-pptx==1.0.2

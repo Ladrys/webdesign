@@ -42,3 +42,16 @@ Kontroly se vztahují k této implementaci. Nepotvrzují kompletní WCAG AA audi
 | Převzetí košíku mohlo sloučit dvě vstupenky na stání do jedné | Významný | Přihlášení s jednou vstupenkou S1 v košíku hosta i účtu | Druhá položka dostane nové interní číslo; počet osob a cena zůstanou zachované |
 
 Tato doplnění vycházejí z aktuální uživatelské zpětné vazby a interního ověření. Nejde o nálezy přijatého externího cross-review.
+
+## Návaznost nákupu a práce s daty — verze 1.2.0
+
+| Nález | Závažnost | Ověření a provedená úprava |
+| --- | --- | --- |
+| Obecný nákupní odkaz z profilu interpreta nepřebíral jeho vystoupení | Významný | Průchod žánr → interpret → vstupenka; odkaz nyní vychází z ID vystoupení a předvolí jeho den i scénu |
+| Počet osob a cena výběru sedadel závisely na ručně zadaném počtu | Významný | Výběr 0/1/2 sedadel a odebrání posledního; počet i cena se nyní odvozují ze skutečného výběru |
+| Otevřený košík nezobrazoval průběžně všechny změny z jiné karty | Významný | Druhá karta odstraní položku včetně poslední; součet, sleva, DPH a stav prázdného košíku se obnoví |
+| PDF směšovalo cenu jednotlivé vstupenky s celou objednávkou a kempem | Významný | Smíšená objednávka s promem; každá vstupenka má vlastní cenu a přesný podíl slevy, kemp samostatný voucher |
+| Základní plánek neposkytoval podrobnosti ani denní dostupnost | Významný | Dotykové přiblížení, vrstvy, klávesnice a nákup v druhé kartě; plánek drží zvolený pohled a aktualizuje kapacitu daného dne |
+| Složka cvičení 2 obsahovala také nepovinný náhled a poznámky | Drobný | Kontrola obsahu složky i ZIP; obojí nyní obsahuje jen specifikaci, XML, XSD a PPTX |
+
+Přesný rozsah běhu a konkrétní výsledky uvádí aktuální `validation_report.md`.

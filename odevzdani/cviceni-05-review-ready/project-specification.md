@@ -1,178 +1,187 @@
-# Prague Pulse Fest — projektová specifikace
+# Prague Pulse Fest
 
-**Předmět:** Webdesign · **Akademický rok:** 2026/2027
-**Autoři:** Michal Ladra, Matěj Mlejnek, Jan Martínek
+## Projektová specifikace
+
+**Webdesign · 2026/2027**
+
+Michal Ladra · Matěj Mlejnek · Jan Martínek
 
 ## 1. Identita festivalu
 
-| Vlastnost | Hodnota |
-| --- | --- |
-| Název | Prague Pulse Fest |
-| Ročník | 1. ročník, 2027 |
-| Lokalita | Vltava Park — fiktivní uspořádání u Výstaviště Praha |
-| Navigační adresa | Výstaviště 67, 170 00 Praha 7 |
-| Termín | 1.–3. srpna 2027 |
-| Charakter | Třídenní městský hudební festival |
-| Hlavní žánry | Rock, pop, český rap, drum and bass, UK garage, bass house, techno |
-| Rozsah dat | 3 dny, 3 scény, 60 účinkujících, 60 vystoupení |
+| Vlastnost          | Hodnota                                                                     |
+| :---               | :---                                                                        |
+| Název              | Prague Pulse Fest                                                           |
+| Ročník             | 1. ročník · 2027                                                            |
+| Lokalita           | Vltava Park u Výstaviště Praha                                              |
+| Adresa pro navigaci | Výstaviště 67, 170 00 Praha 7                                               |
+| Termín             | 1.–3. srpna 2027                                                            |
+| Charakter          | Třídenní městský hudební festival                                           |
+| Hlavní žánry       | Rock, pop, český rap, drum and bass, UK garage, bass house, techno          |
 
-Festival je fiktivní. Výstaviště Praha a uvedení interpreti jsou skuteční;
-jejich účast, partnerství ani rezervace areálu se tím nepotvrzuje.
-Main Hall představuje mezinárodní jména, River Stage českou scénu a Club Stage
-klubovou elektroniku. Každá scéna má 20 programových položek.
+Jde o fiktivní festival se třemi scénami: mezinárodní Main Hall,
+česká River Stage a elektronická Club Stage.
 
-## 2. Účel webu
+## 2. Účel a cíle webu
 
-Návštěvník má rychle zjistit **kdo, kdy a kde vystupuje**, sestavit si vlastní
-program a najít praktické informace. Vedlejší scénář umožňuje vybrat vstupenky,
-projít objednávku a stáhnout PDF.
+Návštěvník má zjistit **kdo, kdy a kde vystupuje**, naplánovat si návštěvu
+a vybrat vstupenku na odpovídající scény a dny. Nemá kupovat širší vstup,
+pokud chce navštívit jen jednu scénu.
 
-Hlavní cíle:
+Web má umožnit:
 
-- zpřístupnit program v telefonu i na počítači;
-- propojit účinkující, jejich vystoupení a scény;
-- umožnit hledání napříč festivalovými daty;
-- srozumitelně ukázat cenu a rozsah vstupenky před dokončením objednávky.
+- najít interpreta a jeho konkrétní vystoupení;
+- filtrovat program a uložit si vlastní výběr koncertů;
+- vidět cenu a zbývající kapacitu vybrané scény pro daný den;
+- upravit rozsah vstupu, projít objednávku a stáhnout PDF;
+- zjistit dopravu, zázemí a orientaci v areálu.
 
 ## 3. Cílové skupiny
 
-| Skupina | Potřeba a očekávání | Obsah nebo funkce |
-| --- | --- | --- |
-| Návštěvník na telefonu | Rychle najít koncert a pohodlně ovládat web | Responzivní program, filtry, osobní program |
-| Fanoušek interpreta | Najít konkrétní jméno a jeho vystoupení | Vyhledávání, profil interpreta, hudební odkazy |
-| Návštěvník mimo Prahu | Naplánovat cestu a pobyt | Doprava, parkování, plánek a kemp |
-| Zahraniční návštěvník | Rozumět programu i objednávce | Čeština a angličtina |
-| Vracející se návštěvník | Zachovat výběr a najít zakoupené vstupenky | Místní účet, profil, historie a PDF |
+### Fanoušek konkrétního interpreta
+
+Zná jméno, potřebuje zjistit datum a scénu. Očekává vyhledávání, přehledný
+detail a přímý přechod na odpovídající jednodenní vstupenku.
+
+### Návštěvník více koncertů
+
+Vybírá podle dne, scény nebo žánru. Potřebuje filtry, osobní program,
+upozornění na časové kolize a vstup na jednu či více scén.
+
+### Návštěvník celého festivalu
+
+Chce všechny tři dny, přehled kategorií a výhod společného vstupu.
+Očekává jednoznačnou platnost, cenu a dostupnost na všech scénách.
+
+### Přijíždějící a zahraniční návštěvník
+
+Potřebuje dopravu, parkování, pobyt a plánek. Očekává použitelné mobilní
+rozhraní a možnost přepnout celý web do angličtiny.
+
+### Vracející se návštěvník
+
+Chce znovu otevřít objednávku a vstupenky. Potřebuje profil a historii;
+registrace přitom není podmínkou nákupu.
 
 ## 4. Informační architektura
 
 ```text
 Úvod
-├── Program → detail vystoupení → interpret / scéna
-├── Účinkující → detail → související vystoupení
-├── Scény → program konkrétní scény
-├── Info → doprava, plánek, parkování, pobyt, FAQ, kontakt
-├── Novinky → článek
-├── Vyhledávání → výsledky → příslušný obsah
-├── Vstupenky → výběr → košík → dokončení → PDF
-├── Účet → registrace / přihlášení → profil / historie
-└── Soukromí, Podmínky a Kredity
+├── Program → detail vystoupení → interpret / scéna / vstupenka
+├── Účinkující → seznam a filtry → detail → vystoupení / vstupenka
+├── Scény → kapacita a zázemí → program / vstupenka
+├── Info → doprava, plánek, parkování, kemp, FAQ a kontakt
+├── Vyhledávání → výsledky → příslušný detail
+├── Vstupenky → výběr → košík → objednávka → PDF
+├── Účet → přihlášení / registrace → profil a historie
+└── Novinky · Soukromí · Podmínky · Kredity
 ```
 
-Hlavní navigace zpřístupňuje Program, Účinkující, Scény, Info, Účet, Košík
-a Vstupenky. Logo vrací na úvod; vyhledávání a přepínač CZ/EN jsou společné
-pro celý web. Novinky jsou dostupné z úvodu a patičky. Drobečková navigace
-a odkazy v detailech pomáhají vrátit se ke kontextu.
+**Hlavní navigace:** Program, Účinkující, Scény, Info, Účet, Košík a Vstupenky.
+Logo vrací na úvod. Vyhledávání a přepínač CZ/EN jsou společné celému webu.
+Novinky jsou dostupné z úvodu a patičky.
+
+Obsahové detaily jsou propojené přes ID: interpret vede ke svému vystoupení,
+vystoupení ke scéně a nákup převezme správný den a scénu.
 
 ## 5. Klíčové uživatelské scénáře
 
-| ID | Uživatel a cíl | Výchozí situace | Očekávaný výsledek |
-| --- | --- | --- | --- |
-| S1 | Návštěvník na telefonu chce vlastní program | Na úvodu zná den a scénu, nezná jednotlivé koncerty | V Programu zvolí první den a River Stage, uloží koncert a po obnovení ho znovu najde |
-| S2 | Fanoušek chce najít DARKZY a jeho set | Zná jméno, nikoli čas vystoupení | Vyhledá interpreta, otevře profil, hudební odkazy a vystoupení v Club Stage |
-| S3 | Host chce dvě nesousedící data a vlastní sedadlo | Chce VIP na 1. a 3. srpna bez registrace | Zvolí oba dny a volné sedadlo, zkontroluje cenu, vyplní kontakt a po zkušebním dokončení stáhne PDF pro přesně tyto dny |
-| S4 | Vracející se návštěvník chce změnit kontakt | Má účet ve stejném prohlížeči | Upraví profil, najde historii; původní údaje staré objednávky zůstanou zachované |
-| S5 | Zahraniční návštěvník chce naplánovat příjezd | Nerozumí česky a nepovolil externí mapu | Přepne do EN a najde dopravu i místní plánek bez Google Maps |
+### S1 · Sestavit osobní program
 
-S1–S3 jsou klíčové scénáře pro implementaci a ověřování. Samostatný wireframe
-v `prototype/` umožňuje projít S1 a S2; objednávku nepředstírá jako dokončenou.
+- **Uživatel:** návštěvník na telefonu.
+- **Cíl:** najít koncerty na zvolený den a scénu a uchovat svůj výběr.
+- **Výchozí situace:** zná den návštěvy, nezná jednotlivá vystoupení.
+- **Postup:** Program → den a scéna → uložit koncerty → osobní program.
+- **Výsledek:** seznam odpovídá filtrům, výběr zůstane po obnovení stránky
+  a případné časové kolize jsou označené.
 
-## 6. Datová základna
+### S2 · Najít interpreta a odpovídající vstup
 
-Autoritativní zdroj je `data/festival.xml`. Kořenový `data.xml` je jeho
-identická odevzdávací kopie. Základ obsahuje festival, dny, scény, účinkující,
-programové položky, kontakty, tarify a kemp.
+- **Uživatel:** fanoušek DARKZY.
+- **Cíl:** zjistit čas koncertu a vybrat vstup pouze na potřebnou scénu a den.
+- **Výchozí situace:** zná jméno, nezná datum ani scénu.
+- **Postup:** hledání → detail interpreta → jeho vystoupení → vstupenka.
+- **Výsledek:** nákup předvolí Club Stage a den koncertu; návštěvník vidí
+  dostupnost a cenu, může výběr změnit a přidat ho do košíku.
 
-- `den/@id`, `hala/@id`, `interpret/@id` a `akce/@id` jsou jedinečné klíče.
-- Vystoupení odkazuje na den přes `den_ref`, scénu přes `hala_ref`
-  a účinkujícího přes `interpreti/interpret_ref`.
-- Data používají ISO datum `YYYY-MM-DD` a čas `HH:MM:SS`.
-- XSD kontroluje typy, povolené hodnoty a existenci referencí.
-- Na stejné scéně se vystoupení nepřekrývají; mezi sety je nejméně 30 minut na přestavbu. Různé scény mohou hrát souběžně.
-- Každý den navazují tři závěrečné koncerty: River 18:30–19:30, Club 20:00–21:00 a Main Hall 21:30–23:00. Mezi nimi je 30 minut na přesun. V datech je odlišuje příznak `highlight`.
-- Běžný set má 60 minut, hlavní koncert v Main Hall 90 minut. Třídenní vstup na všechny scény umožňuje navštívit všech devět těchto závěrečných koncertů; všechny ostatní souběžné sety stihnout nelze.
-- `web/js/data.js` je přibalený export týchž dat pro běh bez serveru.
+### S3 · Koupit vstup na dva vybrané dny
 
-JSON soubory v `API/json/` a OpenAPI popis zůstávají jako datové podklady
-původního projektu. Nejde o běžící službu ani podmínku spuštění webu.
+- **Uživatel:** host bez účtu, který přijde 1. a 3. srpna.
+- **Cíl:** vybrat dva dny a dvě VIP sedadla bez nákupu prostředního dne.
+- **Výchozí situace:** na nabídce vstupenek si zvolí požadovaný rozsah scén.
+- **Postup:** dvoudenní vstup → oba dny → sedadla → košík → kontakty → PDF.
+- **Výsledek:** jsou povinné dva různé dny, počet osob odpovídá sedadlům,
+  změny okamžitě přepočítají cenu a PDF obsahuje stejné dny, scénu a místa.
+
+S1–S3 jsou základem implementace a ověřování. Wireframe v `prototype/`
+pokrývá S1 a nalezení vystoupení v S2; nákup ověřuje hotový web.
+
+## 6. Datová základna a její využití
+
+**Rozsah:** 3 dny · 3 scény · 60 účinkujících · 60 vystoupení.
+
+Zdrojová data jsou v `data/festival.xml`. Soubor `data.xml` je stejná
+odevzdávací kopie. XSD kontroluje strukturu, datové typy a reference.
+
+- **Festival** obsahuje identitu, termín, místo, kontakty a tarify.
+- **Den** má ID, datum a otevírací dobu.
+- **Scéna** má ID, název, popis, kapacitu a nabídku kategorií.
+- **Interpret** má ID, jméno, žánr, medailonek a hudební odkazy.
+- **Vystoupení** má ID, čas a odkazy na existující den, scénu a interpreta.
+
+Stejné objekty se používají v seznamu, detailu, filtrech i předvolbě nákupu.
+Dny a scény se filtrují podle ID; jméno, žánr a popis podle textové shody.
+Výsledky programu se řadí chronologicky.
+
+```text
+XML + XSD → generátor → JSON exporty a přibalená data webu
+                                      ↓
+                  program · hledání · detaily · ceny a kapacity
+```
+
+JSON je přehledný export pro kontrolu a další použití dat. Hotový web má
+stejný obsah připravený v `web/js/data.js`, takže se otevře bez serveru.
+Účty a objednávky jsou oddělený stav prohlížeče; zdrojové XML nemění.
 
 ## 7. Interaktivní funkce
 
-| Funkce | Potřeba uživatele |
-| --- | --- |
-| Kombinovaný filtr programu podle dne a scény | Zúžit program na vlastní návštěvu |
-| Vyhledávání typu contains bez rozlišení velikosti písmen a diakritiky | Najít jméno, popis i praktickou informaci |
-| Oblíbená vystoupení, osobní program a upozornění na kolize | Uložit si koncerty a poznat, které vybrané sety se překrývají |
-| Detaily propojující koncert, interpreta a scénu | Získat souvislosti bez nového hledání |
-| Výběr scény, dnů a míst, košík, promo a PDF | Koupit odpovídající rozsah vstupu a vidět jeho cenu |
-| Účet, profil a historie | Znovu otevřít vlastní objednávku |
+1. **Kombinované filtry:** den, scéna a další volby zúží program podle návštěvy.
+2. **Vyhledávání:** hledá část zadaného textu napříč daty, bez rozlišení
+   velikosti písmen a diakritiky; výsledky vedou na odpovídající detail.
+3. **Osobní program:** ukládá ID koncertů a označuje překryvy časů.
+4. **Kontextový nákup:** přebírá den a scénu z vystoupení, ukazuje dostupnost
+   a průběžně přepočítává výběr i košík.
+5. **Účet a historie:** uchovají kontakt, datum registrace a vlastní objednávky.
 
-## 8. Vstupenky a technické hranice
+## 8. Model vstupenek a kapacity
 
-Vstup lze zvolit na **všechny scény**, nebo levněji pouze na jednu scénu,
-a to na jeden, dva libovolné či všechny tři dny. Main Hall má VIP a Regular
-sedadla i stání; River Stage a Club Stage pouze stání. U společné VIP/Regular
-vstupenky je sedadlo pouze v Main Hall, na zbývajících scénách se stojí.
+Vstup platí na **jednu scénu nebo všechny scény** a na **jeden, dva vybrané
+nebo všechny tři dny**. Detail interpreta předvolí jednodenní vstup na scénu
+jeho vystoupení; tento rozsah lze upravit.
 
-| Modelová scéna | Celková kapacita / den | Rozdělení |
-| --- | --- | --- |
-| Main Hall | 5 000 | 16 VIP sedadel, 32 Regular sedadel, 4 952 míst ke stání |
-| River Stage | 3 000 | Pouze stání |
-| Club Stage | 1 500 | Pouze stání |
+- **Main Hall:** 5 000 osob — 16 VIP a 32 Regular sedadel, 4 952 míst ke stání.
+- **River Stage:** 3 000 míst ke stání.
+- **Club Stage:** 1 500 míst ke stání.
 
-Jde o návrhové kapacity fiktivního uspořádání, nikoli oficiální kapacity
-Výstaviště. Vstup na všechny scény započítává jednu osobu do kapacity každé
-scény v každém zvoleném dni. Není proto závislý na odhadu, kolik lidí zrovna
-odejde; jeho prodej omezuje i nejmenší Club Stage. Samostatný vstup ovlivní
-jen vybranou scénu. Stání je konečné, nikoli neomezené.
+Kapacity představují návrh uspořádání festivalu. Společný vstup započítává
+jednu osobu do každé scény a dne své platnosti; samostatný jen do vybrané
+scény. VIP a Regular znamenají sedadlo v Main Hall, na ostatních scénách stání.
 
-| Rozsah vstupu | Kategorie | 1 den | 2 libovolné dny | 3 dny |
-| --- | --- | --- | --- | --- |
-| Všechny scény | VIP | 590 Kč | 1 180 Kč | 1 590 Kč |
-| Všechny scény | Regular | 390 Kč | 780 Kč | 990 Kč |
-| Všechny scény | Stání | 190 Kč | 380 Kč | 490 Kč |
-| Main Hall | VIP | 490 Kč | 980 Kč | 1 290 Kč |
-| Main Hall | Regular | 290 Kč | 580 Kč | 790 Kč |
-| Main Hall | Stání | 150 Kč | 300 Kč | 390 Kč |
-| River Stage | Stání | 110 Kč | 220 Kč | 290 Kč |
-| Club Stage | Stání | 90 Kč | 180 Kč | 240 Kč |
+Zobrazené údaje rozlišují celkovou kapacitu, prodané a zbývající vstupy.
+Košík sám místo neprodává. Před dokončením se znovu ověří cena, sedadla
+a všechny dotčené kapacity. Dvoudenní vstup vyžaduje dvě různé zvolené
+hodnoty; u sedadel se počet osob odvozuje přímo z jejich výběru.
 
-Ceny jsou symbolické pro návrh, nikoli nabídka skutečného prodeje.
-Košík neblokuje místo ostatním. Před dokončením objednávky se ověřují
-sedadla, počet osob a kapacita všech dotčených scén a dnů. Stejné sedadlo
-v Main Hall nemůže současně obsadit společný a samostatný vstup. Stání nemá
-rezervovanou fyzickou pozici; u vícedenního vstupu musí zbývat kapacita
-v každém vybraném dni. Jeden výběr má nejvýše osm osob, objednávka nejvýše
-264 vstupenek.
+Běžné sety různých scén se mohou překrývat. Každý večer navazují závěrečné
+koncerty River → Club → Main Hall s 30 minutami na přesun.
 
-Kemp je volitelný doplněk na 1.–4. srpna: stan 350 Kč nebo karavan 850 Kč
-a 150 Kč za osobu. PULSE10 snižuje pouze vstupenky o 10 %; PRAHA200
-o nejvýše 200 Kč. Katalogové ceny již zahrnují modelovou 12% DPH.
-Podrobné výpočty a omezení popisuje `documentation.md`.
+## 9. Technické řešení a ověření
 
-Web běží jako HTML, CSS a JavaScript bez instalace, buildu, Node.js,
-databáze a vlastního backendu. Účty, košík a objednávky ukládá do
-`localStorage` stejného prohlížeče, nikoli do měněného souboru v repozitáři.
-Heslo se neukládá v otevřeném tvaru. Přihlášení vyprší za sedm dnů;
-`sessionStorage` drží relaci aktuální karty a poslední objednávku hosta.
-Web sám nevytváří HTTP cookies. Volba soukromí v `localStorage` platí
-180 dnů a rozhoduje o načtení externích Google Maps. Platba je simulovaná, e-mail se
-automaticky neposílá a obsazenost není sdílená mezi zařízeními.
+Web používá HTML, CSS a JavaScript s mobile-first rozložením, českou
+a anglickou verzí. Funguje bez instalace, buildu a vlastního backendu.
+Účty a objednávky uchovává prohlížeč; platba je zkušební a e-mailová
+služba není připojená. Podrobnosti ukládání popisuje `documentation.md`.
 
-## 9. Návrhová rozhodnutí, AI a ověření
-
-Návrh vychází z mobile-first rozložení, tmavé festivalové identity a vlastní
-typografické značky. Inspirace strukturou festivalových webů neznamená převzetí
-cizího loga nebo zdrojového kódu. Texty a implementaci pomáhal připravit
-Codex; přijaté výsledky ověřují datové validace a průchody scénáři
-v prohlížeči. Konkrétní výsledky jsou v `validation_report.md`.
-
-Skutečné fotografie mají autora a licenci na stránce Kredity. Jejich použití
-podle výslovného přání zadavatele se liší od věty školního zadání požadující
-výhradně AI vizuály; před odevzdáním je třeba tuto odchylku vyřešit.
-Přijaté či odmítnuté návrhy AI podrobně uvádí dokumentace.
-
-Původní projekt měl rok 2026 a širší žánrový záběr. Aktuální termín, skuteční
-interpreti a vzhled vycházejí z upřesnění zadavatele. Tato specifikace popisuje
-současný stav; nepředstírá původně odevzdaný dokument. Návaznost na schválené
-první dva výstupy a rozsah změn musí doložit tým.
+AI pomáhá s návrhem, texty a implementací. Přijaty jsou vazby přes ID;
+upraveny byly scénáře a rozsah nákupu. Ověření porovnává XML, exporty,
+filtrované výsledky, výběr vstupu, košík a obsah PDF. Konkrétní výsledky
+jsou v `validation_report.md`.

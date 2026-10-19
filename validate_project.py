@@ -3,47 +3,23 @@ from collections import Counter
 from datetime import datetime, timedelta
 from lxml import etree
 import json
-import yaml
-from jsonschema import Draft202012Validator
+from tools.generate_data import COLLECTIONS, generate, json_exports, load_model
 
 ROOT = Path(__file__).resolve().parent
 XML = ROOT / 'data' / 'festival.xml'
 XSD = ROOT / 'data' / 'festival.xsd'
-API = ROOT / 'API'
-
-json_pairs = {
-    'festival.json': 'festival.schema.json',
-    'venues.json': 'venues.schema.json',
-    'venue-h1.json': 'venue.schema.json',
-    'performers.json': 'performers.schema.json',
-    'performer-i1.json': 'performer.schema.json',
-    'events.json': 'events.schema.json',
-    'event-a1.json': 'event.schema.json',
-}
-xslt_pairs = {
-    'festival-to-json.xslt': 'festival.json',
-    'venues-to-json.xslt': 'venues.json',
-    'venue-detail-to-json.xslt': 'venue-h1.json',
-    'performers-to-json.xslt': 'performers.json',
-    'performer-detail-to-json.xslt': 'performer-i1.json',
-    'events-to-json.xslt': 'events.json',
-    'event-detail-to-json.xslt': 'event-a1.json',
-}
+JSON_DIR = ROOT / 'data/json'
 
 def ok(label):
     print(f'[OK] {label}')
 
-def validate_festival_model():
-    """Check real visitor promises beyond the structural XML/JSON schemas."""
-    festival = json.loads((API / 'json/festival.json').read_text(encoding='utf-8'))
-    venues = json.loads((API / 'json/venues.json').read_text(encoding='utf-8'))['items']
-    # The API example deliberately paginates performers (20 of 60); count the
-    # complete source catalogue rather than treating its first page as all data.
-    performers = etree.parse(str(XML)).findall('.//interpret')
-    events = json.loads((API / 'json/events.json').read_text(encoding='utf-8'))['items']
+def validate_festival_model(data):
+    """Check visitor promises and cross-entity links beyond the XML schema."""
+    festival, venues = data['festival'], data['venues']
+    performers, events = data['performers'], data['events']
     days = {day['id']: day for day in festival['dates']}
     venue_ids = {venue['id'] for venue in venues}
-    performer_ids = {performer.get('id') for performer in performers}
+    performer_ids = {performer['id'] for performer in performers}
     assert len(days) == 3 and venue_ids == {'h1', 'h2', 'h3'}
     assert len(performer_ids) == len(performers) == len(events) == 60
     assert len({event['id'] for event in events}) == len(events)
@@ -55,6 +31,9 @@ def validate_festival_model():
         assert event['dayId'] in days and event['venueId'] in venue_ids
         assert event['date'] == days[event['dayId']]['date']
         assert set(event['performerIds']) <= performer_ids
+        assert event['venueName'] == next(venue['name'] for venue in venues if venue['id'] == event['venueId'])
+        assert event['performers'] == [next(performer['name'] for performer in performers if performer['id'] == pid)
+                                       for pid in event['performerIds']]
     ok('60 jednoznačně provázaných vystoupení: 20 za den, 20 na scénu, každý interpret právě jednou')
 
     def at(event, key):
@@ -118,37 +97,15 @@ def main():
     assert counts['dny'] >= 3 and counts['scény'] >= 2 and counts['účinkující'] >= 60 and counts['akce'] >= 60
     ok(f"Počty dat splňují minimum: {counts}")
 
-    for xslt_name, json_name in xslt_pairs.items():
-        xslt_path = API / 'transformation' / xslt_name
-        text = xslt_path.read_text(encoding='utf-8')
-        assert '<xsl:if' in text and '<xsl:choose' in text
-        result = str(etree.XSLT(etree.parse(str(xslt_path)))(xml))
-        json.loads(result)
-        assert json.loads(result) == json.loads((API / 'json' / json_name).read_text(encoding='utf-8'))
-        ok(f'{xslt_name} generuje validní JSON shodný s API/json/{json_name}')
+    data = load_model()
+    assert set(JSON_DIR.glob('*.json')) == {JSON_DIR / f'{name}.json' for name in COLLECTIONS}
+    for name, exported in json_exports(data).items():
+        content = (JSON_DIR / name).read_text(encoding='utf-8')
+        assert content == exported, f'Zastaralý export {name}: spusť tools/generate_data.py'
+        assert json.loads(content) == data[name.removesuffix('.json')]
+        ok(f'data/json/{name}: úplný JSON export shodný s XML')
 
-    for json_name, schema_name in json_pairs.items():
-        data = json.loads((API / 'json' / json_name).read_text(encoding='utf-8'))
-        schema_data = json.loads((API / 'json-schema' / schema_name).read_text(encoding='utf-8'))
-        Draft202012Validator.check_schema(schema_data)
-        Draft202012Validator(schema_data).validate(data)
-        ok(f'API/json/{json_name} odpovídá API/json-schema/{schema_name}')
-
-    validate_festival_model()
-
-    openapi = yaml.safe_load((API / 'openapi.yaml').read_text(encoding='utf-8'))
-    assert openapi.get('openapi', '').startswith('3.1')
-    required_paths = ['/api/festival','/api/venues','/api/venues/{id}','/api/performers','/api/performers/{id}','/api/events','/api/events/{id}']
-    for path in required_paths:
-        assert path in openapi['paths']
-        responses = openapi['paths'][path]['get']['responses']
-        assert all(code in responses for code in ['200','400','404'])
-    event_params = {p['name'] for p in openapi['paths']['/api/events']['get']['parameters']}
-    assert {'day','venueId','performerId'} <= event_params
-    performer_params = {p['name'] for p in openapi['paths']['/api/performers']['get']['parameters']}
-    assert {'page','pageSize'} <= performer_params
-    ok('OpenAPI 3.1 obsahuje požadované endpointy, filtry, stránkování a odpovědi 200/400/404')
-
+    validate_festival_model(data)
 
     required_web = ['index.html','program.html','performers.html','venues.html','info.html','search.html','tickets.html','cart.html','account.html','news.html','privacy.html','terms.html','credits.html']
     from html.parser import HTMLParser
@@ -174,8 +131,7 @@ def main():
         assert 'API ověření' not in text
     assert not (ROOT/'web/api.html').exists()
     ok(f'{len(required_web)} stránek: metadata, struktura dokumentu, unikátní id a lokální závislosti')
-    from tools.generate_data import generate
-    assert generate()==(ROOT/'web/js/data.js').read_text(encoding='utf-8')
+    assert generate(data)==(ROOT/'web/js/data.js').read_text(encoding='utf-8')
     assert (ROOT/'data.xml').read_bytes()==XML.read_bytes()
     assert (ROOT/'festival.xsd').read_bytes()==XSD.read_bytes()
     ok('Offline data.js je reprodukovatelný z datové základny; kořenové data.xml je shodné')

@@ -1,11 +1,12 @@
 # Ověření podkladů a prototypu
 
-155 kontrol prošlo.
+156 kontrol prošlo.
 
 - Submission manifest matches every generated artifact
 - C02 upload ZIP has no damaged entries
 - C02 upload ZIP contains exactly the four intended files, without duplicate presentation or notes
 - C02 upload ZIP agrees with the current specification, data, schema and presentation
+- C02 upload directory contains only the four files intended for Moodle
 - cviceni-02-specifikace: project-specification.md agrees with the current source
 - cviceni-02-specifikace: data.xml agrees with the current source
 - cviceni-02-specifikace: festival.xsd agrees with the current source
@@ -39,7 +40,7 @@
 - cviceni-02-specifikace: slide6 PDF/PPTX visible text agrees
 - cviceni-02-specifikace: Prague Pulse 2027 identity
 - cviceni-02-specifikace: all three authors in cover and metadata
-- cviceni-02-specifikace: separate presenter notes
+- cviceni-02-specifikace: separate presenter notes outside the C02 upload directory
 - cviceni-02-specifikace: PowerPoint archive integrity
 - cviceni-03-prototyp: six PDF pages and editable PPTX slides
 - cviceni-03-prototyp: slide1 text and presenter notes
@@ -62,7 +63,7 @@
 - cviceni-03-prototyp: slide6 PDF/PPTX visible text agrees
 - cviceni-03-prototyp: Prague Pulse 2027 identity
 - cviceni-03-prototyp: all three authors in cover and metadata
-- cviceni-03-prototyp: separate presenter notes
+- cviceni-03-prototyp: separate presenter notes outside the C02 upload directory
 - cviceni-03-prototyp: PowerPoint archive integrity
 - cviceni-04-implementace: six PDF pages and editable PPTX slides
 - cviceni-04-implementace: slide1 text and presenter notes
@@ -85,7 +86,7 @@
 - cviceni-04-implementace: slide6 PDF/PPTX visible text agrees
 - cviceni-04-implementace: Prague Pulse 2027 identity
 - cviceni-04-implementace: all three authors in cover and metadata
-- cviceni-04-implementace: separate presenter notes
+- cviceni-04-implementace: separate presenter notes outside the C02 upload directory
 - cviceni-04-implementace: PowerPoint archive integrity
 - cviceni-05-review-ready: six PDF pages and editable PPTX slides
 - cviceni-05-review-ready: slide1 text and presenter notes
@@ -108,7 +109,7 @@
 - cviceni-05-review-ready: slide6 PDF/PPTX visible text agrees
 - cviceni-05-review-ready: Prague Pulse 2027 identity
 - cviceni-05-review-ready: all three authors in cover and metadata
-- cviceni-05-review-ready: separate presenter notes
+- cviceni-05-review-ready: separate presenter notes outside the C02 upload directory
 - cviceni-05-review-ready: PowerPoint archive integrity
 - cviceni-06-cross-review: six PDF pages and editable PPTX slides
 - cviceni-06-cross-review: slide1 text and presenter notes
@@ -131,7 +132,7 @@
 - cviceni-06-cross-review: slide6 PDF/PPTX visible text agrees
 - cviceni-06-cross-review: Prague Pulse 2027 identity
 - cviceni-06-cross-review: all three authors in cover and metadata
-- cviceni-06-cross-review: separate presenter notes
+- cviceni-06-cross-review: separate presenter notes outside the C02 upload directory
 - cviceni-06-cross-review: PowerPoint archive integrity
 - Prototype fits320px/home
 - Prototype fits320px/program

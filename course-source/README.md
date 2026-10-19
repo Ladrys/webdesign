@@ -15,8 +15,10 @@ místo nich.
 | `c06-review-template.md` | Formulář pro skutečné hodnocení cizího projektu |
 
 Každá prezentace má šest snímků a poznámky pro 3–5 minut včetně krátké ukázky.
-Texty vysvětlují rozhodnutí, použití AI a konkrétní ověření. Podrobnosti patří
-do poznámek, ne do přeplněných snímků.
+Texty vysvětlují cíle návštěvníků, datové vazby, rozhodnutí, použití AI
+a konkrétní ověření. Poznámky dávají krátké vysvětlení klíčových funkcí.
+Cvičení 2 má jen čtyři soubory k odevzdání; jeho poznámky a PDF náhled
+jsou v samostatných složkách `odevzdani/poznamky/` a `odevzdani/nahledy/`.
 
 Podklady jsou sestavené ze současného projektu podle jednotlivých milníků.
 Nejsou archivem historických odevzdání. Cvičení 04 a 05 proto obsahují stejný

@@ -8,8 +8,7 @@
 Hodnotícímu týmu předejte `web/` a `project-specification.md`. Web otevřete
 přes `web/index.html`; instalace ani sestavení nejsou potřebné. Obsahuje
 všechny hlavní části, 60 interpretů a 60 vystoupení během tří dnů na třech
-scénách. Skuteční interpreti jsou součástí návrhu fiktivního festivalu,
-jejich účast není potvrzená.
+scénách.
 
 Propojené jsou program, detaily, hledání, osobní výběr a praktické informace.
 Doplňková cesta nabízí vstupenku na všechny scény nebo vybranou scénu,
@@ -23,7 +22,7 @@ i bez registrace.
 | Scénář | Postup | Očekávaný výsledek |
 | --- | --- | --- |
 | S1 — osobní program | Program → 1. srpna → River Stage → uložit koncert → osobní program → obnovit | Správný den i scéna a zachovaný výběr |
-| S2 — nalezení interpreta | Hledat „DARKZY“ → detail → související program | Shodné jméno, datum, čas a scéna |
+| S2 — interpret a vstup | Hledat „DARKZY“ → detail → vstupenka → košík | Správný den, Club Stage, dostupnost a cena |
 | S3 — objednávka hosta | 1. a 3. srpna → 2× VIP, ruční sedadla → stan pro 2 → PULSE10 → dokončení → PDF | Cena 2 360 − 236 + 650 = 2 774 Kč; dvě vybraná data a campingový voucher |
 
 Použijte smyšlené kontakty. Vyzkoušejte mobil i desktop, klávesnici, kombinaci

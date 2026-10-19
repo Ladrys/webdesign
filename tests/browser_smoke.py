@@ -15,6 +15,8 @@ import hashlib
 import os
 import unicodedata
 from decimal import Decimal, ROUND_HALF_UP
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 import fitz
 from playwright.sync_api import Error, expect, sync_playwright
@@ -42,9 +44,25 @@ def check(condition, message):
 
 
 def money_token(value):
-    amount = Decimal(str(value))
-    rendered = str(int(amount)) if amount == amount.to_integral() else f'{amount:.2f}'.replace('.', ',')
-    return rendered + 'Kč'
+    return f'{Decimal(str(value)):.2f}'.replace('.', ',') + 'Kč'
+
+
+def ticket_amounts(order):
+    """Independent integer-haler oracle; each discount cent belongs to one ticket."""
+    prices = [int(Decimal(str(ticket['price'])) * 100) for ticket in order['tickets']]
+    discount = min(sum(prices), max(0, int(Decimal(str(order.get('discount', 0))) * 100)))
+    subtotal = sum(prices)
+    shares = [discount * price // subtotal if subtotal else 0 for price in prices]
+    ranks = sorted(range(len(prices)), key=lambda i: (-(discount * prices[i] % subtotal if subtotal else 0), i))
+    for index in ranks[:discount-sum(shares)]:
+        shares[index] += 1
+    result = []
+    for price, share in zip(prices, shares):
+        paid = price-share
+        net = (paid * 100 + 56) // 112
+        result.append({'price':price/100, 'discount':share/100, 'paid':paid/100,
+                       'net':net/100, 'vat':(paid-net)/100})
+    return result
 
 
 def check_pdf_qr(pdf_page, expected, label):
@@ -74,6 +92,7 @@ def validate_pdf(path, order, festival_dates):
     with fitz.open(path) as document:
         check(len(document) == len(order['tickets']) + int(has_camping),
               'PDF has one page per ticket and one additional voucher when camping is included')
+        amounts = ticket_amounts(order)
         for index, ticket in enumerate(order['tickets']):
             pdf_page = document[index]
             text = unicodedata.normalize('NFC', pdf_page.get_text())
@@ -99,16 +118,25 @@ def validate_pdf(path, order, festival_dates):
                 period = f'{int(dates[0][2])}.+{int(dates[1][2])}.{int(dates[1][1])}.{dates[1][0]}'
                 check(period in compact and ('2 dny' in normalized or '2 days' in normalized),
                       label + ' lists both selected festival dates explicitly')
-            check(money_token(ticket['price']) in compact, label + ' includes the ticket base price')
-            if order.get('discount'):
-                check(order['promoCode'] in text and all(money_token(order[key]) in compact for key in ['subtotal', 'discount', 'total']),
-                      label + ' includes the order subtotal, discount and final total')
+            line = amounts[index]
+            check(money_token(line['price']) in compact and money_token(line['paid']) in compact,
+                  label + ' includes its own list price and exact price after discount')
+            if line['discount']:
+                check(order['promoCode'] in text and money_token(line['discount']) in compact,
+                      label + ' includes the applied code and only its allocated discount')
             if order.get('tax'):
-                check(all(money_token(order['tax'][key]) in compact for key in ['net', 'vat']) and '12' in text,
-                      label + ' includes the VAT-exclusive amount and included twelve-percent VAT')
+                check(all(money_token(line[key]) in compact for key in ['net', 'vat']) and '12' in text,
+                      label + ' includes its own VAT-exclusive amount and included twelve-percent VAT')
+            created = order.get('created') or order.get('createdAt')
+            if created:
+                stamp = datetime.fromisoformat(created.replace('Z', '+00:00')).astimezone(ZoneInfo('Europe/Prague'))
+                check(stamp.strftime('%H:%M:%S') in text and 'Zakoupeno' in text,
+                      label + ' includes its actual purchase time to seconds in Prague time')
+            check('Doklad byl vytvořen lokálně' not in text and 'Pro skutečný vstup' not in text,
+                  label + ' keeps the ticket free of implementation paragraphs')
             if has_camping:
-                check(money_token(order['campingTotal']) in compact,
-                      label + ' includes the separate camping amount in the order summary')
+                check('Kempování' not in text and 'Stan' not in text,
+                      label + ' keeps camping on its separate voucher')
             check(pdf_page.rect.width > pdf_page.rect.height, label + ' uses a landscape layout')
             check(bool(pdf_page.get_fonts()), label + ' contains typography')
             check_pdf_qr(pdf_page, ticket.get('code') or f"{order['id']}-{index + 1}", label)
@@ -121,12 +149,82 @@ def validate_pdf(path, order, festival_dates):
                   'The camping voucher includes its order, buyer and camping identity')
             check(str(camping['people']) in text and all(money_token(camping[key]) in compact for key in ['basePrice', 'personPrice', 'price']),
                   'The camping voucher includes the selected people and complete pitch price breakdown')
-            check(all(money_token(order['tax'][key]) in compact for key in ['net', 'vat'])
-                  and money_token(order['total']) in compact,
-                  'The camping voucher includes the order total and the included VAT breakdown')
+            camping_gross = int(Decimal(str(camping['price']))*100)
+            camping_net = (camping_gross*100 + 56)//112
+            check(money_token(camping_net/100) in compact
+                  and money_token((camping_gross-camping_net)/100) in compact,
+                  'The camping voucher includes only its own included VAT breakdown')
             check_pdf_qr(voucher, order['id'] + '-camp', 'The camping voucher')
             voucher.get_pixmap(matrix=fitz.Matrix(1.6, 1.6)).save(ARTIFACTS / 'camping-voucher-preview.png')
         document[0].get_pixmap(matrix=fitz.Matrix(1.6, 1.6)).save(ARTIFACTS / 'ticket-preview.png')
+
+
+def check_account_security(browser):
+    """Password/recovery checks use separate storage so order-history fixtures remain stable."""
+    context = browser.new_context(viewport={'width':1440,'height':1000})
+    context.route(lambda url:url.startswith('https://'), lambda route:route.fulfill(status=200, content_type='text/html', body='<p>External fixture</p>'))
+    page = context.new_page()
+    errors = []
+    page.on('pageerror', lambda error:errors.append(str(error)))
+    page.goto(BASE+'account.html')
+    page.locator('#cookie-reject').click()
+    page.locator('#register-tab').click()
+    for field,value in {'auth-name':'Anna','auth-surname':'Nová','auth-phone':'+420 777 123 456','auth-email':'anna@example.test','auth-password':'FirstPassword123!','auth-confirm':'FirstPassword123!'}.items():page.locator('#'+field).fill(value)
+    page.locator('#auth-submit').click();page.wait_for_selector('#logout')
+    code=page.locator('#recovery-once-code').inner_text()
+    stored=page.evaluate("JSON.parse(localStorage.getItem('pulse:users'))[0]")
+    check(code.startswith('PPF-') and len(code)==43,'Registration shows a 128-bit recovery code')
+    check(stored['recovery']['hash'] and code not in json.dumps(stored) and 'FirstPassword123!' not in json.dumps(stored),'Stored account has only salted hash verifiers')
+    check(page.evaluate("sessionStorage.getItem('pulse:recovery-once')") is None,'Transient recovery code cleared after destination render')
+    check('2026' in page.locator('#account-created').inner_text(),'Creation date is shown')
+    page.locator('#recovery-dismiss').click()
+    tab=context.new_page();tab.goto(BASE+'account.html');tab.wait_for_selector('#logout')
+    page.locator('#password-edit').click()
+    page.locator('#password-current').fill('WrongPassword123!');page.locator('#password-new').fill('SecondPassword123!');page.locator('#password-confirm').fill('SecondPassword123!');page.locator('#password-save').click()
+    expect(page.locator('#password-error')).not_to_be_empty()
+    check(page.evaluate("JSON.parse(localStorage.getItem('pulse:users'))[0].hash")==stored['hash'],'Wrong current password cannot change credentials')
+    page.locator('#password-current').fill('FirstPassword123!');page.locator('#password-save').click();page.wait_for_selector('#auth-email');tab.wait_for_selector('#auth-email')
+    check(page.evaluate("localStorage.getItem('pulse:auth')") is None,'Password change revokes shared authentication')
+    def login(password):
+        page.locator('#auth-email').fill('anna@example.test');page.locator('#auth-password').fill(password);page.locator('#auth-submit').click()
+    login('FirstPassword123!');expect(page.locator('#auth-error')).not_to_be_empty()
+    check('Nesprávný' in page.locator('#auth-error').inner_text(),'Old password is rejected')
+    login('SecondPassword123!');page.wait_for_selector('#logout')
+    check(page.locator('#logout').is_visible(),'New password works')
+    page.locator('#logout').click();page.wait_for_selector('#auth-email')
+    page.locator('#forgot-password').click()
+    def reset(recovery,password):
+        page.locator('#auth-email').fill('anna@example.test');page.locator('#auth-recovery-code').fill(recovery);page.locator('#auth-password').fill(password);page.locator('#auth-confirm').fill(password);page.locator('#auth-submit').click()
+    reset('PPF-'+'AAAA-'*7+'AAAA','ThirdPassword123!');expect(page.locator('#auth-error')).not_to_be_empty()
+    check(page.locator('#auth-recovery-code').is_visible(),'Wrong recovery code keeps the reset form without modifying credentials')
+    reset(code,'ThirdPassword123!');page.wait_for_selector('#recovery-once-code')
+    code2=page.locator('#recovery-once-code').inner_text()
+    check(code2!=code,'Successful reset rotates recovery code')
+    page.locator('#recovery-dismiss').click();page.locator('#forgot-password').click();reset(code,'FourthPassword123!');expect(page.locator('#auth-error')).not_to_be_empty()
+    check('správný' in page.locator('#auth-error').inner_text(),'Consumed recovery code is rejected')
+    page.locator('#login-tab').click();login('SecondPassword123!');expect(page.locator('#auth-error')).not_to_be_empty();login('ThirdPassword123!');page.wait_for_selector('#logout')
+    check(page.locator('#logout').is_visible(),'Reset password works; previous password is rejected')
+    page.reload();check(page.locator('#recovery-once-code').count()==0,'Recovery secret is not shown again after reload')
+    for width in [320,375,768,1280]:
+        page.set_viewport_size({'width':width,'height':900})
+        check(page.evaluate('document.documentElement.scrollWidth <= innerWidth+1'),f'Account layout fits {width}px')
+    page.set_viewport_size({'width':1440,'height':1000})
+    page.locator('#recovery-setup').click();page.locator('#recovery-current').fill('ThirdPassword123!');page.locator('#recovery-generate').click();page.wait_for_selector('#recovery-once-code');code3=page.locator('#recovery-once-code').inner_text()
+    check(code3 not in [code,code2],'Settings create a replacement recovery code only after checking current password')
+    page.locator('#recovery-dismiss').click();page.locator('#logout').click();page.wait_for_selector('#auth-email')
+    page.locator('#forgot-password').click();reset(code2,'FourthPassword123!');expect(page.locator('#auth-error')).not_to_be_empty()
+    check('správný' in page.locator('#auth-error').inner_text(),'Generating a new code invalidates the old code')
+    salt='12'*16;password='LegacyPassword123!'
+    legacy={'id':'legacy','name':'Petr Starší','email':'legacy@example.test','phone':'+420777123456','salt':salt,'hash':hashlib.pbkdf2_hmac('sha256',password.encode(),salt.encode(),120000).hex()}
+    page.evaluate("user=>{localStorage.setItem('pulse:users',JSON.stringify([user]));localStorage.removeItem('pulse:auth');}",legacy)
+    page.goto(BASE+'account.html');page.locator('#auth-email').fill('legacy@example.test');page.locator('#auth-password').fill(password);page.locator('#auth-submit').click();page.wait_for_selector('#logout')
+    check(page.locator('#account-created').inner_text()=='—','Legacy account does not invent a creation date')
+    page.locator('#recovery-setup').click();page.locator('#recovery-current').fill(password);page.locator('#recovery-generate').click();page.wait_for_selector('#recovery-once-code')
+    check(page.evaluate("!!JSON.parse(localStorage.getItem('pulse:users'))[0].recovery"),'Legacy account can add recovery after verifying password')
+    page.evaluate("localStorage.setItem('prf:language','en')");page.reload()
+    check('Account created' in page.locator('.profile-details').inner_text(),'English profile and security controls translate')
+    check(not errors,'No JavaScript errors')
+    context.close()
 
 
 server = ThreadingHTTPServer(('127.0.0.1', 0), partial(QuietHandler, directory=str(ROOT)))
@@ -166,12 +264,16 @@ try:
             target.locator('#ticket-venue').select_option(venue)
             target.locator('#ticket-duration').select_option(str(duration))
             target.locator('#ticket-category').select_option(category)
-            target.locator('#ticket-quantity').fill(str(quantity))
+            if not target.locator('#ticket-quantity').evaluate('(input)=>input.readOnly'):
+                target.locator('#ticket-quantity').fill(str(quantity))
             if duration == 1:
                 target.locator('#ticket-day').select_option(days[0])
             elif duration == 2:
                 for value in ['d1', 'd2', 'd3']:
-                    target.locator(f'#ticket-days input[value="{value}"]').set_checked(value in days)
+                    if target.locator(f'#ticket-days input[value="{value}"]').is_checked():
+                        target.locator(f'#ticket-days input[value="{value}"]').uncheck()
+                for value in days:
+                    target.locator(f'#ticket-days input[value="{value}"]').check()
             for seat in seats:
                 target.locator(f'[data-seat="{seat}"]').click()
 
@@ -341,6 +443,29 @@ try:
         genre = next(value for value in genres_cs if value)
         page.locator('#genre').select_option(genre)
         check(0 < page.locator('#artists article').count() < 60, 'Genre filtering works after language switching')
+        filtered_artist_ids = page.locator('#artists [data-artist]').evaluate_all('(nodes)=>nodes.map(node=>node.dataset.artist)')
+        expected_artist_ids = page.evaluate('(genre)=>FESTIVAL_DATA.performers.filter(artist=>artist.genre===genre).map(artist=>artist.id)', genre)
+        check(set(filtered_artist_ids) == set(expected_artist_ids),
+              'A genre filter retains exactly the artists with that canonical genre rather than redirecting to unrelated content')
+        chosen_artist = filtered_artist_ids[0]
+        page.locator(f'#artists [data-artist="{chosen_artist}"]').first.click()
+        artist_event = page.evaluate('(id)=>FESTIVAL_DATA.events.find(event=>event.performerIds.includes(id))', chosen_artist)
+        buy_link = page.locator(f'#detail [data-artist-show="{artist_event["id"]}"] a.artist-ticket')
+        artist_href = buy_link.get_attribute('href')
+        check(all(value in artist_href for value in ['duration=1','category=standing','day='+artist_event['dayId'],
+                                                    'venue='+artist_event['venueId'],'event='+artist_event['id']]),
+              'The filtered artist detail links its actual performance to the exact one-day stage ticket')
+        buy_link.click()
+        check(page.locator('#ticket-duration').input_value() == '1'
+              and page.locator('#ticket-venue').input_value() == artist_event['venueId']
+              and page.locator('#ticket-day').input_value() == artist_event['dayId']
+              and page.locator('#ticket-category').input_value() == 'standing',
+              'Artist purchase opens the correct stage and date while retaining editable booking controls')
+        another_stage = next(venue for venue in ['h1','h2','h3'] if venue != artist_event['venueId'])
+        page.locator('#ticket-venue').select_option(another_stage)
+        check('does not include' in page.locator('#booking-context').inner_text(),
+              'Changing an artist purchase to an unrelated stage explicitly warns that the show is excluded')
+
         for route in routes:
             go(route)
             check(page.locator('html').get_attribute('lang') == 'en', f'English preference persists: {route}')
@@ -439,10 +564,10 @@ try:
         })''')
         check(event_names_once, 'Each programme row states its artist once instead of repeating the name in multiple headings')
 
-        timeline = page.locator('#events article time').evaluate_all('(nodes)=>nodes.map(n=>n.getAttribute("datetime"))')
+        timeline = page.locator('#events article .time time').evaluate_all('(nodes)=>nodes.map(n=>n.getAttribute("datetime"))')
         check(timeline == sorted(timeline), 'The full programme is ordered chronologically across all three days')
         page.locator('#day').select_option('d2')
-        day_timeline = page.locator('#events article time').evaluate_all('(nodes)=>nodes.map(n=>n.getAttribute("datetime"))')
+        day_timeline = page.locator('#events article .time time').evaluate_all('(nodes)=>nodes.map(n=>n.getAttribute("datetime"))')
         check(day_timeline == sorted(day_timeline) and all(value.startswith(festival_dates[1]['date']) for value in day_timeline),
               'Day filtering preserves chronological programme order')
         page.locator('#day').select_option('')
@@ -771,23 +896,32 @@ try:
         check(purchase.locator('#ticket-category').input_value() == 'vip'
               and purchase.locator('#ticket-duration').input_value() == '3',
               'A homepage VIP action preselects a three-day VIP ticket in the single booking form')
-        purchase.locator('#ticket-quantity').fill('9')
-        check(purchase.locator('#ticket-quantity').evaluate('(input)=>!input.checkValidity()')
-              and purchase.locator('#booking-continue').is_disabled()
-              and purchase.evaluate("!localStorage.getItem('pulse:cart:guest')"),
-              'The booking form rejects more than eight people without adding partial tickets')
-        purchase.locator('#ticket-quantity').fill('2')
-        check(purchase.locator('#booking-continue').is_disabled(), 'Two seated tickets are never allocated automatically')
+        check(purchase.locator('#ticket-quantity').evaluate('(input)=>input.readOnly')
+              and purchase.locator('#ticket-quantity').input_value() == '0',
+              'Numbered seats start with zero people and derive their count from actual selected chairs')
+        check(purchase.locator('#booking-continue').is_disabled(), 'No numbered seats are allocated automatically')
         purchase.locator('[data-seat="A1"]').click()
-        check(purchase.locator('#booking-continue').is_disabled(), 'Two people require two explicitly selected seats')
+        check(purchase.locator('#ticket-quantity').input_value() == '1'
+              and purchase.locator('#booking-continue').is_enabled()
+              and '1590' in ''.join(purchase.locator('#booking-total').inner_text().split()),
+              'The first chair immediately sets one person, one ticket price and enables checkout')
         purchase.locator('[data-seat="A2"]').click()
-        check(purchase.locator('#booking-continue').is_enabled()
+        check(purchase.locator('#ticket-quantity').input_value() == '2'
+              and '3180' in ''.join(purchase.locator('#booking-total').inner_text().split())
               and purchase.locator('#selection [data-unselect] svg.remove-ticket-icon').count() == 2,
-              'Selecting the requested two seats enables checkout and exposes recognizable remove controls')
+              'A second chair automatically increases the person count and exact selected-seat total')
         purchase.locator('#selection [data-unselect="A1"]').click()
-        check(purchase.locator('#booking-continue').is_disabled()
+        check(purchase.locator('#booking-continue').is_enabled()
+              and purchase.locator('#ticket-quantity').input_value() == '1'
+              and '1590' in ''.join(purchase.locator('#booking-total').inner_text().split())
               and purchase.locator('[data-seat="A1"]').get_attribute('aria-pressed') == 'false',
-              'Removing a selected seat updates the map and required seat count together')
+              'Removing one selected chair immediately reduces its person count and total')
+        purchase.locator('#selection [data-unselect="A2"]').click()
+        check(purchase.locator('#booking-continue').is_disabled()
+              and purchase.locator('#ticket-quantity').input_value() == '0'
+              and ''.join(purchase.locator('#booking-total').inner_text().split()) == '0Kč',
+              'Removing the last selected chair resets both total and person count to zero')
+        purchase.locator('[data-seat="A2"]').click()
         purchase.locator('[data-seat="A1"]').click()
         purchase.locator('#booking-continue').click()
         purchase.wait_for_url('**/cart.html')
@@ -892,6 +1026,12 @@ try:
             matrix[category] = prices
         check(matrix == {'vip':[590,1180,1590], 'regular':[390,780,990], 'standing':[190,380,490]},
               'Every category displays the agreed one-, two- and three-day gross prices')
+        booking(purchase,3,'vip',seats=tuple('B'+str(index) for index in range(1,9)))
+        purchase.locator('[data-seat="A7"]').click()
+        check(purchase.locator('#ticket-quantity').input_value() == '8'
+              and purchase.locator('#selection [data-unselect]').count() == 8
+              and bool(purchase.locator('#booking-error').inner_text()),
+              'A ninth clicked chair is refused while preserving the eight valid chosen places')
         booking(purchase, 3, 'vip', 2)
         sold_seat = promo_order['tickets'][0]['seat']
         check(purchase.locator(f'[data-seat="{sold_seat}"]').is_disabled(),
@@ -916,6 +1056,10 @@ try:
               and purchase.locator('#ticket-duration').input_value() == '1'
               and purchase.locator('#ticket-day').input_value() == 'd3',
               'A one-day purchase link preselects its category and festival day')
+        purchase.locator('#ticket-quantity').fill('9')
+        check(purchase.locator('#ticket-quantity').evaluate('(input)=>!input.checkValidity()')
+              and purchase.locator('#booking-continue').is_disabled(),
+              'Standing quantity still rejects more than eight people without adding partial tickets')
         purchase.locator('#ticket-quantity').fill('8')
         check(not purchase.locator('.booking-seat-section').is_visible(),
               'Standing purchases proceed by quantity without a seat-map step')
@@ -929,10 +1073,18 @@ try:
         purchase.evaluate("localStorage.setItem('pulse:cart:guest','[]')")
         purchase.goto(BASE + 'tickets.html')
         booking(purchase, 2, 'regular', days=('d1','d3'))
-        purchase.locator('#ticket-days input[value="d2"]').check()
-        check(purchase.locator('#booking-continue').is_disabled(),
-              'A two-day pass cannot proceed with three selected dates')
-        purchase.locator('#ticket-days input[value="d2"]').uncheck()
+        check(purchase.locator('#ticket-days input[value="d2"]').is_disabled(),
+              'The third date is unavailable once exactly two dates are explicitly selected')
+        purchase.locator('#ticket-duration').select_option('1')
+        purchase.locator('#ticket-duration').select_option('2')
+        check(purchase.locator('#ticket-days input:checked').count() == 0
+              and purchase.locator('#booking-continue').is_disabled(),
+              'Choosing a two-day pass requires explicit dates and never silently chooses a default pair')
+        purchase.locator('#ticket-days input[value="d1"]').check()
+        check(purchase.locator('#booking-continue').is_disabled()
+              and purchase.locator('#seat-map [data-seat]:enabled').count() == 0,
+              'One selected date cannot activate a two-day purchase or its seat choices')
+        purchase.locator('#ticket-days input[value="d3"]').check()
         purchase.locator('[data-seat="C2"]').click()
         purchase.locator('#ticket-category').select_option('vip')
         check(purchase.locator('#selection [data-unselect]').count() == 0 and purchase.locator('#booking-continue').is_disabled(),
@@ -1142,6 +1294,50 @@ try:
             check(all(('River Stage' if ticket['venueId']=='h2' else 'Club Stage') in document[index].get_text()
                       for index,ticket in enumerate(stage_order['tickets'])),
                   'Each single-stage PDF page names the stage that the purchased ticket admits')
+        capacity_rows = stage.evaluate('PulseCapacity.snapshot()')
+        expected_sold = {('h2','d1'):2, ('h3','d1'):1}
+        check(len(capacity_rows) == 9 and all(row['sold'] == expected_sold.get((row['venueId'],row['dayId']),0)
+              and row['remaining'] == row['capacity']-row['sold'] and row['inCart'] == 0 for row in capacity_rows),
+              'Live capacity reports sold and remaining admissions for every separate stage and festival day')
+        for route, selector in [('index.html','.home-capacity'), ('venues.html','#h2'),
+                                 ('program.html?venue=h2&day=d1','#events')]:
+            stage.goto(BASE + route)
+            rows = stage.locator(selector+' [data-capacity-stage="h2"][data-capacity-day="d1"]')
+            check(rows.count() > 0 and all(row.get_attribute('data-capacity-sold') == '2'
+                  and row.get_attribute('data-capacity-remaining') == '2998' for row in rows.all()),
+                  'The same confirmed stage/day capacity appears consistently on '+route)
+        stage.goto(BASE+'index.html')
+        capacity_peer = stage_context.new_page()
+        capacity_peer.goto(BASE+'tickets.html?venue=h2&duration=1&day=d2&category=standing')
+        capacity_peer.locator('#booking-continue').click()
+        capacity_peer.wait_for_url('**/cart.html')
+        cart_capacity = stage.locator('.home-capacity [data-capacity-stage="h2"][data-capacity-day="d2"]')
+        expect(cart_capacity).to_contain_text('v tvém košíku')
+        check(cart_capacity.get_attribute('data-capacity-sold') == '0'
+              and cart_capacity.get_attribute('data-capacity-remaining') == '3000',
+              'A cart admission is displayed separately and never counted as a confirmed sold place')
+        capacity_peer.locator('[data-remove]').click()
+        expect(cart_capacity).not_to_contain_text('v tvém košíku')
+        check(cart_capacity.get_attribute('data-capacity-sold') == '0',
+              'Removing a cart ticket refreshes other open capacity views without changing sold inventory')
+        capacity_peer.close()
+
+        allocation_orders = [
+            {'tickets':[{'price':1290},{'price':380}], 'discount':200, 'tax':{'rate':12}},
+            {'tickets':[{'price':1},{'price':1},{'price':1}], 'discount':0.01, 'tax':{'rate':12}},
+            {'tickets':[{'price':110},{'price':90}], 'discount':0, 'tax':{'rate':12}},
+            {'tickets':[{'price':190},{'price':390},{'price':590}], 'discount':117, 'tax':{'rate':12}},
+            {'tickets':[{'price':1},{'price':2}], 'discount':3, 'tax':{'rate':12}},
+        ]
+        for fixture in allocation_orders:
+            result = stage.evaluate('(order)=>PulseTickets.allocateTicketAmounts(order)',fixture)
+            expected = ticket_amounts(fixture)
+            check(all(all(Decimal(str(actual[key])) == Decimal(str(wanted[key])) for key in wanted)
+                      for actual,wanted in zip(result,expected))
+                  and sum(Decimal(str(line['discount'])) for line in result) == Decimal(str(fixture['discount'])),
+                  'PDF allocation independently matches integer-haler proportional shares and deterministic remainder ties: '
+                  +str([ticket['price'] for ticket in fixture['tickets']])+'/'+str(fixture['discount']))
+
         for venue, expected in [('h2',2998),('h3',1499),('all',1499),('h1',4952)]:
             stage.goto(BASE + 'tickets.html')
             booking(stage, 1, 'standing', venue=venue)
@@ -1204,11 +1400,11 @@ try:
         check(stage.locator('[data-seat="A8"]').is_enabled()
               and stage.evaluate("PulseAdmission.remaining({venueId:'all',category:'vip',days:['d1'],orders:JSON.parse(localStorage.getItem('pulse:orders'))})") == 1,
               'The last Club admission allows any available Main Hall chair rather than arbitrarily limiting the seat map')
-        stage.locator('#ticket-quantity').fill('2')
         stage.locator('[data-seat="A7"]').click()
         stage.locator('[data-seat="A8"]').click()
-        check(stage.locator('#booking-continue').is_disabled(),
-              'Two seated full passes cannot bypass a single remaining Club admission')
+        check(stage.locator('#ticket-quantity').input_value() == '1'
+              and bool(stage.locator('#booking-error').inner_text()),
+              'A second chair cannot bypass a single remaining Club admission')
         booking(stage, 1, 'vip', seats=('A8',))
         stage.locator('#booking-continue').click()
         stage.wait_for_url('**/cart.html')
@@ -1308,8 +1504,29 @@ try:
         expect(stage.locator('.ticket-paper')).to_have_count(2)
         check(stage.evaluate("JSON.parse(localStorage.getItem('pulse:orders')).at(-1).total") == 220,
               'The merged standing selection completes as two correctly priced stage admissions')
+        stage.goto(BASE+'tickets.html?venue=h2&duration=1&day=d2&category=standing')
+        stage.locator('#ticket-quantity').fill('2')
+        stage.locator('#booking-continue').click()
+        stage.wait_for_url('**/cart.html')
+        stage.locator('#promo-code').fill('PULSE10')
+        stage.locator('#apply-promo').click()
+        peer_cart = stage_context.new_page()
+        peer_cart.goto(BASE+'cart.html')
+        peer_cart.locator('[data-remove]').first.click()
+        expect(stage.locator('#order-total')).to_contain_text('99')
+        check(stage.locator('[data-remove]').count() == 1
+              and '110' in stage.locator('#order-subtotal').inner_text()
+              and '11' in stage.locator('#order-discount').inner_text(),
+              'Removing a ticket in another tab recalculates the open cart subtotal, discount and payable amount')
+        peer_cart.locator('[data-remove]').click()
+        expect(stage.locator('main')).to_contain_text('Košík je prázdný')
+        check(stage.locator('#checkout, #order-total').count() == 0,
+              'Emptying the cart in another tab removes stale checkout totals and payment controls')
+        peer_cart.close()
         check(not stage_errors, 'Stage selection, independent inventories, boundary checks and PDF export produce no runtime errors')
         stage_context.close()
+
+        check_account_security(browser)
 
         # Corrupt optional metadata must not erase otherwise valid ticket history or stock.
         damaged_context = browser.new_context(storage_state=context.storage_state(), accept_downloads=True)
@@ -1353,9 +1570,9 @@ try:
         damaged_download.value.save_as(str(damaged_pdf))
         with fitz.open(damaged_pdf) as document:
             text = unicodedata.normalize('NFC',document[0].get_text())
-            check(len(document) == 1 and 'Údaje o kempu nejsou úplné.' in text
-                  and money_token(1240) in ''.join(text.split()) and 'DPH' not in text and 'NaN' not in text,
-                  'An incomplete-camping PDF keeps the original saved order total and valid ticket without inventing a voucher or tax')
+            check(len(document) == 1 and money_token(590) in ''.join(text.split())
+                  and money_token(1240) not in ''.join(text.split()) and 'DPH' not in text and 'NaN' not in text,
+                  'An incomplete-camping PDF keeps the valid ticket price without mislabelling the order total as one ticket')
             check_pdf_qr(document[0], 'DAMAGED-5', 'The preserved damaged-order ticket')
         damaged.goto(BASE + 'tickets.html?category=vip&duration=1&day=d2')
         check(all(damaged.locator(f'[data-seat="B{index}"]').is_disabled() for index in range(1,6)),
@@ -1401,7 +1618,7 @@ try:
         go('info.html')
         check(page.locator('#venue-plan').is_visible() and page.locator('#venue-plan svg').count() > 0,
               'Practical information includes an offline festival-site plan')
-        check(all(page.locator(f'#plan-{venue}').get_attribute('href') == f'program.html?venue={venue}' for venue in ['h1','h2','h3']),
+        check(all(page.locator(f'#plan-{venue}').get_attribute('href') == f'program.html?venue={venue}&day=d1' for venue in ['h1','h2','h3']),
               'All three stages on the offline plan link directly to their stage programmes')
         plan = page.locator('#festival-plan-svg')
         original_view = plan.get_attribute('viewBox')
@@ -1414,6 +1631,57 @@ try:
         check(moved[0] > zoomed[0], 'The zoomed venue plan can be panned using the keyboard')
         page.locator('[data-plan-reset]').click()
         check(plan.get_attribute('viewBox') == original_view, 'Reset restores the complete venue plan')
+        for layer in ['routes','facilities','transport']:
+            control = page.locator(f'[data-plan-layer="{layer}"]')
+            control.uncheck()
+            check(page.locator(f'[data-plan-layer-group="{layer}"]').is_hidden()
+                  and page.locator('#plan-h1').count() == 1,
+                  'The '+layer+' map layer can be hidden while stage navigation remains available')
+            control.check()
+        for _ in range(6):
+            if page.locator('[data-plan-zoom="in"]').is_enabled():
+                page.locator('[data-plan-zoom="in"]').click()
+        max_view = [float(value) for value in plan.get_attribute('viewBox').split()]
+        check(abs(max_view[2]-150) < 0.01 and abs(max_view[3]-102.5) < 0.01
+              and page.locator('[data-plan-zoom="in"]').is_disabled()
+              and page.locator('#venue-plan').evaluate('(node)=>node.classList.contains("plan-is-close")'),
+              'The detailed offline map reaches eight-times zoom, reveals close detail and stops at its supported limit')
+        plan.focus()
+        page.keyboard.press('ArrowRight')
+        after_pan = [float(value) for value in plan.get_attribute('viewBox').split()]
+        check(after_pan[0] > max_view[0]
+              and after_pan[0]+after_pan[2] <= 1200.01 and after_pan[1]+after_pan[3] <= 820.01,
+              'Detailed zoom retains keyboard panning without leaving the map bounds')
+        page.locator('[data-plan-reset]').click()
+        check(plan.get_attribute('viewBox') == original_view
+              and page.locator('[data-plan-zoom="out"]').is_disabled(),
+              'Reset after detailed exploration restores the whole site and minimum zoom state')
+
+        check(page.locator('#plan-day option').count() == 3,
+              'The detailed map offers each canonical festival day')
+        page.locator('#plan-day').select_option('d3')
+        check(all(page.locator(f'#plan-{venue}').get_attribute('href') == f'program.html?venue={venue}&day=d3'
+                  and page.locator(f'[data-plan-program="{venue}"]').get_attribute('href') == f'program.html?venue={venue}&day=d3'
+                  for venue in ['h1','h2','h3']),
+              'Map stage links preserve the selected capacity day in the programme')
+        plan_snapshot = plan.get_attribute('viewBox')
+        original_orders = page.evaluate("localStorage.getItem('pulse:orders')")
+        club_before = int(page.locator('[data-plan-capacity="h3"]').get_attribute('data-remaining'))
+        map_peer = context.new_page()
+        map_peer.goto(BASE + 'index.html')
+        map_peer.evaluate('''edition => {
+            const orders=JSON.parse(localStorage.getItem('pulse:orders')||'[]');
+            orders.push({id:'map-live-capacity',edition,tickets:[PulseAdmission.ticketFor('d3','S1499','day',undefined,'h3')]});
+            localStorage.setItem('pulse:orders',JSON.stringify(orders));
+        }''', current_edition)
+        expect(page.locator('[data-plan-capacity="h3"]')).to_have_attribute('data-remaining', str(club_before-1))
+        check(plan.get_attribute('viewBox') == plan_snapshot,
+              'A purchase in another tab refreshes map capacity without resetting its view')
+        map_peer.evaluate('''saved => saved === null ? localStorage.removeItem('pulse:orders') : localStorage.setItem('pulse:orders',saved)''', original_orders)
+        expect(page.locator('[data-plan-capacity="h3"]')).to_have_attribute('data-remaining', str(club_before))
+        map_peer.close()
+        page.locator('#plan-day').select_option('d1')
+
         check(page.locator('#privacy, #terms, #credits').count() == 0,
               'Visitor information keeps privacy, terms and full photo credits on their dedicated pages')
 

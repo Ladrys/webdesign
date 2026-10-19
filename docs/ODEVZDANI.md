@@ -1,37 +1,49 @@
-# Co odevzdat na jednotlivá cvičení
+# Co odevzdat
 
-Autoři: **Michal Ladra, Matěj Mlejnek, Jan Martínek**. Připravené soubory jsou ve složce [`odevzdani/`](../odevzdani/README.md). Před prezentací odevzdejte také prezentaci, kterou budete promítat.
+## Nyní · cvičení 2
 
-| Termín | Požadované soubory | Připravená složka |
-| --- | --- | --- |
-| **Cvičení 2** | `project-specification.md`, `data.xml`, použitá prezentace (`prezentace.pptx` / `prezentace.pdf`) | [`cviceni-02-specifikace`](../odevzdani/cviceni-02-specifikace/) |
-| **Cvičení 3** | Celá složka `prototype/`, `progress-02.md`, použitá prezentace | [`cviceni-03-prototyp`](../odevzdani/cviceni-03-prototyp/) |
-| **Cvičení 4** | Celá složka `web/`, `progress-03.md`, použitá prezentace | [`cviceni-04-implementace`](../odevzdani/cviceni-04-implementace/) |
-| **Cvičení 5** | Celá review-ready složka `web/`, `progress-04.md`, použitá prezentace. Pro druhý tým také `project-specification.md`. | [`cviceni-05-review-ready`](../odevzdani/cviceni-05-review-ready/) |
-| **Cvičení 6** | `review.md` k přidělenému **cizímu projektu**, použitá prezentace | [`cviceni-06-cross-review`](../odevzdani/cviceni-06-cross-review/) — zatím šablona |
-| **Finální projekt** | Celá složka `projekt/` ve struktuře níže | [`finalni-projekt`](../odevzdani/finalni-projekt/) |
+Použijte [**připravený ZIP**](../odevzdani/cviceni-02-k-odevzdani.zip)
+nebo nahrajte čtyři soubory ze složky
+[`cviceni-02-specifikace/`](../odevzdani/cviceni-02-specifikace/):
 
-XML je naše zvolená datová základna; není nutné odevzdávat současně XML, JSON i Excel. Složky `web/` a `prototype/` odevzdávejte celé, včetně skriptů, stylů a obrázků. Pokud zadání v Moodlu umožňuje ZIP, zabalte obsah příslušné složky cvičení. Samotné `index.html` nestačí.
+1. **`project-specification.md`** — identita, cíle, skupiny, architektura a scénáře.
+2. **`data.xml`** — datová základna festivalu.
+3. **`festival.xsd`** — schéma, na které XML odkazuje.
+4. **`prezentace.pptx`** — prezentace, kterou budete promítat.
 
-Pro **cvičení 2** tedy stačí `project-specification.md`, `data.xml` a **jedna použitá prezentace**. Přiložit doporučujeme i `festival.xsd`, protože na něj XML odkazuje: celkem čtyři soubory. PDF a PPTX nemusíte nahrávat oba, pokud budete promítat jen jeden.
+**Poznámky řečníka neodevzdávejte.** Jsou uvnitř PowerPointu a také
+v [`poznamky/cviceni-02.md`](../odevzdani/poznamky/cviceni-02.md).
+PDF náhled je zvlášť v [`nahledy/cviceni-02.pdf`](../odevzdani/nahledy/cviceni-02.pdf);
+není součástí odevzdávací složky ani ZIPu.
 
-[Připravený ZIP pro cvičení 2](../odevzdani/cviceni-02-k-odevzdani.zip) obsahuje právě tyto čtyři soubory s PowerPointem. Pokud budete promítat PDF, nahraďte v balíčku PPTX odpovídajícím PDF.
+Pokud budete promítat PDF místo PowerPointu, nahraďte PPTX tímto PDF.
+Není třeba odevzdávat oba formáty ani další exporty JSON.
 
-`presenter-notes.md` si nechte k přípravě řečníka. Validační reporty a dokumentace u průběžných složek jsou doplňkové materiály; tabulka výše rozlišuje povinné minimum. U prezentací je přiložen editovatelný PowerPoint a PDF se stejným obsahem. Odevzdejte všechny verze, které budete při prezentaci používat.
+## Další cvičení
 
-## Co stručně ukázat
-
-| Cvičení | Obsah prezentace na 3–5 minut |
+| Termín | Co odevzdat |
 | --- | --- |
-| **2** | Festival a účel webu, cílové skupiny, informační architektura, dva klíčové scénáře, datový rozsah. |
-| **3** | Mobilní a desktopový návrh, navigace a průchod dvěma scénáři; alespoň tři smysluplné interaktivní funkce. |
-| **4** | Implementovaný web na mobilu i desktopu, navigace, funkční interaktivita, změny oproti návrhu a jejich důvod. |
-| **5** | Stav připravený pro review, dva konkrétní scénáře, funkce a známé nedostatky. |
-| **6** | Metodika hodnocení, 3–5 skutečných nálezů u cizího projektu, jejich závažnost a doporučené úpravy. |
+| **Cvičení 3** | Celé `prototype/`, `progress-02.md`, použitou prezentaci |
+| **Cvičení 4** | Celé `web/`, `progress-03.md`, použitou prezentaci |
+| **Cvičení 5** | Review-ready `web/`, `progress-04.md`, použitou prezentaci; druhému týmu také specifikaci |
+| **Cvičení 6** | `review.md` cizího projektu a prezentaci jeho skutečných nálezů |
 
-V každé prezentaci také stručně řekněte **co přibylo od předchozího milníku, jaká rozhodnutí jste udělali, k čemu pomohla AI a jak jste výsledek ověřili**. U AI rozlište přijatý návrh, vlastní úpravu nebo odmítnutí a nalezený limit. Jako ověření uveďte konkrétní postup a výsledek, například filtr → porovnání výsledných ID s XML nebo stažení PDF → kontrola jeho dat a QR.
+Příslušné složky najdete v [`odevzdani/`](../odevzdani/README.md).
+Web i prototyp odevzdávejte celé, včetně dat, stylů, skriptů a obrázků.
 
-## Struktura finálního projektu
+## Co ukázat za 3–5 minut
+
+- **Cvičení 2:** festival, účel, cílové skupiny, architektura, datové vazby a dva scénáře.
+- **Cvičení 3:** mobilní a desktopový návrh, dva průchody a tři smysluplné funkce.
+- **Cvičení 4:** fungující stránky, navigace, responzivita a interaktivita.
+- **Cvičení 5:** kompletní web, dva opakovatelné scénáře a známé nedostatky.
+- **Cvičení 6:** dvě metody hodnocení, 3–5 nálezů, závažnost a doporučené opravy.
+
+V každé prezentaci stručně vysvětlete výstup daného milníku, hlavní
+rozhodnutí, použití AI a konkrétní ověření. Poznámky připomínají, co ukázat
+a jak souvisí funkce s daty.
+
+## Finální projekt
 
 ```text
 projekt/
@@ -40,13 +52,13 @@ projekt/
 ├── documentation.md
 ├── data.xml
 ├── web/
-│   ├── index.html
-│   ├── css/
-│   ├── js/
-│   ├── images/
-│   └── …
 └── review/
     └── received-review.md
 ```
 
-Povinná dokumentace je v Markdownu. Word a PDF jsou doplňkové verze. Současné průběžné balíčky byly připraveny dodatečně z projektu; nejsou důkazem dřívějšího odevzdání. Skutečné přijaté review ani hodnocení dosud nepřiloženého cizího projektu nelze nahradit šablonou. Před finálním odevzdáním doplňte reálná review a skutečné údaje o práci týmu.
+Povinná dokumentace je Markdown; Word a PDF jsou doplňkové verze.
+Cvičení 6 je zatím šablona: před odevzdáním doplňte skutečné hodnocení
+přiděleného projektu. Přijaté review patří do `review/received-review.md`.
+
+Ve VS Code otevře `Ctrl+Shift+V` čitelný náhled Markdownu. Zdroj lze
+ponechat vedle náhledu klávesami `Ctrl+K`, potom `V`.

@@ -1,58 +1,42 @@
-# Ověření Prague Pulse Fest — 19. října 2026
+# Ověření Prague Pulse Fest — verze 1.2.0
 
-Záznam pro verzi **1.1.0**: samostatné scény, společný vstup, plné koncertní sety a sjednocené školní podklady. Jde o konkrétní místní kontroly, nikoli externí cross-review nebo úplný audit WCAG.
+**Datum:** 19. října 2026. Záznam zachycuje konkrétní kontroly výsledného webu a podkladů.
 
-| Ověření | Výsledek |
+| Kontrola | Výsledek |
 | --- | --- |
-| `python validate_project.py` | Prošlo: XML/XSD, 7 XSLT a JSON schémat, OpenAPI, 13 HTML vstupů, reprodukovatelnost dat, reference, kapacity, ceny a časový plán |
-| `python tests/browser_smoke.py` s QR dekodérem | **567 kontrol prošlo**, včetně skutečně stažených PDF a dekódování QR |
-| `python tests/course_materials.py --folder odevzdani` | **155 kontrol prošlo**: 5 prezentací × 6 snímků, PPTX/PDF, poznámky, autoři, prototyp, manifest, kopie webu a čtyřsouborový ZIP |
-| Responzivní rozložení | **224 kombinací prošlo** bez přetékání a chyb JavaScriptu: 13 stránek × 8 šířek × CZ/EN a dalších 16 pohledů výběru scén |
-| Anglické rozhraní | **17 pohledů prošlo**: 13 HTML vstupů, tři samostatné scény a osobní program s kolizí; žádný chybějící překlad ani chyba JavaScriptu |
-| Doplňková dokumentace PDF | 12 stran; všechny textové bloky uvnitř stran, vizuálně zkontrolovaný export |
-| Syntax `web/js/*.js` a `git diff --check` | Prošlo |
-| Přímé otevření `file://` v místním řízeném Chromium | **Přeskočeno:** politika `ERR_BLOCKED_BY_ADMINISTRATOR`; nepočítá se jako úspěšná kontrola |
+| `python validate_project.py` | XML/XSD, 4 úplné JSON exporty, ID a reference, program, ceny, kapacity, HTML vstupy a reprodukovatelnost dat prošly |
+| `python tests/browser_smoke.py` s QR dekodérem | **637 kontrol prošlo**; skutečné průchody, stažené PDF a dekódování QR |
+| `python tests/course_materials.py --folder odevzdani` | **156 kontrol prošlo**; 5 × 6 snímků, PPTX/PDF, poznámky, prototyp, kopie webu, manifest a obsah C02 |
+| Responzivní rozložení | **224 kombinací** stránek, šířek a jazyků bez vodorovného přetékání či chyby JavaScriptu |
+| Anglické rozhraní | **17 pohledů** bez chybějících překladů; vlastní názvy ulic jsou zachované |
+| Podrobný plánek | **20 cílených kontrol** včetně skutečného dotykového pinch zoomu, vrstev, ukotvení kolečka a kapacit mezi kartami |
+| Dokumentace PDF | 13 stran, žádný text mimo hranice strany |
+| Syntax JS/Python a `git diff --check` | Prošlo |
+| Přímé otevření `file://` místně | Přeskočeno kvůli politice řízeného Chromium; není započítané jako úspěch |
 
-Browserový průchod běžel s `numpy` a `zxing-cpp`; QR se skutečně načetly z rasterizovaných PDF. Testy používají dočasný vývojový statický server. Ten není součástí požadavků na spuštění hotového webu. GitHub Actions má vlastní výsledek pro konkrétní commit v historii workflow.
+## Ověřené uživatelské průchody
 
-## Program a data
+- **Interpret → nákup:** filtr žánru vede ke správnému profilu; odkaz přenese ID vystoupení, scénu a den do jednodenní vstupenky. Změna nepokrývající daný koncert vyvolá konkrétní upozornění.
+- **Výběr sedadel:** 0/1/2 sedadel znamená 0/1/2 osoby a odpovídající cenu. Odebrání posledního vynuluje cenu. Deváté sedadlo nepřekročí limit osmi osob na jeden výběr; stání používá vlastní množství.
+- **Dva dny:** výběr nezačíná skrytě předvolenou dvojicí. Nula, jeden nebo tři dny neumožní pokračovat; první a třetí den se zachovají v košíku, objednávce i PDF.
+- **Košík:** po odebrání se přepočítá základ, promo, DPH, celková cena a počet položek. Kontakty zůstanou zachované. Změna v jiné kartě včetně vyprázdnění se zobrazí průběžně.
+- **Kapacity:** program, profily, scény, výběr, košík a plánek používají stejné validní objednávky ročníku 2027. Prodané vstupy a vlastní košík se rozlišují. Společný pas ovlivní všechny tři scény, samostatný jen vybranou. Platné staré objednávky 2026 novou kapacitu neblokují.
+- **Hranice dostupnosti:** poslední místo Club Stage omezuje společný vstup, ale ne samostatný River. Libovolné volné sedadlo Main Hall lze vybrat do zbývající kapacity. Stání se posuzuje podle denních počtů, nikoli interních čísel fyzických pozic. Objednávka znovu ověřuje aktuální stav; místní Web Locks řadí souběžná potvrzení.
+- **Účet:** datum registrace, profil, změna přes současné heslo, odmítnutí starého hesla a odhlášení ostatních karet. Obnova vyžaduje e-mail i náhodný 128bitový kód; po použití se heslo i kód vymění. Špatný nebo již použitý kód nic nezmění. Starší účet dostane kód až po ověření hesla a nemá vymyšlené datum vytvoření.
+- **PDF:** tmavý vzhled, skutečný čas nákupu v pražském čase, ID, kupující, scéna, přesné dny a sedadlo. Každá vstupenka má vlastní cenu a podíl slevy se skutečným kódem. Nezávislý Python výpočet ověřuje haléřové rozdělení slevy včetně shodných zbytků a nulové výsledné ceny. Kemp má vlastní finanční rozpis na samostatném voucheru. QR se opravdu dekódují.
+- **Plánek:** zoom 1–8×, posun, vrstvy a dotykové ovládání. Zvolený den určuje zbývající kapacitu a odkazy do programu. Objednávka v druhé kartě aktualizuje čísla bez ztráty přiblížení.
+- **Soukromí:** Google mapa vznikne až po souhlasu; odvolání ji odstraní. Offline plánek a ostatní funkce souhlas s externí mapou nepotřebují.
 
-- Zachováno 3 dny, 3 scény, 60 jedinečných interpretů a 60 vystoupení; každý interpret právě jednou, 20 vystoupení denně a 20 na scénu.
-- Běžné sety trvají 60 minut, závěrečný koncert Main Hall 90 minut. Stejná scéna má nejméně 30 minut na technickou přestavbu.
-- Devět závěrečných koncertů je označeno v XML i exportu: každý den River 18:30–19:30, Club 20:00–21:00 a Main Hall 21:30–23:00. Půlhodinové přesuny byly ověřené; ostatní scény mohou hrát souběžně.
-- Osobní program označí skutečně se překrývající vybrané sety. Uložení všech devíti závěrečných koncertů kolizi nevyvolá. Koncert končící přesně při začátku dalšího není časový překryv.
-- XML, odvozené JSON a přibalené `data.js` souhlasí. Kořenové kopie XML/XSD souhlasí se zdroji v `data/`.
+## Data a podklady
 
-## Vstupenky a dostupnost
+Zdrojové XML má 3 dny, 3 scény, 60 jedinečných interpretů a 60 provázaných vystoupení. Běžné sety trvají 60 minut, hlavní koncerty Main Hall 90 minut. Stejná scéna má nejméně 30 minut na přestavbu; devět večerních závěrečných koncertů navazuje s půlhodinou na přesun.
 
-- Main Hall má celkovou kapacitu 5 000: 16 VIP a 32 Regular sedadel, 4 952 stání. River má 3 000 stání, Club 1 500 stání. Jsou to návrhové kapacity fiktivního festivalu.
-- Samostatné ceny scén i původní společné tarify jsou ověřené pro jeden, dva a tři dny. River a Club nemohou nabídnout sedadlo. Společný VIP/Regular vstup má sedadlo pouze v Main Hall.
-- Společný vstup započítá návštěvníka do každé zahrnuté scény v každém platném dni. Samostatný vstup spotřebuje jen svou kapacitu. Zakoupené sedadlo Main Hall je stejné pro oba rozsahy vstupu.
-- Poslední volná kapacita Club Stage dovolí zvolit libovolné volné sedadlo Main Hall, například A8, ale nepovolí druhý společný vstup. Vyprodaný Club neblokuje dosud volný samostatný River.
-- Stání používá denní počty. Regrese s různými interními čísly v prvním a třetím dni zachová poslední dostupnou dvoudenní vstupenku. Při přihlášení se dva samostatné výběry na stání nesloučí do jedné osoby.
-- Závěrečná kontrola pod místním Web Lock znovu čte objednávky, ceny a kapacitu. Prověřené změny v druhé kartě a zastaralý formulář nevedou k přeprodeji. Web Locks zlepšuje souběh karet stejného původu; bez jeho podpory zůstává opakovaná místní kontrola, nikoli serverová garance.
-- Ověřený limit 264 vstupenek: přidání 265. je odmítnuto; upravený nadlimitní košík se nesmaže a lze ho opravit odebráním položky.
-- Chybná scéna, kategorie, cena, počet dnů a neplatné číslo jsou odmítnuté. Starší záznam bez scény znamená společný vstup, objednávka bez ročníku zachovává 2026 a neblokuje kapacitu 2027.
+Čtyři JSON exporty odpovídají XML a přibalenému `data.js`. Historické API ukázky již nejsou součástí současného datového toku. Obsah složky i ZIP pro cvičení 2 je přesně `project-specification.md`, `data.xml`, `festival.xsd`, `prezentace.pptx`. Náhled PDF a řečnické poznámky jsou oddělené. Prezentace mají shodný viditelný text PPTX/PDF a žádný text mimo stránku.
 
-## Zachované průchody
+Podrobný výsledek je v `review/browser-validation-2026-10-19.json`; rozložení a jazyk mají vlastní datované JSON. `odevzdani/manifest.json` obsahuje kontrolní otisky exportů. Ukázky PDF a snímky spuštěného webu jsou v kořenové složce `preview/` vývojového repozitáře. GitHub Actions má vlastní výsledek pro konkrétní commit.
 
-Plná sada znovu prověřila hledání typu contains, normalizaci diakritiky, detaily a filtry, oblíbené, účet a PBKDF2, profil, sedmidenní expiraci, košík hosta i účtu, promo kódy, zahrnutou 12% modelovou DPH, kemp, chybná uložená data, sedm simulovaných metod a PDF. Souhlas s externí mapou se ukládá na 180 dnů; odmítnutí zabrání vložení Google iframe, odvolání ho odstraní. Aplikace sama HTTP cookies nevytváří.
+## Rozsah
 
-PDF správně uvádí scénu nebo společný vstup, přesná data, sedadlo u sedících kategorií, cenu a číslo objednávky. `preview/vstupenky-jedna-scena.pdf` má dvě River vstupenky a jednu Club vstupenku na první den, celkem 310 Kč. `preview/vstupenky-ukazka.pdf` ukazuje vstupenku na stání s promem PRAHA200 a stan pro dvě osoby: vstupenka po slevě 0 Kč + kemp 650 Kč. Kontakty jsou smyšlené testovací údaje.
+Testy běžely ve skutečném Chromium nad dočasným vývojovým statickým serverem; ten není běhovou závislostí webu. Neproběhl úplný externí audit WCAG, kontrola všech HTML stavů ani uživatelská studie na fyzických telefonech. Vlastní kontroly nenahrazují požadované skutečné cross-review druhého týmu.
 
-## Podklady a dohledatelnost
-
-- `review/browser-validation-2026-10-19.json`: jednotlivé assertions, čas a SHA-256 stromu webu.
-- `review/layout-validation-2026-10-19.json`: naměřené šířky a pohledy.
-- `review/language-validation-2026-10-19.json`: výsledek anglických pohledů.
-- `odevzdani/manifest.json`: SHA-256 všech exportovaných souborů.
-- `odevzdani/cviceni-02-k-odevzdani.zip`: právě specifikace, XML, XSD a jedna PPTX prezentace; žádné samostatné poznámky ani duplicitní PDF.
-- `preview/home.png`, `web-desktop.png`, `web-mobile.png`: nové snímky skutečně spuštěného webu. Vizuálně zkontrolované C02 a informační architektura, exportované prezentace mají kontrolované hranice textu a shodu PDF/PPTX.
-
-## Limity odevzdání
-
-Nebylo doplněno vymyšlené cross-review, historie spolupráce ani schválení změn proti prvním milníkům. Tým musí dodat skutečné podklady pro cvičení 6 a finální dokumentaci. Zadání uvádí čtyřčlenný tým, uživatel zadal tři uvedené autory. Požadavek na výhradně AI vizuály se liší od výslovného přání použít skutečné fotografie; rozdíl je zaznamenaný ve specifikaci a dokumentaci.
-
-Neproběhl úplný externí audit WCAG AA, validace všech vykreslených HTML stavů ani testování na fyzických telefonech a ve všech prohlížečích. Licencované fotografie a historický snímek nedokládají rezervaci areálu nebo účast interpretů. Dvě fotografie CC BY-NC-SA omezují obrazovou sadu na nekomerční školní použití.
-
-Účty a obsazenost zůstávají v prohlížeči, platby jsou simulované, e-mail se neodesílá. Změna katalogových cen v budoucnu vyžaduje samostatné ověření historických objednávek. Modelová DPH není právní potvrzení sazby pro rok 2027.
+Účty a obsazenost jsou místní pro daný prohlížeč, platby zkušební a e-mailová služba není připojená. Obnovovací kód ověřuje místní účet; nejde o serverové ověření identity. Kapacity jsou návrhem fiktivního festivalu. Omezení zadání a zdrojů vizuálů jsou zaznamenaná v `documentation.md`.

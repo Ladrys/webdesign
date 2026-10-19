@@ -1,14 +1,17 @@
 # Nástroje pro údržbu
 
-Hotový web se spouští otevřením `web/index.html`. Tyto Python skripty používá autor při změně zdrojů; návštěvník je nespouští.
+Hotový web se otevře přes `web/index.html`. Tyto nástroje používá autor
+při změně zdrojů; návštěvník je nepotřebuje.
 
-| Soubor | Vstup → výstup |
+| Nástroj | Vstup → výstup |
 | --- | --- |
-| `generate_data.py` | XML interpretů a odvozené `API/json/` → přibalené `web/js/data.js`. |
-| `build_course_submissions.py` | `course-source/`, data a hotový web → složky cvičení, PPTX/PDF, poznámky a finální balíček v `odevzdani/`. |
-| `build_documentation.py` | `documentation.md` → souhrnná dokumentace ve Wordu a PDF v `docs/`. |
-| `fonts/` | Přibalené fonty a licence pro přenosný export PDF. |
+| `generate_data.py` | XML → čtyři JSON exporty, `web/js/data.js` a kořenové kopie XML/XSD |
+| `build_course_submissions.py` | `course-source/`, data a web → školní balíčky, prezentace a poznámky |
+| `build_documentation.py` | `documentation.md` → Word a PDF v `docs/` |
+| `fonts/` | Fonty a licence pro přenosné PDF prezentací a dokumentace |
 
-Upravujte zdroje, potom obnovte výstupy. Export školních balíčků přepisuje jejich generované kopie; bez `--include-web` nepřibalí současný web.
+Upravujte zdroje, potom obnovte výstupy. Generátor dat používá standardní
+knihovnu Pythonu. Export školních balíčků přepisuje hotové kopie;
+`--include-web` přibalí aktuální web.
 
-[Instalace závislostí a přesné příkazy](../docs/DEVELOPMENT.md) · [Datový tok a role jednotlivých souborů](../docs/PROJECT-GUIDE.md)
+[Vývojový postup](../docs/DEVELOPMENT.md) · [Datový tok](../docs/PROJECT-GUIDE.md)

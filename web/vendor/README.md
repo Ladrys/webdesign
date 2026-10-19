@@ -6,4 +6,4 @@ Lokální knihovny se načítají až při stažení vstupenek. Web za běhu nep
 - **qrcode-generator 2.0.4**: `qrcode.js`, licence MIT v `QRCODE-LICENSE.txt`. Zdroj: balíček `qrcode-generator`, soubor `dist/qrcode.js`.
 - **DejaVu Sans / DejaVu Sans Bold**: původní nezměněné TTF fonty v podobě Base64 v `ticket-fonts.js`. Licence, copyright a původ v `FONT-LICENSE.txt`. Zdroj: systémový balíček `fonts-dejavu-core`, soubory `/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf` a `DejaVuSans-Bold.ttf`.
 
-Výstup má skutečný formát PDF, jednu stránku A5 na vstupenku a vložené fonty s českou diakritikou. QR kód obsahuje jen lokální identifikátor vstupenky. Každá stránka je označená jako školní ukázka a neplatná vstupenka.
+Výstup má jednu stránku A5 na šířku pro každou vstupenku a vložená písma s českou diakritikou. Obsah vychází z uložené objednávky, včetně jejího data, rozsahu vstupu, místa, ceny a přidělené slevy. Kemp má samostatný poukaz. QR nese identifikátor vstupenky; ověřovací server není součástí projektu.

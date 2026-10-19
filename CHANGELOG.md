@@ -1,5 +1,15 @@
 # Verze projektu
 
+## 1.2.0 — 19. 10. 2026
+
+- Nákup z detailu interpreta předvolí jeho scénu a den. Výběr sedadel automaticky určuje počet osob a cenu; dvoudenní vstup vyžaduje přesně dva vybrané dny.
+- Přehled prodaných a zbývajících vstupů je společný pro program, detaily, scény, nákup a plánek. Košík průběžně přepočítává slevu, DPH i celkovou cenu.
+- Účet zobrazuje datum registrace, umožňuje změnu hesla a obnovu pomocí náhodného kódu.
+- Nové PDF uvádí údaje konkrétní vstupenky, datum nákupu a její část slevy; kemp má vlastní voucher.
+- Podrobný plánek nabízí vrstvy, dotykové ovládání, přiblížení až 8× a kapacitu pro zvolený den.
+- XML přímo vytváří čtyři aktuální JSON exporty a data webu. Historické API ukázky jsou odstraněné.
+- Zjednodušená specifikace, prezentace a README. Složka pro cvičení 2 obsahuje pouze čtyři soubory k odevzdání; poznámky a náhled jsou samostatně.
+
 ## 1.1.0 — 19. 10. 2026
 
 - Samostatné vstupenky a kapacity scén: Main Hall se sedadly a stáním, River Stage a Club Stage pouze se stáním. Společný pas zahrnuje všechny tři scény.

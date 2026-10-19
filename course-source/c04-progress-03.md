@@ -23,10 +23,12 @@ napojené na skutečnou službu.
 | Čeština a angličtina | Orientace zahraničních návštěvníků |
 | Rozšířené detaily a hudební odkazy | Snazší rozhodování o programu |
 | Košík, účet, kemp a PDF | Doplnění objednávkového scénáře S3 |
-| Rozdílné kapacity a vstup jen na jednu scénu | Přesný rozsah nákupu a levnější alternativa společného vstupu |
+| Den a scéna předvolené z interpreta | Návštěvník kupuje správný rozsah bez dalšího hledání |
+| Automatický počet podle sedadel a povinné dva dny | Odstranění dvojího zadávání a neúplného výběru |
+| Přehled kapacit a průběžné součty košíku | Odpovídající dostupnost a cena skutečně vybraných položek |
 | Samostatné soukromí, podmínky a kredity | Přehlednější návštěvnické informace |
 
-Základ S1 a S2 zůstává stejný. Osobní program navíc označuje překryvy
+S1 zachovává osobní program; S2 navíc propojuje interpreta s odpovídající vstupenkou. Osobní program navíc označuje překryvy
 uložených setů. Tři závěrečné koncerty denně navazují s 30 minutami na přesun.
 Samostatné vstupenky scén sdílejí skutečná místa modelu se společným vstupem;
 River a Club mají pouze stání, Main Hall také sedadla.

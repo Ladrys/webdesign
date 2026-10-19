@@ -1,0 +1,70 @@
+/* Detailed, offline festival plan. Every style stays within this component. */
+.venue-plan-detailed{background:#171d1f;border-color:#4a5151}
+.venue-plan-detailed .venue-plan-toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 20px;padding:15px 18px;background:#1d2325}
+.venue-plan-detailed .venue-plan-controls{padding:0;flex-wrap:nowrap;gap:7px}
+.venue-plan-detailed .venue-plan-controls button{font-size:12px;white-space:nowrap}
+.venue-plan-detailed .venue-plan-controls [data-plan-zoom]{font-size:24px}
+.venue-plan-detailed .venue-plan-controls button:disabled{color:#89918f;background:transparent;border-color:#525b59;opacity:.6}
+.venue-plan-detailed .plan-zoom-level{min-width:40px;color:#d9dfda;font-size:12px;text-align:center;font-variant-numeric:tabular-nums}
+.venue-plan-detailed .plan-help{flex:1 1 210px;max-width:380px;margin:0;font-size:11px;line-height:1.6;color:#c0c9c4;text-align:right}
+.venue-plan-detailed .venue-plan-layers{display:flex;flex-wrap:wrap;gap:6px 18px;min-width:0;margin:0;border:0;padding:9px 18px 12px;background:#1d2325}
+.venue-plan-detailed .venue-plan-layers legend{float:left;padding:0;margin-right:18px;font-size:11px;color:#c7d1cb;line-height:44px}
+.venue-plan-detailed .venue-plan-layers label{display:inline-flex;align-items:center;gap:8px;margin:0;min-height:44px;font-size:12px;color:#f1f1e8;cursor:pointer}
+.venue-plan-detailed .venue-plan-layers input{width:17px;height:17px;min-height:0;margin:0;accent-color:#ff8256}
+.venue-plan-detailed .venue-plan-frame{aspect-ratio:1200/820;background:#181e20}
+.venue-plan-detailed .venue-plan-frame>svg{width:100%;height:100%;max-height:760px;font-family:var(--body),Arial,sans-serif;isolation:isolate}
+.venue-plan-detailed .venue-plan-frame svg.plan-is-dragging{cursor:grabbing}
+.venue-plan-detailed .venue-plan-frame svg a{cursor:pointer}
+.venue-plan-detailed .venue-plan-frame svg a:focus-visible{outline:0}
+.venue-plan-detailed .plan-stage-card{fill:#172124;stroke:var(--stage-color);stroke-width:1.8}
+.venue-plan-detailed .plan-stage-link:hover .plan-stage-card,.venue-plan-detailed .plan-stage-link:focus-visible .plan-stage-card{fill:#303936;stroke:#fff8ec;stroke-width:4}
+.venue-plan-detailed .plan-stage-name{fill:#fff9ef;font-size:25px;font-weight:700}
+.venue-plan-detailed .plan-stage-number{fill:var(--stage-color);font-size:11px;font-weight:700;letter-spacing:1.4px}
+.venue-plan-detailed .plan-stage-description{fill:#d0dbd4;font-size:13px}
+.venue-plan-detailed .plan-water-label{fill:#b3dce9;font-size:24px;letter-spacing:7px}
+.venue-plan-detailed .plan-district-label{fill:#b4c2a3;font-size:21px;letter-spacing:3px}
+.venue-plan-detailed .plan-district-small{fill:#b4c2a3;font-size:13px}
+.venue-plan-detailed .plan-park-path{fill:none;stroke:#84916d;stroke-width:4;opacity:.7}
+.venue-plan-detailed .plan-street-label{fill:#d3d8d3;font-size:15px;letter-spacing:.5px;paint-order:stroke;stroke:#181e20;stroke-width:5;stroke-linejoin:round}
+.venue-plan-detailed .plan-building-label{fill:#dfcbb6;font-size:14px;letter-spacing:.4px}
+.venue-plan-detailed .plan-route-underlay{fill:none;stroke:#18231f;stroke-width:13;stroke-linecap:round;stroke-linejoin:round}
+.venue-plan-detailed .plan-walking-route{fill:none;stroke:#f0ddb1;stroke-width:5;stroke-dasharray:9 7;stroke-linecap:round;stroke-linejoin:round}
+.venue-plan-detailed .plan-accessible-route{fill:none;stroke:#8bd2c7;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.venue-plan-detailed .plan-route-tag rect{fill:#18231f;stroke:#5e6c60;stroke-width:.6}
+.venue-plan-detailed .plan-route-tag text{font-size:11px;fill:#f0ddb1}
+.venue-plan-detailed .plan-gates{color:#18231f;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.venue-plan-detailed .plan-gate-label{fill:#ffad8c;stroke:none;font-size:12px;font-weight:700;letter-spacing:.8px}
+.venue-plan-detailed .plan-facility{color:#e5e9db;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.venue-plan-detailed .plan-facility>rect{fill:#1a2727;stroke:#869386;stroke-width:1}
+.venue-plan-detailed .plan-medical{color:#ffc2b4}.venue-plan-detailed .plan-medical>rect{stroke:#c67c71}
+.venue-plan-detailed .plan-water{color:#9cd9e6}.venue-plan-detailed .plan-water>rect{stroke:#5a9ba8}
+.venue-plan-detailed .plan-access{color:#a1ddd2}.venue-plan-detailed .plan-access>rect{stroke:#70a89b}
+.venue-plan-detailed .plan-detail-label{display:none;fill:#e9ecdf;stroke:none;font-size:11px;font-weight:400;paint-order:stroke;stroke-linejoin:round}
+.venue-plan-detailed.plan-is-detailed .plan-detail-label{display:block;stroke:#182320;stroke-width:4px}
+.venue-plan-detailed .plan-detail-labels{display:none;fill:#d2dac6;font-size:12px;paint-order:stroke;stroke:#182320;stroke-width:4;stroke-linejoin:round}
+.venue-plan-detailed.plan-is-detailed .plan-detail-labels{display:block}
+.venue-plan-detailed .plan-transport-label{fill:#e7e8dc;font-size:15px;paint-order:stroke;stroke:#181e20;stroke-width:4;stroke-linejoin:round}
+.venue-plan-detailed .plan-parking{color:#e4eaf0;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linejoin:round}
+.venue-plan-detailed .plan-parking>rect{stroke:none}
+.venue-plan-detailed .plan-camp-label{fill:#d1dcaa;font-size:13px;font-weight:700;letter-spacing:.5px}
+.venue-plan-detailed .plan-camping-link:hover .plan-camp-label,.venue-plan-detailed .plan-camping-link:focus-visible .plan-camp-label{fill:#fff5d7;text-decoration:underline}
+.venue-plan-detailed .plan-compass{fill:#c8d4ce;font-size:16px}.venue-plan-detailed .plan-compass path{fill:none;stroke:#c8d4ce;stroke-width:2}
+.venue-plan-detailed .plan-detail-hint{position:absolute;bottom:12px;left:12px;pointer-events:none;border:1px solid #66716b;border-radius:8px;background:#182020e8;padding:5px 9px;font-size:10px;color:#d9e1d9}
+.venue-plan-detailed.plan-is-detailed .plan-detail-hint{display:none}
+.venue-plan-detailed .venue-plan-key{display:flex;flex-wrap:wrap;gap:10px 19px;padding:18px;border-bottom:1px solid #414b46;background:#1c2424}
+.venue-plan-detailed .plan-key-item{display:inline-flex;align-items:center;gap:7px;font-size:11px;color:#dce5da;white-space:nowrap}
+.venue-plan-detailed .plan-key-item>svg{width:21px;height:21px;color:#dce5da;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round;flex:none}
+.venue-plan-detailed .plan-key-route{width:23px;border-top:3px dashed #f0ddb1}.venue-plan-detailed .plan-key-access{width:23px;border-top:3px solid #8bd2c7}
+.venue-plan-detailed>.venue-plan-legend{gap:8px;padding:18px 18px 13px}
+.venue-plan-detailed .venue-plan-legend .button{gap:9px;color:#edece3;font-size:12px;background:transparent;border-color:#727d77}
+.venue-plan-detailed .venue-plan-legend .button:hover{color:#111;background:#f5f1e8}
+.venue-plan-detailed .venue-plan-legend .button i{width:9px;height:9px;border-radius:50%;background:var(--stage-color)}
+.venue-plan-detailed>.count{color:#bfcac1;padding-bottom:18px;line-height:1.7}
+.venue-plan-detailed .plan-sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media(max-width:600px){.venue-plan-detailed .venue-plan-toolbar{padding:12px;gap:8px}.venue-plan-detailed .plan-help{text-align:left;flex-basis:100%;max-width:none;font-size:10px}.venue-plan-detailed .venue-plan-layers{padding:0 12px 8px;gap:0 13px}.venue-plan-detailed .venue-plan-layers legend{width:100%;line-height:1.6;margin:0}.venue-plan-detailed .venue-plan-layers label{font-size:11px}.venue-plan-detailed .venue-plan-frame{aspect-ratio:1/1;min-height:280px}.venue-plan-detailed .venue-plan-key{gap:10px 15px;padding:13px 12px}.venue-plan-detailed .plan-key-item{font-size:10px}.venue-plan-detailed>.venue-plan-legend{padding:13px 12px;display:grid;grid-template-columns:1fr 1fr}.venue-plan-detailed .venue-plan-legend .button{font-size:10px;padding:8px;min-height:46px;gap:6px}.venue-plan-detailed>.count{padding:0 12px 14px;font-size:10px}.venue-plan-detailed .plan-detail-hint{font-size:9px;bottom:8px;left:8px}}
+@media(prefers-reduced-motion:reduce){.venue-plan-detailed *{scroll-behavior:auto}}
+
+.venue-plan-detailed .plan-day-label{display:flex;align-items:center;gap:9px;margin:0;color:#d5dfd8;font-size:11px;white-space:nowrap}
+.venue-plan-detailed .plan-day-label select{width:auto;min-width:125px;min-height:44px;margin:0;padding:8px 30px 8px 12px;border:1px solid #727d77;border-radius:9px;background-color:#182020;color:#f0f0e7;font-size:12px}
+.venue-plan-detailed .plan-capacity-full{fill:#ffbaaa}
+@media(max-width:600px){.venue-plan-detailed .plan-day-label{flex-basis:100%;justify-content:space-between}.venue-plan-detailed .plan-day-label select{flex:1;max-width:180px}.venue-plan-detailed .plan-help{order:3}}

@@ -1,0 +1,129 @@
+{
+  "id": "ppf2027",
+  "name": "Prague Pulse Fest",
+  "description": "Prague Pulse Fest je fiktivní třídenní festival na pražském Výstavišti. Line-up je autorský návrh se skutečnými interprety, nikoli oznámení jejich potvrzené účasti.",
+  "taxRate": 12,
+  "location": {
+    "street": "Výstaviště 67",
+    "city": "Praha",
+    "postalCode": "170 00"
+  },
+  "dates": [
+    {
+      "id": "d1",
+      "name": "Den 1",
+      "theme": "Opening Night",
+      "description": "Tři scény otevírají festival rockovými koncerty, popem a večerní elektronikou.",
+      "date": "2027-08-01",
+      "startTime": "09:00:00",
+      "endTime": "23:59:00"
+    },
+    {
+      "id": "d2",
+      "name": "Den 2",
+      "theme": "Main Stage Highlights",
+      "description": "Největší festivalový den: od ranních objevů až po hlavní večerní koncerty.",
+      "date": "2027-08-02",
+      "startTime": "09:00:00",
+      "endTime": "23:59:00"
+    },
+    {
+      "id": "d3",
+      "name": "Den 3",
+      "theme": "Finale",
+      "description": "Závěrečné koncerty, český rap a klubové sety zakončí tři dny pražské hudby.",
+      "date": "2027-08-03",
+      "startTime": "09:00:00",
+      "endTime": "23:59:00"
+    }
+  ],
+  "tickets": [
+    {
+      "id": "t1",
+      "name": "3 dny Regular",
+      "price": 990,
+      "currency": "CZK",
+      "description": "Sedadlo Regular na stejném místě po všechny tři dny a vstup na všechny scény. Konečná cena včetně všech poplatků; občerstvení, parkování a ubytování nejsou zahrnuté."
+    },
+    {
+      "id": "t2",
+      "name": "3 dny VIP",
+      "price": 1590,
+      "currency": "CZK",
+      "description": "VIP sedadlo na všechny tři dny a všechny scény, přednostní odbavení, odpočinková zóna a jedno parkovací místo. Konečná cena včetně všech poplatků; občerstvení a ubytování nejsou zahrnuté."
+    },
+    {
+      "id": "t3",
+      "name": "3 dny Stání",
+      "price": 490,
+      "currency": "CZK",
+      "description": "Třídenní vstup do zóny stání a na všechny scény. Konečná cena včetně všech poplatků; občerstvení, parkování a ubytování nejsou zahrnuté."
+    },
+    {
+      "id": "t4",
+      "name": "1 den Regular",
+      "price": 390,
+      "currency": "CZK",
+      "description": "Sedadlo Regular na vybraný den a vstup na všechny scény. Konečná cena včetně všech poplatků; občerstvení, parkování a ubytování nejsou zahrnuté."
+    },
+    {
+      "id": "t5",
+      "name": "1 den VIP",
+      "price": 590,
+      "currency": "CZK",
+      "description": "VIP sedadlo na vybraný den a všechny scény, přednostní odbavení a odpočinková zóna. Konečná cena včetně všech poplatků; parkování, občerstvení a ubytování nejsou zahrnuté."
+    },
+    {
+      "id": "t6",
+      "name": "1 den Stání",
+      "price": 190,
+      "currency": "CZK",
+      "description": "Jednodenní vstup do zóny stání a na všechny scény. Konečná cena včetně všech poplatků; občerstvení, parkování a ubytování nejsou zahrnuté."
+    }
+  ],
+  "camping": {
+    "personPrice": 150,
+    "vatRate": 12,
+    "dates": {
+      "from": "2027-08-01",
+      "to": "2027-08-04"
+    },
+    "types": [
+      {
+        "id": "tent",
+        "name": "Stan",
+        "price": 350,
+        "maxPeople": 4,
+        "capacity": 40
+      },
+      {
+        "id": "caravan",
+        "name": "Karavan",
+        "price": 850,
+        "maxPeople": 6,
+        "capacity": 12
+      }
+    ]
+  },
+  "links": [
+    {
+      "id": "l1",
+      "name": "Web",
+      "url": "https://praguepulsefest.cz"
+    },
+    {
+      "id": "l2",
+      "name": "Instagram",
+      "url": "https://instagram.com/praguepulsefest"
+    },
+    {
+      "id": "l3",
+      "name": "Tickets",
+      "url": "https://praguepulsefest.cz/tickets"
+    }
+  ],
+  "contact": {
+    "email": "info@praguepulsefest.cz",
+    "phone": "+420 000 000 000"
+  }
+}

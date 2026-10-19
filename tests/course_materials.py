@@ -24,6 +24,9 @@ with zipfile.ZipFile(root/'cviceni-02-k-odevzdani.zip') as archive:
        'C02 upload ZIP contains exactly the four intended files, without duplicate presentation or notes')
  check(all(archive.read(name)==(root/'cviceni-02-specifikace'/name).read_bytes() for name in archive.namelist()),
        'C02 upload ZIP agrees with the current specification, data, schema and presentation')
+check({path.name for path in (root/'cviceni-02-specifikace').iterdir()}=={
+ 'project-specification.md','data.xml','festival.xsd','prezentace.pptx'},
+ 'C02 upload directory contains only the four files intended for Moodle')
 for relative in ['cviceni-02-specifikace','cviceni-05-review-ready','finalni-projekt/projekt']:
  folder=root/relative
  for name in ['project-specification.md','data.xml','festival.xsd']:
@@ -34,7 +37,10 @@ if manifest['complete_web_copies']:
   delivered={path.relative_to(root/relative):path.read_bytes() for path in (root/relative).rglob('*') if path.is_file()}
   check(delivered==expected,relative+': complete website agrees with the current tested source')
 for folder in sorted(path for path in root.glob('cviceni-*') if path.is_dir()):
- pdf=fitz.open(folder/'prezentace.pdf');ppt=Presentation(folder/'prezentace.pptx')
+ is_c02=folder.name=='cviceni-02-specifikace'
+ pdf_path=root/'nahledy/cviceni-02.pdf' if is_c02 else folder/'prezentace.pdf'
+ notes_path=root/'poznamky/cviceni-02.md' if is_c02 else folder/'presenter-notes.md'
+ pdf=fitz.open(pdf_path);ppt=Presentation(folder/'prezentace.pptx')
  check(len(pdf)==6 and len(ppt.slides)==6,folder.name+': six PDF pages and editable PPTX slides')
  for i,(page,slide) in enumerate(zip(pdf,ppt.slides),1):
   check(bool(page.get_text().strip()) and bool(slide.notes_slide.notes_text_frame.text.strip()),folder.name+f': slide{i} text and presenter notes')
@@ -47,7 +53,7 @@ for folder in sorted(path for path in root.glob('cviceni-*') if path.is_dir()):
   check(compact(page.get_text())==compact(ppt_text),folder.name+f': slide{i} PDF/PPTX visible text agrees')
  check('PULSE' in pdf[0].get_text() and '2027' in pdf[0].get_text(),folder.name+': Prague Pulse 2027 identity')
  check(all(name in pdf[0].get_text() and name in ppt.core_properties.author for name in ['Michal Ladra','Matěj Mlejnek','Jan Martínek']),folder.name+': all three authors in cover and metadata')
- check((folder/'presenter-notes.md').is_file(),folder.name+': separate presenter notes')
+ check(notes_path.is_file(),folder.name+': separate presenter notes outside the C02 upload directory')
  with zipfile.ZipFile(folder/'prezentace.pptx') as archive:check(archive.testzip() is None,folder.name+': PowerPoint archive integrity')
  pdf.close()
 class Quiet(SimpleHTTPRequestHandler):

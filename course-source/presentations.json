@@ -10,39 +10,39 @@
     "slides": [
       {
         "layout": "cover",
-        "title": "Projektová\nspecifikace a data",
+        "title": "Festival podle návštěvníka",
         "kicker": "CVIČENÍ 02",
-        "lead": "1.–3. srpna 2027 · Výstaviště Praha\nRock · pop · rap · klubová elektronika",
-        "notes": "[30 s] Prague Pulse Fest je návrh fiktivního třídenního festivalu v Praze. První výstup tvoří projektová specifikace a XML datová základna. Od výchozího námětu jsme přešli k identitě, cílovým skupinám, struktuře webu a pěti scénářům. Hlavní úkol návštěvníka je zjistit kdo, kdy a kde vystupuje, uložit si vlastní program a naplánovat návštěvu. Autoři jsou Michal Ladra, Matěj Mlejnek a Jan Martínek. Skuteční interpreti jsou návrhem line-upu, jejich účast nepotvrzujeme. Tyto podklady popisují současný návrh, nikoli nedoloženou historii odevzdání."
+        "lead": "Projektová specifikace a datová základna\n1.–3. srpna 2027 · Výstaviště Praha",
+        "notes": "[35 s] Prague Pulse Fest je fiktivní třídenní hudební festival. Navrhujeme web, který návštěvníka provede od otázky kdo hraje až k odpovídající vstupence. Někdo přijde na jednoho interpreta, jiný na celou scénu a další na všechny tři dny. Web má těmto lidem nabídnout správný rozsah vstupu a srozumitelnou cenu. Prvním výstupem je specifikace s cílovými skupinami, strukturou a scénáři a datová základna v XML. Autory projektu jsou Michal Ladra, Matěj Mlejnek a Jan Martínek."
       },
       {
         "layout": "audience",
         "kicker": "ÚČEL WEBU A CÍLOVÉ SKUPINY",
-        "title": "Od otázky k hotovému plánu",
+        "title": "Každý chce jiný rozsah návštěvy",
         "cards": [
           [
-            "Návštěvník na mobilu",
-            "Co hraje dnes a kde?",
-            "Filtr dne a scény\nUložený osobní program"
+            "Jeden interpret",
+            "Kdy a kde vystoupí?",
+            "Detail → den a scéna\n→ odpovídající vstup"
           ],
           [
-            "Fanoušek interpreta",
-            "Kdy vystoupí moje jméno?",
-            "Hledání → detail\nKoncert a hudební odkazy"
+            "Více koncertů",
+            "Co chci stihnout?",
+            "Filtry a osobní program\n→ vybrané dny"
           ],
           [
-            "Návštěvník Prahy",
-            "Jak se dostanu do areálu?",
-            "Doprava a plánek\nČeština / angličtina"
+            "Celý festival",
+            "Co zahrnuje celý vstup?",
+            "Tři dny, všechny scény\n→ cena a dostupnost"
           ]
         ],
-        "lead": "Hlavní akce: najít koncert → uložit program → vybrat vstupenku.",
-        "notes": "[35 s] Cílové skupiny rozlišujeme podle úkolu. Návštěvník v areálu potřebuje rychlý program v telefonu. Fanoušek hledá známé jméno a jeho koncert. Přijíždějící návštěvník potřebuje dopravu, mapu a případně angličtinu. Každé potřebě odpovídá konkrétní obsah nebo funkce, ne pouze propagační text. Samostatně počítáme i s vracejícím se uživatelem a historií objednávek. Účet není podmínkou nákupu. Tato návaznost potřeb a funkcí je hlavní rozhodnutí návrhu."
+        "lead": "Cíl: přehledně nabídnout to, co chce návštěvník opravdu navštívit.",
+        "notes": "[40 s] Cílové skupiny rozlišujeme podle cíle návštěvy. Fanoušek jednoho interpreta potřebuje najít jeho koncert a přejít na vstup pro daný den a scénu. Návštěvník více koncertů kombinuje filtry a osobní program a vybere si například první a třetí den. Návštěvník celého festivalu potřebuje jasně vidět, co společná vstupenka obsahuje a kde ještě zbývá kapacita. Všichni mají mít možnost zvolit jiný rozsah, vidět aktuální cenu a nakoupit bez povinného účtu. Mobilní ovládání a čeština s angličtinou podporují všechny tyto skupiny."
       },
       {
         "layout": "data-venues",
-        "title": "Jedna datová základna, tři scény",
-        "kicker": "XML · ENTITY · KAPACITY",
+        "title": "Stejná data pro program i nákup",
+        "kicker": "DATOVÁ ZÁKLADNA A JEJÍ VYUŽITÍ",
         "metrics": [
           [
             "3",
@@ -61,35 +61,37 @@
             "vystoupení"
           ]
         ],
-        "venues": [
+        "lead": "Filtry vybírají objekty; detail předává den a scénu do nákupu.",
+        "notes": "[45 s] Základ obsahuje tři dny, tři scény, šedesát interpretů a šedesát vystoupení. Vystoupení odkazuje na interpreta, den a scénu pomocí ID, nikoli podle podobnosti názvu. Proto stejný objekt používá seznam, detail i nákup. Filtr dne a scény porovná ID, textové hledání porovná část názvu či popisu bez diakritiky a velikosti písmen. Kapacita scény pochází z dat; prodané vstupy se odvodí z objednávek pro daný den. XML je hlavní zdroj. Nástroj autora z něj připraví čtyři JSON exporty a stejná data přibalí do JavaScriptu. Při otevření webu už není potřebný server.",
+        "entities": [
           [
-            "Main Hall",
-            "5 000 osob",
-            "VIP / Regular sedadla + stání"
+            "Interpret",
+            "ID · jméno · žánr"
           ],
           [
-            "River Stage",
-            "3 000 osob",
-            "Pouze stání"
+            "Vystoupení",
+            "Čas a odkazy přes ID"
           ],
           [
-            "Club Stage",
-            "1 500 osob",
-            "Pouze stání"
+            "Den a scéna",
+            "Datum · kapacita"
+          ],
+          [
+            "Vstupenka",
+            "Platnost · cena"
           ]
         ],
-        "lead": "Vystoupení → ID dne, scény a interpreta. Kapacity jsou návrhové.",
-        "notes": "[40 s] XML obsahuje tři dny, tři scény, šedesát interpretů a šedesát vystoupení. Každé vystoupení jednoznačně odkazuje na existující den, scénu a interpreta. Názvy nejsou spojovací klíč. Main Hall má návrhovou kapacitu pět tisíc osob: šestnáct VIP sedadel, třicet dva Regular a čtyři tisíce devět set padesát dva stojících. River a Club jsou pouze na stání, s kapacitami tři tisíce a patnáct set. Vstup jde zvolit na jednu scénu nebo společně. Společný vstup spotřebuje kapacitu na všech scénách, proto zaručený přístup omezuje i nejmenší Club. Nejde o oficiální kapacity Výstaviště. Program zachovává plné sety, po sobě jdou tři závěrečné koncerty denně; ostatní sety se mohou překrývat."
+        "pipeline": "XML → generátor → JSON exporty a data webu"
       },
       {
         "layout": "sitemap",
-        "title": "Obsah se propojuje podle úkolu",
+        "title": "Jasná cesta mezi obsahem a nákupem",
         "kicker": "INFORMAČNÍ ARCHITEKTURA",
         "root": "Úvod",
         "nodes": [
           [
             "Program",
-            "Den · čas · osobní výběr"
+            "Filtry → koncert → vstup"
           ],
           [
             "Účinkující",
@@ -97,7 +99,7 @@
           ],
           [
             "Scény",
-            "Místo → jeho program"
+            "Kapacita → program / vstup"
           ],
           [
             "Info",
@@ -105,66 +107,66 @@
           ],
           [
             "Hledání",
-            "Dotaz → výsledky → obsah"
+            "Dotaz → výsledky → detail"
           ],
           [
             "Vstupenky",
             "Výběr → košík → PDF"
           ]
         ],
-        "lead": "Koncert ↔ interpret ↔ scéna · Účet a historie jsou volitelné.",
-        "notes": "[35 s] Úvod představí festival a hlavní navigace vede k programu, účinkujícím, scénám a praktickým informacím. Hledání má vlastní stránku s výsledky napříč obsahem. Detail interpreta vede ke koncertu a scéna do svého filtrovaného programu. Návštěvník tak nemusí stále začínat od úvodu. Nákup má samostatnou cestu od výběru ke košíku a PDF. Účet a historie jsou volitelné. Novinky, soukromí, podmínky a kredity jsou doplňkové části v patičce; úplný sitemap je ve specifikaci."
+        "lead": "Účet a historie doplňují nákup; registrace není podmínkou.",
+        "notes": "[35 s] Hlavní navigace propojuje program, účinkující, scény a praktické informace. Hledání má vlastní stránku s výsledky. Detail interpreta vede ke konkrétnímu koncertu a vstupence; scéna vede do svého programu a ukazuje dostupnost. Návštěvník tak navazuje na svůj výběr, nemusí stále začínat od úvodu. V nákupu upraví dny, scénu a kategorii a přejde do košíku. Po dokončení stáhne PDF. Účet nabídne profil a historii, ale objednávka funguje i pro hosta. Novinky, podmínky, soukromí a zdroje doplňují hlavní strukturu."
       },
       {
         "layout": "scenarios",
-        "title": "Dva průchody, které ověříme",
+        "title": "Dva konkrétní průchody webem",
         "kicker": "KLÍČOVÉ UŽIVATELSKÉ SCÉNÁŘE",
         "scenarios": [
           {
             "id": "S1",
             "title": "Sestavit vlastní program",
             "who": "Návštěvník na telefonu",
-            "start": "Zná den a scénu, hledá koncerty.",
-            "steps": "Program → 1. srpna → River\n→ uložit → osobní program",
-            "result": "Výběr zůstane i po obnovení."
+            "start": "Zná den a scénu návštěvy.",
+            "steps": "Program → den a scéna\n→ uložit → osobní program",
+            "result": "Výběr zůstane, kolize se označí."
           },
           {
             "id": "S2",
-            "title": "Najít známého interpreta",
+            "title": "Vybrat vstup na interpreta",
             "who": "Fanoušek DARKZY",
-            "start": "Zná jméno, nezná čas a scénu.",
-            "steps": "Hledání → DARKZY → detail\n→ související vystoupení",
-            "result": "Zjistí datum, čas a Club Stage."
+            "start": "Zná jméno, nezná den ani scénu.",
+            "steps": "Hledání → detail → koncert\n→ předvolený vstup → košík",
+            "result": "Správný den a Club Stage."
           }
         ],
-        "lead": "Specifikace dále definuje S3: objednávka hosta se stažením PDF.",
-        "notes": "[45 s] Scénář S1 má konkrétního uživatele, cíl, výchozí situaci a očekávaný výsledek. Na mobilu vybereme první srpen a River Stage, uložíme koncert a otevřeme osobní program. Po obnovení musí výběr zůstat. V S2 fanoušek zná DARKZY, ale ne jeho termín. Přes hledání a detail najde konkrétní vystoupení v Club Stage. Při ověření porovnáme datum, čas a scénu s XML. První dva průchody podporuje také samostatný wireframe. Třetí klíčový scénář specifikace je nákup hosta na první a třetí srpen s ručním sedadlem a PDF. Nevyžaduje účet."
+        "lead": "S3 ve specifikaci: dva vybrané dny, vlastní sedadla a PDF.",
+        "notes": "[45 s] S1 začíná v programu. Návštěvník vybere den a River Stage, uloží si koncerty a otevře osobní výběr. Očekáváme správné výsledky obou filtrů, zachování výběru po obnovení a upozornění na časové kolize. V S2 fanoušek vyhledá DARKZY, otevře jeho detail a přejde k odpovídajícímu vstupu. Předvolí se skutečný den koncertu a Club Stage, nikoli obecný třídenní vstup na všechny scény. Výběr může upravit. Třetí scénář ověřuje dva výslovně vybrané dny, automatický počet osob podle sedadel a shodnou cenu ve výběru, košíku i PDF."
       },
       {
         "layout": "verification",
-        "title": "AI navrhuje. Výsledek ověřujeme.",
+        "title": "Návrh od AI ověřujeme na datech",
         "kicker": "POUŽITÍ AI · ROZHODNUTÍ · KONTROLA",
         "decisions": [
           [
-            "Přijato",
-            "Struktura, texty a vazby přes ID."
+            "AI pomohla",
+            "Struktura, texty a datové vazby."
           ],
           [
-            "Upraveno",
-            "Scénáře, kapacity a program."
+            "Upravili jsme",
+            "Scénáře a přesný rozsah vstupu."
           ],
           [
-            "Odmítnuto",
-            "Backend mimo klientské zadání."
+            "Rozhodnutí",
+            "Jedna datová základna pro web."
           ]
         ],
         "checks": [
-          "XML / XSD a počty entit",
-          "Existující ID a reference",
-          "Shoda XML → export pro web"
+          "XML / XSD, počty a ID",
+          "Filtry proti zdrojovým datům",
+          "Den, scéna a cena v nákupu"
         ],
-        "lead": "Limit: datová validace nenahrazuje test s návštěvníky.",
-        "notes": "[40 s] Codex a ChatGPT pomohly s rozborem zadání, návrhem struktury, texty a datovým modelem. Přijali jsme stabilní ID, upravili scénáře, kapacity a program podle účelu návštěvy. Odmítli jsme vlastní backend, protože zadání požaduje čistě klientský web. Konkrétní ověření tvoří XML/XSD validace, počty entit, jedinečná ID a reference a porovnání exportu pro prohlížeč s XML. Výsledek je reprodukovatelný validátorem a uložený ve validačním reportu. Testy nenahrazují použitelnost s návštěvníky, nepotvrzují účast interpretů ani oficiální kapacity. Skutečné fotografie mají zdroje a licence; odchylku od požadavku na AI obrázky uvádíme v dokumentaci. Za odevzdání a vysvětlení odpovídá tým."
+        "lead": "Ověření: konkrétní kroky a výsledky, které lze znovu zopakovat.",
+        "notes": "[40 s] Codex a ChatGPT pomohly rozebrat zadání, navrhnout strukturu webu, texty a práci s daty. Přijali jsme stabilní ID a propojení seznamu s detaily. Upravili jsme příliš obecné scénáře a nákup tak, aby vycházel z konkrétního dne a scény. Rozhodli jsme se pro klientský web a jednu datovou základnu. Ověření začíná XML proti XSD, počty a referencemi. Dále porovnáváme filtrované výsledky s daty a projdeme interpreta až ke vstupence a ceně v košíku. Chybu nelze omluvit tím, že ji vytvořila AI; tým musí umět postup vysvětlit a výsledek zkontrolovat."
       }
     ]
   },
@@ -182,7 +184,7 @@
         "title": "UX návrh a prototyp",
         "kicker": "CVIČENÍ 03",
         "lead": "Prague Pulse Fest · 1.–3. srpna 2027\nVýstaviště Praha · fiktivní festival",
-        "notes": "[30 s] Oproti specifikaci máme spustitelný HTML wireframe. Otevře se bez instalace a používá stejnou datovou základnu jako web. Záměrně má jednoduchou grafiku: ověřujeme pořadí obsahu, navigaci a dva klíčové scénáře. Prototyp není šablona, kterou by hotový web při spuštění načítal; je to samostatná návrhová ukázka. Nynější prototyp byl sestaven pro tyto podklady, nepředstavujeme ho jako doložený historický export ze semestru."
+        "notes": "[30 s] Oproti specifikaci máme spustitelný HTML wireframe. Otevře se bez instalace a používá stejnou datovou základnu jako web. Záměrně má jednoduchou grafiku: ověřujeme pořadí obsahu, navigaci a dva klíčové scénáře. Prototyp není šablona, kterou by hotový web při spuštění načítal; je to samostatná návrhová ukázka."
       },
       {
         "layout": "bullets",
@@ -232,7 +234,7 @@
           ]
         ],
         "lead": "Očekávaný výsledek: správný filtr a zachovaný výběr.",
-        "notes": "[45 s včetně ukázky] Otevřeme prototyp, přejdeme na Program a zvolíme první srpen s River Stage. Ověříme datum a scénu výsledků, ne jen počet karet. Vybraný koncert uložíme a zapneme Jen uložené. Po obnovení stránky se k výběru vrátíme. Pokud není žádný výsledek, rozhraní má nabídnout pochopitelnou cestu ke změně filtrů. Tento průchod je součástí browserového ověření prototypu; není to výzkum s reprezentativním vzorkem uživatelů."
+        "notes": "[45 s včetně ukázky] Otevřeme prototyp, přejdeme na Program a zvolíme první srpen s River Stage. Ověříme datum a scénu výsledků, ne jen počet karet. Vybraný koncert uložíme a zapneme Jen uložené. Po obnovení stránky se k výběru vrátíme. Pokud není žádný výsledek, rozhraní má nabídnout pochopitelnou cestu ke změně filtrů. Při kontrole musí uložené ID odpovídat stejnému vystoupení ve zdrojových datech."
       },
       {
         "layout": "route",
@@ -267,7 +269,7 @@
           "AI: wireframe, návrh textů a obsluha dat.",
           "Přijato: filtry; upraveno: hierarchie obsahu pro mobil.",
           "Ověřeno: scénáře, uložení, dialog a šířky 320 / 768 / 1440 px.",
-          "Limit: bez testu s návštěvníky na fyzických telefonech."
+          "Výsledky porovnány s očekávanými ID ve zdrojových datech."
         ],
         "lead": "",
         "notes": "[40 s] AI vytvořila návrh rozložení a část kódu. Přijali jsme propojení filtrů a detailů, upravili pořadí obsahu pro malé displeje a odmítli pouhou slideshow jako důkaz interaktivity. Samostatný test prochází dva scénáře, obnovu uloženého programu, vyhledávání a dialog. V určených šířkách kontroluje přetékání. Konkrétní výstup je přiložen, samotný návrh AI není validace. Prototyp zatím nezahrnuje objednávku, PDF ani jazykové mutace; ty ukazuje následující implementační milník. Přiložený test prošel bez chyb běhu a potvrdil zachování uloženého programu."
@@ -288,20 +290,20 @@
         "title": "První funkční implementace",
         "kicker": "CVIČENÍ 04",
         "lead": "Prague Pulse Fest · 1.–3. srpna 2027\nVýstaviště Praha · fiktivní festival",
-        "notes": "[30 s] Oproti wireframu ukazujeme současný hotový web s vlastní vizuální identitou, češtinou a angličtinou a rozšířenými funkcemi. Základem zůstává HTML, CSS a JavaScript bez backendu a instalačního kroku. Balíček obsahuje dnešní verzi webu, nikoli nedoložený historický stav ze cvičení. Při prezentaci se zaměříme na mobilní i desktopové zobrazení, funkční navigaci a dva stejné scénáře jako v prototypu."
+        "notes": "[30 s] Oproti wireframu ukazujeme současný hotový web s vlastní vizuální identitou, češtinou a angličtinou a rozšířenými funkcemi. Základem zůstává HTML, CSS a JavaScript bez backendu a instalačního kroku.  Při prezentaci se zaměříme na mobilní i desktopové zobrazení, funkční navigaci a dva stejné scénáře jako v prototypu."
       },
       {
         "layout": "bullets",
         "title": "Co přibylo proti prototypu",
         "kicker": "PROTI PROTOTYPU",
         "bullets": [
-          "Úvod, program, účinkující, scény, info a hledání jsou propojené.",
-          "Vlastní vizuální identita a přepínání češtiny / angličtiny.",
-          "Osobní program s kolizemi a vstup na všechny nebo jednu scénu.",
-          "Účet není nutný k dokončení objednávky."
+          "Seznam, detail, program a vstupenka používají stejná data.",
+          "Detail interpreta předvolí přesný den a scénu nákupu.",
+          "Kapacita a cena se mění podle vybraných vstupenek.",
+          "Host i účet: objednávka, historie a datové PDF."
         ],
         "lead": "",
-        "notes": "[35 s] Povinné obsahové části již neexistují jako oddělené ukázky. Z interpreta lze přejít ke koncertu a ze scény do filtrovaného programu. Hledání pokrývá všechna data včetně popisů. K jádru přibyly vstupenky na jeden, dva nebo tři dny, košík, kemp a PDF. Registrace i historie jsou lokální pro prohlížeč, účet není povinný. Vstup lze zvolit na všechny scény nebo jen na jednu. Main Hall má sedadla i stání, River a Club pouze stání. Každá scéna má vlastní kapacitu a společný vstup se do všech započítá. Tři závěrečné koncerty denně navazují s půlhodinou na přesun; plné běžné sety se mezi scénami mohou překrývat."
+        "notes": "[40 s] Proti wireframu máme propojený nákup. Detail interpreta používá jeho skutečné vystoupení a předvyplní den a scénu. Návštěvník může přepnout na jiné dny či společný vstup. U sedadel počet osob vychází z počtu označených míst, u stání ho zadává. Dvoudenní vstup vyžaduje dvě různé zvolené hodnoty. Změna výběru i odebrání z košíku okamžitě přepočítají cenu. Kapacita vychází z platných objednávek a před dokončením se znovu kontroluje. Stejná objednávka je zdrojem historie a PDF, včetně použitého kódu a slevy."
       },
       {
         "layout": "bullets",
@@ -330,16 +332,16 @@
             "Otevřít můj program"
           ],
           [
-            "S2 / Hledání",
+            "S2 / Interpret",
             "Vyhledat DARKZY"
           ],
           [
-            "Detail",
-            "Zjistit čas a scénu"
+            "Vstupenka",
+            "Správný den a Club Stage"
           ]
         ],
         "lead": "Ukázka: navigace, změna výsledků a práce s klávesnicí.",
-        "notes": "[50 s včetně ukázky] Nejprve předvedeme filtr prvního dne a River Stage a uložíme koncert do osobního programu. Potom přes globální hledání najdeme DARKZY, otevřeme detail a přejdeme ke koncertu. Sledujeme správnost údajů a srozumitelnost cesty, ne pouze animace. Krátce ukážeme focus klávesnice, zavření dialogu a návrat k obsahu. Stejné ID propojuje seznam i detail, takže nevznikají rozdílné ručně napsané časy. Tyto scénáře budou moci zopakovat hodnotitelé v dalším milníku."
+        "notes": "[45 s včetně ukázky] V prvním průchodu vybereme první srpen a River Stage a uložíme koncert. Otevřeme osobní program a po obnovení ověříme zachování výběru. Potom vyhledáme DARKZY a z jeho detailu přejdeme na vstup pro jeho koncert. Ukážeme předvolenou scénu a den, zbývající kapacitu a cenu. Přidáme vstup do košíku a po odebrání zkontrolujeme nový součet. Důležité funkce nejsou pevné odkazy na náhodnou nabídku: hodnoty se odvozují z propojených objektů. Stejné kroky lze zopakovat na telefonu a klávesnicí."
       },
       {
         "layout": "bullets",
@@ -383,7 +385,7 @@
         "title": "Web připravený pro review",
         "kicker": "CVIČENÍ 05",
         "lead": "Prague Pulse Fest · 1.–3. srpna 2027\nVýstaviště Praha · fiktivní festival",
-        "notes": "[30 s] Předáváme web, specifikaci a popis scénářů tak, aby jiný tým mohl samostatně provést hodnocení. Oproti návrhu už jsou dostupné všechny hlavní části, obě jazykové varianty a lokální objednávka s PDF. Podklady cvičení čtyři a pět vycházejí ze stejné současné verze: skutečné historické snapshoty nebyly poskytnuty. Netvrdíme tedy neexistující časový vývoj. Nyní ukážeme obsah balíčku, dva hlavní průchody a přesně vymezené limity."
+        "notes": "[30 s] Předáváme web, specifikaci a popis scénářů tak, aby jiný tým mohl samostatně provést hodnocení. Oproti návrhu už jsou dostupné všechny hlavní části, obě jazykové varianty a lokální objednávka s PDF.  Nyní ukážeme obsah balíčku, dva hlavní průchody a přesně vymezené limity."
       },
       {
         "layout": "bullets",
@@ -425,7 +427,7 @@
       },
       {
         "layout": "route",
-        "title": "S2: hledání a detail interpreta",
+        "title": "S2: interpret a odpovídající vstup",
         "kicker": "POSTUP PRO NEZÁVISLÉHO HODNOTITELE",
         "steps": [
           [
@@ -433,20 +435,20 @@
             "Zadat DARKZY"
           ],
           [
-            "Výsledky",
-            "Otevřít interpreta"
-          ],
-          [
             "Detail",
-            "Najít jeho koncert"
+            "Otevřít jeho vystoupení"
           ],
           [
-            "Program",
-            "Ověřit čas a scénu"
+            "Vstupenka",
+            "Správný den a Club Stage"
+          ],
+          [
+            "Košík",
+            "Cena a zvolený rozsah"
           ]
         ],
-        "lead": "Kontrola: správné propojení, prázdný výsledek a zavření dialogu.",
-        "notes": "[45 s včetně ukázky] U druhého scénáře je cílem zjistit termín známého interpreta. Hledáme DARKZY, otevřeme detail a navazující program. Porovnáme údaje se specifikací a daty. Dále zkusíme neexistující dotaz a zavření dialogu klávesou Escape. Hledání v biografiích je záměr: například dotaz David může najít i interpreta uvedeného vlastním jménem v popisu. To není chyba podobnosti jmen. Výsledky mají vysvětlit nalezený objekt a nabídnout smysluplný přechod, nikoli zobrazit pouze bezkontextový seznam."
+        "lead": "Kontrola: propojená data, dostupnost a aktuální cena.",
+        "notes": "[45 s včetně ukázky] Druhý scénář končí odpovídající vstupenkou. Známe jméno DARKZY, v hledání otevřeme interpreta a jeho vstup. Porovnáme předvolený den a Club Stage s vystoupením v XML. Zkontrolujeme kapacitu pro tento den, vložíme vstup do košíku a ověříme cenu i rozsah. Rozsah lze změnit podle dalších plánovaných koncertů. Po odstranění položky musí celková cena odpovídat tomu, co skutečně zůstalo v košíku. Na stejné principy navazuje scénář S3 s dvěma dny, kde bez obou vybraných dat nelze pokračovat."
       },
       {
         "layout": "bullets",

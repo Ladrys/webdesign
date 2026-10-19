@@ -4,10 +4,10 @@
 
   const scriptUrl = document.currentScript?.src || new URL('js/ticket-pdf.js', document.baseURI).href;
   const vendorUrl = new URL('../vendor/', scriptUrl);
-  const ink = '#11110F';
-  const paper = '#F2EFE5';
-  const orange = '#FF5A1F';
-  const gray = '#696960';
+  const ink = '#F4F3EF';
+  const paper = '#101214';
+  const orange = '#FF784B';
+  const gray = '#B6BDC6';
 
   const tr = (cs,en) => window.PulseI18n?.lang==='en'?en:cs;
   const money = (value, precise = false) => new Intl.NumberFormat(window.PulseI18n?.lang==='en'?'en-GB':'cs-CZ', { style: 'currency', currency: 'CZK', minimumFractionDigits: precise ? 2 : 0, maximumFractionDigits: 2 }).format(Number(value) || 0);
@@ -62,7 +62,7 @@
     const quietZone = 4;
     const module = size / (count + quietZone * 2);
     box(doc, x, y, size, size, '#FFFFFF');
-    doc.setFillColor(ink);
+    doc.setFillColor('#111315');
     for (let row = 0; row < count; row += 1) {
       // Draw contiguous runs as one vector rectangle for compact, crisp print output.
       for (let column = 0; column < count;) {
@@ -76,15 +76,46 @@
   }
 
   const amount = (value, fallback = 0) => Number.isFinite(value) && value >= 0 ? value : fallback;
-  const roundMoney = value => Math.round((value + Number.EPSILON) * 100) / 100;
+  const halers = value => {
+    const result = Math.round(amount(value) * 100);
+    return Number.isSafeInteger(result) ? result : 0;
+  };
 
-  function orderSummary(order) {
-    const subtotal = amount(order.subtotal, order.tickets.reduce((sum, ticket) => sum + amount(ticket.price), 0));
-    const discount = Math.min(subtotal, amount(order.discount));
-    const camping = order.camping ? amount(order.campingTotal, amount(order.camping.price)) : 0;
-    const total = amount(order.total, roundMoney(subtotal - discount + camping));
-    const hasTax = Number.isFinite(order.tax?.rate) && Number.isFinite(order.tax?.net) && Number.isFinite(order.tax?.vat);
-    return { subtotal, discount, camping, total, hasTax, rate: order.tax?.rate, net: order.tax?.net, vat: order.tax?.vat };
+  function includedTax(grossHalers, rate) {
+    const netHalers = Math.round(grossHalers * 100 / (100 + rate));
+    return { net: netHalers / 100, vat: (grossHalers - netHalers) / 100 };
+  }
+
+  // A promotion belongs to the tickets, not the camping pitch. Allocate whole
+  // halers proportionally and give leftover halers to the largest remainders.
+  // BigInt keeps the weighting exact; a tie follows the order of the tickets.
+  function allocateTicketAmounts(order) {
+    const prices = (Array.isArray(order?.tickets) ? order.tickets : []).map(ticket => halers(ticket.price));
+    const subtotal = prices.reduce((sum, price) => sum + price, 0);
+    const discount = Math.min(subtotal, halers(order?.discount));
+    const shares = prices.map((price, index) => {
+      const weighted = BigInt(discount) * BigInt(price);
+      return { index, value: subtotal ? Number(weighted / BigInt(subtotal)) : 0, remainder: subtotal ? weighted % BigInt(subtotal) : 0n };
+    });
+    const remainder = discount - shares.reduce((sum, share) => sum + share.value, 0);
+    shares.slice().sort((a, b) => a.remainder === b.remainder ? a.index - b.index : a.remainder > b.remainder ? -1 : 1)
+      .slice(0, remainder).forEach(share => { share.value += 1; });
+    const hasTax = Number.isFinite(order?.tax?.rate) && order.tax.rate >= 0 && order.tax.rate <= 100;
+    const rate = hasTax ? order.tax.rate : null;
+    return prices.map((price, index) => {
+      const paid = price - shares[index].value;
+      return { price: price / 100, discount: shares[index].value / 100, paid: paid / 100,
+        ...(hasTax ? includedTax(paid, rate) : { net: null, vat: null }), rate, hasTax };
+    });
+  }
+
+  function purchaseDate(order) {
+    const value = new Date(order.created || order.createdAt || '');
+    if (!Number.isFinite(value.getTime())) return '—';
+    return new Intl.DateTimeFormat(window.PulseI18n?.lang === 'en' ? 'en-GB' : 'cs-CZ', {
+      timeZone: 'Europe/Prague', day: 'numeric', month: 'numeric', year: 'numeric',
+      hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23',
+    }).format(value);
   }
 
   function festivalCalendar(edition) {
@@ -151,101 +182,103 @@
     await loadDependencies();
     const edition=Number.isInteger(order.edition)?order.edition:2026;
     const calendar = festivalCalendar(edition);
-    const summary = orderSummary(order);
+    const ticketAmounts = allocateTicketAmounts(order);
     const doc = new window.jspdf.jsPDF({ orientation: 'landscape', unit: 'pt', format: 'a5', compress: true, putOnlyUsedFonts: true });
     doc.addFileToVFS('DejaVuSans.ttf', window.PULSE_PDF_FONTS.regular);
     doc.addFont('DejaVuSans.ttf', 'PulseSans', 'normal');
     doc.addFileToVFS('DejaVuSans-Bold.ttf', window.PULSE_PDF_FONTS.bold);
     doc.addFont('DejaVuSans-Bold.ttf', 'PulseSans', 'bold');
-    doc.setProperties({ title: `Prague Pulse Fest · ${order.id}`, author: 'Prague Pulse Fest', subject: 'Školní ukázka vstupenek' });
+    doc.setProperties({ title: `Prague Pulse Fest · ${order.id}`, author: 'Prague Pulse Fest', subject: tr('Vstupenky a rezervace', 'Tickets and reservations') });
     const width = doc.internal.pageSize.getWidth();
     const height = doc.internal.pageSize.getHeight();
-    const split = width - 175;
+    const split = width - 181;
+    const sideX = split + 18;
+    const mainWidth = split - 52;
 
-    function pageBase(title, headerDate) {
+    function pageBase(kind, title, validity) {
       box(doc, 0, 0, width, height, paper);
-      box(doc, split, 0, 175, height, orange);
-      box(doc, 0, 0, split, 126, ink);
-
-      text(doc, 'PRAGUE', 25, 40, 230, 25, true, paper);
-      text(doc, 'PULSE', 23, 86, 260, 43, true, paper);
-      text(doc, `FEST / ${edition}`, 26, 117, 230, 11, true, orange);
-      font(doc, 13, true, orange);
-      const headerSize = Math.min(13, 13 * 107 / Math.max(1, doc.getTextWidth(headerDate)));
-      text(doc, headerDate, split - 133, 72, 108, headerSize, true, orange, false);
-
-      text(doc, title, 26, 146, split - 52, 8, true);
-      label(doc, 'JMÉNO V OBJEDNÁVCE', 26, 165, split - 52);
-      text(doc, order.name || order.customer?.name || 'Návštěvník festivalu', 26, 190, split - 52, 21, true, ink, false);
-      doc.setDrawColor('#CECCC2');
+      box(doc, 0, 0, 6, height, orange);
+      box(doc, split, 0, width - split, height, '#1A1E21');
+      text(doc, 'PRAGUE', 26, 34, 240, 14, true, ink, false);
+      text(doc, 'PULSE FEST', 24, 66, 295, 29, true, ink, false);
+      text(doc, String(edition), split - 75, 34, 49, 14, true, orange, false);
+      doc.setDrawColor('#3D4348');
       doc.setLineWidth(0.6);
-      doc.line(26, 205, split - 26, 205);
+      doc.line(26, 85, split - 26, 85);
+
+      text(doc, kind, 26, 108, mainWidth, 8, true, orange, false);
+      text(doc, title, 26, 133, mainWidth, 21, true, ink, false);
+      text(doc, validity, 26, 158, mainWidth, 16, true, ink, false);
+      text(doc, 'Výstaviště Praha · Praha 7', 26, 177, mainWidth, 9, false, gray, false);
+      doc.line(26, 192, split - 26, 192);
+
+      label(doc, tr('ZAKOUPIL/A', 'PURCHASED BY'), 26, 211, mainWidth);
+      text(doc, order.name || order.customer?.name || tr('Návštěvník festivalu', 'Festival visitor'), 26, 233, mainWidth, 18, true, ink, false);
+      text(doc, tr('Objednávka ', 'Order ') + String(order.id), 26, 254, mainWidth, 9, true, ink, false);
+      text(doc, tr('Zakoupeno ', 'Purchased ') + purchaseDate(order) + tr(' · pražský čas', ' · Prague time'), 26, 270, mainWidth, 8, false, gray, false);
     }
 
-    function financialSummary() {
-      if (order.campingIssue) {
-        text(doc, tr('Údaje o kempu nejsou úplné.', 'Camping details are incomplete.'), 26, 307, split - 52, 10, true);
-        text(doc, tr('PDF obsahuje pouze festivalové vstupenky.', 'The PDF contains festival tickets only.'), 26, 325, split - 52, 9);
-        text(doc, tr('Uložená cena objednávky', 'Saved order total'), 26, 347, split - 170, 9, true);
-        text(doc, money(summary.total), split - 143, 347, 117, 12, true, ink, false);
-        return;
+    function financialSummary(values, details) {
+      doc.setFillColor('#202529');
+      doc.roundedRect(26, 286, mainWidth, 100, 9, 9, 'F');
+      const rightX = split - 40;
+      function row(caption, value, y) {
+        text(doc, caption, 39, y, mainWidth - 145, 8.5, false, gray, false);
+        font(doc, 9, true);
+        doc.text(value, rightX, y, { align: 'right' });
       }
-      doc.setDrawColor('#CECCC2');
-      doc.line(26, 286, split - 26, 286);
-      const amountX = split - 143;
-      const labelWidth = amountX - 38;
-      const amountWidth = split - amountX - 26;
-      text(doc, tr('Vstupenky celkem', 'Ticket subtotal'), 26, 300, labelWidth, 8.5, false);
-      text(doc, money(summary.subtotal), amountX, 300, amountWidth, 8.5, true, ink, false);
-      const promo = summary.discount && order.promoCode ? ` · ${order.promoCode}` : '';
-      text(doc, tr('Sleva', 'Discount') + promo, 26, 313, labelWidth, 8.5, false, ink, false);
-      text(doc, money(summary.discount), amountX, 313, amountWidth, 8.5, true, ink, false);
-      text(doc, tr('Kemp celkem', 'Camping subtotal'), 26, 326, labelWidth, 8.5, false);
-      text(doc, money(summary.camping), amountX, 326, amountWidth, 8.5, true, ink, false);
-      text(doc, summary.hasTax ? tr('OBJEDNÁVKA CELKEM VČ. DPH', 'ORDER TOTAL INCL. VAT') : tr('OBJEDNÁVKA CELKEM', 'ORDER TOTAL'), 26, 343, labelWidth, 9, true);
-      text(doc, money(summary.total), amountX, 343, amountWidth, 12, true, ink, false);
-      if (summary.hasTax) {
-        text(doc, tr('Základ bez DPH: ', 'Net amount: ') + money(summary.net, true), 26, 359, 199, 8, false, gray, false);
-        text(doc, tr('DPH ', 'VAT ') + `${summary.rate}%: ` + money(summary.vat, true), 228, 359, split - 254, 8, false, gray, false);
+      row(details.listLabel, details.listValue ?? money(values.price, true), 304);
+      row(details.discountLabel, details.discountValue ?? (values.discount ? '−' : '') + money(values.discount, true), 321);
+      text(doc, values.hasTax ? tr('CENA VČETNĚ DPH', 'PRICE INCLUDING VAT') : tr('CENA', 'PRICE'), 39, 348, mainWidth - 175, 8, true, ink, false);
+      font(doc, 20, true, orange);
+      doc.text(money(values.paid, true), rightX, 349, { align: 'right' });
+      if (values.hasTax) {
+        text(doc, tr('Bez DPH ', 'Excl. VAT ') + money(values.net, true), 39, 371, 176, 8, false, gray, false);
+        font(doc, 8, false, gray);
+        doc.text(tr('DPH ', 'VAT ') + `${values.rate} % · ` + money(values.vat, true), rightX, 371, { align: 'right' });
       }
+    }
+
+    function sidebar(category, place, validity, code, number) {
+      doc.setFillColor(orange);
+      doc.roundedRect(sideX, 25, 145, 27, 13, 13, 'F');
+      text(doc, category, sideX + 12, 43, 121, 11, true, paper, false);
+      font(doc, 20, true);
+      const placeSize = Math.min(20, 20 * 143 / Math.max(1, doc.getTextWidth(place)));
+      text(doc, place, sideX, 89, 145, placeSize, true, ink, false);
+      text(doc, validity.display, sideX, 108, 145, 9, false, gray, false);
+      qr(doc, code, sideX - 1, 128, 147);
+      label(doc, tr('KÓD VSTUPENKY', 'TICKET CODE'), sideX, 299, 145);
+      font(doc, 7, false, gray);
+      const codeLines = doc.splitTextToSize(code, 145);
+      doc.text(codeLines.slice(0, 3), sideX, 313);
+      text(doc, number, sideX, 360, 145, number.length > 20 ? 9.5 : 12, true, ink, false);
+      text(doc, validity.caption, sideX, 382, 145, 7, false, gray, false);
     }
 
     function pageFooter() {
-      text(doc, 'Doklad byl vytvořen lokálně jako součást školního projektu.', 26, height - 37, split - 52, 7, false, gray);
-      text(doc, 'Nepotvrzuje platbu ani nárok na skutečný vstup do areálu.', 26, height - 25, split - 52, 7, false, gray);
-      text(doc, `OBJEDNÁVKA ${order.id}`, 26, height - 13, split - 52, 7, true);
-      const sideX = split + 21;
-      text(doc, 'PRAGUE PULSE FEST', sideX, height - 24, 138, 8, true);
-      doc.setDrawColor(ink);
+      text(doc, 'PRAGUE PULSE FEST / ' + edition, 26, height - 15, mainWidth, 7, true, gray, false);
+      text(doc, 'PRAGUEPULSEFEST.CZ', sideX, height - 15, 145, 7, true, gray, false);
+      doc.setDrawColor('#465058');
       doc.setLineWidth(0.5);
-      doc.setLineDashPattern([3, 4], 0);
-      doc.line(split, 0, split, height);
+      doc.setLineDashPattern([2, 4], 0);
+      doc.line(split, 20, split, height - 20);
       doc.setLineDashPattern([], 0);
     }
-
-    const sideX = split + 21;
     order.tickets.forEach((ticket, index) => {
       if (index) doc.addPage('a5', 'landscape');
       const validity = ticketValidity(ticket, calendar);
-      pageBase(tr('FIKTIVNÍ FESTIVAL / VSTUPENKA', 'FICTIONAL FESTIVAL / TICKET') + ' · ' + validity.admission, validity.header);
-      label(doc, 'DATUM', 26, 224, 180);
-      text(doc, validity.display, 26, 245, 185, 15, true, ink, false);
-      label(doc, 'SEKTOR / MÍSTO', 228, 224, split - 254);
-      text(doc, ticket.category === 'standing' ? tr('Volná plocha', 'Standing area') : 'Main Hall · ' + (ticket.seat || ''), 228, 245, split - 254, ticket.category === 'standing' ? 16 : 12, true);
-      label(doc, 'AREÁL', 26, 263, 170);
-      text(doc, 'Výstaviště 67, Praha 7', 26, 279, 188, 10, true);
-      label(doc, tr('CENÍKOVÁ CENA VSTUPENKY', 'TICKET LIST PRICE'), 228, 263, split - 254);
-      text(doc, money(ticket.price), 228, 280, split - 254, 13, true, ink, false);
-      financialSummary();
-      text(doc, 'ADMIT ONE / UKÁZKA', sideX, 32, 138, 8, true);
+      pageBase(tr('VSTUPENKA', 'FESTIVAL TICKET'), validity.admission, validity.display);
+      const values = ticketAmounts[index];
+      financialSummary(values, {
+        listLabel: tr('Ceníková cena vstupenky', 'Ticket list price'),
+        discountLabel: tr('Sleva', 'Discount') + (values.discount && order.promoCode ? ` · ${order.promoCode}` : ''),
+      });
       const categories = { vip: 'VIP', regular: 'REGULAR', standing: tr('STÁNÍ', 'STANDING') };
-      text(doc, categories[ticket.category] || String(ticket.category || 'REGULAR').toUpperCase(), sideX - 1, 72, 139, 23, true);
-      text(doc, validity.display, sideX, 98, 138, 10, false, ink, false);
+      const place = ticket.category === 'standing' ? tr('Volná plocha', 'Standing area') : tr('Sedadlo ', 'Seat ') + String(ticket.seat || '');
       // No name, email or URL is encoded. This local identifier is not a validated admission token.
-      qr(doc, safeCode(ticket.code, `${order.id}-${index + 1}`), sideX - 2, 123, 137);
-      label(doc, 'VSTUPENKA', sideX, 290, 138);
-      text(doc, `${String(index + 1).padStart(2, '0')} / ${String(order.tickets.length).padStart(2, '0')}`, sideX - 1, 325, 138, 23, true);
-      text(doc, validity.caption, sideX, 347, 138, 7, false, ink, false);
+      sidebar(categories[ticket.category] || String(ticket.category || 'REGULAR').toUpperCase(), place, validity,
+        safeCode(ticket.code, `${order.id}-${index + 1}`), tr('VSTUPENKA ', 'TICKET ') + `${String(index + 1).padStart(2, '0')} / ${String(order.tickets.length).padStart(2, '0')}`);
       pageFooter();
     });
 
@@ -259,21 +292,22 @@
       const peopleLabel = tr(`${people} ${people === 1 ? 'osoba' : people < 5 ? 'osoby' : 'osob'}`, `${people} ${people === 1 ? 'person' : 'people'}`);
       const basePrice = amount(camping.basePrice);
       const personPrice = amount(camping.personPrice);
-      pageBase(tr('FIKTIVNÍ FESTIVAL / KEMP', 'FICTIONAL FESTIVAL / CAMPING'), tr(`KEMP / ${validity.nights} NOCI`, `CAMP / ${validity.nights} NIGHTS`));
-      label(doc, 'DATUM', 26, 224, 185);
-      text(doc, validity.display, 26, 245, 185, 15, true, ink, false);
-      label(doc, tr('TYP MÍSTA', 'PITCH TYPE'), 228, 224, split - 254);
-      text(doc, pitch, 228, 245, split - 254, 13, true, ink, false);
-      text(doc, tr('1 místo', '1 pitch') + ` · ${peopleLabel} · ` + tr(`${validity.nights} noci`, `${validity.nights} nights`), 26, 264, split - 52, 10, true, ink, false);
-      text(doc, tr('Místo ', 'Pitch ') + money(basePrice) + ` + ${people} × ` + money(personPrice) + tr(' za osobu', ' per person'), 26, 279, split - 52, 9, false, ink, false);
-      financialSummary();
-      text(doc, tr('KEMP / UKÁZKA', 'CAMPING / SAMPLE'), sideX, 32, 138, 8, true);
-      text(doc, caravan ? tr('KARAVAN','CARAVAN') : tr('STAN','TENT'), sideX - 1, 72, 139, 23, true);
-      text(doc, validity.display, sideX, 98, 138, 10, false, ink, false);
-      qr(doc, safeCode(`${order.id}-camp`, `${order.id}-camp`), sideX - 2, 123, 137);
-      label(doc, tr('KEMPINGOVÝ VOUCHER', 'CAMPING VOUCHER'), sideX, 290, 138);
-      text(doc, peopleLabel.toUpperCase(), sideX - 1, 325, 138, 23, true, ink, false);
-      text(doc, tr(`1 MÍSTO / ${validity.nights} NOCI`, `1 PITCH / ${validity.nights} NIGHTS`), sideX, 347, 138, 7, false, ink, false);
+      pageBase(tr('KEMPINGOVÝ VOUCHER', 'CAMPING VOUCHER'), pitch, validity.display);
+      // The voucher accounts for camping only; no concert price or promotion is repeated.
+      const campingPrice = halers(camping.price);
+      const hasTax = Number.isFinite(order.tax?.rate) && order.tax.rate >= 0 && order.tax.rate <= 100;
+      const rate = hasTax ? order.tax.rate : null;
+      const values = { price: campingPrice / 100, paid: campingPrice / 100, discount: 0, rate, hasTax,
+        ...(hasTax ? includedTax(campingPrice, rate) : { net: null, vat: null }) };
+      financialSummary(values, {
+        listLabel: tr('Cena místa', 'Pitch price'),
+        listValue: money(basePrice, true),
+        discountLabel: `${people} × ` + money(personPrice, true) + tr(' za osobu', ' per person'),
+        discountValue: money(people * personPrice, true),
+      });
+      sidebar(caravan ? tr('KARAVAN', 'CARAVAN') : tr('STAN', 'TENT'), peopleLabel,
+        { display: validity.display, caption: tr(`1 MÍSTO / ${validity.nights} NOCI`, `1 PITCH / ${validity.nights} NIGHTS`) },
+        safeCode(`${order.id}-camp`, `${order.id}-camp`), tr('KEMPINGOVÝ VOUCHER', 'CAMPING VOUCHER'));
       pageFooter();
     }
     return doc.output('blob');
@@ -292,5 +326,5 @@
     return blob;
   }
 
-  window.PulseTickets = Object.freeze({ generate, download });
+  window.PulseTickets = Object.freeze({ generate, download, allocateTicketAmounts });
 })();

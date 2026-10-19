@@ -8,7 +8,7 @@
 
 Prague Pulse Fest je fiktivní městský hudební festival pro 1.–3. srpna 2027.
 Web propojuje program, účinkující, scény, vyhledávání a praktické informace.
-Navazuje na původní projekt Značkovací jazyky a jeho XML datový základ.
+Využívá XML datový základ se stabilními ID.
 Výstup pro Webdesign tvoří čistě klientský web a podklady ke cvičením.
 
 | Oblast | Současné řešení |
@@ -52,25 +52,23 @@ za splněnou externí validaci.
 ### 3.1 Jak data procházejí projektem
 
 ```text
-data/festival.xml + festival.xsd
-          ↓ XSLT transformace a ověření
-       API/json/*.json
+data/festival.xml + data/festival.xsd
           ↓ tools/generate_data.py
-       web/js/data.js
-          ↓ JavaScript v prohlížeči
-     program, profily, scény, tarify
+     data/json/ — festival, venues, performers, events
+     web/js/data.js — stejný obsah pro prohlížeč
+          ↓
+     program, filtry, detaily, ceny a kapacity
 ```
 
-`data/festival.xml` je hlavní datový zdroj. `data.xml` je identická kopie
-pro předepsanou strukturu odevzdání. XSD ověřuje strukturu, typy a reference.
-Sedm XSLT transformací vytváří JSON ukázky; JSON Schema a OpenAPI popisují
-jejich strukturu. Složka `API/` obsahuje soubory, **nikoli běžící backend**.
+`data/festival.xml` je hlavní datový zdroj. XSD kontroluje strukturu,
+typy a reference. Generátor používá standardní knihovnu Pythonu a z celého
+XML připraví čtyři JSON exporty, webová data a přesné kořenové kopie
+`data.xml` a `festival.xsd` pro odevzdání.
 
-`web/js/data.js` při otevření stránky nastaví `window.FESTIVAL_DATA`.
-Je to obyčejný JavaScript s vloženými daty, připravený z úplného XML
-a JSON exportů. Web proto nemusí při spuštění načítat XML přes `fetch`
-ani provozovat API. Všech 60 interpretů je přítomno i tehdy, když ukázkový
-JSON endpoint předvádí stránkování.
+`web/js/data.js` nastaví `window.FESTIVAL_DATA`. Hotový web tak používá
+stejný obsah bez síťového načítání lokálního XML nebo JSON. Odvozené exporty
+se samostatně neupravují. Všechny seznamy obsahují úplná data, nikoli
+stránkovanou ukázku.
 
 ### 3.2 Hlavní entity XML
 
@@ -101,17 +99,24 @@ položek označuje příznak `highlight`. Společná třídenní vstupenka umož
 vidět všechny tyto koncerty; netvrdíme, že lze stihnout všech 60 celých setů.
 Osobní program upozorní na časové překryvy uložených vystoupení.
 
-### 3.3 JSON není totéž co JSON-LD
+### 3.3 Výběr a propojení objektů
 
-JSON soubory skutečně existují v `API/json/`; procenta jazyků na GitHubu
-nejsou inventář dat ani známka kvality. JavaScript zahrnuje také přibalená
-data a knihovny, Python pomocné nástroje a testy. Jejich velikost nevypovídá
-o tom, co je nutné k otevření webu.
+Filtry dne a scény porovnávají ID. Textový filtr a vyhledávání normalizují
+diakritiku a velikost písmen a používají shodu podřetězce. Výsledný program
+se řadí podle dne a začátku. Osobní program ukládá ID, nikoli kopie koncertů.
 
-JSON-LD je zde vložený blok `<script type="application/ld+json">` na úvodu.
-Popisuje entitu `Festival`, její viditelný název, datum a místo pro vyhledávače.
-Neslouží jako úložiště uživatelů a nenahrazuje festivalová data. Neuvádí
-vymyšlená hodnocení ani potvrzené nabídky skutečného prodeje.
+Detail interpreta propojí `performerIds` vystoupení s ID profilu. Odkaz
+na nákup převezme `dayId` a `venueId` konkrétního vystoupení a předvolí
+jednodenní vstup. Nevybírá vstup podle žánru ani pořadí prvků v seznamu.
+Návštěvník může rozsah před vložením do košíku změnit.
+
+Kapacita se odvozuje z platných objednávek aktuálního ročníku pro každou
+scénu a den. Přehled ukazuje celkovou kapacitu, prodané a zbývající vstupy;
+nejde o počet lidí právě přítomných před pódiem.
+
+JSON-LD v úvodu je blok `<script type="application/ld+json">` s typem
+`Festival`: viditelný název, termín a místo pro vyhledávače. Nenahrazuje XML
+ani úložiště účtů.
 
 ## 4. Návrh a fungování webu
 
@@ -124,8 +129,8 @@ Soukromí, podmínky a fotografické kredity mají samostatné stránky.
 
 - **S1 — osobní program:** vybrat první den a River Stage, uložit koncert,
   zapnout vlastní program a obnovit stránku. Zůstane uložený koncert.
-- **S2 — interpret:** vyhledat DARKZY, otevřít medailonek a odkaz do programu.
-  Výsledek a čas musí odpovídat stejné entitě v XML.
+- **S2 — interpret a vstup:** vyhledat DARKZY, otevřít detail a příslušný vstup.
+  Předvolený den a Club Stage musí odpovídat vystoupení v XML.
 - **S3 — objednávka hosta:** zvolit 1. a 3. srpna, vlastní VIP sedadlo,
   vyplnit kontakt a po dokončení stáhnout PDF pro přesně oba zvolené dny.
 
@@ -138,7 +143,8 @@ hotový web jej při spuštění nepoužívá.
 Mobile-first CSS používá Flexbox pro navigaci a ovládání a Grid pro seznamy,
 karty a sedadla. Pružné šířky, `clamp()` a `minmax()` přizpůsobují obsah
 prostoru. Tmavá identita kombinuje vlastní typografické logo a oranžové akce.
-Inspirace festivalovými weby nepřebírá cizí logo, fotografie ani kód.
+Inspirace festivalovými weby zachovává vlastní značku a rozložení;
+použité fotografie mají samostatně doložené zdroje a licence.
 
 Používají se významové oblasti `header`, `nav`, `main`, `section`, `article`,
 `aside` a `footer`, dále `time`, `address` a popisky formulářů. Navigaci lze
@@ -167,6 +173,15 @@ Hall nelze prodat zároveň v samostatné a společné variantě. Stání má ko
 kapacitu, ale nevyžaduje kreslení tisíců tlačítek sedadel. Jeho interní číslo
 není rezervovaná pozice: při vícedenním vstupu rozhoduje volná kapacita
 každého dne, nikoli shodné číslo stání v různých dnech.
+
+Kliknutí na sedadlo přidá nebo odebere místo a současně změní počet osob
+a cenu; počet se nezadává druhým ovládáním. U stání se počet zadává.
+Dvoudenní vstup vyžaduje dvě výslovně zvolená různá data. Dokud nejsou
+obě vyplněná, nelze výběr přidat do košíku.
+
+Cena košíku se vždy vypočítává z aktuálních položek. Odebrání znovu
+spočítá mezisoučet, promo, zahrnutou daň a celkovou částku, včetně
+přechodu na prázdný košík.
 
 Výběr dovoluje nejvýše osm osob najednou, celá objednávka nejvýše 264
 vstupenek. Vyšší počet se odmítne před přidáním i při dokončení objednávky,
@@ -205,18 +220,34 @@ Základ je 2 476,79 Kč a zahrnutá daň 297,21 Kč. Základ se vypočítá
 z konečné ceny dělením 1,12; rozdíl tvoří daň, částky jsou na haléře.
 
 Sedm platebních metod představuje průchod formulářem bez platební služby.
-PDF vzniká lokálně přes jsPDF: každá vstupenka má vlastní stránku, přesná
-data, místo, číslo objednávky a QR identifikátor. Kemp přidává poukaz.
+PDF vzniká přes jsPDF z uloženého objektu objednávky. Každá vstupenka má
+vlastní stránku, datum nákupu, jméno kupujícího, číslo objednávky, přesnou
+platnost, scénu, kategorii, místo a QR identifikátor. Zobrazuje cenu konkrétní
+vstupenky, použitý promo kód a odpovídající část slevy.
+
+Sleva se mezi položky rozdělí v celých haléřích poměrem jejich cen
+a metodou největšího zbytku. Součet částí tak odpovídá slevě objednávky.
+Z ceny po slevě se určí základ a již zahrnutá 12% daň. Kemp má samostatný
+poukaz a nevstupuje do ceny koncertní vstupenky. Tmavý podklad, oranžová
+barva, typografie a QR navazují na web.
 QR nemá serverové ověření. Skutečné karetní údaje se nevyplňují a e-mail
 se automaticky neposílá.
 
 ### 4.4 Účet a soukromí
 
 Registrace má jméno, příjmení, e-mail, telefon, heslo a jeho potvrzení.
-Profil dovoluje upravit kontakt bez změny údajů historické objednávky.
+Profil zobrazuje datum registrace a dovoluje upravit kontakt bez změny
+údajů historické objednávky. Změna hesla vyžaduje současné heslo, nové heslo
+a jeho potvrzení.
 Heslo se ukládá jako PBKDF2-SHA256 hash se 120 000 iteracemi a náhodnou
 solí; nejde o produkční autentizaci ani ověření vlastnictví e-mailu.
 Přihlášení vyprší za sedm dnů; toto vypršení kontroluje klientská aplikace.
+
+Zapomenuté heslo neobnovuje samotný e-mail. Účet má náhodný obnovovací kód,
+pro který se ukládá hash. Má 128 náhodných bitů, zobrazí se při vytvoření a uživatel si jej uschová.
+Při obnově zadá e-mail, kód a nové heslo s potvrzením. Obnova vymění také
+kód; starý již nelze použít. Změna i obnova ukončí dosavadní přihlášení. Starší účet si může kód vytvořit po ověření
+současného hesla. Bez původního hesla nebo kódu není klientské ověření možné.
 
 `localStorage` uchovává účet, košík, objednávky, osobní program a nastavení.
 Nevzniká automaticky měněný soubor JSON v adresáři projektu. Smazání místních
@@ -248,9 +279,9 @@ Postup přípravy má čtyři navazující části:
 | Nástroj nebo technologie | Účel |
 | --- | --- |
 | HTML, CSS, JavaScript, Web Crypto | Obsah, rozložení, interakce a místní zpracování hesla |
-| XML, XSD, XSLT, JSON Schema, OpenAPI 3.1 | Konzistentní datové podklady |
+| XML, XSD a čtyři odvozené JSON exporty | Konzistentní datové podklady |
 | jsPDF a QR knihovna | PDF dokument v prohlížeči, přibalené licence |
-| Python, lxml, jsonschema, PyYAML | Volitelné vývojové validace a export dat |
+| Python a lxml | Volitelné vývojové validace a export dat |
 | Playwright a Chromium | Automatizované prokliky skutečného rozhraní |
 | python-pptx, ReportLab, python-docx | Editovatelné prezentace a doprovodné dokumenty |
 | Git a GitHub | Verze zdrojů, kontrola změn a stažení projektu |
@@ -262,7 +293,7 @@ Pokyny k instalaci volitelných kontrol obsahuje README a průvodce soubory.
 
 | Kontrola | Co prokazuje |
 | --- | --- |
-| `python validate_project.py` | XML/XSD, počty, reference, transformace, schémata a shodu exportu |
+| `python validate_project.py` | XML/XSD, počty, reference, časové vazby, ceny, kapacity a shodu exportů |
 | `python tests/browser_smoke.py` | Filtry, hledání, oblíbené, účty, objednávky, součty a vytvořené PDF |
 | `python tests/course_materials.py --folder odevzdani` | Otevření prezentací, poznámky a funkční scénáře prototypu |
 | Vizuální kontrola | Čitelnost, fotografie, součty, přetékání a rozložení |
@@ -307,13 +338,15 @@ Podklad GFŘ nepotvrzuje právní sazbu konkrétní akce v roce 2027.
 
 | Fáze nebo podnět | Rozhodnutí a změna | Důvod a kontrola |
 | --- | --- | --- |
-| Původní Značkovací jazyky | Zachovat XML, scény, interprety a programové vazby | Navázání na existující datový projekt; validace exportů |
+| Datový základ | Zachovat XML, scény, interprety a programové vazby | Navázání na existující datový projekt; validace exportů |
 | Návrh Webdesignu | Doplnit propojené hledání, osobní program, mobile-first a CZ/EN | Scénáře návštěvníků; průchod S1 a S2 |
 | Upřesnění zadavatele | Zachovat Prague Pulse Fest, přesunout termín na srpen 2027, vlastní tmavá identita | Oprava názvu a budoucího ročníku; shoda dat a rozhraní |
 | Zpětná vazba k rozhraní | Skuteční interpreti, podrobnější medailonky, vhodné fotografie, doprava a offline plánek | Konkrétní obsahové připomínky; kontrola vazeb a licencí |
 | Zpětná vazba k objednávce | Sjednotit 1/2/3 dny, ruční sedadla, kemp a daňový rozpis | Srozumitelný rozsah a cena; kontrola PDF a nesousedících dnů |
 | Požadavek na samostatné scény a přehledný program | Rozdílné kapacity, levnější vstup jedné scény, postupné večerní koncerty a upozornění na kolize | Srozumitelný rozsah vstupu bez zkrácení plných setů; ověření cen, kapacit a časů |
-| Aktuální požadavek na podklady | Zjednodušit prezentace a dokumentaci, doplnit autory a návod | Obsah jednotlivých cvičení porovnaný se zadáním |
+| Zpětná vazba k cestě zákazníka | Předvolit scénu a den interpreta, počítat osoby z výběru sedadel, vyžadovat oba dny, ihned obnovovat součty a zobrazovat kapacity | Oprava konkrétních nejistot nákupu; průchod od interpreta až k PDF |
+| Požadavek na přehledné podklady | Zkrátit specifikaci a C02 prezentaci, oddělit poznámky a PDF náhled od čtyř odevzdávaných souborů | Porovnání cílů, datových vazeb, scénářů a souborů se zadáním |
+| Zjednodušení datové části | Jediný XML zdroj a čtyři plné JSON exporty, odstranění historického návrhu rozhraní | Reprodukovatelný export a shoda objektů s webem |
 
 Podklady v `odevzdani/` jsou dodatečně připravené milníky, nikoli důkaz
 historických odevzdání. Cvičení 04 a 05 obsahují současný web.
@@ -353,11 +386,12 @@ licencované podklady; textové medailonky prošly AI zpracováním.
 | Použití a reprezentativní zadání | Co jsme přijali, upravili či odmítli | Jak se výsledek kontroloval |
 | --- | --- | --- |
 | „Navrhni mobilní festivalový web a propojený program.“ | Přijata navigace a scénáře; zjednodušeny obecné reklamní texty | Průchody S1 a S2 na mobilní a desktopové šířce |
-| „Zachovej XML jako zdroj dat webu.“ | Přijaty stabilní identifikátory; upraveny nesoulady exportů | XML/XSD, skutečné XSLT transformace a porovnání JSON/data.js |
+| „Zachovej XML jako zdroj dat webu.“ | Přijaty stabilní identifikátory; upraveny nesoulady exportů | XML/XSD a přesné porovnání čtyř JSON exportů a data.js |
 | „Sjednoť nákup na jeden, dva nebo tři dny.“ | Přijata společná volba; opraveno vyjádření nesousedících dnů | Nákup 1. a 3. srpna, obsazenost a text staženého PDF |
 | „Kemp je místo plus počet osob, promo jen na vstupenky.“ | Přijat oddělený výpočet; daň se nepřičítá znovu | Přepočet příkladu 2 774 Kč, hranice slevy a kapacit |
 | „Použij skutečné interprety a fotografie.“ | Odmítnuty nedoložené snímky a AI tváře přiřazené reálným lidem | Záznam jména, autora, licence a zdroje; vlastní náhrada při chybějící fotografii |
 | „Navrhni kapacity scén a program, který dává smysl.“ | Přijaty různé kapacity; odmítnuto neomezené stání a slib stihnout všech 60 plných setů | Kapacity z katalogu, společné a samostatné vstupy, stejné sedadlo a návaznost večerních koncertů |
+| „Propoj interpreta s přesným vstupem a zobraz dostupnost.“ | Přijata předvolba z objektu vystoupení; opraven obecný odkaz a nesoulad součtů | Porovnání dne, scény a cen od detailu přes košík po PDF |
 | „Připrav podklady podle cvičení.“ | Přijato členění; odmítnut vymyšlený cizí posudek a historie týmu | Porovnání se zadáním, otevření PPTX/PDF a kontrola poznámek |
 
 Limity AI se projevily hlavně v příliš obecných textech, záměně festivalového
