@@ -30,7 +30,7 @@ Bez instalace a buildu. Pro web stačí JavaScript a povolené místní úloži�
 | Pro návštěvníka | Pro tým |
 | --- | --- |
 | [Hotový web](web/) | [Projektová specifikace](project-specification.md) |
-| [Cvičení 2 — ZIP k odevzdání](odevzdani/cviceni-02-k-odevzdani.zip) | [Data a struktura projektu](docs/PROJECT-GUIDE.md) |
+| [Cvičení 3 — ZIP k odevzdání](odevzdani/cviceni-03-k-odevzdani.zip) | [Data a struktura projektu](docs/PROJECT-GUIDE.md) |
 | [Další cvičení](docs/ODEVZDANI.md) | [Dokumentace](documentation.md) |
 
 ```text

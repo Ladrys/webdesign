@@ -113,7 +113,8 @@ vystoupení ke scéně a nákup převezme správný den a scénu.
   změny okamžitě přepočítají cenu a PDF obsahuje stejné dny, scénu a místa.
 
 S1–S3 jsou základem implementace a ověřování. Wireframe v `prototype/`
-pokrývá S1 a nalezení vystoupení v S2; nákup ověřuje hotový web.
+pokrývá S1 a S2 včetně předvolby jednodenního stání a vložení do košíku.
+Dvoudenní nákup S3 a dokončení objednávky ověřuje hotový web.
 
 ## 6. Datová základna a její využití
 

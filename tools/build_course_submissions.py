@@ -386,13 +386,16 @@ def build(output: Path, include_web: bool):
         deck=Deck(folder,number,info)
         for i,item in enumerate(info['slides'],1):deck.page(item,i)
         deck.finish()
-        if number == '02':
+        if number in {'02', '03'}:
             # Keep the upload directory minimal; previews and preparation stay separate.
             for subdir, source_name, output_name in [
-                ('nahledy','prezentace.pdf','cviceni-02.pdf'),
-                ('poznamky','presenter-notes.md','cviceni-02.md')]:
+                ('nahledy','prezentace.pdf',f'cviceni-{number}.pdf'),
+                ('poznamky','presenter-notes.md',f'cviceni-{number}.md')]:
                 extra=output/subdir; extra.mkdir(exist_ok=True)
                 shutil.move(str(folder/source_name),str(extra/output_name))
+            if number == '03':
+                presentations=output/'prezentace'; presentations.mkdir(exist_ok=True)
+                shutil.move(str(folder/'prezentace.pptx'),str(presentations/'cviceni-03.pptx'))
     c02=output/folder_names['02']; c03=output/folder_names['03']
     c04=output/folder_names['04']; c05=output/folder_names['05']; c06=output/folder_names['06']
     for folder in [c02,c05]:
@@ -410,10 +413,12 @@ def build(output: Path, include_web: bool):
                           ('c06-review-template.md',c06/'review.md')]:
         copy_file(SOURCE/source,target)
     prototype=c03/'prototype'
-    shutil.copytree(SOURCE/'prototype',prototype,dirs_exist_ok=True)
+    shutil.copytree(SOURCE/'prototype',prototype,dirs_exist_ok=True,ignore=shutil.ignore_patterns('README.md'))
     copy_file(ROOT/'web/js/data.js',prototype/'data.js')
-    if (SOURCE/'prototype-validation.md').exists():
-        copy_file(SOURCE/'prototype-validation.md',c03/'prototype-validation.md')
+    with zipfile.ZipFile(output/'cviceni-03-k-odevzdani.zip','w',zipfile.ZIP_DEFLATED) as archive:
+        archive.write(c03/'progress-02.md',arcname='progress-02.md')
+        for name in ['index.html','data.js','prototype.css','prototype.js']:
+            archive.write(prototype/name,arcname=f'prototype/{name}')
     if include_web:
         for folder in [c04,c05]:
             shutil.copytree(ROOT/'web',folder/'web')
@@ -464,14 +469,20 @@ pokud PDF nepoužijete místo PowerPointu k promítání.
 
 | Složka | Obsah k odevzdání |
 | --- | --- |
-| `cviceni-03-prototyp/` | `prototype/`, `progress-02.md`, použitá prezentace |
+| `cviceni-03-prototyp/` | Celé `prototype/` a `progress-02.md`; bez samostatné prezentace |
 | `cviceni-04-implementace/` | `web/`, `progress-03.md`, použitá prezentace |
 | `cviceni-05-review-ready/` | `web/`, specifikace, `progress-04.md`, použitá prezentace |
 | `cviceni-06-cross-review/` | `review.md` a prezentace nálezů cizího projektu; zatím šablona |
 | `finalni-projekt/projekt/` | Specifikace, data, prototyp, web, dokumentace a přijaté review |
 
-Prezentace mají šest snímků a poznámky na 3–5 minut. Pro cvičení 3–6 je
-přiložen PowerPoint i PDF; odevzdejte formát, který budete promítat.
+Pro cvičení 3 použijte `cviceni-03-k-odevzdani.zip`. Obsahuje pouze
+`progress-02.md` a čtyři soubory prototypu; otevřete `prototype/index.html`.
+README, validační reporty ani prezentační soubory v tomto ZIPu nejsou.
+
+Volitelné podklady pro řečníka zůstávají oddělené v `poznamky/cviceni-03.md`,
+`nahledy/cviceni-03.pdf` a `prezentace/cviceni-03.pptx`.
+Prezentace pro ostatní cvičení mají šest snímků na 3–5 minut;
+odevzdejte jen formát, který budete skutečně promítat.
 Složky webu a prototypu vždy ponechte celé.
 
 `manifest.json` zaznamenává soubory a jejich kontrolní otisky. Záznamy

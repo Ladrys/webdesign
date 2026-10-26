@@ -1,6 +1,28 @@
 # Co odevzdat
 
-## Nyní · cvičení 2
+## Nyní · cvičení 3
+
+Použijte [**ZIP pro cvičení 3**](../odevzdani/cviceni-03-k-odevzdani.zip),
+nebo nahrajte obsah složky [`cviceni-03-prototyp/`](../odevzdani/cviceni-03-prototyp/):
+
+```text
+progress-02.md
+prototype/
+├── index.html
+├── data.js
+├── prototype.css
+└── prototype.js
+```
+
+Prototyp se spustí otevřením `prototype/index.html` bez instalace. Všechny
+čtyři soubory musí zůstat ve stejné složce. Progress popisuje funkce,
+potřeby návštěvníků, dva scénáře, provedené kontroly a použití AI.
+
+**README není požadované. Samostatnou prezentaci nepřikládejte, pokud ji
+nebudete používat.** Při ukázce lze přímo projít odevzdaný HTML prototyp.
+Poznámky a volitelné prezentační podklady zůstávají mimo odevzdávací ZIP.
+
+## Cvičení 2
 
 Použijte [**připravený ZIP**](../odevzdani/cviceni-02-k-odevzdani.zip)
 nebo nahrajte čtyři soubory ze složky
@@ -23,7 +45,7 @@ Není třeba odevzdávat oba formáty ani další exporty JSON.
 
 | Termín | Co odevzdat |
 | --- | --- |
-| **Cvičení 3** | Celé `prototype/`, `progress-02.md`, použitou prezentaci |
+| **Cvičení 3** | Celé `prototype/` a `progress-02.md`; samostatnou prezentaci jen pokud ji použijete |
 | **Cvičení 4** | Celé `web/`, `progress-03.md`, použitou prezentaci |
 | **Cvičení 5** | Review-ready `web/`, `progress-04.md`, použitou prezentaci; druhému týmu také specifikaci |
 | **Cvičení 6** | `review.md` cizího projektu a prezentaci jeho skutečných nálezů |

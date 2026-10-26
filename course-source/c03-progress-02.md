@@ -1,46 +1,45 @@
-# Progress 02 — UX návrh a prototyp
+# Progress 02 — UX návrh a interaktivní prototyp
 
-**Projekt:** Prague Pulse Fest, 1.–3. srpna 2027, Výstaviště Praha.
-**Autoři:** Michal Ladra, Matěj Mlejnek, Jan Martínek.
+**Prague Pulse Fest · 1.–3. srpna 2027 · Výstaviště Praha**
+**Autoři:** Michal Ladra, Matěj Mlejnek, Jan Martínek
 
-## Výstup a hlavní rozhodnutí
+Spustitelný HTML prototyp bez instalace. Otevření: `prototype/index.html`.
+Používá stejná data odvozená z XML a klíčové sekce hotového webu: úvod, program,
+účinkující, scény, praktické informace a hledání. Mobilní základ tvoří jeden
+sloupec; na desktopu se karty rozšíří do více sloupců.
 
-Oproti specifikaci je připravený spustitelný HTML wireframe. Otevřete
-`prototype/index.html` bez instalace. Obsahuje úvod, program, účinkující,
-scény, praktické informace a hledání. Přibalená data vycházejí z XML.
+## Funkce a potřeby návštěvníků
 
-Mobile-first základ tvoří jeden sloupec a hlavní úkol před doplňujícím obsahem.
-Na desktopu přibývají sloupce, význam ovládání se nemění. Jednoduchá grafika
-umožňuje posoudit strukturu a navigaci před dopracováním vzhledu.
-
-## Funkce a potřeby uživatelů
-
-| Funkce | Potřeba |
+| Funkce | Co návštěvníkovi umožní |
 | --- | --- |
-| Společný filtr dne a scény | Najít relevantní část programu |
-| Uložení a zobrazení osobního programu | Zachovat vlastní výběr i po obnovení |
-| Hledání podle části názvu nebo popisu | Najít známého interpreta |
-| Detail interpreta s odkazem na koncert | Zjistit datum, čas a scénu v souvislostech |
+| Kombinovaný filtr dne a scény | Najít koncerty pro vlastní návštěvu |
+| Osobní program | Uložit vystoupení a vrátit se k výběru po obnovení |
+| Hledání části názvu, žánru nebo popisu | Najít interpreta bez přesného zápisu |
+| Detail interpreta a související program | Zjistit datum, čas a scénu vystoupení |
+| Výběr jednodenní vstupenky a košík | Převzít správnou scénu a den, upravit počet osob a vidět cenu |
 
-## Dva průchody
+## Dva klíčové scénáře
 
 1. **S1 — vlastní program:** Program → 1. srpna → River Stage → uložit koncert
-   → Jen uložené → obnovit stránku. Očekávání: seznam odpovídá oběma filtrům
-   a uložená akce zůstane dostupná.
-2. **S2 — konkrétní interpret:** Hledání „DARKZY“ → detail DARKZY → Program
-   interpreta. Očekávání: správná vazba mezi jménem, datem, časem a scénou.
+   → Jen uložené → obnovit stránku. Výběr zůstane zachovaný.
+2. **S2 — známý interpret:** hledání „DARKZY“ → detail → vstupenka → košík.
+   Návštěvník zjistí čas 1. srpna v 17:00 na Club Stage. Výběr převezme
+   tento den a scénu; počet osob lze upravit a cenu zkontrolovat v košíku.
 
-## Ověření a použití AI
+## Ověření
 
-Datová kontrola ověřuje počty, ID a reference. Browserový test prochází
-filtry, uložení, obnovení, detail, bezpečné zobrazení hledaného textu a šířky
-320, 768 a 1440 px. Skutečný výstup je v `prototype-validation.md`.
+- **Shoda dat:** porovnání s datovou základnou — 3 dny, 3 scény, 60 interpretů
+  a 60 vystoupení; detail a program používají stejná ID.
+- **Filtry:** první den a River Stage odpovídají sedmi položkám v datech.
+- **Průchody:** hledání → detail → koncert; uložení → obnovení stránky.
+- **Výběr vstupu:** den, scéna a cena odpovídají datům; košík přepočítá
+  cenu při změně počtu a odebrání položky.
+- **Rozložení:** kontrola navigace a přetékání při 320, 768 a 1440 px.
 
-AI pomohla s návrhem rozložení, texty a kódem. Přijali jsme propojené filtry
-a detail, upravili pořadí obsahu pro mobil a odmítli slideshow jako náhradu
-smysluplné interaktivity. Výsledek ověřují uvedené akce a porovnání s daty,
-nikoli samotné hodnocení AI.
+## Použití AI
 
-Prototyp nepokrývá nákup, PDF a jazykové mutace. Nebyl doložen výzkum
-s návštěvníky ani test na fyzických telefonech. Jde o nyní připravený návrhový
-milník, nikoli archiv dřívějšího odevzdání.
+Codex / ChatGPT pomohl s rozložením, texty a JavaScriptem. Přijali jsme vazby
+přes ID a společné filtry; upravili obsah podle scénářů a mobilního zobrazení.
+Po kontrole jsme opravili chronologické řazení a odkazy scén do programu.
+Výstupy jsme ověřili porovnáním s daty a automatizovanými průchody S1 a S2
+v prohlížeči Chromium.

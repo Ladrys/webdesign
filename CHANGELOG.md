@@ -1,5 +1,11 @@
 # Verze projektu
 
+## 1.2.1 — 26. 10. 2026
+
+- Cvičení 3 má vlastní minimální ZIP: `progress-02.md` a čtyři soubory prototypu. Volitelné prezentace a poznámky jsou mimo odevzdávací složku.
+- Prototyp navazuje tmavým vzhledem a stejnými daty na hotový web. Program je chronologický a odkazy scén správně předvolí filtr.
+- Scénář hledání interpreta pokračuje předvoleným jednodenním vstupem a košíkem. Cena a dostupnost se odvozují z vybrané scény a dne.
+
 ## 1.2.0 — 19. 10. 2026
 
 - Nákup z detailu interpreta předvolí jeho scénu a den. Výběr sedadel automaticky určuje počet osob a cenu; dvoudenní vstup vyžaduje přesně dva vybrané dny.

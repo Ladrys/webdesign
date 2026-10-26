@@ -1,12 +1,18 @@
 # Ověření podkladů a prototypu
 
-156 kontrol prošlo.
+197 kontrol prošlo.
 
 - Submission manifest matches every generated artifact
 - C02 upload ZIP has no damaged entries
 - C02 upload ZIP contains exactly the four intended files, without duplicate presentation or notes
 - C02 upload ZIP agrees with the current specification, data, schema and presentation
 - C02 upload directory contains only the four files intended for Moodle
+- C03 upload directory contains only the progress report and prototype
+- C03 prototype contains its four complete assets without a README or presentation
+- C03 prototype uses the same current festival data as the finished website
+- C03 upload ZIP has no damaged entries
+- C03 upload ZIP contains exactly the report and four prototype assets
+- C03 upload ZIP agrees with the tested upload directory
 - cviceni-02-specifikace: project-specification.md agrees with the current source
 - cviceni-02-specifikace: data.xml agrees with the current source
 - cviceni-02-specifikace: festival.xsd agrees with the current source
@@ -40,7 +46,7 @@
 - cviceni-02-specifikace: slide6 PDF/PPTX visible text agrees
 - cviceni-02-specifikace: Prague Pulse 2027 identity
 - cviceni-02-specifikace: all three authors in cover and metadata
-- cviceni-02-specifikace: separate presenter notes outside the C02 upload directory
+- cviceni-02-specifikace: presenter notes kept outside minimal upload directories
 - cviceni-02-specifikace: PowerPoint archive integrity
 - cviceni-03-prototyp: six PDF pages and editable PPTX slides
 - cviceni-03-prototyp: slide1 text and presenter notes
@@ -63,7 +69,7 @@
 - cviceni-03-prototyp: slide6 PDF/PPTX visible text agrees
 - cviceni-03-prototyp: Prague Pulse 2027 identity
 - cviceni-03-prototyp: all three authors in cover and metadata
-- cviceni-03-prototyp: separate presenter notes outside the C02 upload directory
+- cviceni-03-prototyp: presenter notes kept outside minimal upload directories
 - cviceni-03-prototyp: PowerPoint archive integrity
 - cviceni-04-implementace: six PDF pages and editable PPTX slides
 - cviceni-04-implementace: slide1 text and presenter notes
@@ -86,7 +92,7 @@
 - cviceni-04-implementace: slide6 PDF/PPTX visible text agrees
 - cviceni-04-implementace: Prague Pulse 2027 identity
 - cviceni-04-implementace: all three authors in cover and metadata
-- cviceni-04-implementace: separate presenter notes outside the C02 upload directory
+- cviceni-04-implementace: presenter notes kept outside minimal upload directories
 - cviceni-04-implementace: PowerPoint archive integrity
 - cviceni-05-review-ready: six PDF pages and editable PPTX slides
 - cviceni-05-review-ready: slide1 text and presenter notes
@@ -109,7 +115,7 @@
 - cviceni-05-review-ready: slide6 PDF/PPTX visible text agrees
 - cviceni-05-review-ready: Prague Pulse 2027 identity
 - cviceni-05-review-ready: all three authors in cover and metadata
-- cviceni-05-review-ready: separate presenter notes outside the C02 upload directory
+- cviceni-05-review-ready: presenter notes kept outside minimal upload directories
 - cviceni-05-review-ready: PowerPoint archive integrity
 - cviceni-06-cross-review: six PDF pages and editable PPTX slides
 - cviceni-06-cross-review: slide1 text and presenter notes
@@ -132,31 +138,66 @@
 - cviceni-06-cross-review: slide6 PDF/PPTX visible text agrees
 - cviceni-06-cross-review: Prague Pulse 2027 identity
 - cviceni-06-cross-review: all three authors in cover and metadata
-- cviceni-06-cross-review: separate presenter notes outside the C02 upload directory
+- cviceni-06-cross-review: presenter notes kept outside minimal upload directories
 - cviceni-06-cross-review: PowerPoint archive integrity
 - Prototype fits320px/home
 - Prototype fits320px/program
 - Prototype fits320px/performers
 - Prototype fits320px/venues
 - Prototype fits320px/info
+- Prototype fits320px/tickets
+- Prototype fits320px/cart
+- Prototype fits375px/home
+- Prototype fits375px/program
+- Prototype fits375px/performers
+- Prototype fits375px/venues
+- Prototype fits375px/info
+- Prototype fits375px/tickets
+- Prototype fits375px/cart
 - Prototype fits768px/home
 - Prototype fits768px/program
 - Prototype fits768px/performers
 - Prototype fits768px/venues
 - Prototype fits768px/info
+- Prototype fits768px/tickets
+- Prototype fits768px/cart
+- Prototype fits1024px/home
+- Prototype fits1024px/program
+- Prototype fits1024px/performers
+- Prototype fits1024px/venues
+- Prototype fits1024px/info
+- Prototype fits1024px/tickets
+- Prototype fits1024px/cart
 - Prototype fits1440px/home
 - Prototype fits1440px/program
 - Prototype fits1440px/performers
 - Prototype fits1440px/venues
 - Prototype fits1440px/info
+- Prototype fits1440px/tickets
+- Prototype fits1440px/cart
 - Prototype loads60program items
-- Prototype combines day and stage filters
+- Prototype orders the full programme by date, time and stage
+- Prototype skip link focuses content without changing the routed view
+- Prototype S1 combines the exact first-day River Stage data
 - Prototype scenarioS1 saved program
-- Prototype favorites persist after reload
+- Prototype S1 preserves the exact saved concert after reload
+- Removing the last saved concert leaves useful keyboard focus
+- A stage card opens its own programme with the stage filter selected
+- Prototype links can preselect both the stage and day
 - Prototype loads60artists
-- Prototype scenarioS2 artist detail opens
-- Prototype artist links to related shows
+- Prototype S2 finds the intended artist by a case-insensitive partial name
+- Prototype S2 detail displays the canonical show time and stage
+- Prototype S2 opens only the shows linked to the selected artist ID
+- Prototype S2 carries the actual show day and stage into the ticket selection
+- Prototype ticket price comes from the selected stage catalogue
+- Prototype ticket quantity immediately recalculates its price
+- Prototype S2 finishes in a cart with the selected stage, quantity and price
+- Prototype cart preserves the selected ticket after reload
+- Filled prototype cart fits320px
+- Prototype availability accounts for the existing local selection on the same stage and day
+- Removing a prototype cart item updates the total and empty-cart state
 - Prototype search treats markup as text
+- Empty search updates page metadata
 - Prototype has no runtime errors
 
-Kontroly proběhly v Chromium přes vývojový statický server; tento skript neověřuje přímé otevření file://.
+Kontroly proběhly v Chromium přes vývojový statický server. Přímé file:// otevření přeskočeno kvůli politice místního prohlížeče.

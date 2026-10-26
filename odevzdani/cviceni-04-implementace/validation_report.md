@@ -1,4 +1,31 @@
-# Ověření Prague Pulse Fest — verze 1.2.0
+# Ověření Prague Pulse Fest
+
+## Cvičení 3 — 26. října 2026, verze 1.2.1
+
+**197 kontrol podkladů a prototypu prošlo.** Ověření zahrnulo minimální ZIP,
+shodu dat s hotovým webem, obě uživatelské cesty a rozložení sedmi pohledů
+při 320, 375, 768, 1024 a 1440 px. Opravené řazení programu a odkazy scén
+se porovnávaly s ID a časy ve zdrojových datech.
+
+S1 prověřil první den na River Stage, uložení konkrétního koncertu,
+obnovení a odstranění poslední uložené položky. S2 začal hledáním části
+jména DARKZY, pokračoval detailem a souvisejícím programem, předvolbou
+správného dne a scény, změnou počtu osob a vložením vstupenky do košíku.
+Ověřilo se zachování košíku, jeho přepočet i místní dostupnost pro další výběr.
+
+Složka i ZIP obsahují pouze `progress-02.md` a
+`prototype/{index.html,data.js,prototype.css,prototype.js}`. README a volitelné
+prezentační soubory se neodevzdávají. Podrobný výstup je v
+`odevzdani/prototype-validation.md`, mimo odevzdávací složku cvičení.
+
+Přímé otevření souboru je v místním řízeném Chromium blokované politikou;
+nepočítá se jako úspěšná kontrola. Funkční průchody běžely přes dočasný
+vývojový statický server. CI samostatně zkouší i přímé `file://` otevření.
+Hotový web se v této revizi neměnil; jeho referenční ověření je uvedené níže.
+
+---
+
+## Referenční ověření hotového webu — verze 1.2.0
 
 **Datum:** 19. října 2026. Záznam zachycuje konkrétní kontroly výsledného webu a podkladů.
 
