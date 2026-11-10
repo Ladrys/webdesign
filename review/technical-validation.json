@@ -1,0 +1,368 @@
+{
+  "date": "2026-11-10T18:21:43.106Z",
+  "browser": "Google Chrome headless on Windows",
+  "pages": 14,
+  "languages": [
+    "cs",
+    "en"
+  ],
+  "widths": [
+    320,
+    375,
+    768,
+    1024,
+    1440
+  ],
+  "pageLanguageChecks": 28,
+  "viewportChecks": 140,
+  "audit": {
+    "date": "2026-11-10T18:09:17.349Z",
+    "errors": [],
+    "report": [
+      {
+        "lang": "cs",
+        "page": "index.html",
+        "title": "Festival | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 17
+      },
+      {
+        "lang": "cs",
+        "page": "program.html",
+        "title": "Program 2027 | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 60
+      },
+      {
+        "lang": "cs",
+        "page": "performers.html",
+        "title": "Účinkující | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 60
+      },
+      {
+        "lang": "cs",
+        "page": "performer.html?id=i1",
+        "title": "David Guetta | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 0
+      },
+      {
+        "lang": "cs",
+        "page": "venues.html",
+        "title": "Festivalové scény | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 0
+      },
+      {
+        "lang": "cs",
+        "page": "info.html",
+        "title": "Praktické informace | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 0
+      },
+      {
+        "lang": "cs",
+        "page": "search.html?q=David",
+        "title": "Vyhledávání | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 0
+      },
+      {
+        "lang": "cs",
+        "page": "tickets.html",
+        "title": "Vstupenky | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 0
+      },
+      {
+        "lang": "cs",
+        "page": "cart.html",
+        "title": "Košík | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 0
+      },
+      {
+        "lang": "cs",
+        "page": "account.html",
+        "title": "Můj účet | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 0
+      },
+      {
+        "lang": "cs",
+        "page": "news.html",
+        "title": "Novinky | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 0
+      },
+      {
+        "lang": "cs",
+        "page": "privacy.html",
+        "title": "Soukromí | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 0
+      },
+      {
+        "lang": "cs",
+        "page": "terms.html",
+        "title": "Podmínky objednávky | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 0
+      },
+      {
+        "lang": "cs",
+        "page": "credits.html",
+        "title": "Grafika a zdroje | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 0
+      },
+      {
+        "lang": "en",
+        "page": "index.html",
+        "title": "Festival | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 17
+      },
+      {
+        "lang": "en",
+        "page": "program.html",
+        "title": "Programme 2027 | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 60
+      },
+      {
+        "lang": "en",
+        "page": "performers.html",
+        "title": "Artists | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 60
+      },
+      {
+        "lang": "en",
+        "page": "performer.html?id=i1",
+        "title": "David Guetta | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 0
+      },
+      {
+        "lang": "en",
+        "page": "venues.html",
+        "title": "Festival stages | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 0
+      },
+      {
+        "lang": "en",
+        "page": "info.html",
+        "title": "Visitor information | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 0
+      },
+      {
+        "lang": "en",
+        "page": "search.html?q=David",
+        "title": "Search | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 0
+      },
+      {
+        "lang": "en",
+        "page": "tickets.html",
+        "title": "Tickets | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 0
+      },
+      {
+        "lang": "en",
+        "page": "cart.html",
+        "title": "Basket | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 0
+      },
+      {
+        "lang": "en",
+        "page": "account.html",
+        "title": "My account | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 0
+      },
+      {
+        "lang": "en",
+        "page": "news.html",
+        "title": "News | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 0
+      },
+      {
+        "lang": "en",
+        "page": "privacy.html",
+        "title": "Privacy | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 0
+      },
+      {
+        "lang": "en",
+        "page": "terms.html",
+        "title": "Order terms | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 0
+      },
+      {
+        "lang": "en",
+        "page": "credits.html",
+        "title": "Artwork and sources | Prague Pulse Fest",
+        "h1": 1,
+        "missing": [],
+        "brokenProgramme": false,
+        "duplicateIds": [],
+        "links": 0
+      }
+    ]
+  },
+  "scenarios": {
+    "date": "2026-11-10T18:09:21.568Z",
+    "checks": [
+      "S1: den a scéna filtrují sedm koncertů River Stage",
+      "S1: uložení a filtr vlastního programu",
+      "S1: uložený koncert přetrvá po opětovném otevření",
+      "S1: nový filtr žánru odpovídá kanonickým datům",
+      "S2: vyhledávání DARK vrací přímý odkaz na DARKZY",
+      "S2: interpret má samostatnou stránku s h1 a adresou",
+      "S2: vstupenka přebírá správný den a scénu interpreta",
+      "S3: dvě vstupenky se přidají do košíku",
+      "S3: 220 Kč − 10 % + stan 350 Kč + 2 × 150 Kč = 848 Kč",
+      "S3: zamítnutá platba nevytvoří objednávku",
+      "S3: objednávka obsahuje přesnou cenu, lístky a kemp",
+      "S3: dokončením se vyprázdní košík",
+      "S3: PDF obsahuje dvě vstupenky a samostatný kempovací poukaz",
+      "Kapacity: plánek ukazuje dvě prodaná místa River Stage v den 1",
+      "Kapacity: jednodenní vstup neobsadí následující den",
+      "Kapacity: třídenní společný vstup blokuje kapacitu všech scén ve všech dnech",
+      "Kapacity: společný a samostatný vstup sdílejí fyzické sedadlo",
+      "Účet: registrace, přihlášení a uložení hashe místo hesla",
+      "Účet: odhlášení a opětovné přihlášení",
+      "Jazyky: en bez poškozeného Programme",
+      "Jazyky: cs bez poškozeného Programme",
+      "Neznámý interpret má srozumitelný bezpečný stav",
+      "Offline: přímé otevření web/index.html bez serveru",
+      "Offline: samostatný detail funguje i přes file:// směrování",
+      "Žádná neošetřená JavaScriptová chyba během scénářů"
+    ],
+    "errors": []
+  },
+  "data": {
+    "date": "2026-11-10T19:12:39.2884214+01:00",
+    "checked": "Entity IDs, core text fields, date/time fields, programme references, festival dates, ticket prices, XSD and root copies",
+    "xsdValid": true,
+    "counts": {
+      "days": 3,
+      "venues": 3,
+      "performers": 60,
+      "events": 60
+    },
+    "rootCopiesEqual": true
+  },
+  "additionalScenario": {
+    "name": "S3 from presentation",
+    "twoDays": [
+      "d1",
+      "d3"
+    ],
+    "category": "vip",
+    "quantity": 2,
+    "promo": "PULSE10",
+    "camping": "tent, 2 people",
+    "expectedTotalCZK": 2774,
+    "actualTotalCZK": 2774,
+    "pdfCreated": true
+  },
+  "limits": [
+    "Not a complete WCAG AA audit",
+    "No external cross-review has been provided",
+    "PDF structural verification; QR was not independently decoded in this run",
+    "No complete Nu HTML validator run",
+    "No claim about all browsers or physical devices"
+  ]
+}

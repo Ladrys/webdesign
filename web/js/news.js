@@ -3,16 +3,16 @@
 (() => {
   const items = [
     {
-      id:'vystaviste-tri-sceny',date:'2026-10-18',image:'images/news-reconstruction.webp',photoId:'reconstruction',
+      id:'vystaviste-tri-sceny',date:'2026-10-18',image:'images/festival-hero-ai.webp',
       title:{cs:'Průmyslový palác: prostor pro novou kapitolu',en:'The Industrial Palace: room for a new chapter'},
-      perex:{cs:'Průmyslový palác prošel obnovou. Podívej se na skutečnou fotografii z průběhu prací v červnu 2026 a na náš návrh festivalu v jeho okolí.',en:'The Industrial Palace has been restored. See an actual photograph taken during the works in June 2026 and our proposed festival layout around the palace.'},
+      perex:{cs:'Tři scény, jeden areál a hudba od rána do večera. Prohlédni si naši vizi festivalu inspirovanou Výstavištěm Praha.',en:'Three stages, one site and music from morning to evening. Explore our festival vision inspired by Výstaviště Prague.'},
       body:{
-        cs:['Průmyslový palác prošel podle provozovatele Výstaviště rekonstrukcí a dostavbou od ledna 2022 do září 2026. Přiložená fotografie z 2. června 2026 zachycuje průběh prací, nikoli dokončený festivalový areál. Palác je eventový prostor; běžný vstup veřejnosti se řídí jeho aktuálním provozem.','Do této lokality zasazujeme návrh Prague Pulse Fest. Main Hall má patřit světovým popovým a rockovým jménům, River Stage českým interpretům u Vltavy a Club Stage bassline, drum & bass a technu. Scény propojuje pěší trasa v orientačním plánku.','Náš festival je fiktivní. Rozmístění scén a využití paláce jsou součástí návrhu, nikoli oznámením spolupráce s Výstavištěm. Pro skutečnou návštěvu místa vždy ověř aktuální provoz a přístupnost u provozovatele.'],
-        en:['According to the venue operator, the Industrial Palace underwent reconstruction and completion from January 2022 to September 2026. The photograph, taken on 2 June 2026, records work in progress rather than a completed festival site. The palace is an event venue; general public access depends on its current programme.','This location is the setting for the Prague Pulse Fest proposal. Main Hall is for international pop and rock acts, River Stage for Czech artists by the Vltava, and Club Stage for bassline, drum & bass and techno. A walking route connects the stages on our schematic site plan.','Our festival is fictional. Stage locations and use of the palace are design proposals, not an announced partnership with Výstaviště. Check current opening and access arrangements with the venue operator before visiting.']
-      },source:'https://pronajem.navystavisti.cz/otevirame-prumyslovy-palac/',link:'info.html#site-map',linkLabel:{cs:'Prohlédnout plánek areálu',en:'Explore the site plan'}
+        cs:['Výstaviště Praha je inspirací pro návrh našeho městského hudebního festivalu. Obrázek je AI ilustrace fiktivní akce, nikoli fotografie existujícího festivalu nebo přesný plán budov.','Do této lokality zasazujeme návrh Prague Pulse Fest. Main Hall má patřit světovým popovým a rockovým jménům, River Stage českým interpretům u Vltavy a Club Stage bassline, drum & bass a technu. Scény propojuje pěší trasa v orientačním plánku.','Náš festival je fiktivní. Rozmístění scén a využití paláce jsou součástí návrhu, nikoli oznámením spolupráce s Výstavištěm. Pro skutečnou návštěvu místa vždy ověř aktuální provoz a přístupnost u provozovatele.'],
+        en:['Výstaviště Prague inspires our city music festival proposal. The image is an AI illustration of a fictional event, rather than a photograph of an existing festival or an accurate building plan.','This location is the setting for the Prague Pulse Fest proposal. Main Hall is for international pop and rock acts, River Stage for Czech artists by the Vltava, and Club Stage for bassline, drum & bass and techno. A walking route connects the stages on our schematic site plan.','Our festival is fictional. Stage locations and use of the palace are design proposals, not an announced partnership with Výstaviště. Check current opening and access arrangements with the venue operator before visiting.']
+      },link:'info.html#site-map',linkLabel:{cs:'Prohlédnout plánek areálu',en:'Explore the site plan'}
     },
     {
-      id:'tri-dny-jedna-vstupenka',date:'2026-10-17',image:'images/news-tickets.webp',photoId:'tickets',
+      id:'tri-dny-jedna-vstupenka',date:'2026-10-17',image:'images/news-tickets.svg',
       title:{cs:'Jeden den, dva večery, nebo celý festival?',en:'One day, two evenings or the whole festival?'},
       perex:{cs:'Vyber si dny a jednu scénu, nebo společný vstup. Main Hall nabízí sedadla i stání; River a Club Stage jsou na stání.',en:'Choose your dates and a single stage or an all-stage pass. Main Hall has seats and standing; River and Club Stage are standing only.'},
       body:{
@@ -21,7 +21,7 @@
       },link:'tickets.html',linkLabel:{cs:'Vybrat vstupenky',en:'Choose tickets'}
     },
     {
-      id:'do-holesovic-bez-auta',date:'2026-10-16',image:'images/news-transit.webp',photoId:'transit',
+      id:'do-holesovic-bez-auta',date:'2026-10-16',image:'images/news-travel.svg',
       title:{cs:'Do Holešovic bez auta',en:'Getting to Holešovice without a car'},
       perex:{cs:'Tramvaj na Výstaviště, metro C a poslední úsek pěšky. Naplánuj si příjezd ještě před prvním koncertem.',en:'Take a tram to Výstaviště or metro line C, then walk the final stretch. Plan your journey before the first show.'},
       body:{

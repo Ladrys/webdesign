@@ -1,69 +1,25 @@
-# Ověření Prague Pulse Fest
+# Ověření aktuální verze
 
-## Cvičení 3 — 26. října 2026, verze 1.2.1
+Datum: 10. listopadu 2026. Ověřována byla současná pracovní kopie, nikoli historický počet kontrol ze starých prezentací. Strojově čitelný záznam: [technical-validation.json](review/technical-validation.json).
 
-**197 kontrol podkladů a prototypu prošlo.** Ověření zahrnulo minimální ZIP,
-shodu dat s hotovým webem, obě uživatelské cesty a rozložení sedmi pohledů
-při 320, 375, 768, 1024 a 1440 px. Opravené řazení programu a odkazy scén
-se porovnávaly s ID a časy ve zdrojových datech.
-
-S1 prověřil první den na River Stage, uložení konkrétního koncertu,
-obnovení a odstranění poslední uložené položky. S2 začal hledáním části
-jména DARKZY, pokračoval detailem a souvisejícím programem, předvolbou
-správného dne a scény, změnou počtu osob a vložením vstupenky do košíku.
-Ověřilo se zachování košíku, jeho přepočet i místní dostupnost pro další výběr.
-
-Složka i ZIP obsahují pouze `progress-02.md` a
-`prototype/{index.html,data.js,prototype.css,prototype.js}`. README a volitelné
-prezentační soubory se neodevzdávají. Podrobný výstup je v
-`odevzdani/prototype-validation.md`, mimo odevzdávací složku cvičení.
-
-Přímé otevření souboru je v místním řízeném Chromium blokované politikou;
-nepočítá se jako úspěšná kontrola. Funkční průchody běžely přes dočasný
-vývojový statický server. CI samostatně zkouší i přímé `file://` otevření.
-Hotový web se v této revizi neměnil; jeho referenční ověření je uvedené níže.
-
----
-
-## Referenční ověření hotového webu — verze 1.2.0
-
-**Datum:** 19. října 2026. Záznam zachycuje konkrétní kontroly výsledného webu a podkladů.
-
-| Kontrola | Výsledek |
+| Oblast | Provedený rozsah a výsledek |
 | --- | --- |
-| `python validate_project.py` | XML/XSD, 4 úplné JSON exporty, ID a reference, program, ceny, kapacity, HTML vstupy a reprodukovatelnost dat prošly |
-| `python tests/browser_smoke.py` s QR dekodérem | **637 kontrol prošlo**; skutečné průchody, stažené PDF a dekódování QR |
-| `python tests/course_materials.py --folder odevzdani` | **156 kontrol prošlo**; 5 × 6 snímků, PPTX/PDF, poznámky, prototyp, kopie webu, manifest a obsah C02 |
-| Responzivní rozložení | **224 kombinací** stránek, šířek a jazyků bez vodorovného přetékání či chyby JavaScriptu |
-| Anglické rozhraní | **17 pohledů** bez chybějících překladů; vlastní názvy ulic jsou zachované |
-| Podrobný plánek | **20 cílených kontrol** včetně skutečného dotykového pinch zoomu, vrstev, ukotvení kolečka a kapacit mezi kartami |
-| Dokumentace PDF | 13 stran, žádný text mimo hranice strany |
-| Syntax JS/Python a `git diff --check` | Prošlo |
-| Přímé otevření `file://` místně | Přeskočeno kvůli politice řízeného Chromium; není započítané jako úspěch |
+| Stránky a jazyky | 14 stránek × čeština/angličtina = 28 průchodů; jeden h1, metadata, bez duplicitních ID, bez zaznamenaných chybějících překladů |
+| Responzivita | 14 stránek × 2 jazyky × 5 šířek (320, 375, 768, 1024, 1440 px) = 140 kontrol bez vodorovného přetékání |
+| Návštěvnické scénáře | 25 konkrétních kontrol v Chrome: filtry, uložení, DARKZY, samostatný profil, vstupenka, objednávka, promo, kemp, odmítnutí platby, účet a offline režim |
+| Kapacity | Nákup River d1 se promítne do plánku d1, ne d2; třídenní společný vstup obsadí všechny scény a dny; fyzické sedadlo se sdílí mezi variantami |
+| PDF | Skutečně vytvořené PDF, hlavička %PDF a tři stránky: dva lístky a kemp. Další export pro VIP scénář. Bez nezávislého dekódování QR v této revizi |
+| Prezentační S3 | Dvě VIP sedadla na d1 a d3, PULSE10, stan pro dvě osoby: skutečný součet 2 774 Kč a vytvořené PDF |
+| XML/XSD | Validace schématem, shoda kořenových kopií, 3 dny, 3 scény, 60 interpretů, 60 koncertů, reference a základní textová a číselná pole proti JSON |
+| Odvozená data | Úplná rovnost čtyř JSON exportů s objektem z data.js; alespoň 30 minut na přestavbu jedné scény; místní závislosti HTML existují |
+| Běh z disku | Skutečně otevřeno file:// index.html i samostatný profil prostřednictvím offline směrování |
+| JavaScript | Syntax všech skriptů kontrolována node --check; ve scénářích žádná neošetřená výjimka |
+| Vizuální kontrola | Aktuální desktop, mobil, AI hero a hudební mřížka; aktualizované slidy porovnány v náhledu OOXML, nikoli v nativním PowerPointu |
 
-## Ověřené uživatelské průchody
+## Reprodukce
 
-- **Interpret → nákup:** filtr žánru vede ke správnému profilu; odkaz přenese ID vystoupení, scénu a den do jednodenní vstupenky. Změna nepokrývající daný koncert vyvolá konkrétní upozornění.
-- **Výběr sedadel:** 0/1/2 sedadel znamená 0/1/2 osoby a odpovídající cenu. Odebrání posledního vynuluje cenu. Deváté sedadlo nepřekročí limit osmi osob na jeden výběr; stání používá vlastní množství.
-- **Dva dny:** výběr nezačíná skrytě předvolenou dvojicí. Nula, jeden nebo tři dny neumožní pokračovat; první a třetí den se zachovají v košíku, objednávce i PDF.
-- **Košík:** po odebrání se přepočítá základ, promo, DPH, celková cena a počet položek. Kontakty zůstanou zachované. Změna v jiné kartě včetně vyprázdnění se zobrazí průběžně.
-- **Kapacity:** program, profily, scény, výběr, košík a plánek používají stejné validní objednávky ročníku 2027. Prodané vstupy a vlastní košík se rozlišují. Společný pas ovlivní všechny tři scény, samostatný jen vybranou. Platné staré objednávky 2026 novou kapacitu neblokují.
-- **Hranice dostupnosti:** poslední místo Club Stage omezuje společný vstup, ale ne samostatný River. Libovolné volné sedadlo Main Hall lze vybrat do zbývající kapacity. Stání se posuzuje podle denních počtů, nikoli interních čísel fyzických pozic. Objednávka znovu ověřuje aktuální stav; místní Web Locks řadí souběžná potvrzení.
-- **Účet:** datum registrace, profil, změna přes současné heslo, odmítnutí starého hesla a odhlášení ostatních karet. Obnova vyžaduje e-mail i náhodný 128bitový kód; po použití se heslo i kód vymění. Špatný nebo již použitý kód nic nezmění. Starší účet dostane kód až po ověření hesla a nemá vymyšlené datum vytvoření.
-- **PDF:** tmavý vzhled, skutečný čas nákupu v pražském čase, ID, kupující, scéna, přesné dny a sedadlo. Každá vstupenka má vlastní cenu a podíl slevy se skutečným kódem. Nezávislý Python výpočet ověřuje haléřové rozdělení slevy včetně shodných zbytků a nulové výsledné ceny. Kemp má vlastní finanční rozpis na samostatném voucheru. QR se opravdu dekódují.
-- **Plánek:** zoom 1–8×, posun, vrstvy a dotykové ovládání. Zvolený den určuje zbývající kapacitu a odkazy do programu. Objednávka v druhé kartě aktualizuje čísla bez ztráty přiblížení.
-- **Soukromí:** Google mapa vznikne až po souhlasu; odvolání ji odstraní. Offline plánek a ostatní funkce souhlas s externí mapou nepotřebují.
+Podrobnosti a příkazy jsou v [DEVELOPMENT.md](docs/DEVELOPMENT.md). Hlavní příkaz je `node tests/run.cjs`; Windows datová kontrola je `powershell -File tests/validate-data.ps1`. Vývojové nástroje nejsou podmínkou spuštění webu.
 
-## Data a podklady
+## Co tento výsledek nepotvrzuje
 
-Zdrojové XML má 3 dny, 3 scény, 60 jedinečných interpretů a 60 provázaných vystoupení. Běžné sety trvají 60 minut, hlavní koncerty Main Hall 90 minut. Stejná scéna má nejméně 30 minut na přestavbu; devět večerních závěrečných koncertů navazuje s půlhodinou na přesun.
-
-Čtyři JSON exporty odpovídají XML a přibalenému `data.js`. Historické API ukázky již nejsou součástí současného datového toku. Obsah složky i ZIP pro cvičení 2 je přesně `project-specification.md`, `data.xml`, `festival.xsd`, `prezentace.pptx`. Náhled PDF a řečnické poznámky jsou oddělené. Prezentace mají shodný viditelný text PPTX/PDF a žádný text mimo stránku.
-
-Podrobný výsledek je v `review/browser-validation-2026-10-19.json`; rozložení a jazyk mají vlastní datované JSON. `odevzdani/manifest.json` obsahuje kontrolní otisky exportů. Ukázky PDF a snímky spuštěného webu jsou v kořenové složce `preview/` vývojového repozitáře. GitHub Actions má vlastní výsledek pro konkrétní commit.
-
-## Rozsah
-
-Testy běžely ve skutečném Chromium nad dočasným vývojovým statickým serverem; ten není běhovou závislostí webu. Neproběhl úplný externí audit WCAG, kontrola všech HTML stavů ani uživatelská studie na fyzických telefonech. Vlastní kontroly nenahrazují požadované skutečné cross-review druhého týmu.
-
-Účty a obsazenost jsou místní pro daný prohlížeč, platby zkušební a e-mailová služba není připojená. Obnovovací kód ověřuje místní účet; nejde o serverové ověření identity. Kapacity jsou návrhem fiktivního festivalu. Omezení zadání a zdrojů vizuálů jsou zaznamenaná v `documentation.md`.
+Nejde o úplný audit WCAG AA ani certifikaci validního HTML Living Standard. Nebyla nezávisle dekódována QR data, měřena indexace vyhledávači ani testována všechna zařízení. Skutečné přijaté cross-review a jeho vypořádání zůstávají k doplnění po cvičení 6. Lokální rezervace není sdílená s jinými zařízeními a platba je simulovaná. Veřejné nasazení se potvrzuje samostatně až po jeho skutečném dokončení.

@@ -1,48 +1,41 @@
-name: Kontroly projektu
-
+﻿name: Kontroly projektu
 on:
   push:
     branches: [main]
   pull_request:
   workflow_dispatch:
-
 permissions:
   contents: read
-
 jobs:
   validate:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-          cache: pip
-          cache-dependency-path: |
-            requirements-dev.txt
-            requirements-qr.txt
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Vývojové závislosti
-        run: python -m pip install -r requirements-dev.txt -r requirements-qr.txt
-      - name: Testovací prohlížeč
-        run: python -m playwright install --with-deps chromium
-      - name: XML, JSON a HTML vstupy
-        run: python validate_project.py
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: XML validace a shoda exportů
+        run: |
+          python -m pip install -r requirements-dev.txt
+          python validate_project.py
+          node tests/catalogue.cjs
       - name: Syntax JavaScriptu
         run: find web/js -name '*.js' -print0 | xargs -0 -n 1 node --check
-      - name: Chování webu a PDF
-        run: python tests/browser_smoke.py
+      - name: Stránky, responzivita a uživatelské scénáře
+        run: node tests/run.cjs
         env:
-          PULSE_TEST_ARTIFACTS: test-artifacts/browser
-      - name: Prezentace a prototyp
-        run: python tests/course_materials.py --folder odevzdani
-      - name: Výsledky prohlížeče
+          CHROMIUM_PATH: /usr/bin/google-chrome
+      - name: Výsledky kontrol
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: browser-checks
-          path: test-artifacts/
+          path: |
+            test-artifacts/audit.json
+            test-artifacts/scenarios.json
+            test-artifacts/order.pdf
           if-no-files-found: ignore

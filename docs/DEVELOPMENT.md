@@ -1,98 +1,46 @@
-# Údržba a ověření projektu
+﻿# Vývoj a ověřování
 
-Pro **běžné otevření webu** nic neinstalujte: rozbalte ZIP a otevřete [`web/index.html`](../web/index.html). Následující příkazy jsou pouze pro autora, který chce spouštět testy nebo znovu vytvářet data a prezentace. Spouštějí se v hlavní složce repozitáře, kde je `validate_project.py`.
+Běžný provoz: otevřete `web/index.html`. Nic z této stránky není potřeba instalovat pro spuštění webu.
 
-## Volitelné vývojové prostředí
+## Změna dat
 
-Použijte Python 3.10 nebo novější. Python není soubor, který musí být uvnitř repozitáře; je to samostatný program instalovaný v počítači. Pokud Windows nepozná `py` nebo macOS/Linux nepozná `python3`, nejdříve nainstalujte Python z [python.org](https://www.python.org/downloads/).
-
-Windows, PowerShell nebo příkazový řádek:
+Upravujte `data/festival.xml`, zachovejte ID a validujte proti `data/festival.xsd`. Volitelný generátor používá standardní knihovnu Pythonu:
 
 ```powershell
-py -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
-.\.venv\Scripts\python.exe -m playwright install chromium
+py tools/generate_data.py
 ```
 
-macOS / Linux:
-
-```sh
-python3 -m venv .venv
-.venv/bin/python -m pip install -r requirements-dev.txt
-.venv/bin/python -m playwright install chromium
-```
-
-Níže používá příklady Windows. Na macOS/Linux nahraďte `.\.venv\Scripts\python.exe` za `.venv/bin/python`. Aktivace virtuálního prostředí není potřeba. Příkaz `playwright install chromium` stáhne prohlížeč pro automatické testy, nikoli pro samotný web.
-
-| Vývojová závislost | K čemu slouží |
-| --- | --- |
-| `lxml` | Validace XML proti XSD. |
-| `playwright`, Chromium | Ovládání prohlížeče při testech formulářů, překladu a responzivity. |
-| `PyMuPDF` | Čtení a kontrola stažených PDF vstupenek a prezentací. |
-| `python-pptx`, `reportlab` | Vytvoření a kontrola editovatelných PPTX a odpovídajících PDF. |
-| `python-docx` | Vytvoření textové dokumentace ve formátu DOCX. |
-
-Volitelné závislosti z `requirements-qr.txt` (`numpy`, `zxing-cpp`) umožní v browserových testech také dekódovat QR z vygenerovaného PDF. Nainstalujete je příkazem `.\.venv\Scripts\python.exe -m pip install -r requirements-qr.txt`. Bez nich proběhnou ostatní kontroly a kontrola vektorové kresby QR; nejde o plné ověření čitelnosti kódu.
-
-## Kontroly hotové verze
+Obnoví čtyři JSON soubory, `web/js/data.js` a kořenové kopie XML/XSD. Pro podrobnější datový validátor je potřeba Python s knihovnou lxml (`py -m pip install lxml`):
 
 ```powershell
-.\.venv\Scripts\python.exe validate_project.py
-.\.venv\Scripts\python.exe tests/browser_smoke.py
-.\.venv\Scripts\python.exe tests/course_materials.py --folder odevzdani
+py validate_project.py
 ```
 
-| Skript | Co skutečně ověřuje |
-| --- | --- |
-| `validate_project.py` → `main()` | XML proti XSD; počty, reference a časové vazby; kapacity a ceny; shodu čtyř JSON exportů a `data.js`; metadata a místní závislosti 13 HTML vstupů. |
-| `tests/browser_smoke.py` | Otevírá skutečný web a prochází hledání, program, jazyky, soukromí, účet, košík, termíny, promo kódy, kemp, obsazenost a PDF. Kontroluje také přetékání v různých šířkách a vybrané chybové stavy. |
-| `tests/course_materials.py` | Kontroluje PPTX/PDF a poznámky všech cvičení; otevře wireframe a projde jeho filtry, uložený program, detail interpreta a hledání. |
+## Nové browserové kontroly bez npm
 
-Browserové testy samy spustí dočasný statický HTTP server na volném místním portu a po testu ho ukončí. Tento server slouží testu, není přidaným backendem projektu. Testy nepoužívají skutečné platební služby a požadavky na externí mapy nahrazují místní testovací odpovědí.
-
-Testy použijí prohlížeč z `CHROMIUM_PATH`, pokud proměnnou nastavíte; jinak existující `/usr/bin/chromium` v cloudovém prostředí, nebo Chromium stažené Playwrightem. `PULSE_TEST_ARTIFACTS` může změnit adresář snímků a PDF browserového testu; výchozí je `prague-pulse-checks` v dočasné složce systému.
-
-Pokud spravované prostředí blokuje `file://`, test přímého otevření je označený jako přeskočený. Neznamená to, že tím byla tato konkrétní cesta ověřena. Automatické kontroly nenahrazují ruční průchod klávesnicí, kontrolu čitelnosti ani skutečné cross-review.
-
-## Jak změnit festivalová data
-
-1. Upravte **`data/festival.xml`**. Zachovejte ID a vazby mezi dnem, scénou,
-   interpretem a vystoupením.
-2. Při změně struktury upravte i `data/festival.xsd` a generátor.
-3. Obnovte odvozené výstupy a zkontrolujte je:
+Pro autorské testy je potřeba Node.js 22+ a nainstalovaný Chrome. Testy nemění soubory webu ani nepotřebují npm balíčky. Používají oddělený testovací profil a lokální statický server.
 
 ```powershell
-.\.venv\Scripts\python.exe tools/generate_data.py
-.\.venv\Scripts\python.exe validate_project.py
+node tests/run.cjs
 ```
 
-Generátor používá standardní knihovnu Pythonu. Z celého XML vytvoří
-`data/json/{festival,venues,performers,events}.json`, `web/js/data.js`
-a přesné kořenové kopie XML/XSD. Odvozené soubory neupravujte ručně.
+Na jiném umístění prohlížeče nastavte `CHROMIUM_PATH` na jeho spustitelný soubor. Výsledky vznikají v ignorované složce `test-artifacts/`. `tests/audit.cjs` kontroluje stránky a šířky, `tests/scenarios.cjs` provádí návštěvnické akce a PDF. Cesta `file://` se odvozuje od umístění projektu.
 
-Po změně českých textů zkontrolujte jejich anglickou verzi v
-`web/js/artist-copy.js` či `i18n.js`. Při změně interpreta prověřte
-fotografii a kredity v `performer-art.js`.
-
-## Jak obnovit prezentace a balíčky pro Moodle
-
-Upravujte `course-source/presentations.json`, příslušné `course-source/*.md` a zdroje v `course-source/prototype/`. Souhrnná dokumentace a specifikace se kopírují z kořene. Potom spusťte:
+Po změně obsahu lze volitelně obnovit statické HTML snapshoty a snímky. Spusťte nejdříve `node tools/test-server.cjs`, v druhém terminálu příslušný nástroj a server pak ukončete Ctrl+C:
 
 ```powershell
-.\.venv\Scripts\python.exe tools/build_course_submissions.py --include-web
-.\.venv\Scripts\python.exe tests/course_materials.py --folder odevzdani
+node tools/prepare-static.cjs
+node tools/capture-preview.cjs
 ```
 
-`build_course_submissions.py` → `build()` vytvoří složky cvičení, prezentace, poznámky, drátěný model, finální balíček a `manifest.json`. `data_checks()` před exportem ověří počty a reference; třída `Deck` vykreslí stejné podklady do PPTX a PDF. Cvičení 2 má v odevzdávací složce pouze čtyři soubory; jeho PDF je v `odevzdani/nahledy/` a poznámky v `odevzdani/poznamky/`. Přibalené fonty nástroje jsou v `tools/fonts/`.
+Výchozí statický obsah je již přibalený; nejde o požadovaný build při spuštění webu.
 
-Výchozí export přepisuje generované složky v `odevzdani/`; ruční úpravy hotových kopií by se ztratily. Pro kontrolní export do vlastní nové složky použijte například `--output kontrolni-export --include-web`. Bez `--include-web` vzniknou podklady a prezentace, ale nepřibalí se současný web.
+## Podklady a odevzdání
 
-Souhrnná dokumentace má zdroj v `documentation.md`. Její verze ve Wordu a PDF obnoví samostatný nástroj:
+`documentation.md` je hlavní zdroj dokumentace. `progress-03.md` a `progress-04.md` patří k aktuálnímu webu. Prezentace v `docs/` navazují na dodané předlohy. `presenter-notes.md` obsahuje průchod na 3–5 minut.
 
-```powershell
-.\.venv\Scripts\python.exe tools/build_documentation.py
-```
+Balíčky vytváří `tools/package-submissions.ps1`. Výstupy v `odevzdani/` jsou místní generované kopie a ZIP soubory, které se do GitHubu znovu neukládají. Povinnou složku review a prototyp nelze vyřadit z finálního projektu. Přijaté hodnocení se doplní až po skutečném obdržení.
 
-Výstupy jsou `docs/documentation.docx` a `docs/documentation.pdf`. Tento krok nevytváří webová data ani prezentace jednotlivých cvičení.
+## Hosting
 
-Po dokončení změn spusťte odpovídající kontroly, prohlédněte PDF a zkontrolujte `git diff`. Do Gitu patří zdrojové změny a potřebné hotové podklady; lokální `.venv/`, cache, dočasné logy ani hesla tam nepatří. Pro školní odevzdání používejte obsah hotové příslušné složky v `odevzdani/`, ne celý vývojový repozitář.
+Web lze publikovat na libovolném statickém hostingu. GitHub Pages používá obsah repozitáře a nepotřebuje vlastní backend; kořenový `index.html` odkazuje na `web/index.html`. Veřejné a lokální umístění mají samostatná úložiště. Přepnutí hostingu proto samo nepřenese lokální objednávky.

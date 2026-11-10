@@ -107,7 +107,7 @@ def main():
 
     validate_festival_model(data)
 
-    required_web = ['index.html','program.html','performers.html','venues.html','info.html','search.html','tickets.html','cart.html','account.html','news.html','privacy.html','terms.html','credits.html']
+    required_web = ['index.html','program.html','performers.html','performer.html','venues.html','info.html','search.html','tickets.html','cart.html','account.html','news.html','privacy.html','terms.html','credits.html']
     from html.parser import HTMLParser
     class PageParser(HTMLParser):
         def __init__(self):
@@ -135,7 +135,7 @@ def main():
     assert (ROOT/'data.xml').read_bytes()==XML.read_bytes()
     assert (ROOT/'festival.xsd').read_bytes()==XSD.read_bytes()
     ok('Offline data.js je reprodukovatelný z datové základny; kořenové data.xml je shodné')
-    ok('Funkční scénáře a responzivitu ověřuje tests/browser_smoke.py')
+    ok('Funkční scénáře a responzivitu ověřuje tests/scenarios.cjs')
 
 if __name__ == '__main__':
     main()

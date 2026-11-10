@@ -1,17 +1,13 @@
-# Nástroje pro údržbu
+﻿# Nástroje pro údržbu
 
-Hotový web se otevře přes `web/index.html`. Tyto nástroje používá autor
-při změně zdrojů; návštěvník je nepotřebuje.
+Pro spuštění hotového webu nejsou potřeba. Podrobný postup: [DEVELOPMENT.md](../docs/DEVELOPMENT.md).
 
-| Nástroj | Vstup → výstup |
+| Soubor | Účel |
 | --- | --- |
-| `generate_data.py` | XML → čtyři JSON exporty, `web/js/data.js` a kořenové kopie XML/XSD |
-| `build_course_submissions.py` | `course-source/`, data a web → školní balíčky, prezentace a poznámky |
-| `build_documentation.py` | `documentation.md` → Word a PDF v `docs/` |
-| `fonts/` | Fonty a licence pro přenosné PDF prezentací a dokumentace |
+| `generate_data.py` | Reprodukovatelný XML → JSON/data.js export |
+| `test-server.cjs`, `browser-test.cjs` | Izolovaný statický server a připojení testovacího Chrome |
+| `prepare-static.cjs` | Obnova výchozího HTML obsahu ze stejných dat |
+| `capture-preview.cjs` | Aktuální snímky webu pro dokumentaci |
+| `package-submissions.ps1` | Čisté balíčky pro cvičení 4, 5 a finální projekt |
 
-Upravujte zdroje, potom obnovte výstupy. Generátor dat používá standardní
-knihovnu Pythonu. Export školních balíčků přepisuje hotové kopie;
-`--include-web` přibalí aktuální web.
-
-[Vývojový postup](../docs/DEVELOPMENT.md) · [Datový tok](../docs/PROJECT-GUIDE.md)
+Jednorázové migrace, historické generátory a jejich fonty byly přesunuty do archivu mimo finální projekt. Při změně zdrojů obnovte příslušné odvozené soubory; generované ZIP balíčky se neukládají do repozitáře.

@@ -1,3 +1,0 @@
-# Volitelne dekodovani QR kodu v browserovych testech.
-numpy>=2,<3
-zxing-cpp==3.1.1

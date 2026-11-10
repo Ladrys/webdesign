@@ -31,6 +31,10 @@
     "Vstupenky si stáhni a uschovej číslo objednávky.": "Download your tickets and keep your order number.",
     "PDF se nepodařilo vytvořit. Zkus to znovu.": "The PDF could not be created. Please try again.",
 
+    'Profil interpreta': 'Artist profile',
+    'Grafika a zdroje': 'Artwork and sources',
+    'Původ ilustrací, písma a licence Prague Pulse Fest.': 'Illustration sources, fonts and licences for Prague Pulse Fest.',
+    'Drobečková navigace': 'Breadcrumb',
     'Přejít na obsah': 'Skip to content',
     "Přístupnost areálu": "Venue accessibility",
     "Bezbariérové trasy a přístupné toalety jsou součástí návrhu. Potřebuješ-li asistenci, obrať se na informační bod u vstupu.": "The design includes step-free routes and accessible toilets. If you need assistance, contact the information point at the entrance.",
@@ -453,7 +457,7 @@
     'PRAHA': 'PRAGUE'
   };
   const escapeRegExp = value => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const replacements = Object.entries(phrases).sort((a, b) => b[0].length - a[0].length).map(([from, to]) => [new RegExp(`(?<![\\p{L}])${escapeRegExp(from)}(?![\\p{L}])`, 'gu'), to]);
+  const phrasePattern = new RegExp(`(?<![\\p{L}])(?:${Object.keys(phrases).sort((a,b)=>b.length-a.length).map(escapeRegExp).join('|')})(?![\\p{L}])`, 'gu');
   const missing = new Set();
   const translatedValues = new Set(Object.values(dictionary));
   // Artist names and monograms retain their identity in both languages.
@@ -476,7 +480,7 @@
     const arrow = trimmed.match(/^(.*?)(\s+[→↓↗])$/);
     if (arrow) return leading + translate(arrow[1]) + arrow[2] + trailing;
     let result = trimmed;
-    for (const [pattern, replacement] of replacements) result = result.replace(pattern, replacement);
+    result = result.replace(phrasePattern, match => phrases[match]);
     const diagnosticText = properNames.reduce((text,name) => text.split(name).join(''),result);
     if (/[ěščřžýáíéůúďťň]/i.test(diagnosticText) && !/@|https?:|Výstavišt|VÝSTAVIŠT|Štvanice|Bubensk|Holešovic|Na Štvanici/.test(result)) missing.add(trimmed);
     return leading + result + trailing;
@@ -544,5 +548,7 @@
   });
   observer.observe(document.documentElement, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['aria-label', 'title', 'placeholder', 'alt', 'content'] });
   function ready() { apply(document); languageButtons(); }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ready, { once: true }); else ready();
+  // Deferred modules render their own bilingual content first. Translating the
+  // Czech static snapshot before app.js runs would record already-replaced text.
+  if (document.readyState !== 'complete') document.addEventListener('DOMContentLoaded', ready, { once: true }); else ready();
 })();
