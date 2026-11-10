@@ -39,8 +39,8 @@
     const benefit = (cs,en,available=true) => ({label:tr(cs,en),available});
     const packageBenefits = category => [
       benefit('Všechny tři dny a všechny scény','All three days and all stages'),
-      benefit(category==='vip'?'VIP sedadlo v Main Hall':category==='regular'?'Regular sedadlo v Main Hall':'Sedadlo v Main Hall',category==='vip'?'VIP seat in Main Hall':category==='regular'?'Regular seat in Main Hall':'Seat in Main Hall',category!=='standing'),
-      benefit('River a Club Stage: stání','River and Club Stage: standing'),
+      benefit(category==='vip'?'VIP sedadlo v Main Hall':category==='regular'?'Regular sedadlo v Main Hall':'Stání na všech scénách',category==='vip'?'VIP seat in Main Hall':category==='regular'?'Regular seat in Main Hall':'Standing at all stages'),
+      ...(category==='standing'?[]:[benefit('River a Club Stage: stání','River and Club Stage: standing')]),
       benefit('Rychlejší odbavení','Priority entry',category==='vip'),
       benefit('VIP odpočinková zóna','VIP relaxation lounge',category==='vip'),
       benefit('Jedno VIP parkovací místo','One VIP parking space',category==='vip')
