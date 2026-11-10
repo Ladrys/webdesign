@@ -31,6 +31,7 @@ function check(condition,label){if(!condition)throw Error(label);checks.push(lab
  await click('#camping-enabled');await input('camping-people','2');await input('promo-code','PULSE10');await click('#apply-promo');
  check(await b.evaluate("document.querySelector('#order-total').textContent.replace(/\\s/g,'').includes('848')"),'S3: 220 Kč − 10 % + stan 350 Kč + 2 × 150 Kč = 848 Kč');
  await click('#consent');await input('payment','declined');await click('#checkout-submit');
+ await wait("Boolean(document.querySelector('#checkout-error')?.textContent)");
  check(await b.evaluate("!JSON.parse(localStorage.getItem('pulse:orders')||'[]').length&&Boolean(document.querySelector('#checkout-error').textContent)"),'S3: zamítnutá platba nevytvoří objednávku');
  await input('payment','success');await click('#checkout-submit');await wait("JSON.parse(localStorage.getItem('pulse:orders')||'[]').length===1");
  const order=await b.evaluate("JSON.parse(localStorage.getItem('pulse:orders'))[0]");
