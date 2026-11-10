@@ -37,7 +37,7 @@ Výchozí statický obsah je již přibalený; nejde o požadovaný build při s
 
 ## Podklady a odevzdání
 
-`documentation.md` je hlavní zdroj dokumentace. `progress-03.md` a `progress-04.md` patří k aktuálnímu webu. Prezentace v `docs/` navazují na dodané předlohy. `presenter-notes.md` obsahuje průchod na 3–5 minut.
+`documentation.md` je hlavní zdroj dokumentace. `progress-03.md` a `progress-04.md` patří k aktuálnímu webu. Prezentace v `docs/` navazují na dodané předlohy.
 
 Balíčky vytváří `tools/package-submissions.ps1`. Výstupy v `odevzdani/` jsou místní generované kopie a ZIP soubory, které se do GitHubu znovu neukládají. Povinnou složku review a prototyp nelze vyřadit z finálního projektu. Přijaté hodnocení se doplní až po skutečném obdržení.
 

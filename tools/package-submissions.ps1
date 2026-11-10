@@ -27,7 +27,6 @@ foreach($number in @('04','05')){
  Copy-Item -LiteralPath ($root+'/web') -Destination ($folder+'/web') -Recurse
  $progress=if($number -eq '04'){'progress-03.md'}else{'progress-04.md'}
  Copy-Item -LiteralPath ($root+'/'+$progress) -Destination $folder
- Copy-Item -LiteralPath ($root+'/presenter-notes.md') -Destination $folder
  $deck=if($number -eq '04'){'cv4'}else{'cv5'}
  Copy-Item -LiteralPath ($root+'/docs/prezentace-'+$deck+'.pptx') -Destination ($folder+'/prezentace.pptx')
  if($number -eq '05'){Copy-Item -LiteralPath ($root+'/project-specification.md') -Destination $folder}
@@ -46,8 +45,8 @@ New-PortableZip ($output+'/finalni-projekt') ($output+'/finalni-projekt.zip')
 @'
 # Podklady k odevzdání
 
-- `cviceni-04.zip`: aktuální web, progress-03.md, prezentace a poznámky.
-- `cviceni-05.zip`: web pro nezávislé hodnocení, specifikace, progress-04.md, prezentace a poznámky.
+- `cviceni-04.zip`: aktuální web, progress-03.md, prezentace.
+- `cviceni-05.zip`: web pro nezávislé hodnocení, specifikace, progress-04.md, prezentace.
 - `finalni-projekt.zip`: složka projekt/ v povinné struktuře, včetně prototypu, dat a dokumentace.
 
 Prezentaci nahrajte před cvičením. U finálního projektu ještě doplňte skutečné přijaté cross-review a jeho vypořádání po cvičení 6. Tyto budoucí podklady nelze dopředu věrohodně vyplnit.

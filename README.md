@@ -4,7 +4,7 @@
 
 Responzivní, dvojjazyčný web fiktivního hudebního festivalu **1.–3. srpna 2027 na Výstavišti Praha**. Jeden XML datový základ propojuje 60 účinkujících, 60 koncertů a tři scény.
 
-[Dokumentace](documentation.md) · [Specifikace](project-specification.md) · [Výsledky ověření](validation_report.md) · [Podklady k prezentaci](presenter-notes.md)
+[Dokumentace](documentation.md) · [Specifikace](project-specification.md) · [Výsledky ověření](validation_report.md)
 
 ![Prague Pulse Fest — aktuální podoba webu](preview/home.jpg)
 

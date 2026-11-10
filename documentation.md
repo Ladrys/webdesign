@@ -259,7 +259,7 @@ Pro hodnocení cizího projektu je zvlášť připravena šablona `review/review
 
 Projekt navazuje na předanou specifikaci, XML a prototyp ze cvičení 3. Následovalo propojení stránek, sjednocení cen a dostupnosti, lokální účet a PDF, kontrola mobilního rozhraní a překladů. Před cvičením 4 se řešily konkrétní připomínky učitele a prováděly nové testy skutečného rozhraní. Repo obsahuje vývojové nástroje, hotový web je na nich nezávislý.
 
-Autoři projektu jsou Michal Ladra, Matěj Mlejnek a Jan Martínek. Podrobný historický rozpis práce jednotlivých členů nebyl v podkladech doložen, proto zde není vymyšlen. Při týmové práci se mají změny dat provádět v XML, změny vzhledu v CSS a sdílená nákupní pravidla v admission.js. Před společným odevzdáním tým projde stejné scénáře z presenter-notes.md a kontroluje aktuální commit, aby všichni předváděli totožnou verzi.
+Autoři projektu jsou Michal Ladra, Matěj Mlejnek a Jan Martínek. Podrobný historický rozpis práce jednotlivých členů nebyl v podkladech doložen, proto zde není vymyšlen. Při týmové práci se mají změny dat provádět v XML, změny vzhledu v CSS a sdílená nákupní pravidla v admission.js. Před společným odevzdáním tým projde stejné scénáře z projektové specifikace a kontroluje aktuální commit, aby všichni předváděli totožnou verzi.
 
 Použité prostředky: HTML Living Standard, CSS Grid/Flexbox, standardní DOM a Web APIs, localStorage/sessionStorage, Web Crypto, SVG, JSON, XML/XSD, jsPDF a QRCode. K údržbě slouží GitHub, volitelné Python skripty, Node.js při automatizovaném ověřování a Chrome při průchodech. Testovací statický HTTP server je pomůcka testů, nikoli backend webu.
 
