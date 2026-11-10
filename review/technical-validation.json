@@ -2,17 +2,8 @@
   "date": "2026-11-10T18:46:55.751Z",
   "browser": "Google Chrome headless on Windows",
   "pages": 14,
-  "languages": [
-    "cs",
-    "en"
-  ],
-  "widths": [
-    320,
-    375,
-    768,
-    1024,
-    1440
-  ],
+  "languages": ["cs", "en"],
+  "widths": [320, 375, 768, 1024, 1440],
   "pageLanguageChecks": 28,
   "viewportChecks": 140,
   "audit": {
@@ -346,10 +337,7 @@
   },
   "additionalScenario": {
     "name": "S3 from presentation",
-    "twoDays": [
-      "d1",
-      "d3"
-    ],
+    "twoDays": ["d1", "d3"],
     "category": "vip",
     "quantity": 2,
     "promo": "PULSE10",

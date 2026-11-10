@@ -1,17 +1,71 @@
-﻿const fs=require('node:fs');
-const http=require('node:http');
-const path=require('node:path');
-const {spawn}=require('node:child_process');
-const root=path.resolve(__dirname,'..');
-const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.webp':'image/webp','.png':'image/png','.woff2':'font/woff2','.mp4':'video/mp4','.webm':'video/webm'};
-const server=http.createServer((req,res)=>{const name=decodeURIComponent(new URL(req.url,'http://localhost').pathname);const file=path.resolve(root,'.'+name);if(!file.startsWith(root+path.sep)){res.writeHead(403).end();return;}fs.readFile(file,(err,data)=>{res.writeHead(err?404:200,{'Content-Type':mime[path.extname(file)]||'application/octet-stream'});res.end(err?'Not found':data);});});
-const port=Number(process.env.PULSE_TEST_PORT||4173),cdp=Number(process.env.PULSE_CDP_PORT||9333);
-server.listen(port,'127.0.0.1');
-const executable=process.env.CHROMIUM_PATH||(process.platform==='win32'?'C:/Program Files/Google/Chrome/Application/chrome.exe':'/usr/bin/google-chrome');
-fs.mkdirSync(path.join(root,'test-artifacts'),{recursive:true});
-const errorLog=fs.openSync(path.join(root,'test-artifacts/chromium.log'),'a');
-const platformFlags=process.platform==='win32'?['--disable-software-rasterizer']:['--disable-dev-shm-usage'];
-const browser=spawn(executable,['--headless=new','--disable-gpu','--no-sandbox',...platformFlags,'--disable-background-networking','--no-first-run','--no-default-browser-check','--remote-debugging-port='+cdp,'--user-data-dir='+path.join(root,'test-artifacts/chrome-profile-'+cdp+'-'+process.pid),'about:blank'],{stdio:['ignore','ignore',errorLog],windowsHide:true});
-browser.on('error',error=>{console.error(error.message);server.close();process.exitCode=1;});
+﻿const fs = require('node:fs');
+const http = require('node:http');
+const path = require('node:path');
+const { spawn } = require('node:child_process');
+const root = path.resolve(__dirname, '..');
+const mime = {
+  '.html': 'text/html; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
+  '.css': 'text/css; charset=utf-8',
+  '.svg': 'image/svg+xml',
+  '.webp': 'image/webp',
+  '.png': 'image/png',
+  '.woff2': 'font/woff2',
+  '.mp4': 'video/mp4',
+  '.webm': 'video/webm',
+};
+const server = http.createServer((req, res) => {
+  const name = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
+  const file = path.resolve(root, '.' + name);
+  if (!file.startsWith(root + path.sep)) {
+    res.writeHead(403).end();
+    return;
+  }
+  fs.readFile(file, (err, data) => {
+    res.writeHead(err ? 404 : 200, {
+      'Content-Type': mime[path.extname(file)] || 'application/octet-stream',
+    });
+    res.end(err ? 'Not found' : data);
+  });
+});
+const port = Number(process.env.PULSE_TEST_PORT || 4173),
+  cdp = Number(process.env.PULSE_CDP_PORT || 9333);
+server.listen(port, '127.0.0.1');
+const executable =
+  process.env.CHROMIUM_PATH ||
+  (process.platform === 'win32'
+    ? 'C:/Program Files/Google/Chrome/Application/chrome.exe'
+    : '/usr/bin/google-chrome');
+fs.mkdirSync(path.join(root, 'test-artifacts'), { recursive: true });
+const errorLog = fs.openSync(path.join(root, 'test-artifacts/chromium.log'), 'a');
+const platformFlags =
+  process.platform === 'win32' ? ['--disable-software-rasterizer'] : ['--disable-dev-shm-usage'];
+const browser = spawn(
+  executable,
+  [
+    '--headless=new',
+    '--disable-gpu',
+    '--no-sandbox',
+    ...platformFlags,
+    '--disable-background-networking',
+    '--no-first-run',
+    '--no-default-browser-check',
+    '--remote-debugging-port=' + cdp,
+    '--user-data-dir=' +
+      path.join(root, 'test-artifacts/chrome-profile-' + cdp + '-' + process.pid),
+    'about:blank',
+  ],
+  { stdio: ['ignore', 'ignore', errorLog], windowsHide: true },
+);
+browser.on('error', (error) => {
+  console.error(error.message);
+  server.close();
+  process.exitCode = 1;
+});
 console.log(`Test server http://127.0.0.1:${port}/web/index.html; Chromium CDP :${cdp}`);
-for(const signal of ['SIGTERM','SIGINT'])process.on(signal,()=>{browser.kill();server.close();process.exit();});
+for (const signal of ['SIGTERM', 'SIGINT'])
+  process.on(signal, () => {
+    browser.kill();
+    server.close();
+    process.exit();
+  });

@@ -1,71 +1,238 @@
-const B=require('../tools/browser-test.cjs');
-const fs=require('node:fs');
-const checks=[];
-function check(condition,label){if(!condition)throw Error(label);checks.push(label);console.log('PASS',label);}
-(async()=>{const b=await B.connect();
- const input=async(id,value)=>b.evaluate(`(()=>{const n=document.getElementById(${JSON.stringify(id)});n.value=${JSON.stringify(value)};n.dispatchEvent(new Event('input',{bubbles:true}));n.dispatchEvent(new Event('change',{bubbles:true}));})()`);
- const click=async(selector)=>b.evaluate(`document.querySelector(${JSON.stringify(selector)}).click()`);
- const wait=async(expression)=>{for(let i=0;i<150;i++){await new Promise(r=>setTimeout(r,100));try{if(await b.evaluate("document.readyState==='complete'&&Boolean(window.PulseI18n)&&("+expression+")"))return;}catch{}}throw Error('Timeout: '+expression+' '+await b.evaluate('document.querySelector("main").innerText.slice(-800)'));};
- try{
- await b.goto('index.html');await b.evaluate("localStorage.clear();localStorage.setItem('prf:language','cs')");
- await b.goto('program.html');await input('day','d1');await input('venue','h2');
- check(await b.evaluate("document.querySelectorAll('#events .event').length===7"),'S1: den a scéna filtrují sedm koncertů River Stage');
- await click('[data-fav]');await click('#only-favorites');
- check(await b.evaluate("document.querySelectorAll('#events .event').length===1"),'S1: uložení a filtr vlastního programu');
- await b.goto('program.html');await click('#only-favorites');
- check(await b.evaluate("document.querySelectorAll('#events .event').length===1"),'S1: uložený koncert přetrvá po opětovném otevření');
- await click('#only-favorites');await input('program-genre','UK bassline');
- check(await b.evaluate("[...document.querySelectorAll('#events .event')].every(n=>n.querySelector('.event-genre').textContent==='UK bassline')&&document.querySelectorAll('#events .event').length>0"),'S1: nový filtr žánru odpovídá kanonickým datům');
- await b.goto('search.html?q=DARK');
- check(await b.evaluate("Boolean(document.querySelector('a[href=\"performer.html?id=i8\"]'))"),'S2: vyhledávání DARK vrací přímý odkaz na DARKZY');
- await click('a[href="performer.html?id=i8"]');await wait("Boolean(document.querySelector('.artist-profile'))");
- check(await b.evaluate("document.querySelector('h1').textContent==='DARKZY'&&!document.querySelector('dialog').open&&location.pathname.endsWith('performer.html')"),'S2: interpret má samostatnou stránku s h1 a adresou');
- const href=await b.evaluate("document.querySelector('.artist-ticket').getAttribute('href')");
- const expected=await b.evaluate("FESTIVAL_DATA.events.find(e=>e.performerIds.includes('i8'))");
- await click('.artist-ticket');await wait("Boolean(document.querySelector('#ticket-venue'))");
- check(await b.evaluate(`document.querySelector('#ticket-venue').value==='${expected.venueId}'&&document.querySelector('#ticket-day').value==='${expected.dayId}'`),'S2: vstupenka přebírá správný den a scénu interpreta');
- await b.goto('tickets.html?venue=h2&day=d1&duration=1&category=standing');await input('ticket-quantity','2');
- await click('#booking-continue');await wait("Boolean(document.querySelector('#checkout'))");
- check(await b.evaluate("JSON.parse(localStorage.getItem('pulse:cart:guest')).length===2"),'S3: dvě vstupenky se přidají do košíku');
- await input('buyer-name','Test');await input('buyer-surname','Návštěvník');await input('buyer-email','test@example.invalid');await input('buyer-phone','+420777123456');
- await click('#camping-enabled');await input('camping-people','2');await input('promo-code','PULSE10');await click('#apply-promo');
- check(await b.evaluate("document.querySelector('#order-total').textContent.replace(/\\s/g,'').includes('848')"),'S3: 220 Kč − 10 % + stan 350 Kč + 2 × 150 Kč = 848 Kč');
- await click('#consent');await input('payment','declined');await click('#checkout-submit');
- await wait("Boolean(document.querySelector('#checkout-error')?.textContent)");
- check(await b.evaluate("!JSON.parse(localStorage.getItem('pulse:orders')||'[]').length&&Boolean(document.querySelector('#checkout-error').textContent)"),'S3: zamítnutá platba nevytvoří objednávku');
- await input('payment','success');await click('#checkout-submit');await wait("JSON.parse(localStorage.getItem('pulse:orders')||'[]').length===1");
- const order=await b.evaluate("JSON.parse(localStorage.getItem('pulse:orders'))[0]");
- check(order.total===848&&order.tickets.length===2&&order.camping.people===2,'S3: objednávka obsahuje přesnou cenu, lístky a kemp');
- check(await b.evaluate("JSON.parse(localStorage.getItem('pulse:cart:guest')||'[]').length===0"),'S3: dokončením se vyprázdní košík');
- const pdf=await b.evaluate(`(async()=>{const blob=await PulseTickets.generate(JSON.parse(localStorage.getItem('pulse:orders'))[0]);return await new Promise(r=>{const reader=new FileReader();reader.onload=()=>r(reader.result);reader.readAsDataURL(blob);});})()`);
- const bytes=Buffer.from(pdf.split(',')[1],'base64');fs.writeFileSync('test-artifacts/order.pdf',bytes);
- check(bytes.subarray(0,5).toString()==='%PDF-'&&(bytes.toString('latin1').match(/\/Type \/Page\b/g)||[]).length===3,'S3: PDF obsahuje dvě vstupenky a samostatný kempovací poukaz');
- await b.goto('info.html');await input('plan-day','d1');
- check(await b.evaluate("document.querySelector('[data-plan-capacity=\"h2\"]').dataset.sold==='2'"),'Kapacity: plánek ukazuje dvě prodaná místa River Stage v den 1');
- await input('plan-day','d2');
- check(await b.evaluate("document.querySelector('[data-plan-capacity=\"h2\"]').dataset.sold==='0'"),'Kapacity: jednodenní vstup neobsadí následující den');
- await b.goto('tickets.html?venue=all&duration=3&category=regular');await click('[data-seat="C1"]');await click('#booking-continue');await wait("Boolean(document.querySelector('#checkout'))");
- await input('buyer-name','Test');await input('buyer-surname','Balíček');await input('buyer-email','pass@example.invalid');await input('buyer-phone','+420777123456');await click('#consent');await click('#checkout-submit');await wait("JSON.parse(localStorage.getItem('pulse:orders')||'[]').length===2");
- const snapshot=await b.evaluate('PulseCapacity.snapshot()');
- check(snapshot.every(r=>r.sold===(r.venueId==='h2'&&r.dayId==='d1'?3:1)),'Kapacity: třídenní společný vstup blokuje kapacitu všech scén ve všech dnech');
- await b.goto('tickets.html?venue=h1&duration=1&day=d2&category=regular');
- check(await b.evaluate("document.querySelector('[data-seat=\"C1\"]').disabled"),'Kapacity: společný a samostatný vstup sdílejí fyzické sedadlo');
- await b.goto('account.html');await click('#register-tab');
- await input('auth-name','Test');await input('auth-surname','Účet');await input('auth-phone','+420777123456');await input('auth-email','account@example.invalid');await input('auth-password','FestivalTest2026!');await input('auth-confirm','FestivalTest2026!');await click('#auth-submit');
- await wait("Boolean(document.querySelector('#logout'))");
- check(await b.evaluate("JSON.parse(localStorage.getItem('pulse:users'))[0].hash.length===64&&!localStorage.getItem('pulse:users').includes('FestivalTest2026!')"),'Účet: registrace, přihlášení a uložení hashe místo hesla');
- await click('#logout');await wait("Boolean(document.querySelector('#auth-password'))");await input('auth-email','account@example.invalid');await input('auth-password','FestivalTest2026!');await click('#auth-submit');await wait("Boolean(document.querySelector('#logout'))");
- check(true,'Účet: odhlášení a opětovné přihlášení');
- for(const language of ['en','cs']){
-  await b.evaluate(`localStorage.setItem('prf:language','${language}')`);await b.goto('program.html');
-  check(await b.evaluate(`document.documentElement.lang==='${language}'&&!/programmm/i.test(document.body.innerText)`),'Jazyky: '+language+' bez poškozeného Programme');
- }
- await b.goto('performer.html?id=unknown');check(await b.evaluate("document.querySelector('main h1').textContent==='Interpret nebyl nalezen'"),'Neznámý interpret má srozumitelný bezpečný stav');
- const fileUrl=require('node:url').pathToFileURL(require('node:path').resolve('web/index.html')).href;
- await b.goto(fileUrl);
- check(await b.evaluate("location.protocol==='file:'&&Boolean(document.querySelector('.pulse-hero-photo'))"),'Offline: přímé otevření web/index.html bez serveru');
- await b.goto(fileUrl+'?page=performer.html&id=i8');
- check(await b.evaluate("document.querySelector('main h1').textContent==='DARKZY'"),'Offline: samostatný detail funguje i přes file:// směrování');
- check(b.errors.length===0,'Žádná neošetřená JavaScriptová chyba během scénářů');
- }finally{fs.writeFileSync('test-artifacts/scenarios.json',JSON.stringify({date:new Date().toISOString(),checks,errors:b.errors},null,2));b.close();}
+const B = require('../tools/browser-test.cjs');
+const fs = require('node:fs');
+const checks = [];
+function check(condition, label) {
+  if (!condition) throw Error(label);
+  checks.push(label);
+  console.log('PASS', label);
+}
+(async () => {
+  const b = await B.connect();
+  const input = async (id, value) =>
+    b.evaluate(
+      `(()=>{const n=document.getElementById(${JSON.stringify(id)});n.value=${JSON.stringify(value)};n.dispatchEvent(new Event('input',{bubbles:true}));n.dispatchEvent(new Event('change',{bubbles:true}));})()`,
+    );
+  const click = async (selector) =>
+    b.evaluate(`document.querySelector(${JSON.stringify(selector)}).click()`);
+  const wait = async (expression) => {
+    for (let i = 0; i < 150; i++) {
+      await new Promise((r) => setTimeout(r, 100));
+      try {
+        if (
+          await b.evaluate(
+            "document.readyState==='complete'&&Boolean(window.PulseI18n)&&(" + expression + ')',
+          )
+        )
+          return;
+      } catch {}
+    }
+    throw Error(
+      'Timeout: ' +
+        expression +
+        ' ' +
+        (await b.evaluate('document.querySelector("main").innerText.slice(-800)')),
+    );
+  };
+  try {
+    await b.goto('index.html');
+    await b.evaluate("localStorage.clear();localStorage.setItem('prf:language','cs')");
+    await b.goto('program.html');
+    await input('day', 'd1');
+    await input('venue', 'h2');
+    check(
+      await b.evaluate("document.querySelectorAll('#events .event').length===7"),
+      'S1: den a scéna filtrují sedm koncertů River Stage',
+    );
+    await click('[data-fav]');
+    await click('#only-favorites');
+    check(
+      await b.evaluate("document.querySelectorAll('#events .event').length===1"),
+      'S1: uložení a filtr vlastního programu',
+    );
+    await b.goto('program.html');
+    await click('#only-favorites');
+    check(
+      await b.evaluate("document.querySelectorAll('#events .event').length===1"),
+      'S1: uložený koncert přetrvá po opětovném otevření',
+    );
+    await click('#only-favorites');
+    await input('program-genre', 'UK bassline');
+    check(
+      await b.evaluate(
+        "[...document.querySelectorAll('#events .event')].every(n=>n.querySelector('.event-genre').textContent==='UK bassline')&&document.querySelectorAll('#events .event').length>0",
+      ),
+      'S1: nový filtr žánru odpovídá kanonickým datům',
+    );
+    await b.goto('search.html?q=DARK');
+    check(
+      await b.evaluate('Boolean(document.querySelector(\'a[href="performer.html?id=i8"]\'))'),
+      'S2: vyhledávání DARK vrací přímý odkaz na DARKZY',
+    );
+    await click('a[href="performer.html?id=i8"]');
+    await wait("Boolean(document.querySelector('.artist-profile'))");
+    check(
+      await b.evaluate(
+        "document.querySelector('h1').textContent==='DARKZY'&&!document.querySelector('dialog').open&&location.pathname.endsWith('performer.html')",
+      ),
+      'S2: interpret má samostatnou stránku s h1 a adresou',
+    );
+    const href = await b.evaluate("document.querySelector('.artist-ticket').getAttribute('href')");
+    const expected = await b.evaluate(
+      "FESTIVAL_DATA.events.find(e=>e.performerIds.includes('i8'))",
+    );
+    await click('.artist-ticket');
+    await wait("Boolean(document.querySelector('#ticket-venue'))");
+    check(
+      await b.evaluate(
+        `document.querySelector('#ticket-venue').value==='${expected.venueId}'&&document.querySelector('#ticket-day').value==='${expected.dayId}'`,
+      ),
+      'S2: vstupenka přebírá správný den a scénu interpreta',
+    );
+    await b.goto('tickets.html?venue=h2&day=d1&duration=1&category=standing');
+    await input('ticket-quantity', '2');
+    await click('#booking-continue');
+    await wait("Boolean(document.querySelector('#checkout'))");
+    check(
+      await b.evaluate("JSON.parse(localStorage.getItem('pulse:cart:guest')).length===2"),
+      'S3: dvě vstupenky se přidají do košíku',
+    );
+    await input('buyer-name', 'Test');
+    await input('buyer-surname', 'Návštěvník');
+    await input('buyer-email', 'test@example.invalid');
+    await input('buyer-phone', '+420777123456');
+    await click('#camping-enabled');
+    await input('camping-people', '2');
+    await input('promo-code', 'PULSE10');
+    await click('#apply-promo');
+    check(
+      await b.evaluate(
+        "document.querySelector('#order-total').textContent.replace(/\\s/g,'').includes('848')",
+      ),
+      'S3: 220 Kč − 10 % + stan 350 Kč + 2 × 150 Kč = 848 Kč',
+    );
+    await click('#consent');
+    await input('payment', 'declined');
+    await click('#checkout-submit');
+    await wait("Boolean(document.querySelector('#checkout-error')?.textContent)");
+    check(
+      await b.evaluate(
+        "!JSON.parse(localStorage.getItem('pulse:orders')||'[]').length&&Boolean(document.querySelector('#checkout-error').textContent)",
+      ),
+      'S3: zamítnutá platba nevytvoří objednávku',
+    );
+    await input('payment', 'success');
+    await click('#checkout-submit');
+    await wait("JSON.parse(localStorage.getItem('pulse:orders')||'[]').length===1");
+    const order = await b.evaluate("JSON.parse(localStorage.getItem('pulse:orders'))[0]");
+    check(
+      order.total === 848 && order.tickets.length === 2 && order.camping.people === 2,
+      'S3: objednávka obsahuje přesnou cenu, lístky a kemp',
+    );
+    check(
+      await b.evaluate("JSON.parse(localStorage.getItem('pulse:cart:guest')||'[]').length===0"),
+      'S3: dokončením se vyprázdní košík',
+    );
+    const pdf = await b.evaluate(
+      `(async()=>{const blob=await PulseTickets.generate(JSON.parse(localStorage.getItem('pulse:orders'))[0]);return await new Promise(r=>{const reader=new FileReader();reader.onload=()=>r(reader.result);reader.readAsDataURL(blob);});})()`,
+    );
+    const bytes = Buffer.from(pdf.split(',')[1], 'base64');
+    fs.writeFileSync('test-artifacts/order.pdf', bytes);
+    check(
+      bytes.subarray(0, 5).toString() === '%PDF-' &&
+        (bytes.toString('latin1').match(/\/Type \/Page\b/g) || []).length === 3,
+      'S3: PDF obsahuje dvě vstupenky a samostatný kempovací poukaz',
+    );
+    await b.goto('info.html');
+    await input('plan-day', 'd1');
+    check(
+      await b.evaluate("document.querySelector('[data-plan-capacity=\"h2\"]').dataset.sold==='2'"),
+      'Kapacity: plánek ukazuje dvě prodaná místa River Stage v den 1',
+    );
+    await input('plan-day', 'd2');
+    check(
+      await b.evaluate("document.querySelector('[data-plan-capacity=\"h2\"]').dataset.sold==='0'"),
+      'Kapacity: jednodenní vstup neobsadí následující den',
+    );
+    await b.goto('tickets.html?venue=all&duration=3&category=regular');
+    await click('[data-seat="C1"]');
+    await click('#booking-continue');
+    await wait("Boolean(document.querySelector('#checkout'))");
+    await input('buyer-name', 'Test');
+    await input('buyer-surname', 'Balíček');
+    await input('buyer-email', 'pass@example.invalid');
+    await input('buyer-phone', '+420777123456');
+    await click('#consent');
+    await click('#checkout-submit');
+    await wait("JSON.parse(localStorage.getItem('pulse:orders')||'[]').length===2");
+    const snapshot = await b.evaluate('PulseCapacity.snapshot()');
+    check(
+      snapshot.every((r) => r.sold === (r.venueId === 'h2' && r.dayId === 'd1' ? 3 : 1)),
+      'Kapacity: třídenní společný vstup blokuje kapacitu všech scén ve všech dnech',
+    );
+    await b.goto('tickets.html?venue=h1&duration=1&day=d2&category=regular');
+    check(
+      await b.evaluate('document.querySelector(\'[data-seat="C1"]\').disabled'),
+      'Kapacity: společný a samostatný vstup sdílejí fyzické sedadlo',
+    );
+    await b.goto('account.html');
+    await click('#register-tab');
+    await input('auth-name', 'Test');
+    await input('auth-surname', 'Účet');
+    await input('auth-phone', '+420777123456');
+    await input('auth-email', 'account@example.invalid');
+    await input('auth-password', 'FestivalTest2026!');
+    await input('auth-confirm', 'FestivalTest2026!');
+    await click('#auth-submit');
+    await wait("Boolean(document.querySelector('#logout'))");
+    check(
+      await b.evaluate(
+        "JSON.parse(localStorage.getItem('pulse:users'))[0].hash.length===64&&!localStorage.getItem('pulse:users').includes('FestivalTest2026!')",
+      ),
+      'Účet: registrace, přihlášení a uložení hashe místo hesla',
+    );
+    await click('#logout');
+    await wait("Boolean(document.querySelector('#auth-password'))");
+    await input('auth-email', 'account@example.invalid');
+    await input('auth-password', 'FestivalTest2026!');
+    await click('#auth-submit');
+    await wait("Boolean(document.querySelector('#logout'))");
+    check(true, 'Účet: odhlášení a opětovné přihlášení');
+    for (const language of ['en', 'cs']) {
+      await b.evaluate(`localStorage.setItem('prf:language','${language}')`);
+      await b.goto('program.html');
+      check(
+        await b.evaluate(
+          `document.documentElement.lang==='${language}'&&!/programmm/i.test(document.body.innerText)`,
+        ),
+        'Jazyky: ' + language + ' bez poškozeného Programme',
+      );
+    }
+    await b.goto('performer.html?id=unknown');
+    check(
+      await b.evaluate("document.querySelector('main h1').textContent==='Interpret nebyl nalezen'"),
+      'Neznámý interpret má srozumitelný bezpečný stav',
+    );
+    const fileUrl = require('node:url').pathToFileURL(
+      require('node:path').resolve('web/index.html'),
+    ).href;
+    await b.goto(fileUrl);
+    check(
+      await b.evaluate(
+        "location.protocol==='file:'&&Boolean(document.querySelector('.pulse-hero-photo'))",
+      ),
+      'Offline: přímé otevření web/index.html bez serveru',
+    );
+    await b.goto(fileUrl + '?page=performer.html&id=i8');
+    check(
+      await b.evaluate("document.querySelector('main h1').textContent==='DARKZY'"),
+      'Offline: samostatný detail funguje i přes file:// směrování',
+    );
+    check(b.errors.length === 0, 'Žádná neošetřená JavaScriptová chyba během scénářů');
+  } finally {
+    fs.writeFileSync(
+      'test-artifacts/scenarios.json',
+      JSON.stringify({ date: new Date().toISOString(), checks, errors: b.errors }, null, 2),
+    );
+    b.close();
+  }
 })();

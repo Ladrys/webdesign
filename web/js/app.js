@@ -1,316 +1,1774 @@
 'use strict';
 (() => {
-// Přibalená data pocházejí z XML/JSON exportu; web za běhu nepotřebuje API.
-const D=window.FESTIVAL_DATA,$=s=>document.querySelector(s),main=$('main');
-const pages=['index.html','program.html','performers.html','performer.html','venues.html','info.html','search.html','tickets.html','cart.html','account.html','news.html','privacy.html','terms.html','credits.html'];
-const pageTitles={'index.html':'Festival','program.html':'Program 2027','performers.html':'Účinkující','performer.html':'Profil interpreta','venues.html':'Festivalové scény','info.html':'Praktické informace','search.html':'Vyhledávání','tickets.html':'Vstupenky','cart.html':'Košík','account.html':'Můj účet','news.html':'Novinky','privacy.html':'Soukromí','terms.html':'Podmínky objednávky','credits.html':'Grafika a zdroje'};
-const diskMode=location.protocol==='file:';
-const pathnamePage=location.pathname.split('/').pop()||'index.html';
-const page=diskMode&&pages.includes(new URLSearchParams(location.search).get('page'))?new URLSearchParams(location.search).get('page'):pathnamePage;
-document.title=(pageTitles[page]||'Festival')+' | Prague Pulse Fest';
-if(diskMode){
-const descriptions={'index.html':'Prague Pulse Fest: 1.–3. srpna 2027 na Výstavišti v Praze. Program, účinkující a vstupenky.','program.html':'Program 60 vystoupení. Filtrujte podle dne, scény a ukládejte oblíbené koncerty.','performers.html':'Všech 60 účinkujících Prague Pulse Fest, jejich profily a koncerty.','performer.html':'Profil interpreta, koncerty a vstupenky Prague Pulse Fest.','venues.html':'Main Hall, River Stage a Club Stage na Výstavišti v Praze.','info.html':'Praktické informace: doprava, přístupnost, vstupenky a časté dotazy.','search.html':'Hledání v programu, interpretech, scénách a informacích Prague Pulse Fest.','tickets.html':'Interaktivní výběr VIP, Regular a stání. Školní ukázka vstupenek v PDF.','cart.html':'Souhrn vstupenek a objednávka s lokálním účtem i bez registrace.','account.html':'Lokální přihlášení, registrace a historie školních objednávek.','news.html':'Novinky a aktuální informace Prague Pulse Fest 2027.','privacy.html':'Soukromí a nastavení dat Prague Pulse Fest.','terms.html':'Podmínky objednávky fiktivního Prague Pulse Fest.','credits.html':'Fotografie a zdroje Prague Pulse Fest.'};
-$('meta[name="description"]').content=descriptions[page]||descriptions['index.html'];
-$('meta[property="og:description"]').content=$('meta[name="description"]').content;
-}
-$('meta[property="og:title"]').content=document.title;
-// Keep one file URL for all views: file:// localStorage isolation otherwise differs by browser.
-// Při otevření z disku držíme všechny pohledy pod index.html kvůli místnímu úložišti.
-function routeUrl(href){
-if(!diskMode||typeof href!=='string'||href.startsWith('#'))return href;
-const target=new URL(href,location.href),filename=target.pathname.split('/').pop();
-if(!pages.includes(filename))return href;
-if(filename==='index.html'&&target.searchParams.has('page'))return target.href;
-target.pathname=target.pathname.replace(/[^/]+$/,'index.html');target.searchParams.set('page',filename);return target.href;
-}
-if(diskMode&&pathnamePage!=='index.html'){location.replace(routeUrl(location.href));return;}
-document.addEventListener('click',e=>{const anchor=e.target.closest('a[href]');if(!diskMode||!anchor||anchor.target||anchor.download||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey||e.button!==0)return;const href=anchor.getAttribute('href');const routed=routeUrl(href);if(routed!==href){e.preventDefault();location.href=routed;}});
+  // Přibalená data pocházejí z XML/JSON exportu; web za běhu nepotřebuje API.
+  const D = window.FESTIVAL_DATA,
+    $ = (s) => document.querySelector(s),
+    main = $('main');
+  const pages = [
+    'index.html',
+    'program.html',
+    'performers.html',
+    'performer.html',
+    'venues.html',
+    'info.html',
+    'search.html',
+    'tickets.html',
+    'cart.html',
+    'account.html',
+    'news.html',
+    'privacy.html',
+    'terms.html',
+    'credits.html',
+  ];
+  const pageTitles = {
+    'index.html': 'Festival',
+    'program.html': 'Program 2027',
+    'performers.html': 'Účinkující',
+    'performer.html': 'Profil interpreta',
+    'venues.html': 'Festivalové scény',
+    'info.html': 'Praktické informace',
+    'search.html': 'Vyhledávání',
+    'tickets.html': 'Vstupenky',
+    'cart.html': 'Košík',
+    'account.html': 'Můj účet',
+    'news.html': 'Novinky',
+    'privacy.html': 'Soukromí',
+    'terms.html': 'Podmínky objednávky',
+    'credits.html': 'Grafika a zdroje',
+  };
+  const diskMode = location.protocol === 'file:';
+  const pathnamePage = location.pathname.split('/').pop() || 'index.html';
+  const page =
+    diskMode && pages.includes(new URLSearchParams(location.search).get('page'))
+      ? new URLSearchParams(location.search).get('page')
+      : pathnamePage;
+  document.title = (pageTitles[page] || 'Festival') + ' | Prague Pulse Fest';
+  if (diskMode) {
+    const descriptions = {
+      'index.html':
+        'Prague Pulse Fest: 1.–3. srpna 2027 na Výstavišti v Praze. Program, účinkující a vstupenky.',
+      'program.html':
+        'Program 60 vystoupení. Filtrujte podle dne, scény a ukládejte oblíbené koncerty.',
+      'performers.html': 'Všech 60 účinkujících Prague Pulse Fest, jejich profily a koncerty.',
+      'performer.html': 'Profil interpreta, koncerty a vstupenky Prague Pulse Fest.',
+      'venues.html': 'Main Hall, River Stage a Club Stage na Výstavišti v Praze.',
+      'info.html': 'Praktické informace: doprava, přístupnost, vstupenky a časté dotazy.',
+      'search.html': 'Hledání v programu, interpretech, scénách a informacích Prague Pulse Fest.',
+      'tickets.html': 'Interaktivní výběr VIP, Regular a stání. Školní ukázka vstupenek v PDF.',
+      'cart.html': 'Souhrn vstupenek a objednávka s lokálním účtem i bez registrace.',
+      'account.html': 'Lokální přihlášení, registrace a historie školních objednávek.',
+      'news.html': 'Novinky a aktuální informace Prague Pulse Fest 2027.',
+      'privacy.html': 'Soukromí a nastavení dat Prague Pulse Fest.',
+      'terms.html': 'Podmínky objednávky fiktivního Prague Pulse Fest.',
+      'credits.html': 'Fotografie a zdroje Prague Pulse Fest.',
+    };
+    $('meta[name="description"]').content = descriptions[page] || descriptions['index.html'];
+    $('meta[property="og:description"]').content = $('meta[name="description"]').content;
+  }
+  $('meta[property="og:title"]').content = document.title;
+  // Keep one file URL for all views: file:// localStorage isolation otherwise differs by browser.
+  // Při otevření z disku držíme všechny pohledy pod index.html kvůli místnímu úložišti.
+  function routeUrl(href) {
+    if (!diskMode || typeof href !== 'string' || href.startsWith('#')) return href;
+    const target = new URL(href, location.href),
+      filename = target.pathname.split('/').pop();
+    if (!pages.includes(filename)) return href;
+    if (filename === 'index.html' && target.searchParams.has('page')) return target.href;
+    target.pathname = target.pathname.replace(/[^/]+$/, 'index.html');
+    target.searchParams.set('page', filename);
+    return target.href;
+  }
+  if (diskMode && pathnamePage !== 'index.html') {
+    location.replace(routeUrl(location.href));
+    return;
+  }
+  document.addEventListener('click', (e) => {
+    const anchor = e.target.closest('a[href]');
+    if (
+      !diskMode ||
+      !anchor ||
+      anchor.target ||
+      anchor.download ||
+      e.ctrlKey ||
+      e.metaKey ||
+      e.shiftKey ||
+      e.altKey ||
+      e.button !== 0
+    )
+      return;
+    const href = anchor.getAttribute('href');
+    const routed = routeUrl(href);
+    if (routed !== href) {
+      e.preventDefault();
+      location.href = routed;
+    }
+  });
 
-const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const localizedSearch=v=>{const visit=x=>typeof x==='string'?(window.PulseI18n?.t(x)||x):Array.isArray(x)?x.map(visit):x&&typeof x==='object'?Object.fromEntries(Object.entries(x).map(([k,val])=>[k,k==='searchText'?val:visit(val)])):x;return JSON.stringify(v)+' '+JSON.stringify(visit(v));};
-const normalize=v=>String(v??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('cs');
-const locale=window.PulseI18n?.lang==='en'?'en-GB':'cs-CZ';
-const tr=(cs,en)=>locale==='en-GB'?en:cs;
-const money=v=>new Intl.NumberFormat(locale,{style:'currency',currency:'CZK',maximumFractionDigits:0}).format(v);
-const moneyExact=v=>new Intl.NumberFormat(locale,{style:'currency',currency:'CZK',minimumFractionDigits:2,maximumFractionDigits:2}).format(v);
-const date=v=>new Intl.DateTimeFormat(locale,{day:'numeric',month:'long'}).format(new Date(v+'T12:00:00'));
-// Čtení úložiště ověřuje tvar záznamů, aby poškozená data nezablokovala celý web.
-const storage={get(k,fallback=[]){
-try{
-const value=JSON.parse(localStorage.getItem('pulse:'+k));
-if(!Array.isArray(value))return fallback;
-if(k==='users')return value.filter(u=>u&&['id','name','email','salt','hash'].every(field=>typeof u[field]==='string')&&/^[a-f0-9]{32}$/.test(u.salt)&&/^[a-f0-9]{64}$/.test(u.hash));
-if(k==='orders')return value.filter(o=>o&&typeof o.id==='string'&&Array.isArray(o.tickets)&&o.tickets.every(validTicket)).map(normalizeStoredOrder);
-if(k==='favorites')return value.filter(id=>typeof id==='string'&&D.events.some(e=>e.id===id));
-return value;
-}catch{return fallback;}
-},set(k,v){localStorage.setItem('pulse:'+k,JSON.stringify(v));}};
-let session;try{session=JSON.parse(localStorage.getItem('pulse:auth')||'null');if(!session||!Number.isFinite(session.expires)||session.expires<=Date.now()){localStorage.removeItem('pulse:auth');session=null;}}catch{session=null;}
-function rememberLogin(id){const auth={id,expires:Date.now()+7*24*60*60*1000};localStorage.setItem('pulse:auth',JSON.stringify(auth));sessionStorage.setItem('pulse:session',JSON.stringify({id}));}
+  const esc = (v) =>
+    String(v ?? '').replace(
+      /[&<>"']/g,
+      (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c],
+    );
+  const localizedSearch = (v) => {
+    const visit = (x) =>
+      typeof x === 'string'
+        ? window.PulseI18n?.t(x) || x
+        : Array.isArray(x)
+          ? x.map(visit)
+          : x && typeof x === 'object'
+            ? Object.fromEntries(
+                Object.entries(x).map(([k, val]) => [k, k === 'searchText' ? val : visit(val)]),
+              )
+            : x;
+    return JSON.stringify(v) + ' ' + JSON.stringify(visit(v));
+  };
+  const normalize = (v) =>
+    String(v ?? '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLocaleLowerCase('cs');
+  const locale = window.PulseI18n?.lang === 'en' ? 'en-GB' : 'cs-CZ';
+  const tr = (cs, en) => (locale === 'en-GB' ? en : cs);
+  const money = (v) =>
+    new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: 'CZK',
+      maximumFractionDigits: 0,
+    }).format(v);
+  const moneyExact = (v) =>
+    new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: 'CZK',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(v);
+  const date = (v) =>
+    new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long' }).format(
+      new Date(v + 'T12:00:00'),
+    );
+  // Čtení úložiště ověřuje tvar záznamů, aby poškozená data nezablokovala celý web.
+  const storage = {
+    get(k, fallback = []) {
+      try {
+        const value = JSON.parse(localStorage.getItem('pulse:' + k));
+        if (!Array.isArray(value)) return fallback;
+        if (k === 'users')
+          return value.filter(
+            (u) =>
+              u &&
+              ['id', 'name', 'email', 'salt', 'hash'].every(
+                (field) => typeof u[field] === 'string',
+              ) &&
+              /^[a-f0-9]{32}$/.test(u.salt) &&
+              /^[a-f0-9]{64}$/.test(u.hash),
+          );
+        if (k === 'orders')
+          return value
+            .filter(
+              (o) =>
+                o &&
+                typeof o.id === 'string' &&
+                Array.isArray(o.tickets) &&
+                o.tickets.every(validTicket),
+            )
+            .map(normalizeStoredOrder);
+        if (k === 'favorites')
+          return value.filter((id) => typeof id === 'string' && D.events.some((e) => e.id === id));
+        return value;
+      } catch {
+        return fallback;
+      }
+    },
+    set(k, v) {
+      localStorage.setItem('pulse:' + k, JSON.stringify(v));
+    },
+  };
+  let session;
+  try {
+    session = JSON.parse(localStorage.getItem('pulse:auth') || 'null');
+    if (!session || !Number.isFinite(session.expires) || session.expires <= Date.now()) {
+      localStorage.removeItem('pulse:auth');
+      session = null;
+    }
+  } catch {
+    session = null;
+  }
+  function rememberLogin(id) {
+    const auth = { id, expires: Date.now() + 7 * 24 * 60 * 60 * 1000 };
+    localStorage.setItem('pulse:auth', JSON.stringify(auth));
+    sessionStorage.setItem('pulse:session', JSON.stringify({ id }));
+  }
 
-let user=storage.get('users').find(u=>u.id===session?.id)||null;
-const ticketTypes=[{id:'vip',label:'VIP',price:D.festival.tickets.find(t=>t.id==='t5').price,festivalPrice:D.festival.tickets.find(t=>t.id==='t2').price,sourceId:'t2'},{id:'regular',label:'Regular',price:D.festival.tickets.find(t=>t.id==='t4').price,festivalPrice:D.festival.tickets.find(t=>t.id==='t1').price,sourceId:'t1'},{id:'standing',label:'Stání',price:D.festival.tickets.find(t=>t.id==='t6').price,festivalPrice:D.festival.tickets.find(t=>t.id==='t3').price,sourceId:'t3'}];
-const cartKey=()=> 'cart:'+(user?.id||'guest');
-const getCart=()=>storage.get(cartKey()).filter(validTicket);
-const selected=new Set();
-let toastTimer;
-function toast(t){$('#status').textContent=t;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#status').textContent='',4500);}
-function save(k,v){try{storage.set(k,v);return true;}catch{toast('Prohlížeč nepovolil uložení. Povolte místní úložiště a zkuste to znovu.');return false;}}
-function keyId(){return crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);}
-const link=(href,text,cls='')=>`<a class="${cls}" href="${href}">${text}</a>`;
-const crumb=t=>`<nav class="crumb" aria-label="${tr('Drobečková navigace','Breadcrumb')}"><a href="index.html">Festival</a> <span aria-hidden="true">/</span> <span aria-current="page">${esc(t)}</span></nav>`;
-const heading=(tag,title,desc='')=>`<p class="eyebrow">${tag}</p><h1>${title}</h1>${desc?`<p class="lead">${desc}</p>`:''}`;
-function shell(){
-const lang=window.PulseI18n?.lang||'cs';
-$('#header').innerHTML=window.PulseShell.header({page,user,cartCount:getCart().length,lang,diskMode});
-$('#footer').innerHTML=window.PulseShell.footer({lang});
-if(diskMode){$('.global-search').action='index.html';$('.global-search').insertAdjacentHTML('beforeend','<input type="hidden" name="page" value="search.html">');}
-$('.menu-toggle').onclick=e=>{const open=e.currentTarget.getAttribute('aria-expanded')!=='true';e.currentTarget.setAttribute('aria-expanded',open);$('#navigation').classList.toggle('open',open);};
-main.ownerDocument.querySelectorAll('[data-lang]').forEach(button=>button.onclick=()=>window.PulseI18n.setLanguage(button.dataset.lang));
-}
-function updateCount(){const badge=$('nav a[href="cart.html"] .cart-count');if(badge)badge.textContent=String(getCart().length);}
-function openDialog(html){$('#detail-content').innerHTML=html;window.PulseCapacity?.mount($('#detail-content'));$('#detail').showModal();}
-$('#detail .close').onclick=()=>$('#detail').close();
-$('#detail').addEventListener('click',e=>{if(e.target===$('#detail')){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.target.close();}});
-function artistCard(p,i=0){return `<article class="card"><div class="artist-art performer-portrait" style="${esc(window.PerformerArt?.style(p.id)||'')}" aria-hidden="true"><span class="artist-initials">${esc(p.name.split(' ').map(x=>x[0]).join(''))}</span></div><span class="badge">${esc(p.genre)} · ${esc(p.performerType)}</span><h3>${esc(p.name)}</h3><p class="muted">${esc(p.description)}</p><a class="text-button" href="performer.html?id=${p.id}" data-artist="${p.id}">Poznat interpreta <span aria-hidden="true">→</span></a></article>`;}
-// Výpis a detail používají stejná ID jako XML; filtry nemění zdrojová data.
-function purchaseUrl(event){return 'tickets.html?duration=1&day='+event.dayId+'&venue='+event.venueId+'&category=standing&event='+event.id;}
-function capacityHtml(options){return window.PulseCapacity?.html(options)||'';}
-function cartCapacityHtml(tickets){return `<section class="cart-capacities" aria-label="${tr('Kapacita vybraných scén a dnů','Availability at the selected stages and days')}">${D.venues.map(venue=>{const days=festivalDays.filter(day=>tickets.some(ticket=>(admission.venueId(ticket)==='all'||admission.venueId(ticket)===venue.id)&&ticketDays(ticket).includes(day)));return days.length?capacityHtml({venueId:venue.id,days,compact:true}):'';}).join('')}</section>`;}
-function eventRows(events,clashes=new Set()){const fav=storage.get('favorites');return events.length?events.map(e=>{const artists=e.performerIds.map(id=>D.performers.find(p=>p.id===id)).filter(Boolean),headline=artists.some(p=>['i1','i2','i3'].includes(p.id));return `<article class="event" data-start="${e.date}T${e.startTime}"><div class="time"><time datetime="${e.date}T${e.startTime}">${date(e.date)}<br>${e.startTime.slice(0,5)}–${e.endTime.slice(0,5)}</time></div><div><span class="badge">${esc(e.venueName)}</span>${headline?`<span class="badge headliner-badge">${tr('Hlavní koncert','Headline show')}</span>`:e.highlight?`<span class="badge program-highlight">${tr('Večerní hlavní set','Closing highlight')}</span>`:''}${clashes.has(e.id)?`<span class="badge program-clash" data-clash-event="${e.id}">${tr('Kolize v mém programu','Personal programme clash')}</span>`:''}<h3>${artists.map(p=>`<a class="text-button event-artist" href="performer.html?id=${p.id}" data-artist="${p.id}">${esc(p.name)}</a>`).join(' · ')||esc(e.name)}</h3><p class="event-genre">${esc([...new Set(artists.map(p=>p.genre))].join(' / ')||e.theme)}</p></div><div class="event-actions"><button class="secondary small" data-fav="${e.id}" aria-pressed="${fav.includes(e.id)}" aria-label="${fav.includes(e.id)?'Odebrat z':'Přidat do'} oblíbených: ${esc(e.name)}">${fav.includes(e.id)?'♥ Uloženo':'♡ Uložit'}</button><button class="small secondary" data-event="${e.id}">Detail</button>${link(purchaseUrl(e),tr('Vstup na scénu · ','Stage admission · ')+money(admission.price(e.venueId,'standing',1)),'button small event-buy')}</div></article>`;}).join(''):'<div class="empty">Žádná vystoupení. Zkuste změnit filtry.</div>';}
-function artistDetail(id){location.href=routeUrl("performer.html?id="+encodeURIComponent(id));}
-function artistPage(){
-const id=new URLSearchParams(location.search).get("id");
-const p=D.performers.find(x=>x.id===id);if(!p){main.innerHTML=crumb(tr('Účinkující','Artists'))+heading('404',tr('Interpret nebyl nalezen','Artist not found'))+link('performers.html',tr('Zpět na účinkující','Back to artists'),'button');return;}
-document.title=p.name+' | Prague Pulse Fest';
-for(const selector of ['meta[name="description"]','meta[property="og:description"]'])$(selector).content=tr('Profil interpreta ','Artist profile: ')+p.name+tr('. Koncerty a vstupenky Prague Pulse Fest.','. Performances and tickets at Prague Pulse Fest.');
-$('meta[property="og:title"]').content=document.title;
-const external=(p.links||[]).filter(l=>l&&typeof l.url==='string'&&/^https:\/\//.test(l.url)),shows=D.events.filter(e=>e.performerIds.includes(id)).sort((a,b)=>(a.date+a.startTime).localeCompare(b.date+b.startTime));
-main.innerHTML=crumb(p.name)+`<article class="artist-profile"><p>${link('performers.html',tr('← Všichni účinkující','← All artists'))}</p><div class="detail-portrait performer-portrait" style="${esc(window.PerformerArt?.style(p.id)||'')}" aria-hidden="true"></div><p class="eyebrow">${['i1','i2','i3'].includes(p.id)?tr('Hlavní jméno festivalu','Festival headliner'):tr('Účinkující','Artist')} · ${esc(p.genre)}</p><h1>${esc(p.name)}</h1><p>${esc(p.description)}</p><span class="badge">${esc(p.performerType)}</span>${external.length?`<nav class="artist-links actions" aria-label="${tr('Poslechni si interpreta','Listen to the artist')}">${external.map(l=>`<a class="button secondary small" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.kind==='search'?tr('Vyhledat na ','Search on ')+({spotify:'Spotify',youtube:'YouTube',soundcloud:'SoundCloud'}[l.platform]||l.platform):l.name||l.label||tr('Poslechnout','Listen'))} <svg class="arrow-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.8"/></svg></a>`).join('')}</nav>`:''}<h2>${tr('Koncerty a vstupenky','Performances and tickets')}</h2>${shows.map(e=>`<section class="artist-show" data-artist-show="${e.id}"><h3>${esc(e.venueName)} · <time datetime="${e.date}">${date(e.date)}</time></h3><p>${e.startTime.slice(0,5)}–${e.endTime.slice(0,5)} · ${link('program.html?event='+e.id,tr('Zobrazit koncert v programu','View this performance'))}</p>${capacityHtml({venueId:e.venueId,days:[e.dayId],compact:true,title:false})}<p class="count">${tr('Jednodenní vstup na tuto scénu zahrnuje celý její program. Dny a rozsah vstupu můžeš upravit.','A day ticket includes the entire programme at this stage. You can change the days and admission.')}</p>${link(purchaseUrl(e),tr('Koupit vstup na ','Buy admission for ')+esc(e.venueName)+' · '+money(admission.price(e.venueId,'standing',1)),'button artist-ticket')}</section>`).join('')||`<p>${tr('V programu zatím není vystoupení.','No performances are scheduled yet.')}</p>`}</article>`;
-}
-function eventDetail(id){const e=D.events.find(x=>x.id===id);if(!e)return;const artists=e.performerIds.map(id=>D.performers.find(p=>p.id===id)).filter(Boolean);openDialog(`<p class="eyebrow">${esc(e.venueName)} · ${esc(e.theme)}</p><h2 id="dialog-title">${esc(artists.map(p=>p.name).join(' · ')||e.name)}</h2><p><time datetime="${e.date}">${date(e.date)}</time> · ${e.startTime.slice(0,5)}–${e.endTime.slice(0,5)}</p><p>${esc(e.description)}</p><p>${tr('Hudební styl','Music style')}: ${esc([...new Set(artists.map(p=>p.genre))].join(' / ')||e.theme)}</p><p>${tr('Scéna','Stage')}: ${link('venues.html#'+e.venueId,esc(e.venueName))}</p>${capacityHtml({venueId:e.venueId,days:[e.dayId],compact:true,title:false})}<div class="actions">${artists.map(p=>`<a class="secondary small" href="performer.html?id=${p.id}" data-artist="${p.id}">${tr('Profil interpreta','Artist profile')} →</a>`).join('')}${link(purchaseUrl(e),tr('Vstup na tuto scénu a den · ','Admission for this stage and day · ')+money(admission.price(e.venueId,'standing',1)),'button')}</div>`);}
+  let user = storage.get('users').find((u) => u.id === session?.id) || null;
+  const ticketTypes = [
+    {
+      id: 'vip',
+      label: 'VIP',
+      price: D.festival.tickets.find((t) => t.id === 't5').price,
+      festivalPrice: D.festival.tickets.find((t) => t.id === 't2').price,
+      sourceId: 't2',
+    },
+    {
+      id: 'regular',
+      label: 'Regular',
+      price: D.festival.tickets.find((t) => t.id === 't4').price,
+      festivalPrice: D.festival.tickets.find((t) => t.id === 't1').price,
+      sourceId: 't1',
+    },
+    {
+      id: 'standing',
+      label: 'Stání',
+      price: D.festival.tickets.find((t) => t.id === 't6').price,
+      festivalPrice: D.festival.tickets.find((t) => t.id === 't3').price,
+      sourceId: 't3',
+    },
+  ];
+  const cartKey = () => 'cart:' + (user?.id || 'guest');
+  const getCart = () => storage.get(cartKey()).filter(validTicket);
+  const selected = new Set();
+  let toastTimer;
+  function toast(t) {
+    $('#status').textContent = t;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => ($('#status').textContent = ''), 4500);
+  }
+  function save(k, v) {
+    try {
+      storage.set(k, v);
+      return true;
+    } catch {
+      toast('Prohlížeč nepovolil uložení. Povolte místní úložiště a zkuste to znovu.');
+      return false;
+    }
+  }
+  function keyId() {
+    return crypto.randomUUID
+      ? crypto.randomUUID()
+      : Date.now().toString(36) + '-' + Math.random().toString(36).slice(2);
+  }
+  const link = (href, text, cls = '') => `<a class="${cls}" href="${href}">${text}</a>`;
+  const crumb = (t) =>
+    `<nav class="crumb" aria-label="${tr('Drobečková navigace', 'Breadcrumb')}"><a href="index.html">Festival</a> <span aria-hidden="true">/</span> <span aria-current="page">${esc(t)}</span></nav>`;
+  const heading = (tag, title, desc = '') =>
+    `<p class="eyebrow">${tag}</p><h1>${title}</h1>${desc ? `<p class="lead">${desc}</p>` : ''}`;
+  function shell() {
+    const lang = window.PulseI18n?.lang || 'cs';
+    $('#header').innerHTML = window.PulseShell.header({
+      page,
+      user,
+      cartCount: getCart().length,
+      lang,
+      diskMode,
+    });
+    $('#footer').innerHTML = window.PulseShell.footer({ lang });
+    if (diskMode) {
+      $('.global-search').action = 'index.html';
+      $('.global-search').insertAdjacentHTML(
+        'beforeend',
+        '<input type="hidden" name="page" value="search.html">',
+      );
+    }
+    $('.menu-toggle').onclick = (e) => {
+      const open = e.currentTarget.getAttribute('aria-expanded') !== 'true';
+      e.currentTarget.setAttribute('aria-expanded', open);
+      $('#navigation').classList.toggle('open', open);
+    };
+    main.ownerDocument
+      .querySelectorAll('[data-lang]')
+      .forEach(
+        (button) => (button.onclick = () => window.PulseI18n.setLanguage(button.dataset.lang)),
+      );
+  }
+  function updateCount() {
+    const badge = $('nav a[href="cart.html"] .cart-count');
+    if (badge) badge.textContent = String(getCart().length);
+  }
+  function openDialog(html) {
+    $('#detail-content').innerHTML = html;
+    window.PulseCapacity?.mount($('#detail-content'));
+    $('#detail').showModal();
+  }
+  $('#detail .close').onclick = () => $('#detail').close();
+  $('#detail').addEventListener('click', (e) => {
+    if (e.target === $('#detail')) {
+      const r = e.target.getBoundingClientRect();
+      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)
+        e.target.close();
+    }
+  });
+  function artistCard(p, i = 0) {
+    return `<article class="card"><div class="artist-art performer-portrait" style="${esc(window.PerformerArt?.style(p.id) || '')}" aria-hidden="true"><span class="artist-initials">${esc(
+      p.name
+        .split(' ')
+        .map((x) => x[0])
+        .join(''),
+    )}</span></div><span class="badge">${esc(p.genre)} · ${esc(p.performerType)}</span><h3>${esc(p.name)}</h3><p class="muted">${esc(p.description)}</p><a class="text-button" href="performer.html?id=${p.id}" data-artist="${p.id}">Poznat interpreta <span aria-hidden="true">→</span></a></article>`;
+  }
+  // Výpis a detail používají stejná ID jako XML; filtry nemění zdrojová data.
+  function purchaseUrl(event) {
+    return (
+      'tickets.html?duration=1&day=' +
+      event.dayId +
+      '&venue=' +
+      event.venueId +
+      '&category=standing&event=' +
+      event.id
+    );
+  }
+  function capacityHtml(options) {
+    return window.PulseCapacity?.html(options) || '';
+  }
+  function cartCapacityHtml(tickets) {
+    return `<section class="cart-capacities" aria-label="${tr('Kapacita vybraných scén a dnů', 'Availability at the selected stages and days')}">${D.venues
+      .map((venue) => {
+        const days = festivalDays.filter((day) =>
+          tickets.some(
+            (ticket) =>
+              (admission.venueId(ticket) === 'all' || admission.venueId(ticket) === venue.id) &&
+              ticketDays(ticket).includes(day),
+          ),
+        );
+        return days.length ? capacityHtml({ venueId: venue.id, days, compact: true }) : '';
+      })
+      .join('')}</section>`;
+  }
+  function eventRows(events, clashes = new Set()) {
+    const fav = storage.get('favorites');
+    return events.length
+      ? events
+          .map((e) => {
+            const artists = e.performerIds
+                .map((id) => D.performers.find((p) => p.id === id))
+                .filter(Boolean),
+              headline = artists.some((p) => ['i1', 'i2', 'i3'].includes(p.id));
+            return `<article class="event" data-start="${e.date}T${e.startTime}"><div class="time"><time datetime="${e.date}T${e.startTime}">${date(e.date)}<br>${e.startTime.slice(0, 5)}–${e.endTime.slice(0, 5)}</time></div><div><span class="badge">${esc(e.venueName)}</span>${headline ? `<span class="badge headliner-badge">${tr('Hlavní koncert', 'Headline show')}</span>` : e.highlight ? `<span class="badge program-highlight">${tr('Večerní hlavní set', 'Closing highlight')}</span>` : ''}${clashes.has(e.id) ? `<span class="badge program-clash" data-clash-event="${e.id}">${tr('Kolize v mém programu', 'Personal programme clash')}</span>` : ''}<h3>${artists.map((p) => `<a class="text-button event-artist" href="performer.html?id=${p.id}" data-artist="${p.id}">${esc(p.name)}</a>`).join(' · ') || esc(e.name)}</h3><p class="event-genre">${esc([...new Set(artists.map((p) => p.genre))].join(' / ') || e.theme)}</p></div><div class="event-actions"><button class="secondary small" data-fav="${e.id}" aria-pressed="${fav.includes(e.id)}" aria-label="${fav.includes(e.id) ? 'Odebrat z' : 'Přidat do'} oblíbených: ${esc(e.name)}">${fav.includes(e.id) ? '♥ Uloženo' : '♡ Uložit'}</button><button class="small secondary" data-event="${e.id}">Detail</button>${link(purchaseUrl(e), tr('Vstup na scénu · ', 'Stage admission · ') + money(admission.price(e.venueId, 'standing', 1)), 'button small event-buy')}</div></article>`;
+          })
+          .join('')
+      : '<div class="empty">Žádná vystoupení. Zkuste změnit filtry.</div>';
+  }
+  function artistDetail(id) {
+    location.href = routeUrl('performer.html?id=' + encodeURIComponent(id));
+  }
+  function artistPage() {
+    const id = new URLSearchParams(location.search).get('id');
+    const p = D.performers.find((x) => x.id === id);
+    if (!p) {
+      main.innerHTML =
+        crumb(tr('Účinkující', 'Artists')) +
+        heading('404', tr('Interpret nebyl nalezen', 'Artist not found')) +
+        link('performers.html', tr('Zpět na účinkující', 'Back to artists'), 'button');
+      return;
+    }
+    document.title = p.name + ' | Prague Pulse Fest';
+    for (const selector of ['meta[name="description"]', 'meta[property="og:description"]'])
+      $(selector).content =
+        tr('Profil interpreta ', 'Artist profile: ') +
+        p.name +
+        tr(
+          '. Koncerty a vstupenky Prague Pulse Fest.',
+          '. Performances and tickets at Prague Pulse Fest.',
+        );
+    $('meta[property="og:title"]').content = document.title;
+    const external = (p.links || []).filter(
+        (l) => l && typeof l.url === 'string' && /^https:\/\//.test(l.url),
+      ),
+      shows = D.events
+        .filter((e) => e.performerIds.includes(id))
+        .sort((a, b) => (a.date + a.startTime).localeCompare(b.date + b.startTime));
+    main.innerHTML =
+      crumb(p.name) +
+      `<article class="artist-profile"><p>${link('performers.html', tr('← Všichni účinkující', '← All artists'))}</p><div class="detail-portrait performer-portrait" style="${esc(window.PerformerArt?.style(p.id) || '')}" aria-hidden="true"></div><p class="eyebrow">${['i1', 'i2', 'i3'].includes(p.id) ? tr('Hlavní jméno festivalu', 'Festival headliner') : tr('Účinkující', 'Artist')} · ${esc(p.genre)}</p><h1>${esc(p.name)}</h1><p>${esc(p.description)}</p><span class="badge">${esc(p.performerType)}</span>${external.length ? `<nav class="artist-links actions" aria-label="${tr('Poslechni si interpreta', 'Listen to the artist')}">${external.map((l) => `<a class="button secondary small" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.kind === 'search' ? tr('Vyhledat na ', 'Search on ') + ({ spotify: 'Spotify', youtube: 'YouTube', soundcloud: 'SoundCloud' }[l.platform] || l.platform) : l.name || l.label || tr('Poslechnout', 'Listen'))} <svg class="arrow-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.8"/></svg></a>`).join('')}</nav>` : ''}<h2>${tr('Koncerty a vstupenky', 'Performances and tickets')}</h2>${shows.map((e) => `<section class="artist-show" data-artist-show="${e.id}"><h3>${esc(e.venueName)} · <time datetime="${e.date}">${date(e.date)}</time></h3><p>${e.startTime.slice(0, 5)}–${e.endTime.slice(0, 5)} · ${link('program.html?event=' + e.id, tr('Zobrazit koncert v programu', 'View this performance'))}</p>${capacityHtml({ venueId: e.venueId, days: [e.dayId], compact: true, title: false })}<p class="count">${tr('Jednodenní vstup na tuto scénu zahrnuje celý její program. Dny a rozsah vstupu můžeš upravit.', 'A day ticket includes the entire programme at this stage. You can change the days and admission.')}</p>${link(purchaseUrl(e), tr('Koupit vstup na ', 'Buy admission for ') + esc(e.venueName) + ' · ' + money(admission.price(e.venueId, 'standing', 1)), 'button artist-ticket')}</section>`).join('') || `<p>${tr('V programu zatím není vystoupení.', 'No performances are scheduled yet.')}</p>`}</article>`;
+  }
+  function eventDetail(id) {
+    const e = D.events.find((x) => x.id === id);
+    if (!e) return;
+    const artists = e.performerIds
+      .map((id) => D.performers.find((p) => p.id === id))
+      .filter(Boolean);
+    openDialog(
+      `<p class="eyebrow">${esc(e.venueName)} · ${esc(e.theme)}</p><h2 id="dialog-title">${esc(artists.map((p) => p.name).join(' · ') || e.name)}</h2><p><time datetime="${e.date}">${date(e.date)}</time> · ${e.startTime.slice(0, 5)}–${e.endTime.slice(0, 5)}</p><p>${esc(e.description)}</p><p>${tr('Hudební styl', 'Music style')}: ${esc([...new Set(artists.map((p) => p.genre))].join(' / ') || e.theme)}</p><p>${tr('Scéna', 'Stage')}: ${link('venues.html#' + e.venueId, esc(e.venueName))}</p>${capacityHtml({ venueId: e.venueId, days: [e.dayId], compact: true, title: false })}<div class="actions">${artists.map((p) => `<a class="secondary small" href="performer.html?id=${p.id}" data-artist="${p.id}">${tr('Profil interpreta', 'Artist profile')} →</a>`).join('')}${link(purchaseUrl(e), tr('Vstup na tuto scénu a den · ', 'Admission for this stage and day · ') + money(admission.price(e.venueId, 'standing', 1)), 'button')}</div>`,
+    );
+  }
 
-// JSON-LD zde popisuje festival pro vyhledávače; neukládá účty ani objednávky.
-function home(){
-main.innerHTML=window.PulseDesign.home(D);
-const structured=document.createElement('script');structured.type='application/ld+json';structured.textContent=JSON.stringify({'@context':'https://schema.org','@type':'Festival',name:D.festival.name,startDate:'2027-08-01',endDate:'2027-08-03',description:D.festival.description,location:{'@type':'Place',name:'Vltava Park',address:{'@type':'PostalAddress',streetAddress:'Výstaviště 67',addressLocality:'Praha',postalCode:'170 00',addressCountry:'CZ'}}});main.append(structured);
-}
-// Kolize počítáme jen mezi uloženými koncerty. Navazující časy bez překryvu nejsou kolizí.
-function savedProgramConflicts(favorites){
-const saved=D.events.filter(event=>favorites.includes(event.id)),pairs=[];
-for(let i=0;i<saved.length;i++)for(let j=i+1;j<saved.length;j++){const a=saved[i],b=saved[j];if(a.date===b.date&&a.startTime<b.endTime&&b.startTime<a.endTime)pairs.push([a,b]);}
-return pairs;
-}
-function program(){
-const params=new URLSearchParams(location.search);main.innerHTML=crumb('Program')+heading('1.–3. srpna / tři scény','Program 2027',tr('Koncerty na scénách běží souběžně. Tři večerní hlavní sety každý den navazují s 30 minutami na přesun.','Stages run in parallel. Each day’s three closing highlights follow one another with 30 minutes to move between stages.'))+`<form class="filters" id="program-filters"><div class="field"><label for="day">Den</label><select id="day"><option value="">Všechny dny</option>${D.festival.dates.map(d=>`<option value="${d.id}">${date(d.date)}</option>`).join('')}</select></div><div class="field"><label for="venue">Scéna</label><select id="venue"><option value="">Všechny scény</option>${D.venues.map(v=>`<option value="${v.id}">${esc(v.name)}</option>`).join('')}</select></div><div class="field"><label for="program-q">Interpret nebo téma</label><input id="program-q" type="search" maxlength="120" placeholder="Např. David nebo bassline"></div><div class="field"><label for="program-genre">${tr('Žánr','Genre')}</label><select id="program-genre"><option value="">${tr('Všechny žánry','All genres')}</option>${[...new Set(D.performers.map(p=>p.genre))].sort((a,b)=>a.localeCompare(b,locale)).map(g=>`<option value="${esc(g)}">${esc(g)}</option>`).join('')}</select></div><label class="check"><input type="checkbox" id="only-favorites">Jen můj program</label><button class="secondary small" type="reset">Zrušit filtry</button></form><section id="program-conflicts" class="notice program-conflicts" role="status" aria-live="polite" hidden></section><p id="result-count" class="count" role="status"></p><h2 class="visually-hidden">Vystoupení</h2><section id="events" aria-label="Vystoupení"></section>`;
-$('#day').value=params.get('day')||'';$('#venue').value=params.get('venue')||'';
-function render(){
-const q=normalize($('#program-q').value.trim()),fav=storage.get('favorites'),pairs=savedProgramConflicts(fav),clashes=new Set(pairs.flatMap(pair=>pair.map(event=>event.id))),warning=$('#program-conflicts');
-warning.hidden=!pairs.length;warning.innerHTML=pairs.length?`<h2>${tr('Některé uložené koncerty se překrývají','Some saved performances overlap')}</h2><p>${tr('Uprav vlastní program, pokud chceš stihnout celé sety.','Adjust your personal programme if you want to see complete sets.')}</p><ul>${pairs.map(([a,b])=>`<li>${date(a.date)}: <a href="program.html?event=${a.id}">${esc(a.name)}</a> (${a.startTime.slice(0,5)}–${a.endTime.slice(0,5)}) × <a href="program.html?event=${b.id}">${esc(b.name)}</a> (${b.startTime.slice(0,5)}–${b.endTime.slice(0,5)})</li>`).join('')}</ul>`:'';
-const list=D.events.filter(e=>(!$('#day').value||e.dayId===$('#day').value)&&(!$('#venue').value||e.venueId===$('#venue').value)&&(!$('#program-genre').value||e.performerIds.some(id=>D.performers.find(p=>p.id===id)?.genre===$('#program-genre').value))&&(!q||normalize(localizedSearch(e)).includes(q))&&(!$('#only-favorites').checked||fav.includes(e.id))).sort((a,b)=>(a.date+a.startTime).localeCompare(b.date+b.startTime)||a.venueName.localeCompare(b.venueName,locale)||a.id.localeCompare(b.id));
-$('#result-count').textContent=`${list.length} z ${D.events.length} vystoupení`;$('#events').innerHTML=list.length?D.festival.dates.map(day=>{const events=list.filter(e=>e.dayId===day.id);return events.length?`<section class="program-day" aria-labelledby="program-${day.id}"><div class="program-day-heading"><h2 id="program-${day.id}"><time datetime="${day.date}">${date(day.date)} 2027</time></h2><p class="program-order-note">${tr('Od prvního vystoupení po poslední. Časy jsou uvedené v pražském čase.','From the first performance to the last. All times are Prague local time.')}</p></div>${eventRows(events,clashes)}</section>`:'';}).join(''):eventRows([]);
-}
-$('#program-filters').oninput=render;$('#program-filters').onsubmit=e=>e.preventDefault();$('#program-filters').onreset=()=>setTimeout(render,0);main.addEventListener('favorites-changed',render);window.addEventListener('storage',event=>{if(event.key==='pulse:favorites')render();});render();if(params.get('event'))eventDetail(params.get('event'));
-}
-function performers(){main.innerHTML=crumb('Účinkující')+heading('Line-up / 2027','Účinkující','Od kytarových riffů po elektronické beaty. Najdi zvuk, který tě vezme s sebou.')+`<form class="filters" id="artist-filters"><div class="field"><label for="artist-q">Hledat interpreta</label><input id="artist-q" type="search" maxlength="120" placeholder="Název nebo popis…"></div><div class="field"><label for="genre">Žánr</label><select id="genre"><option value="">Všechny žánry</option>${[...new Set(D.performers.map(p=>p.genre))].map(g=>`<option value="${esc(g)}">${esc(g)}</option>`).join('')}</select></div></form><p id="result-count" class="count" role="status"></p><h2 class="visually-hidden">Seznam účinkujících</h2><section id="artists" class="grid three" aria-label="Seznam účinkujících"></section>`;function render(){const q=normalize($('#artist-q').value.trim()),list=D.performers.filter(p=>(!q||normalize(localizedSearch(p)).includes(q))&&(!$('#genre').value||p.genre===$('#genre').value));$('#result-count').textContent=`${list.length} účinkujících`;$('#artists').innerHTML=list.map(artistCard).join('')||'<p class="empty">Žádní účinkující neodpovídají hledání.</p>';}
-$('#artist-filters').oninput=render;$('#artist-filters').onsubmit=e=>e.preventDefault();render();const id=new URLSearchParams(location.search).get('id');if(id)artistDetail(id);}
-function venues(){main.innerHTML=crumb('Scény')+heading('Vltava Park / Praha','Tři festivalové scény','Od velkých koncertů po komorní sety. Všechny scény najdeš v areálu Vltava Park.')+`<section class="grid three">${D.venues.map((v,i)=>`<article class="card" id="${v.id}"><div class="number">0${i+1} →</div><h2>${esc(v.name)}</h2><p>${esc(v.description)}</p><p class="muted">${esc(v.location)}<br>Kapacita ${v.capacity.toLocaleString(locale)} návštěvníků</p><p class="count">${v.id==='h1'?tr('48 číslovaných sedadel + 4 952 míst ke stání.','48 numbered seats + 4,952 standing places.'):tr('Pouze stání.','Standing only.')}</p>${capacityHtml({venueId:v.id,days:festivalDays,compact:true})}<div class="actions">${link('program.html?venue='+v.id,'Objevit program scény','text-button')}${link('tickets.html?venue='+v.id,tr('Vstupenky na scénu →','Stage tickets →'),'button secondary small')}</div></article>`).join('')}</section>`;}
-const infoItems=[
-['Kde se festival koná?','Vltava Park, modelový festivalový areál na Výstavišti Praha. Adresa pro navigaci: Výstaviště 67, 170 00 Praha 7.'],
-['Jak se dostanu do areálu?','Doporučujeme tramvaj na zastávku Výstaviště nebo metro C na Nádraží Holešovice a navazující tramvaj. Aktuální spojení si před cestou ověř u dopravce.'],
-['Co obsahuje VIP?','VIP zahrnuje sedadlo v předních řadách Main Hall, rychlejší odbavení a odpočinkovou zónu. Jedno parkovací místo obsahuje pouze třídenní VIP vstup na všechny scény.'],
-['Mohu koupit vstupenku bez registrace?','Ano. V košíku stačí zadat jméno a e-mail. Po dokončení objednávky si stáhneš všechny vstupenky v jednom PDF.'],
-['Jak dlouho platí třídenní balíček?','Třídenní vstup platí od 1. do 3. srpna 2027 na vybranou scénu nebo na všechny scény podle zvolené vstupenky. Číslované sedadlo v Main Hall je stejné po všechny tři dny; stání nemá vyhrazené místo.'],
-['Je areál bezbariérový?','Návrh areálu počítá s bezbariérovými trasami a přístupnými toaletami. Doprovod a individuální potřeby řeší informační bod u hlavního vstupu.']
-];
-function photoCreditsHtml(){
-const lang=window.PulseI18n?.lang==='en'?'en':'cs',t=(cs,en)=>lang==='en'?en:cs,credits=window.PulsePhotoCredits;
-const linkTo=(url,label)=>/^https:\/\//.test(String(url||''))?`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>`:esc(label);
-const credit=item=>`${esc(item.author||'')} · ${linkTo(item.licenseUrl,item.license||'')} · ${linkTo(item.source,t('Zdroj fotografie','Photo source'))}${item.date?' · '+esc(item.date):''}`;
-const photographers=credits?.performers||[];
-return `<section id="credits"><h2>${t('Vizuály','Artwork')}</h2><p>${t('Fotografie a původní ilustrace jsou přibalené k webu. Níže najdeš jejich zdroje a licence.','Photographs and original illustrations are bundled with this website. Their sources and licences are listed below.')}</p>${credits?.venue?`<h3>${t('Průmyslový palác / Výstaviště Praha','Industrial Palace / Výstaviště Prague')}</h3><p data-no-translate>${credit(credits.venue)}</p>`:''}${photographers.length?`<details><summary>${t('Fotografie interpretů','Artist photographs')} (${photographers.length})</summary><ul data-no-translate>${photographers.map(item=>`<li><strong>${esc(item.name)}</strong> — ${credit(item)}</li>`).join('')}</ul></details>`:''}<p>${t('Festivalové ilustrace a případné typografické plakáty vznikly pro Prague Pulse Fest. Jména interpretů v navrženém programu neznamenají potvrzenou účast.','Festival illustrations and any typographic posters were created for Prague Pulse Fest. Artist names in the proposed programme do not imply confirmed attendance.')}</p><a href="images/PHOTO-CREDITS.md" class="text-button">${t('Úplný původ vizuálů','Complete artwork credits')}</a></section>`;
-}
-function info(){window.PulseVisitor.render(main,'info.html');}
-function search(){main.innerHTML=crumb('Vyhledávání')+heading('Program, účinkující a informace','Vyhledávání','Prohledáváme všechny položky dat festivalu, program, účinkující, scény i praktické informace. Bez ohledu na velikost písmen a diakritiku.')+`<form class="filters" id="search-form" role="search"><div class="field"><label for="query">Hledat na celém webu</label><input id="query" name="q" type="search" maxlength="120" placeholder="Např. David, VIP nebo doprava" autocomplete="off"></div><button>Vyhledat →</button></form><p id="search-count" role="status" class="count"></p><div id="search-results"></div>`;
-$('#query').value=new URLSearchParams(location.search).get('q')?.slice(0,120)||'';
-const groups=[['Účinkující',D.performers,x=>`performer.html?id=${x.id}`],['Program',D.events,x=>`program.html?event=${x.id}`],['Scény',D.venues,x=>`venues.html#${x.id}`],['Dny festivalu',D.festival.dates,x=>`program.html?day=${x.id}`],['Vstupenky',ticketTypes.map(t=>({name:t.label,description:`${t.price} Kč · Jednodenní vstupenka`,...t})),()=> 'tickets.html'],['Festivalové balíčky',D.festival.tickets,()=> 'tickets.html'],['Festival',[D.festival],()=> 'index.html'],['Odkazy festivalu',D.festival.links,()=> 'info.html'],['Novinky',window.PulseNews?.searchItems?.(window.PulseI18n?.lang||'cs')||[],x=>`news.html?id=${encodeURIComponent(x.id)}`],['Praktické informace',window.PulseVisitor?.searchItems?.(window.PulseI18n?.lang||'cs')||infoItems.map(([name,description])=>({name,description})),x=>x.href||'info.html']];
-function render(){const q=normalize($('#query').value.trim());let total=0;$('#search-results').innerHTML=q?groups.map(([title,items,href])=>{const found=items.filter(x=>normalize(localizedSearch(x)).includes(q));total+=found.length;return found.length?`<section class="result-group"><h2>${title} <span class="count">(${found.length})</span></h2><div class="grid">${found.map(x=>`<article class="card"><span class="badge">${title}</span><h3>${link(href(x),esc(x.theme||x.name||x.title))}</h3><p class="muted">${esc(x.description||x.performers?.join(' · ')||x.location?.city||x.date||x.url||'Prague Pulse Fest')}</p>${link(href(x),'Zobrazit detail →','text-button')}</article>`).join('')}</div></section>`:'';}).join(''):'<div class="empty">Napiš alespoň jeden znak. Zkus třeba „David“ nebo „VIP“.</div>';$('#search-count').textContent=q?`${total} výsledků pro „${$('#query').value.trim()}“`:'';if(q&&!total)$('#search-results').innerHTML='<div class="empty">Nic jsme nenašli. Zkus kratší výraz nebo jiné slovo.</div>';}
-$('#search-form').onsubmit=e=>{e.preventDefault();const searchUrl=new URL(location.href);searchUrl.searchParams.set('q',$('#query').value.trim());history.replaceState(null,'',searchUrl);render();};$('#query').oninput=render;render();}
-const festivalDays=['d1','d2','d3'];
-const festivalEdition=Number(D.festival.dates[0].date.slice(0,4));
-const canonicalDays=days=>festivalDays.filter(id=>Array.isArray(days)&&days.includes(id));
-// Jediný inventář rozlišuje fyzická místa scén a kapacitu společného vstupu.
-const admission=window.PulseAdmission;
-// Stejný limit jako PDF chrání prohlížeč před příliš velkou dávkou stran.
-const maxOrderTickets=264;
-function ticketFor(day,seat,scope='day',chosenDays,venueId='all'){return admission.ticketFor(day,seat,scope,chosenDays,venueId);}
-const ticketDays=t=>admission.days(t);
-function validTicket(t){return admission.validTicket(t);}
-const ticketKey=t=>admission.key(t);
-const overlaps=(a,b)=>admission.overlaps(a,b);
-const admissionLabel=t=>admission.venueLabel(typeof t==='string'?t:admission.venueId(t),locale==='en-GB'?'en':'cs');
-function bookingConflicts(items){return admission.conflicts(items,storage.get('orders'),festivalEdition);}
-// Číslované sedadlo je společné pro Main Hall i celofestivalový vstup.
-function occupiedFor(days,venueId='all'){
-const physical=venueId==='all'?'h1':venueId,seats=new Set();
-for(const order of storage.get('orders'))if((order.edition??2026)===festivalEdition)for(const ticket of order.tickets){const source=admission.venueId(ticket);if((source==='all'?'h1':source)===physical&&ticketDays(ticket).some(day=>days.includes(day)))seats.add(ticket.seat);}
-return seats;
-}
-const durationLabel=count=>count===3?tr('Třídenní vstup','Three-day pass'):count===2?tr('Dvoudenní vstup','Two-day pass'):tr('Jednodenní vstup','One-day ticket');
-const ticketLabel=t=>`${ticketDays(t).length} ${tr(ticketDays(t).length===1?'den':'dny',ticketDays(t).length===1?'day':'days')} · ${ticketTypes.find(c=>c.id===t.category)?.label||''}${t.category==='standing'?'':' · '+tr('sedadlo','seat')+' '+t.seat}`;
-const ticketDate=(t,edition=festivalEdition)=>t.scope==='festival'?tr(`1.–3. srpna ${edition}`,`1–3 August ${edition}`):ticketDays(t).map(id=>date(D.festival.dates.find(d=>d.id===id).date.replace(/^\d{4}/,String(edition)))).join(' + ')+' '+edition;
-const removeIcon='<svg class="remove-ticket-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 8l8 8M16 8l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
-const cartIcon='<svg class="cart-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 3h2l2 12h11l3-9H6M9 20h.01M18 20h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-const taxRate=Number(D.festival.taxRate)||12;
-function includedTax(gross,rate=taxRate){const grossHalers=Math.round(gross*100),netHalers=Math.round(grossHalers*100/(100+rate));return {rate,net:netHalers/100,vat:(grossHalers-netHalers)/100,gross:grossHalers/100};}
-const campingCatalog=D.festival.camping||{personPrice:150,vatRate:12,dates:{from:'2027-08-01',to:'2027-08-04'},types:[{id:'tent',name:'Stan',price:350,maxPeople:4,capacity:40},{id:'caravan',name:'Karavan',price:850,maxPeople:6,capacity:12}]};
-function campingChoice(value){return {enabled:value?.enabled===true,type:campingCatalog.types.some(t=>t.id===value?.type)?value.type:'tent',people:Number(value?.people??1)};}
-function savedCamping(){try{return campingChoice(JSON.parse(localStorage.getItem('pulse:camping:'+cartKey())||'null'));}catch{return campingChoice();}}
-// Neplatný volitelný kemp/daň se vynechá, koncertní vstupenky z historie zůstávají.
-function normalizeStoredOrder(order){
-const result={...order},edition=Number.isInteger(order.edition)?order.edition:2026,camp=order.camping,type=campingCatalog.types.find(t=>t.id===camp?.type);
-const validCamp=camp&&typeof camp==='object'&&!Array.isArray(camp)&&type&&Number.isInteger(camp.people)&&camp.people>=1&&camp.people<=type.maxPeople&&camp.basePrice===type.price&&camp.personPrice===campingCatalog.personPrice&&camp.price===type.price+camp.people*campingCatalog.personPrice&&(camp.units===undefined||camp.units===1)&&camp.dates?.from===campingCatalog.dates.from.replace(/^\d{4}/,String(edition))&&camp.dates?.to===campingCatalog.dates.to.replace(/^\d{4}/,String(edition));
-if(validCamp){result.camping={type:type.id,label:type.name,people:camp.people,basePrice:camp.basePrice,personPrice:camp.personPrice,price:camp.price,units:1,dates:{from:camp.dates.from,to:camp.dates.to}};result.campingTotal=camp.price;}else{result.camping=null;result.campingTotal=0;}
-result.campingIssue=order.campingIssue===true||Boolean(camp&&!validCamp);
-const tax=order.tax,close=(a,b)=>Math.abs(a-b)<0.011,validTax=!result.campingIssue&&tax&&typeof tax==='object'&&!Array.isArray(tax)&&['rate','gross','net','vat'].every(k=>typeof tax[k]==='number'&&Number.isFinite(tax[k])&&tax[k]>=0)&&tax.rate<=100&&typeof order.total==='number'&&Number.isFinite(order.total)&&close(tax.gross,order.total)&&close(tax.net+tax.vat,tax.gross)&&close(tax.net,Math.round(tax.gross*10000/(100+tax.rate))/100);
-result.tax=validTax?{rate:tax.rate,gross:tax.gross,net:tax.net,vat:tax.vat}:null;
-return result;
-}
-window.PulseOrders=Object.freeze({normalize:normalizeStoredOrder});
-function campingAvailability(type){return Math.max(0,type.capacity-storage.get('orders').filter(o=>(o.edition??2026)===festivalEdition&&o.camping?.type===type.id).length);}
-function campingQuote(choice){if(!choice.enabled)return {camping:null,error:''};const type=campingCatalog.types.find(t=>t.id===choice.type);if(!type||!Number.isInteger(choice.people)||choice.people<1||choice.people>type.maxPeople)return {camping:null,error:tr('Zkontroluj typ kempu a povolený počet osob.','Check the camping type and allowed number of people.')};if(!campingAvailability(type))return {camping:null,error:tr('Tato kategorie kempu je vyprodaná. Vyber jiný typ nebo pokračuj bez kempu.','This camping category is sold out. Choose another type or continue without camping.')};return {camping:{type:type.id,label:type.name,people:choice.people,basePrice:type.price,personPrice:campingCatalog.personPrice,price:type.price+choice.people*campingCatalog.personPrice,dates:{...campingCatalog.dates},units:1},error:''};}
+  // JSON-LD zde popisuje festival pro vyhledávače; neukládá účty ani objednávky.
+  function home() {
+    main.innerHTML = window.PulseDesign.home(D);
+    const structured = document.createElement('script');
+    structured.type = 'application/ld+json';
+    structured.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Festival',
+      name: D.festival.name,
+      startDate: '2027-08-01',
+      endDate: '2027-08-03',
+      description: D.festival.description,
+      location: {
+        '@type': 'Place',
+        name: 'Vltava Park',
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: 'Výstaviště 67',
+          addressLocality: 'Praha',
+          postalCode: '170 00',
+          addressCountry: 'CZ',
+        },
+      },
+    });
+    main.append(structured);
+  }
+  // Kolize počítáme jen mezi uloženými koncerty. Navazující časy bez překryvu nejsou kolizí.
+  function savedProgramConflicts(favorites) {
+    const saved = D.events.filter((event) => favorites.includes(event.id)),
+      pairs = [];
+    for (let i = 0; i < saved.length; i++)
+      for (let j = i + 1; j < saved.length; j++) {
+        const a = saved[i],
+          b = saved[j];
+        if (a.date === b.date && a.startTime < b.endTime && b.startTime < a.endTime)
+          pairs.push([a, b]);
+      }
+    return pairs;
+  }
+  function program() {
+    const params = new URLSearchParams(location.search);
+    main.innerHTML =
+      crumb('Program') +
+      heading(
+        '1.–3. srpna / tři scény',
+        'Program 2027',
+        tr(
+          'Koncerty na scénách běží souběžně. Tři večerní hlavní sety každý den navazují s 30 minutami na přesun.',
+          'Stages run in parallel. Each day’s three closing highlights follow one another with 30 minutes to move between stages.',
+        ),
+      ) +
+      `<form class="filters" id="program-filters"><div class="field"><label for="day">Den</label><select id="day"><option value="">Všechny dny</option>${D.festival.dates.map((d) => `<option value="${d.id}">${date(d.date)}</option>`).join('')}</select></div><div class="field"><label for="venue">Scéna</label><select id="venue"><option value="">Všechny scény</option>${D.venues.map((v) => `<option value="${v.id}">${esc(v.name)}</option>`).join('')}</select></div><div class="field"><label for="program-q">Interpret nebo téma</label><input id="program-q" type="search" maxlength="120" placeholder="Např. David nebo bassline"></div><div class="field"><label for="program-genre">${tr('Žánr', 'Genre')}</label><select id="program-genre"><option value="">${tr('Všechny žánry', 'All genres')}</option>${[
+        ...new Set(D.performers.map((p) => p.genre)),
+      ]
+        .sort((a, b) => a.localeCompare(b, locale))
+        .map((g) => `<option value="${esc(g)}">${esc(g)}</option>`)
+        .join(
+          '',
+        )}</select></div><label class="check"><input type="checkbox" id="only-favorites">Jen můj program</label><button class="secondary small" type="reset">Zrušit filtry</button></form><section id="program-conflicts" class="notice program-conflicts" role="status" aria-live="polite" hidden></section><p id="result-count" class="count" role="status"></p><h2 class="visually-hidden">Vystoupení</h2><section id="events" aria-label="Vystoupení"></section>`;
+    $('#day').value = params.get('day') || '';
+    $('#venue').value = params.get('venue') || '';
+    function render() {
+      const q = normalize($('#program-q').value.trim()),
+        fav = storage.get('favorites'),
+        pairs = savedProgramConflicts(fav),
+        clashes = new Set(pairs.flatMap((pair) => pair.map((event) => event.id))),
+        warning = $('#program-conflicts');
+      warning.hidden = !pairs.length;
+      warning.innerHTML = pairs.length
+        ? `<h2>${tr('Některé uložené koncerty se překrývají', 'Some saved performances overlap')}</h2><p>${tr('Uprav vlastní program, pokud chceš stihnout celé sety.', 'Adjust your personal programme if you want to see complete sets.')}</p><ul>${pairs.map(([a, b]) => `<li>${date(a.date)}: <a href="program.html?event=${a.id}">${esc(a.name)}</a> (${a.startTime.slice(0, 5)}–${a.endTime.slice(0, 5)}) × <a href="program.html?event=${b.id}">${esc(b.name)}</a> (${b.startTime.slice(0, 5)}–${b.endTime.slice(0, 5)})</li>`).join('')}</ul>`
+        : '';
+      const list = D.events
+        .filter(
+          (e) =>
+            (!$('#day').value || e.dayId === $('#day').value) &&
+            (!$('#venue').value || e.venueId === $('#venue').value) &&
+            (!$('#program-genre').value ||
+              e.performerIds.some(
+                (id) => D.performers.find((p) => p.id === id)?.genre === $('#program-genre').value,
+              )) &&
+            (!q || normalize(localizedSearch(e)).includes(q)) &&
+            (!$('#only-favorites').checked || fav.includes(e.id)),
+        )
+        .sort(
+          (a, b) =>
+            (a.date + a.startTime).localeCompare(b.date + b.startTime) ||
+            a.venueName.localeCompare(b.venueName, locale) ||
+            a.id.localeCompare(b.id),
+        );
+      $('#result-count').textContent = `${list.length} z ${D.events.length} vystoupení`;
+      $('#events').innerHTML = list.length
+        ? D.festival.dates
+            .map((day) => {
+              const events = list.filter((e) => e.dayId === day.id);
+              return events.length
+                ? `<section class="program-day" aria-labelledby="program-${day.id}"><div class="program-day-heading"><h2 id="program-${day.id}"><time datetime="${day.date}">${date(day.date)} 2027</time></h2><p class="program-order-note">${tr('Od prvního vystoupení po poslední. Časy jsou uvedené v pražském čase.', 'From the first performance to the last. All times are Prague local time.')}</p></div>${eventRows(events, clashes)}</section>`
+                : '';
+            })
+            .join('')
+        : eventRows([]);
+    }
+    $('#program-filters').oninput = render;
+    $('#program-filters').onsubmit = (e) => e.preventDefault();
+    $('#program-filters').onreset = () => setTimeout(render, 0);
+    main.addEventListener('favorites-changed', render);
+    window.addEventListener('storage', (event) => {
+      if (event.key === 'pulse:favorites') render();
+    });
+    render();
+    if (params.get('event')) eventDetail(params.get('event'));
+  }
+  function performers() {
+    main.innerHTML =
+      crumb('Účinkující') +
+      heading(
+        'Line-up / 2027',
+        'Účinkující',
+        'Od kytarových riffů po elektronické beaty. Najdi zvuk, který tě vezme s sebou.',
+      ) +
+      `<form class="filters" id="artist-filters"><div class="field"><label for="artist-q">Hledat interpreta</label><input id="artist-q" type="search" maxlength="120" placeholder="Název nebo popis…"></div><div class="field"><label for="genre">Žánr</label><select id="genre"><option value="">Všechny žánry</option>${[...new Set(D.performers.map((p) => p.genre))].map((g) => `<option value="${esc(g)}">${esc(g)}</option>`).join('')}</select></div></form><p id="result-count" class="count" role="status"></p><h2 class="visually-hidden">Seznam účinkujících</h2><section id="artists" class="grid three" aria-label="Seznam účinkujících"></section>`;
+    function render() {
+      const q = normalize($('#artist-q').value.trim()),
+        list = D.performers.filter(
+          (p) =>
+            (!q || normalize(localizedSearch(p)).includes(q)) &&
+            (!$('#genre').value || p.genre === $('#genre').value),
+        );
+      $('#result-count').textContent = `${list.length} účinkujících`;
+      $('#artists').innerHTML =
+        list.map(artistCard).join('') ||
+        '<p class="empty">Žádní účinkující neodpovídají hledání.</p>';
+    }
+    $('#artist-filters').oninput = render;
+    $('#artist-filters').onsubmit = (e) => e.preventDefault();
+    render();
+    const id = new URLSearchParams(location.search).get('id');
+    if (id) artistDetail(id);
+  }
+  function venues() {
+    main.innerHTML =
+      crumb('Scény') +
+      heading(
+        'Vltava Park / Praha',
+        'Tři festivalové scény',
+        'Od velkých koncertů po komorní sety. Všechny scény najdeš v areálu Vltava Park.',
+      ) +
+      `<section class="grid three">${D.venues.map((v, i) => `<article class="card" id="${v.id}"><div class="number">0${i + 1} →</div><h2>${esc(v.name)}</h2><p>${esc(v.description)}</p><p class="muted">${esc(v.location)}<br>Kapacita ${v.capacity.toLocaleString(locale)} návštěvníků</p><p class="count">${v.id === 'h1' ? tr('48 číslovaných sedadel + 4 952 míst ke stání.', '48 numbered seats + 4,952 standing places.') : tr('Pouze stání.', 'Standing only.')}</p>${capacityHtml({ venueId: v.id, days: festivalDays, compact: true })}<div class="actions">${link('program.html?venue=' + v.id, 'Objevit program scény', 'text-button')}${link('tickets.html?venue=' + v.id, tr('Vstupenky na scénu →', 'Stage tickets →'), 'button secondary small')}</div></article>`).join('')}</section>`;
+  }
+  const infoItems = [
+    [
+      'Kde se festival koná?',
+      'Vltava Park, modelový festivalový areál na Výstavišti Praha. Adresa pro navigaci: Výstaviště 67, 170 00 Praha 7.',
+    ],
+    [
+      'Jak se dostanu do areálu?',
+      'Doporučujeme tramvaj na zastávku Výstaviště nebo metro C na Nádraží Holešovice a navazující tramvaj. Aktuální spojení si před cestou ověř u dopravce.',
+    ],
+    [
+      'Co obsahuje VIP?',
+      'VIP zahrnuje sedadlo v předních řadách Main Hall, rychlejší odbavení a odpočinkovou zónu. Jedno parkovací místo obsahuje pouze třídenní VIP vstup na všechny scény.',
+    ],
+    [
+      'Mohu koupit vstupenku bez registrace?',
+      'Ano. V košíku stačí zadat jméno a e-mail. Po dokončení objednávky si stáhneš všechny vstupenky v jednom PDF.',
+    ],
+    [
+      'Jak dlouho platí třídenní balíček?',
+      'Třídenní vstup platí od 1. do 3. srpna 2027 na vybranou scénu nebo na všechny scény podle zvolené vstupenky. Číslované sedadlo v Main Hall je stejné po všechny tři dny; stání nemá vyhrazené místo.',
+    ],
+    [
+      'Je areál bezbariérový?',
+      'Návrh areálu počítá s bezbariérovými trasami a přístupnými toaletami. Doprovod a individuální potřeby řeší informační bod u hlavního vstupu.',
+    ],
+  ];
+  function photoCreditsHtml() {
+    const lang = window.PulseI18n?.lang === 'en' ? 'en' : 'cs',
+      t = (cs, en) => (lang === 'en' ? en : cs),
+      credits = window.PulsePhotoCredits;
+    const linkTo = (url, label) =>
+      /^https:\/\//.test(String(url || ''))
+        ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>`
+        : esc(label);
+    const credit = (item) =>
+      `${esc(item.author || '')} · ${linkTo(item.licenseUrl, item.license || '')} · ${linkTo(item.source, t('Zdroj fotografie', 'Photo source'))}${item.date ? ' · ' + esc(item.date) : ''}`;
+    const photographers = credits?.performers || [];
+    return `<section id="credits"><h2>${t('Vizuály', 'Artwork')}</h2><p>${t('Fotografie a původní ilustrace jsou přibalené k webu. Níže najdeš jejich zdroje a licence.', 'Photographs and original illustrations are bundled with this website. Their sources and licences are listed below.')}</p>${credits?.venue ? `<h3>${t('Průmyslový palác / Výstaviště Praha', 'Industrial Palace / Výstaviště Prague')}</h3><p data-no-translate>${credit(credits.venue)}</p>` : ''}${photographers.length ? `<details><summary>${t('Fotografie interpretů', 'Artist photographs')} (${photographers.length})</summary><ul data-no-translate>${photographers.map((item) => `<li><strong>${esc(item.name)}</strong> — ${credit(item)}</li>`).join('')}</ul></details>` : ''}<p>${t('Festivalové ilustrace a případné typografické plakáty vznikly pro Prague Pulse Fest. Jména interpretů v navrženém programu neznamenají potvrzenou účast.', 'Festival illustrations and any typographic posters were created for Prague Pulse Fest. Artist names in the proposed programme do not imply confirmed attendance.')}</p><a href="images/PHOTO-CREDITS.md" class="text-button">${t('Úplný původ vizuálů', 'Complete artwork credits')}</a></section>`;
+  }
+  function info() {
+    window.PulseVisitor.render(main, 'info.html');
+  }
+  function search() {
+    main.innerHTML =
+      crumb('Vyhledávání') +
+      heading(
+        'Program, účinkující a informace',
+        'Vyhledávání',
+        'Prohledáváme všechny položky dat festivalu, program, účinkující, scény i praktické informace. Bez ohledu na velikost písmen a diakritiku.',
+      ) +
+      `<form class="filters" id="search-form" role="search"><div class="field"><label for="query">Hledat na celém webu</label><input id="query" name="q" type="search" maxlength="120" placeholder="Např. David, VIP nebo doprava" autocomplete="off"></div><button>Vyhledat →</button></form><p id="search-count" role="status" class="count"></p><div id="search-results"></div>`;
+    $('#query').value = new URLSearchParams(location.search).get('q')?.slice(0, 120) || '';
+    const groups = [
+      ['Účinkující', D.performers, (x) => `performer.html?id=${x.id}`],
+      ['Program', D.events, (x) => `program.html?event=${x.id}`],
+      ['Scény', D.venues, (x) => `venues.html#${x.id}`],
+      ['Dny festivalu', D.festival.dates, (x) => `program.html?day=${x.id}`],
+      [
+        'Vstupenky',
+        ticketTypes.map((t) => ({
+          name: t.label,
+          description: `${t.price} Kč · Jednodenní vstupenka`,
+          ...t,
+        })),
+        () => 'tickets.html',
+      ],
+      ['Festivalové balíčky', D.festival.tickets, () => 'tickets.html'],
+      ['Festival', [D.festival], () => 'index.html'],
+      ['Odkazy festivalu', D.festival.links, () => 'info.html'],
+      [
+        'Novinky',
+        window.PulseNews?.searchItems?.(window.PulseI18n?.lang || 'cs') || [],
+        (x) => `news.html?id=${encodeURIComponent(x.id)}`,
+      ],
+      [
+        'Praktické informace',
+        window.PulseVisitor?.searchItems?.(window.PulseI18n?.lang || 'cs') ||
+          infoItems.map(([name, description]) => ({ name, description })),
+        (x) => x.href || 'info.html',
+      ],
+    ];
+    function render() {
+      const q = normalize($('#query').value.trim());
+      let total = 0;
+      $('#search-results').innerHTML = q
+        ? groups
+            .map(([title, items, href]) => {
+              const found = items.filter((x) => normalize(localizedSearch(x)).includes(q));
+              total += found.length;
+              return found.length
+                ? `<section class="result-group"><h2>${title} <span class="count">(${found.length})</span></h2><div class="grid">${found.map((x) => `<article class="card"><span class="badge">${title}</span><h3>${link(href(x), esc(x.theme || x.name || x.title))}</h3><p class="muted">${esc(x.description || x.performers?.join(' · ') || x.location?.city || x.date || x.url || 'Prague Pulse Fest')}</p>${link(href(x), 'Zobrazit detail →', 'text-button')}</article>`).join('')}</div></section>`
+                : '';
+            })
+            .join('')
+        : '<div class="empty">Napiš alespoň jeden znak. Zkus třeba „David“ nebo „VIP“.</div>';
+      $('#search-count').textContent = q
+        ? `${total} výsledků pro „${$('#query').value.trim()}“`
+        : '';
+      if (q && !total)
+        $('#search-results').innerHTML =
+          '<div class="empty">Nic jsme nenašli. Zkus kratší výraz nebo jiné slovo.</div>';
+    }
+    $('#search-form').onsubmit = (e) => {
+      e.preventDefault();
+      const searchUrl = new URL(location.href);
+      searchUrl.searchParams.set('q', $('#query').value.trim());
+      history.replaceState(null, '', searchUrl);
+      render();
+    };
+    $('#query').oninput = render;
+    render();
+  }
+  const festivalDays = ['d1', 'd2', 'd3'];
+  const festivalEdition = Number(D.festival.dates[0].date.slice(0, 4));
+  const canonicalDays = (days) =>
+    festivalDays.filter((id) => Array.isArray(days) && days.includes(id));
+  // Jediný inventář rozlišuje fyzická místa scén a kapacitu společného vstupu.
+  const admission = window.PulseAdmission;
+  // Stejný limit jako PDF chrání prohlížeč před příliš velkou dávkou stran.
+  const maxOrderTickets = 264;
+  function ticketFor(day, seat, scope = 'day', chosenDays, venueId = 'all') {
+    return admission.ticketFor(day, seat, scope, chosenDays, venueId);
+  }
+  const ticketDays = (t) => admission.days(t);
+  function validTicket(t) {
+    return admission.validTicket(t);
+  }
+  const ticketKey = (t) => admission.key(t);
+  const overlaps = (a, b) => admission.overlaps(a, b);
+  const admissionLabel = (t) =>
+    admission.venueLabel(
+      typeof t === 'string' ? t : admission.venueId(t),
+      locale === 'en-GB' ? 'en' : 'cs',
+    );
+  function bookingConflicts(items) {
+    return admission.conflicts(items, storage.get('orders'), festivalEdition);
+  }
+  // Číslované sedadlo je společné pro Main Hall i celofestivalový vstup.
+  function occupiedFor(days, venueId = 'all') {
+    const physical = venueId === 'all' ? 'h1' : venueId,
+      seats = new Set();
+    for (const order of storage.get('orders'))
+      if ((order.edition ?? 2026) === festivalEdition)
+        for (const ticket of order.tickets) {
+          const source = admission.venueId(ticket);
+          if (
+            (source === 'all' ? 'h1' : source) === physical &&
+            ticketDays(ticket).some((day) => days.includes(day))
+          )
+            seats.add(ticket.seat);
+        }
+    return seats;
+  }
+  const durationLabel = (count) =>
+    count === 3
+      ? tr('Třídenní vstup', 'Three-day pass')
+      : count === 2
+        ? tr('Dvoudenní vstup', 'Two-day pass')
+        : tr('Jednodenní vstup', 'One-day ticket');
+  const ticketLabel = (t) =>
+    `${ticketDays(t).length} ${tr(ticketDays(t).length === 1 ? 'den' : 'dny', ticketDays(t).length === 1 ? 'day' : 'days')} · ${ticketTypes.find((c) => c.id === t.category)?.label || ''}${t.category === 'standing' ? '' : ' · ' + tr('sedadlo', 'seat') + ' ' + t.seat}`;
+  const ticketDate = (t, edition = festivalEdition) =>
+    t.scope === 'festival'
+      ? tr(`1.–3. srpna ${edition}`, `1–3 August ${edition}`)
+      : ticketDays(t)
+          .map((id) =>
+            date(D.festival.dates.find((d) => d.id === id).date.replace(/^\d{4}/, String(edition))),
+          )
+          .join(' + ') +
+        ' ' +
+        edition;
+  const removeIcon =
+    '<svg class="remove-ticket-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 8l8 8M16 8l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+  const cartIcon =
+    '<svg class="cart-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 3h2l2 12h11l3-9H6M9 20h.01M18 20h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const taxRate = Number(D.festival.taxRate) || 12;
+  function includedTax(gross, rate = taxRate) {
+    const grossHalers = Math.round(gross * 100),
+      netHalers = Math.round((grossHalers * 100) / (100 + rate));
+    return {
+      rate,
+      net: netHalers / 100,
+      vat: (grossHalers - netHalers) / 100,
+      gross: grossHalers / 100,
+    };
+  }
+  const campingCatalog = D.festival.camping || {
+    personPrice: 150,
+    vatRate: 12,
+    dates: { from: '2027-08-01', to: '2027-08-04' },
+    types: [
+      { id: 'tent', name: 'Stan', price: 350, maxPeople: 4, capacity: 40 },
+      { id: 'caravan', name: 'Karavan', price: 850, maxPeople: 6, capacity: 12 },
+    ],
+  };
+  function campingChoice(value) {
+    return {
+      enabled: value?.enabled === true,
+      type: campingCatalog.types.some((t) => t.id === value?.type) ? value.type : 'tent',
+      people: Number(value?.people ?? 1),
+    };
+  }
+  function savedCamping() {
+    try {
+      return campingChoice(
+        JSON.parse(localStorage.getItem('pulse:camping:' + cartKey()) || 'null'),
+      );
+    } catch {
+      return campingChoice();
+    }
+  }
+  // Neplatný volitelný kemp/daň se vynechá, koncertní vstupenky z historie zůstávají.
+  function normalizeStoredOrder(order) {
+    const result = { ...order },
+      edition = Number.isInteger(order.edition) ? order.edition : 2026,
+      camp = order.camping,
+      type = campingCatalog.types.find((t) => t.id === camp?.type);
+    const validCamp =
+      camp &&
+      typeof camp === 'object' &&
+      !Array.isArray(camp) &&
+      type &&
+      Number.isInteger(camp.people) &&
+      camp.people >= 1 &&
+      camp.people <= type.maxPeople &&
+      camp.basePrice === type.price &&
+      camp.personPrice === campingCatalog.personPrice &&
+      camp.price === type.price + camp.people * campingCatalog.personPrice &&
+      (camp.units === undefined || camp.units === 1) &&
+      camp.dates?.from === campingCatalog.dates.from.replace(/^\d{4}/, String(edition)) &&
+      camp.dates?.to === campingCatalog.dates.to.replace(/^\d{4}/, String(edition));
+    if (validCamp) {
+      result.camping = {
+        type: type.id,
+        label: type.name,
+        people: camp.people,
+        basePrice: camp.basePrice,
+        personPrice: camp.personPrice,
+        price: camp.price,
+        units: 1,
+        dates: { from: camp.dates.from, to: camp.dates.to },
+      };
+      result.campingTotal = camp.price;
+    } else {
+      result.camping = null;
+      result.campingTotal = 0;
+    }
+    result.campingIssue = order.campingIssue === true || Boolean(camp && !validCamp);
+    const tax = order.tax,
+      close = (a, b) => Math.abs(a - b) < 0.011,
+      validTax =
+        !result.campingIssue &&
+        tax &&
+        typeof tax === 'object' &&
+        !Array.isArray(tax) &&
+        ['rate', 'gross', 'net', 'vat'].every(
+          (k) => typeof tax[k] === 'number' && Number.isFinite(tax[k]) && tax[k] >= 0,
+        ) &&
+        tax.rate <= 100 &&
+        typeof order.total === 'number' &&
+        Number.isFinite(order.total) &&
+        close(tax.gross, order.total) &&
+        close(tax.net + tax.vat, tax.gross) &&
+        close(tax.net, Math.round((tax.gross * 10000) / (100 + tax.rate)) / 100);
+    result.tax = validTax ? { rate: tax.rate, gross: tax.gross, net: tax.net, vat: tax.vat } : null;
+    return result;
+  }
+  window.PulseOrders = Object.freeze({ normalize: normalizeStoredOrder });
+  function campingAvailability(type) {
+    return Math.max(
+      0,
+      type.capacity -
+        storage
+          .get('orders')
+          .filter((o) => (o.edition ?? 2026) === festivalEdition && o.camping?.type === type.id)
+          .length,
+    );
+  }
+  function campingQuote(choice) {
+    if (!choice.enabled) return { camping: null, error: '' };
+    const type = campingCatalog.types.find((t) => t.id === choice.type);
+    if (
+      !type ||
+      !Number.isInteger(choice.people) ||
+      choice.people < 1 ||
+      choice.people > type.maxPeople
+    )
+      return {
+        camping: null,
+        error: tr(
+          'Zkontroluj typ kempu a povolený počet osob.',
+          'Check the camping type and allowed number of people.',
+        ),
+      };
+    if (!campingAvailability(type))
+      return {
+        camping: null,
+        error: tr(
+          'Tato kategorie kempu je vyprodaná. Vyber jiný typ nebo pokračuj bez kempu.',
+          'This camping category is sold out. Choose another type or continue without camping.',
+        ),
+      };
+    return {
+      camping: {
+        type: type.id,
+        label: type.name,
+        people: choice.people,
+        basePrice: type.price,
+        personPrice: campingCatalog.personPrice,
+        price: type.price + choice.people * campingCatalog.personPrice,
+        dates: { ...campingCatalog.dates },
+        units: 1,
+      },
+      error: '',
+    };
+  }
 
-const promoCatalog=Object.freeze({PULSE10:{percent:10},PRAHA200:{amount:200}});
-const normalizePromo=value=>String(value||'').trim().toUpperCase();
-// Promo snižuje jen vstupné; kemp se přičítá zvlášť. DPH je již v konečné ceně.
-function promoTotals(tickets,code=''){
-const subtotal=tickets.reduce((sum,t)=>sum+ticketFor(t.day,t.seat,t.scope||'day',t.days,admission.venueId(t)).price,0),normalized=normalizePromo(code),promo=Object.hasOwn(promoCatalog,normalized)?promoCatalog[normalized]:null;
-const discount=promo?Math.min(subtotal,promo.amount||Math.round(subtotal*promo.percent/100)):0;
-return {subtotal,discount,total:subtotal-discount,promoCode:promo?normalizePromo(code):''};
-}
-function savedPromo(){try{const code=normalizePromo(JSON.parse(localStorage.getItem('pulse:promo:'+cartKey())||'null')?.code);return Object.hasOwn(promoCatalog,code)?code:'';}catch{return '';}}
-const paymentMethods=Object.freeze({card:['Platební karta','Payment card'],banktransfer:['Bankovní převod','Bank transfer'],cash:['Hotově na pokladně','Cash at the box office'],applepay:['Apple Pay','Apple Pay'],googlepay:['Google Pay','Google Pay'],benefitplus:['Benefit Plus','Benefit Plus'],invoice:['Na fakturu','Invoice']});
-const paymentAction=method=>({card:tr('Simulovat platbu kartou','Simulate card payment'),banktransfer:tr('Simulovat bankovní převod','Simulate bank transfer'),cash:tr('Simulovat platbu hotově','Simulate cash payment'),applepay:tr('Simulovat Apple Pay','Simulate Apple Pay'),googlepay:tr('Simulovat Google Pay','Simulate Google Pay'),benefitplus:tr('Simulovat Benefit Plus','Simulate Benefit Plus'),invoice:tr('Simulovat objednávku na fakturu','Simulate invoice order')})[method]||tr('Simulovat platbu','Simulate payment');
-const phoneValid=value=>/^[+()\d\s.-]+$/.test(value)&&/^\d{9,15}$/.test(value.replace(/\D/g,''));
+  const promoCatalog = Object.freeze({ PULSE10: { percent: 10 }, PRAHA200: { amount: 200 } });
+  const normalizePromo = (value) =>
+    String(value || '')
+      .trim()
+      .toUpperCase();
+  // Promo snižuje jen vstupné; kemp se přičítá zvlášť. DPH je již v konečné ceně.
+  function promoTotals(tickets, code = '') {
+    const subtotal = tickets.reduce(
+        (sum, t) =>
+          sum + ticketFor(t.day, t.seat, t.scope || 'day', t.days, admission.venueId(t)).price,
+        0,
+      ),
+      normalized = normalizePromo(code),
+      promo = Object.hasOwn(promoCatalog, normalized) ? promoCatalog[normalized] : null;
+    const discount = promo
+      ? Math.min(subtotal, promo.amount || Math.round((subtotal * promo.percent) / 100))
+      : 0;
+    return {
+      subtotal,
+      discount,
+      total: subtotal - discount,
+      promoCode: promo ? normalizePromo(code) : '',
+    };
+  }
+  function savedPromo() {
+    try {
+      const code = normalizePromo(
+        JSON.parse(localStorage.getItem('pulse:promo:' + cartKey()) || 'null')?.code,
+      );
+      return Object.hasOwn(promoCatalog, code) ? code : '';
+    } catch {
+      return '';
+    }
+  }
+  const paymentMethods = Object.freeze({
+    card: ['Platební karta', 'Payment card'],
+    banktransfer: ['Bankovní převod', 'Bank transfer'],
+    cash: ['Hotově na pokladně', 'Cash at the box office'],
+    applepay: ['Apple Pay', 'Apple Pay'],
+    googlepay: ['Google Pay', 'Google Pay'],
+    benefitplus: ['Benefit Plus', 'Benefit Plus'],
+    invoice: ['Na fakturu', 'Invoice'],
+  });
+  const paymentAction = (method) =>
+    ({
+      card: tr('Simulovat platbu kartou', 'Simulate card payment'),
+      banktransfer: tr('Simulovat bankovní převod', 'Simulate bank transfer'),
+      cash: tr('Simulovat platbu hotově', 'Simulate cash payment'),
+      applepay: tr('Simulovat Apple Pay', 'Simulate Apple Pay'),
+      googlepay: tr('Simulovat Google Pay', 'Simulate Google Pay'),
+      benefitplus: tr('Simulovat Benefit Plus', 'Simulate Benefit Plus'),
+      invoice: tr('Simulovat objednávku na fakturu', 'Simulate invoice order'),
+    })[method] || tr('Simulovat platbu', 'Simulate payment');
+  const phoneValid = (value) =>
+    /^[+()\d\s.-]+$/.test(value) && /^\d{9,15}$/.test(value.replace(/\D/g, ''));
 
-// V podporovaných prohlížečích se souběžné dokončení v kartách stejného původu řadí do fronty.
-async function withInventoryLock(action){
-try{return navigator.locks?.request?await navigator.locks.request('pulse:inventory',action):await action();}
-catch(error){console.error('Local inventory update failed',error);toast(tr('Změnu se nepodařilo uložit. Obnov stránku a zkus to znovu.','The change could not be saved. Refresh the page and try again.'));}
-}
+  // V podporovaných prohlížečích se souběžné dokončení v kartách stejného původu řadí do fronty.
+  async function withInventoryLock(action) {
+    try {
+      return navigator.locks?.request
+        ? await navigator.locks.request('pulse:inventory', action)
+        : await action();
+    } catch (error) {
+      console.error('Local inventory update failed', error);
+      toast(
+        tr(
+          'Změnu se nepodařilo uložit. Obnov stránku a zkus to znovu.',
+          'The change could not be saved. Refresh the page and try again.',
+        ),
+      );
+    }
+  }
 
-// Výběr sedadel je zdrojem počtu osob; stání se zadává počtem vstupenek.
-function tickets(){
-const params=new URLSearchParams(location.search),requestedDay=festivalDays.includes(params.get('day'))?params.get('day'):'d1',contextEvent=D.events.find(event=>event.id===params.get('event'));
-let venueId=['all',...D.venues.map(v=>v.id)].includes(params.get('venue'))?params.get('venue'):'all';
-let duration=['1','2','3'].includes(params.get('duration'))?Number(params.get('duration')):params.get('scope')==='day'||params.has('day')?1:3;
-// Two-day dates are always explicit: never silently choose the first two dates.
-let days=duration===3?[...festivalDays]:duration===2?canonicalDays((params.get('days')||'').split(',')):[requestedDay];
-let category=admission.categories(venueId).includes(params.get('category'))?params.get('category'):'standing';selected.clear();
-main.innerHTML=crumb('Vstupenky')+`<p class="eyebrow">Prague Pulse Fest / 2027</p><h1 id="booking-title"></h1><p id="booking-intro" class="lead"></p><ol class="booking-progress" aria-label="${tr('Postup objednávky','Purchase steps')}"><li>1 · ${tr('Scéna, dny a místa','Stages, days and places')}</li><li>2 · ${tr('Košík a kontakty','Cart and contact details')}</li><li>3 · ${tr('Potvrzení a vstupenky','Confirmation and tickets')}</li></ol><div id="booking-context" class="purchase-context" hidden></div><section id="ticket-selector" class="booking-card"><form id="booking-form" class="booking-form"><div class="booking-fields filters"><div class="field"><label for="ticket-venue">${tr('Kam chceš vyrazit','Choose your stages')}</label><select id="ticket-venue"><option value="all">${tr('Všechny scény','All stages')}</option>${D.venues.map(v=>`<option value="${v.id}">${esc(v.name)}</option>`).join('')}</select></div><div class="field"><label for="ticket-duration">${tr('Na kolik dní','How many days')}</label><select id="ticket-duration"><option value="1">${tr('1 den','1 day')}</option><option value="2">${tr('2 dny','2 days')}</option><option value="3">${tr('3 dny · 1.–3. srpna','3 days · 1–3 August')}</option></select></div><div class="field" id="single-day-field"><label for="ticket-day">${tr('Vyber den','Choose a day')}</label><select id="ticket-day">${D.festival.dates.map(d=>`<option value="${d.id}">${date(d.date)}</option>`).join('')}</select></div><fieldset id="ticket-days" class="booking-days"><legend>${tr('Vyber přesně dva dny','Choose exactly two days')}</legend>${D.festival.dates.map(d=>`<label class="check"><input type="checkbox" name="festival-day" value="${d.id}"><span>${date(d.date)}</span></label>`).join('')}<p id="day-selection-count" class="day-selection-count" role="status"></p></fieldset><div class="field"><label for="ticket-category">${tr('Kategorie','Category')}</label><select id="ticket-category"></select></div><div class="field"><label for="ticket-quantity">${tr('Počet osob','Number of people')}</label><input id="ticket-quantity" type="number" min="1" max="8" step="1" value="1" inputmode="numeric" required aria-describedby="quantity-help"><small id="quantity-help" class="quantity-hint"></small></div></div><div id="booking-stage-capacity"></div><section class="booking-seat-section card" aria-labelledby="seat-heading"><h2 id="seat-heading">${tr('Vyber sedadla v Main Hall','Choose Main Hall seats')}</h2><p id="scope-help" class="muted"></p><div class="stage">${tr('PÓDIUM MAIN HALL','MAIN HALL STAGE')}</div><div id="seat-map" class="seat-map" role="group" aria-label="${tr('Výběr sedadel','Seat selection')}"></div><div class="legend"><span><i></i>${tr('Volné','Available')}</span><span><i class="s"></i>${tr('Vybráno / v košíku','Selected / in cart')}</span><span><i class="o"></i>${tr('Obsazeno','Occupied')}</span></div></section><aside class="booking-summary card" aria-labelledby="booking-summary-title"><p class="eyebrow">${tr('Tvůj výběr','Your selection')}</p><h2 id="booking-summary-title"></h2><p id="booking-description"></p><p id="booking-admission-help" class="count"></p><div id="selection" aria-live="polite"></div><dl class="price-breakdown"><div class="price-row"><dt>${tr('Cena za osobu','Price per person')}</dt><dd id="booking-unit-price"></dd></div><div class="price-row total"><dt>${tr('Cena celkem (včetně DPH)','Total price (including VAT)')}</dt><dd id="booking-total" aria-live="polite"></dd></div><div class="price-row"><dt>${tr('Z toho DPH','Included VAT')} (${taxRate} %)</dt><dd id="booking-vat"></dd></div></dl><p class="count" id="booking-availability"></p><p id="booking-error" class="error" role="alert"></p><button id="booking-continue" class="full cart-go" type="submit">${cartIcon}<span>${tr('Pokračovat do košíku','Continue to cart')}</span></button></aside></form></section>`;
-$('#ticket-venue').value=venueId;$('#ticket-duration').value=String(duration);$('#ticket-day').value=requestedDay;main.querySelectorAll('[name="festival-day"]').forEach(input=>input.checked=duration===2&&days.includes(input.value));
-function categoryOptions(){const allowed=admission.categories(venueId);if(!allowed.includes(category))category='standing';$('#ticket-category').innerHTML=allowed.map(id=>`<option value="${id}">${id==='standing'?tr('Stání','Standing'):ticketTypes.find(t=>t.id===id).label}</option>`).join('');$('#ticket-category').value=category;}
-function currentDays(){return duration===3?[...festivalDays]:duration===2?canonicalDays([...main.querySelectorAll('[name="festival-day"]:checked')].map(i=>i.value)):[$('#ticket-day').value];}
-function currentScope(){return duration===3?'festival':duration===2?'multi':'day';}
-function inventory(){return {venueId,category,days:currentDays(),cart:getCart(),orders:storage.get('orders'),edition:festivalEdition};}
-function availableSeats(){return admission.available(inventory());}
-function render(){
-days=currentDays();const validDays=days.length===duration,type=ticketTypes.find(t=>t.id===category),unit=admission.price(venueId,category,duration),free=validDays?availableSeats():[],freeSet=new Set(free),remaining=validDays?admission.remaining(inventory()):0,seated=category!=='standing';
-for(const seat of selected)if(!freeSet.has(seat))selected.delete(seat);
-const quantityInput=$('#ticket-quantity');quantityInput.readOnly=seated;quantityInput.min=seated?'0':'1';if(seated)quantityInput.value=String(selected.size);else if(quantityInput.value==='0')quantityInput.value='1';
-const quantity=seated?selected.size:Number(quantityInput.value),validCount=Number.isInteger(quantity)&&quantity>=1&&quantity<=8,total=seated?unit*selected.size:validCount?unit*quantity:0;
-$('#quantity-help').textContent=seated?tr('Počet se mění automaticky výběrem sedadel. Nejvýše 8.','Selecting seats updates this count automatically. Up to 8.'):tr('Zadej 1–8 vstupenek na stání.','Choose 1–8 standing tickets.');
-$('#single-day-field').hidden=duration!==1;$('#ticket-day').disabled=duration!==1;$('#ticket-days').hidden=duration!==2;main.querySelectorAll('[name="festival-day"]').forEach(input=>input.disabled=duration!==2||days.length===2&&!input.checked);$('#day-selection-count').textContent=tr(`Vybráno ${days.length} ze 2 dnů.`,`Selected ${days.length} of 2 days.`);$('.booking-seat-section').hidden=!seated;
-$('#booking-title').textContent=durationLabel(duration);$('#booking-intro').textContent=tr('Vyber jednu scénu nebo celý festival, zvol dny a místa. Cena vždy odpovídá aktuálnímu výběru.','Choose one stage or the whole festival, then your days and places. Your total always follows the current selection.');
-$('#scope-help').textContent=tr('Kliknutím přidej nebo odeber sedadlo. Počet osob a cenu počítáme automaticky. Stejná sedadla platí pro všechny zvolené dny.','Click a seat to add or remove it. The number of people and total update automatically. The same seats apply on every selected day.');
-const busy=occupiedFor(days,venueId),cart=getCart(),rows=D.venues.find(v=>v.id==='h1').ticketing?.seats?.[category]?.rows||[...(category==='vip'?'AB':'CDEF')];
-$('#seat-map').innerHTML=!seated?'':rows.map(row=>`<div class="row-label">${tr('ŘADA','ROW')} ${row} · ${type.label}</div>`+Array.from({length:8},(_,i)=>{const seat=row+(i+1),taken=busy.has(seat),inCart=validDays&&cart.some(t=>overlaps(t,ticketFor(days[0],seat,currentScope(),days,venueId))),sel=selected.has(seat),disabled=taken||inCart||!validDays||!freeSet.has(seat);return `<button type="button" class="seat ${category==='vip'?'vip':''} ${sel||inCart?'selected':''}" data-seat="${seat}" aria-pressed="${sel||inCart}" ${disabled?'disabled':''} aria-label="${seat}, ${type.label}, ${money(unit)}, ${taken?tr('obsazeno','occupied'):inCart?tr('v košíku','in cart'):disabled?tr('nedostupná kapacita','capacity unavailable'):sel?tr('vybráno','selected'):tr('volné','available')}">${taken?'×':seat}</button>`;}).join('')).join('');
-$('#booking-summary-title').textContent=(category==='standing'?tr('Stání','Standing'):type.label)+' · '+durationLabel(duration);$('#booking-description').textContent=(validDays?days.map(id=>date(D.festival.dates.find(d=>d.id===id).date)).join(' + ')+' · ':'')+admissionLabel(venueId)+'. '+tr('Konečná cena včetně poplatků.','Final price including fees.');
-$('#booking-admission-help').textContent=venueId==='all'?(category==='standing'?tr('Vstup na všechny scény ve zvolené dny. Všude jde o stání.','Admission at every stage on the selected days. Standing at all stages.'):tr('Sedadlo v Main Hall, stání na River a Club Stage. Vstup na všechny scény ve zvolené dny.','A Main Hall seat plus standing at River and Club Stage. Admission at every stage on the selected days.')):tr('Vstup pouze na tuto scénu, včetně všech jejích koncertů ve zvolené dny.','Admission to this stage only, including all its performances on the selected days.');
-$('#booking-stage-capacity').innerHTML=capacityHtml({venueId,days,compact:true});
-$('#selection').innerHTML=!seated?`<p>${tr('Volná plocha bez rezervovaného sedadla. Počet vstupenek','Standing area without a reserved seat. Number of tickets')}: ${validCount?quantity:'—'}</p>`:selected.size?[...selected].map(seat=>`<div class="cart-item"><span>${tr('Sedadlo','Seat')} ${seat}</span><button type="button" class="secondary small remove-ticket" data-unselect="${seat}" aria-label="${tr('Odebrat sedadlo','Remove seat')} ${seat}">${removeIcon}</button></div>`).join(''):`<p class="muted">${tr('Vyber sedadla v mapě.','Choose your seats in the map.')}</p>`;
-$('#booking-unit-price').textContent=money(unit);$('#booking-total').textContent=money(total);$('#booking-vat').textContent=moneyExact(includedTax(total).vat);$('#booking-availability').textContent=validDays?tr(`Volných míst ve zvolené kategorii: ${remaining}`,`Available places in your category: ${remaining}`):tr('Pro dvoudenní vstup vyber přesně dva dny.','Choose exactly two days for a two-day pass.');$('#booking-continue').disabled=!validCount||!validDays||remaining<quantity;
-if(contextEvent){const covered=(venueId==='all'||venueId===contextEvent.venueId)&&days.includes(contextEvent.dayId),context=$('#booking-context');context.hidden=false;context.innerHTML=`<p><strong>${esc(contextEvent.performerIds.map(id=>D.performers.find(p=>p.id===id)?.name||'').join(' · '))}</strong> · ${date(contextEvent.date)} · ${esc(contextEvent.venueName)}</p><p>${covered?tr('Zvolený vstup zahrnuje tento koncert. Dny a scény můžeš upravit.','Your selection includes this performance. You can adjust the days and stages.'):tr('Aktuální výběr tento koncert nezahrnuje. ','Your current selection does not include this performance. ')+link(purchaseUrl(contextEvent),tr('Vybrat vstup na koncert →','Select admission for this performance →'))}</p>`;}
-}
-function resetSelection(){selected.clear();$('#booking-error').textContent='';render();}
-$('#ticket-venue').onchange=()=>{venueId=$('#ticket-venue').value;categoryOptions();resetSelection();};
-$('#ticket-duration').onchange=()=>{duration=Number($('#ticket-duration').value);if(duration===2)main.querySelectorAll('[name="festival-day"]').forEach(input=>input.checked=false);resetSelection();};
-$('#ticket-day').onchange=resetSelection;main.querySelectorAll('[name="festival-day"]').forEach(input=>input.onchange=resetSelection);$('#ticket-category').onchange=()=>{category=$('#ticket-category').value;resetSelection();};$('#ticket-quantity').oninput=()=>{$('#booking-error').textContent='';render();};
-$('#seat-map').onclick=e=>{const button=e.target.closest('[data-seat]'),seat=button?.dataset.seat;if(!seat||button.disabled)return;$('#booking-error').textContent='';if(selected.has(seat))selected.delete(seat);else if(selected.size>=8)$('#booking-error').textContent=tr('Najednou vyber nejvýše 8 sedadel. Další můžeš přidat do košíku zvlášť.','Select up to 8 seats at once. You can add more in a separate selection.');else if(selected.size>=admission.remaining(inventory()))$('#booking-error').textContent=tr('Pro více osob už ve zvolené scéně nebo dnech není kapacita.','There is no capacity for more people at your selected stages or dates.');else selected.add(seat);render();$('#seat-map').querySelector(`[data-seat="${seat}"]`)?.focus();};
-$('#selection').onclick=e=>{const seat=e.target.closest('[data-unselect]')?.dataset.unselect;if(seat){selected.delete(seat);$('#booking-error').textContent='';render();$('#seat-map').querySelector(`[data-seat="${seat}"]`)?.focus();}};
-$('#booking-form').onsubmit=async e=>{e.preventDefault();await withInventoryLock(()=>{
-const quantity=category==='standing'?Number($('#ticket-quantity').value):selected.size,chosen=currentDays(),error=$('#booking-error');error.textContent='';if(chosen.length!==duration||!Number.isInteger(quantity)||quantity<1||quantity>8){error.textContent=tr('Zkontroluj zvolené dny a počet osob od 1 do 8.','Check your selected days and choose between 1 and 8 people.');return;}
-if(getCart().length+quantity>maxOrderTickets){error.textContent=tr(`Jedna objednávka může obsahovat nejvýše ${maxOrderTickets} vstupenek. Sniž počet osob nebo dokonči současný košík.`,`One order can contain at most ${maxOrderTickets} tickets. Reduce the number of people or complete your current cart.`);return;}
-const free=availableSeats(),seats=category==='standing'?free.slice(0,quantity):[...selected],items=seats.map(seat=>ticketFor(chosen[0],seat,currentScope(),chosen,venueId)),combined=[...getCart(),...items];
-if(seats.length!==quantity||seats.some(seat=>!free.includes(seat))||bookingConflicts(combined).size){error.textContent=tr('Vybraná místa nebo kapacita scény už nejsou dostupné. Zkontroluj počet osob a výběr.','Your selected places or stage capacity are no longer available. Review the number of people and your selection.');render();return;}
-if(save(cartKey(),combined)){$('#booking-continue').disabled=true;selected.clear();location.href=routeUrl('cart.html');}
-});};
-window.addEventListener('storage',event=>{if(event.key===null||event.key?.startsWith('pulse:')){render();updateCount();}});categoryOptions();render();
-}
+  // Výběr sedadel je zdrojem počtu osob; stání se zadává počtem vstupenek.
+  function tickets() {
+    const params = new URLSearchParams(location.search),
+      requestedDay = festivalDays.includes(params.get('day')) ? params.get('day') : 'd1',
+      contextEvent = D.events.find((event) => event.id === params.get('event'));
+    let venueId = ['all', ...D.venues.map((v) => v.id)].includes(params.get('venue'))
+      ? params.get('venue')
+      : 'all';
+    let duration = ['1', '2', '3'].includes(params.get('duration'))
+      ? Number(params.get('duration'))
+      : params.get('scope') === 'day' || params.has('day')
+        ? 1
+        : 3;
+    // Two-day dates are always explicit: never silently choose the first two dates.
+    let days =
+      duration === 3
+        ? [...festivalDays]
+        : duration === 2
+          ? canonicalDays((params.get('days') || '').split(','))
+          : [requestedDay];
+    let category = admission.categories(venueId).includes(params.get('category'))
+      ? params.get('category')
+      : 'standing';
+    selected.clear();
+    main.innerHTML =
+      crumb('Vstupenky') +
+      `<p class="eyebrow">Prague Pulse Fest / 2027</p><h1 id="booking-title"></h1><p id="booking-intro" class="lead"></p><ol class="booking-progress" aria-label="${tr('Postup objednávky', 'Purchase steps')}"><li>1 · ${tr('Scéna, dny a místa', 'Stages, days and places')}</li><li>2 · ${tr('Košík a kontakty', 'Cart and contact details')}</li><li>3 · ${tr('Potvrzení a vstupenky', 'Confirmation and tickets')}</li></ol><div id="booking-context" class="purchase-context" hidden></div><section id="ticket-selector" class="booking-card"><form id="booking-form" class="booking-form"><div class="booking-fields filters"><div class="field"><label for="ticket-venue">${tr('Kam chceš vyrazit', 'Choose your stages')}</label><select id="ticket-venue"><option value="all">${tr('Všechny scény', 'All stages')}</option>${D.venues.map((v) => `<option value="${v.id}">${esc(v.name)}</option>`).join('')}</select></div><div class="field"><label for="ticket-duration">${tr('Na kolik dní', 'How many days')}</label><select id="ticket-duration"><option value="1">${tr('1 den', '1 day')}</option><option value="2">${tr('2 dny', '2 days')}</option><option value="3">${tr('3 dny · 1.–3. srpna', '3 days · 1–3 August')}</option></select></div><div class="field" id="single-day-field"><label for="ticket-day">${tr('Vyber den', 'Choose a day')}</label><select id="ticket-day">${D.festival.dates.map((d) => `<option value="${d.id}">${date(d.date)}</option>`).join('')}</select></div><fieldset id="ticket-days" class="booking-days"><legend>${tr('Vyber přesně dva dny', 'Choose exactly two days')}</legend>${D.festival.dates.map((d) => `<label class="check"><input type="checkbox" name="festival-day" value="${d.id}"><span>${date(d.date)}</span></label>`).join('')}<p id="day-selection-count" class="day-selection-count" role="status"></p></fieldset><div class="field"><label for="ticket-category">${tr('Kategorie', 'Category')}</label><select id="ticket-category"></select></div><div class="field"><label for="ticket-quantity">${tr('Počet osob', 'Number of people')}</label><input id="ticket-quantity" type="number" min="1" max="8" step="1" value="1" inputmode="numeric" required aria-describedby="quantity-help"><small id="quantity-help" class="quantity-hint"></small></div></div><div id="booking-stage-capacity"></div><section class="booking-seat-section card" aria-labelledby="seat-heading"><h2 id="seat-heading">${tr('Vyber sedadla v Main Hall', 'Choose Main Hall seats')}</h2><p id="scope-help" class="muted"></p><div class="stage">${tr('PÓDIUM MAIN HALL', 'MAIN HALL STAGE')}</div><div id="seat-map" class="seat-map" role="group" aria-label="${tr('Výběr sedadel', 'Seat selection')}"></div><div class="legend"><span><i></i>${tr('Volné', 'Available')}</span><span><i class="s"></i>${tr('Vybráno / v košíku', 'Selected / in cart')}</span><span><i class="o"></i>${tr('Obsazeno', 'Occupied')}</span></div></section><aside class="booking-summary card" aria-labelledby="booking-summary-title"><p class="eyebrow">${tr('Tvůj výběr', 'Your selection')}</p><h2 id="booking-summary-title"></h2><p id="booking-description"></p><p id="booking-admission-help" class="count"></p><div id="selection" aria-live="polite"></div><dl class="price-breakdown"><div class="price-row"><dt>${tr('Cena za osobu', 'Price per person')}</dt><dd id="booking-unit-price"></dd></div><div class="price-row total"><dt>${tr('Cena celkem (včetně DPH)', 'Total price (including VAT)')}</dt><dd id="booking-total" aria-live="polite"></dd></div><div class="price-row"><dt>${tr('Z toho DPH', 'Included VAT')} (${taxRate} %)</dt><dd id="booking-vat"></dd></div></dl><p class="count" id="booking-availability"></p><p id="booking-error" class="error" role="alert"></p><button id="booking-continue" class="full cart-go" type="submit">${cartIcon}<span>${tr('Pokračovat do košíku', 'Continue to cart')}</span></button></aside></form></section>`;
+    $('#ticket-venue').value = venueId;
+    $('#ticket-duration').value = String(duration);
+    $('#ticket-day').value = requestedDay;
+    main
+      .querySelectorAll('[name="festival-day"]')
+      .forEach((input) => (input.checked = duration === 2 && days.includes(input.value)));
+    function categoryOptions() {
+      const allowed = admission.categories(venueId);
+      if (!allowed.includes(category)) category = 'standing';
+      $('#ticket-category').innerHTML = allowed
+        .map(
+          (id) =>
+            `<option value="${id}">${id === 'standing' ? tr('Stání', 'Standing') : ticketTypes.find((t) => t.id === id).label}</option>`,
+        )
+        .join('');
+      $('#ticket-category').value = category;
+    }
+    function currentDays() {
+      return duration === 3
+        ? [...festivalDays]
+        : duration === 2
+          ? canonicalDays(
+              [...main.querySelectorAll('[name="festival-day"]:checked')].map((i) => i.value),
+            )
+          : [$('#ticket-day').value];
+    }
+    function currentScope() {
+      return duration === 3 ? 'festival' : duration === 2 ? 'multi' : 'day';
+    }
+    function inventory() {
+      return {
+        venueId,
+        category,
+        days: currentDays(),
+        cart: getCart(),
+        orders: storage.get('orders'),
+        edition: festivalEdition,
+      };
+    }
+    function availableSeats() {
+      return admission.available(inventory());
+    }
+    function render() {
+      days = currentDays();
+      const validDays = days.length === duration,
+        type = ticketTypes.find((t) => t.id === category),
+        unit = admission.price(venueId, category, duration),
+        free = validDays ? availableSeats() : [],
+        freeSet = new Set(free),
+        remaining = validDays ? admission.remaining(inventory()) : 0,
+        seated = category !== 'standing';
+      for (const seat of selected) if (!freeSet.has(seat)) selected.delete(seat);
+      const quantityInput = $('#ticket-quantity');
+      quantityInput.readOnly = seated;
+      quantityInput.min = seated ? '0' : '1';
+      if (seated) quantityInput.value = String(selected.size);
+      else if (quantityInput.value === '0') quantityInput.value = '1';
+      const quantity = seated ? selected.size : Number(quantityInput.value),
+        validCount = Number.isInteger(quantity) && quantity >= 1 && quantity <= 8,
+        total = seated ? unit * selected.size : validCount ? unit * quantity : 0;
+      $('#quantity-help').textContent = seated
+        ? tr(
+            'Počet se mění automaticky výběrem sedadel. Nejvýše 8.',
+            'Selecting seats updates this count automatically. Up to 8.',
+          )
+        : tr('Zadej 1–8 vstupenek na stání.', 'Choose 1–8 standing tickets.');
+      $('#single-day-field').hidden = duration !== 1;
+      $('#ticket-day').disabled = duration !== 1;
+      $('#ticket-days').hidden = duration !== 2;
+      main
+        .querySelectorAll('[name="festival-day"]')
+        .forEach(
+          (input) => (input.disabled = duration !== 2 || (days.length === 2 && !input.checked)),
+        );
+      $('#day-selection-count').textContent = tr(
+        `Vybráno ${days.length} ze 2 dnů.`,
+        `Selected ${days.length} of 2 days.`,
+      );
+      $('.booking-seat-section').hidden = !seated;
+      $('#booking-title').textContent = durationLabel(duration);
+      $('#booking-intro').textContent = tr(
+        'Vyber jednu scénu nebo celý festival, zvol dny a místa. Cena vždy odpovídá aktuálnímu výběru.',
+        'Choose one stage or the whole festival, then your days and places. Your total always follows the current selection.',
+      );
+      $('#scope-help').textContent = tr(
+        'Kliknutím přidej nebo odeber sedadlo. Počet osob a cenu počítáme automaticky. Stejná sedadla platí pro všechny zvolené dny.',
+        'Click a seat to add or remove it. The number of people and total update automatically. The same seats apply on every selected day.',
+      );
+      const busy = occupiedFor(days, venueId),
+        cart = getCart(),
+        rows = D.venues.find((v) => v.id === 'h1').ticketing?.seats?.[category]?.rows || [
+          ...(category === 'vip' ? 'AB' : 'CDEF'),
+        ];
+      $('#seat-map').innerHTML = !seated
+        ? ''
+        : rows
+            .map(
+              (row) =>
+                `<div class="row-label">${tr('ŘADA', 'ROW')} ${row} · ${type.label}</div>` +
+                Array.from({ length: 8 }, (_, i) => {
+                  const seat = row + (i + 1),
+                    taken = busy.has(seat),
+                    inCart =
+                      validDays &&
+                      cart.some((t) =>
+                        overlaps(t, ticketFor(days[0], seat, currentScope(), days, venueId)),
+                      ),
+                    sel = selected.has(seat),
+                    disabled = taken || inCart || !validDays || !freeSet.has(seat);
+                  return `<button type="button" class="seat ${category === 'vip' ? 'vip' : ''} ${sel || inCart ? 'selected' : ''}" data-seat="${seat}" aria-pressed="${sel || inCart}" ${disabled ? 'disabled' : ''} aria-label="${seat}, ${type.label}, ${money(unit)}, ${taken ? tr('obsazeno', 'occupied') : inCart ? tr('v košíku', 'in cart') : disabled ? tr('nedostupná kapacita', 'capacity unavailable') : sel ? tr('vybráno', 'selected') : tr('volné', 'available')}">${taken ? '×' : seat}</button>`;
+                }).join(''),
+            )
+            .join('');
+      $('#booking-summary-title').textContent =
+        (category === 'standing' ? tr('Stání', 'Standing') : type.label) +
+        ' · ' +
+        durationLabel(duration);
+      $('#booking-description').textContent =
+        (validDays
+          ? days.map((id) => date(D.festival.dates.find((d) => d.id === id).date)).join(' + ') +
+            ' · '
+          : '') +
+        admissionLabel(venueId) +
+        '. ' +
+        tr('Konečná cena včetně poplatků.', 'Final price including fees.');
+      $('#booking-admission-help').textContent =
+        venueId === 'all'
+          ? category === 'standing'
+            ? tr(
+                'Vstup na všechny scény ve zvolené dny. Všude jde o stání.',
+                'Admission at every stage on the selected days. Standing at all stages.',
+              )
+            : tr(
+                'Sedadlo v Main Hall, stání na River a Club Stage. Vstup na všechny scény ve zvolené dny.',
+                'A Main Hall seat plus standing at River and Club Stage. Admission at every stage on the selected days.',
+              )
+          : tr(
+              'Vstup pouze na tuto scénu, včetně všech jejích koncertů ve zvolené dny.',
+              'Admission to this stage only, including all its performances on the selected days.',
+            );
+      $('#booking-stage-capacity').innerHTML = capacityHtml({ venueId, days, compact: true });
+      $('#selection').innerHTML = !seated
+        ? `<p>${tr('Volná plocha bez rezervovaného sedadla. Počet vstupenek', 'Standing area without a reserved seat. Number of tickets')}: ${validCount ? quantity : '—'}</p>`
+        : selected.size
+          ? [...selected]
+              .map(
+                (seat) =>
+                  `<div class="cart-item"><span>${tr('Sedadlo', 'Seat')} ${seat}</span><button type="button" class="secondary small remove-ticket" data-unselect="${seat}" aria-label="${tr('Odebrat sedadlo', 'Remove seat')} ${seat}">${removeIcon}</button></div>`,
+              )
+              .join('')
+          : `<p class="muted">${tr('Vyber sedadla v mapě.', 'Choose your seats in the map.')}</p>`;
+      $('#booking-unit-price').textContent = money(unit);
+      $('#booking-total').textContent = money(total);
+      $('#booking-vat').textContent = moneyExact(includedTax(total).vat);
+      $('#booking-availability').textContent = validDays
+        ? tr(
+            `Volných míst ve zvolené kategorii: ${remaining}`,
+            `Available places in your category: ${remaining}`,
+          )
+        : tr(
+            'Pro dvoudenní vstup vyber přesně dva dny.',
+            'Choose exactly two days for a two-day pass.',
+          );
+      $('#booking-continue').disabled = !validCount || !validDays || remaining < quantity;
+      if (contextEvent) {
+        const covered =
+            (venueId === 'all' || venueId === contextEvent.venueId) &&
+            days.includes(contextEvent.dayId),
+          context = $('#booking-context');
+        context.hidden = false;
+        context.innerHTML = `<p><strong>${esc(contextEvent.performerIds.map((id) => D.performers.find((p) => p.id === id)?.name || '').join(' · '))}</strong> · ${date(contextEvent.date)} · ${esc(contextEvent.venueName)}</p><p>${covered ? tr('Zvolený vstup zahrnuje tento koncert. Dny a scény můžeš upravit.', 'Your selection includes this performance. You can adjust the days and stages.') : tr('Aktuální výběr tento koncert nezahrnuje. ', 'Your current selection does not include this performance. ') + link(purchaseUrl(contextEvent), tr('Vybrat vstup na koncert →', 'Select admission for this performance →'))}</p>`;
+      }
+    }
+    function resetSelection() {
+      selected.clear();
+      $('#booking-error').textContent = '';
+      render();
+    }
+    $('#ticket-venue').onchange = () => {
+      venueId = $('#ticket-venue').value;
+      categoryOptions();
+      resetSelection();
+    };
+    $('#ticket-duration').onchange = () => {
+      duration = Number($('#ticket-duration').value);
+      if (duration === 2)
+        main.querySelectorAll('[name="festival-day"]').forEach((input) => (input.checked = false));
+      resetSelection();
+    };
+    $('#ticket-day').onchange = resetSelection;
+    main
+      .querySelectorAll('[name="festival-day"]')
+      .forEach((input) => (input.onchange = resetSelection));
+    $('#ticket-category').onchange = () => {
+      category = $('#ticket-category').value;
+      resetSelection();
+    };
+    $('#ticket-quantity').oninput = () => {
+      $('#booking-error').textContent = '';
+      render();
+    };
+    $('#seat-map').onclick = (e) => {
+      const button = e.target.closest('[data-seat]'),
+        seat = button?.dataset.seat;
+      if (!seat || button.disabled) return;
+      $('#booking-error').textContent = '';
+      if (selected.has(seat)) selected.delete(seat);
+      else if (selected.size >= 8)
+        $('#booking-error').textContent = tr(
+          'Najednou vyber nejvýše 8 sedadel. Další můžeš přidat do košíku zvlášť.',
+          'Select up to 8 seats at once. You can add more in a separate selection.',
+        );
+      else if (selected.size >= admission.remaining(inventory()))
+        $('#booking-error').textContent = tr(
+          'Pro více osob už ve zvolené scéně nebo dnech není kapacita.',
+          'There is no capacity for more people at your selected stages or dates.',
+        );
+      else selected.add(seat);
+      render();
+      $('#seat-map').querySelector(`[data-seat="${seat}"]`)?.focus();
+    };
+    $('#selection').onclick = (e) => {
+      const seat = e.target.closest('[data-unselect]')?.dataset.unselect;
+      if (seat) {
+        selected.delete(seat);
+        $('#booking-error').textContent = '';
+        render();
+        $('#seat-map').querySelector(`[data-seat="${seat}"]`)?.focus();
+      }
+    };
+    $('#booking-form').onsubmit = async (e) => {
+      e.preventDefault();
+      await withInventoryLock(() => {
+        const quantity =
+            category === 'standing' ? Number($('#ticket-quantity').value) : selected.size,
+          chosen = currentDays(),
+          error = $('#booking-error');
+        error.textContent = '';
+        if (
+          chosen.length !== duration ||
+          !Number.isInteger(quantity) ||
+          quantity < 1 ||
+          quantity > 8
+        ) {
+          error.textContent = tr(
+            'Zkontroluj zvolené dny a počet osob od 1 do 8.',
+            'Check your selected days and choose between 1 and 8 people.',
+          );
+          return;
+        }
+        if (getCart().length + quantity > maxOrderTickets) {
+          error.textContent = tr(
+            `Jedna objednávka může obsahovat nejvýše ${maxOrderTickets} vstupenek. Sniž počet osob nebo dokonči současný košík.`,
+            `One order can contain at most ${maxOrderTickets} tickets. Reduce the number of people or complete your current cart.`,
+          );
+          return;
+        }
+        const free = availableSeats(),
+          seats = category === 'standing' ? free.slice(0, quantity) : [...selected],
+          items = seats.map((seat) => ticketFor(chosen[0], seat, currentScope(), chosen, venueId)),
+          combined = [...getCart(), ...items];
+        if (
+          seats.length !== quantity ||
+          seats.some((seat) => !free.includes(seat)) ||
+          bookingConflicts(combined).size
+        ) {
+          error.textContent = tr(
+            'Vybraná místa nebo kapacita scény už nejsou dostupné. Zkontroluj počet osob a výběr.',
+            'Your selected places or stage capacity are no longer available. Review the number of people and your selection.',
+          );
+          render();
+          return;
+        }
+        if (save(cartKey(), combined)) {
+          $('#booking-continue').disabled = true;
+          selected.clear();
+          location.href = routeUrl('cart.html');
+        }
+      });
+    };
+    window.addEventListener('storage', (event) => {
+      if (event.key === null || event.key?.startsWith('pulse:')) {
+        render();
+        updateCount();
+      }
+    });
+    categoryOptions();
+    render();
+  }
 
-let cartStorageRefresh=()=>{};
-window.addEventListener('storage',event=>{if(page==='cart.html'&&(event.key===null||event.key?.startsWith('pulse:'))){cartStorageRefresh(event.key);}});
-// Draft zachová kontakty při překreslení; součty vždy vycházejí z nového obsahu košíku.
-function cart(draft={}){
-cartStorageRefresh=()=>{renderCart();updateCount();};
-const cart=getCart();main.innerHTML=crumb('Košík')+heading('Objednávka / 2027','Košík',tr('Zkontroluj vstupenky a doplň kontaktní údaje. Nakoupit můžeš s účtem i jako host.','Review your tickets and fill in your contact details. You can buy with an account or as a guest.'));
-if(!cart.length){main.innerHTML+=`<section class="empty"><h2>Košík je prázdný</h2><p class="muted">${tr('Vyber kategorii, počet osob a festivalové dny.','Choose your category, number of people and festival days.')}</p>${link('tickets.html',tr('Vybrat vstupenky →','Choose tickets →'),'button')}</section>`;return;}
-const conflicts=[...bookingConflicts(cart)],accountParts=(user?.name||'').trim().split(/\s+/),accountFirst=user?.firstName||accountParts.shift()||'',accountLast=user?.lastName||accountParts.join(' '),firstName=draft.firstName??draft.name??accountFirst,lastName=draft.lastName??accountLast;
-let activePromo=typeof draft.appliedPromo==='string'?draft.appliedPromo:savedPromo();if(!Object.hasOwn(promoCatalog,activePromo))activePromo='';
-const inputPromo=draft.promoCode??activePromo,campChoice=campingChoice(draft.camping??savedCamping());
-main.innerHTML+=`<div class="seat-layout"><section class="card"><h2>Vybrané vstupenky</h2>${cart.map((t,i)=>`<article class="cart-item"><div><h3>${esc(ticketLabel(t))}</h3><p class="muted">${ticketDate(t)} · ${esc(admissionLabel(t))}</p><p>${money(t.price)} ${conflicts.includes(t)?'<strong class="danger">'+tr('· místo nebo kapacita scény už nejsou dostupné; uprav výběr','· this place or stage capacity is no longer available; edit your selection')+'</strong>':''}</p></div><button type="button" class="secondary small remove-ticket" data-remove="${i}" aria-label="${tr('Odebrat','Remove')} ${esc(ticketLabel(t))}">${removeIcon}</button></article>`).join('')}<p class="total" id="cart-ticket-subtotal">${tr('Cena vstupenek','Ticket subtotal')}: ${money(promoTotals(cart).subtotal)}</p>${cartCapacityHtml(cart)}${link('tickets.html',tr('Upravit výběr / přidat vstupenky →','Edit selection / add tickets →'),'text-button')}</section><section class="card"><p class="eyebrow">Objednávka</p><h2>Dokončení objednávky</h2>${user?`<p>${tr('Přihlášen jako','Signed in as')} <strong class="account-name">${esc(user.name)}</strong></p>`:`<p class="muted">Nakupuješ jako host. ${link('account.html?next=cart','Přihlásit se nebo registrovat →')}</p>`}<form id="checkout" class="form-stack"><div class="checkout-fields grid two"><div class="field"><label for="buyer-name">${tr('Jméno','First name')}</label><input id="buyer-name" name="firstName" required minlength="1" maxlength="80" autocomplete="given-name" value="${esc(firstName)}"></div><div class="field"><label for="buyer-surname">${tr('Příjmení','Last name')}</label><input id="buyer-surname" name="lastName" required minlength="1" maxlength="80" autocomplete="family-name" value="${esc(lastName)}"></div><div class="field"><label for="buyer-email">E-mail</label><input id="buyer-email" name="email" type="email" required maxlength="160" autocomplete="email" value="${esc(draft.email??user?.email??'')}" ${user?'readonly':''}></div><div class="field"><label for="buyer-phone">${tr('Telefon','Phone')}</label><input id="buyer-phone" name="phone" type="tel" required minlength="9" maxlength="30" autocomplete="tel" placeholder="+420 777 123 456" value="${esc(draft.phone??user?.phone??'')}"></div></div><fieldset class="camping-addon"><legend>${tr('Kempování · 1.–4. srpna (3 noci)','Camping · 1–4 August (3 nights)')}</legend><label class="check"><input id="camping-enabled" type="checkbox"><span>${tr('Přidat místo v kempu','Add a camping pitch')}</span></label><p class="count">${tr('Jedno místo pro vlastní stan nebo karavan. Cena zahrnuje všechny tři noci; vybavení není součástí.','One pitch for your own tent or caravan. The price includes all three nights; equipment is not included.')}</p><fieldset id="camping-fields"><legend class="visually-hidden">${tr('Výběr kempu','Camping selection')}</legend><div class="grid two"><div class="field"><label for="camping-type">${tr('Typ místa','Pitch type')}</label><select id="camping-type">${campingCatalog.types.map(t=>`<option value="${t.id}">${t.id==='tent'?tr('Stan','Tent'):tr('Karavan','Caravan')} · ${money(t.price)}</option>`).join('')}</select></div><div class="field"><label for="camping-people">${tr('Počet ubytovaných','Number of campers')}</label><input id="camping-people" type="number" min="1" step="1" inputmode="numeric" value="${esc(campChoice.people)}"></div></div><p id="camping-help" class="count"></p><p id="camping-error" class="error" role="alert"></p></fieldset></fieldset><div class="field promo-field"><label for="promo-code">${tr('Promo kód','Promo code')}</label><div class="actions"><input id="promo-code" name="promoCode" maxlength="32" autocomplete="off" value="${esc(inputPromo)}" aria-describedby="promo-message"><button id="apply-promo" type="button" class="secondary">${tr('Použít','Apply')}</button></div><p id="promo-message" class="count" role="status"></p><small class="muted">${tr('Promo kód snižuje pouze cenu vstupenek. Na kempování se nevztahuje.','Promo codes reduce ticket prices only. They do not apply to camping.')}</small></div><dl class="price-breakdown"><div class="price-row"><dt>${tr('Vstupenky','Tickets')}</dt><dd id="order-subtotal"></dd></div><div class="price-row" id="discount-row" hidden><dt>${tr('Sleva','Discount')} <span id="discount-code" data-no-translate></span></dt><dd id="order-discount"></dd></div><div class="price-row" id="order-camping-row" hidden><dt>${tr('Kempování','Camping')}</dt><dd id="order-camping"></dd></div><div class="price-row"><dt>${tr('Poplatky za objednávku','Booking fees')}</dt><dd>${money(0)}</dd></div><div class="price-row total"><dt>${tr('Cena celkem (včetně DPH)','Total price (including VAT)')}</dt><dd id="order-total"></dd></div><div class="price-row"><dt>${tr('Z toho DPH','Included VAT')} (${taxRate} %)</dt><dd id="order-vat"></dd></div><div class="price-row"><dt>${tr('Cena bez DPH','Price excluding VAT')}</dt><dd id="order-net"></dd></div></dl><div class="field"><label for="payment-method">${tr('Způsob platby','Payment method')}</label><select id="payment-method" name="paymentMethod">${Object.entries(paymentMethods).map(([id,labels])=>`<option value="${id}">${tr(...labels)}</option>`).join('')}</select></div><div class="field"><label for="payment">Výsledek ukázkové platby</label><select id="payment"><option value="success">Simulovat úspěšnou platbu</option><option value="declined">Simulovat zamítnutí</option></select></div><label class="check"><input id="consent" type="checkbox" required><span>Souhlasím s <a href="terms.html">podmínkami objednávky</a> a beru na vědomí <a href="privacy.html">informace o zpracování údajů</a>.</span></label><p id="checkout-error" class="error" role="alert" tabindex="-1">${esc(draft.error||'')}</p><button id="checkout-submit" class="full" ${conflicts.length?'disabled':''}></button></form></section></div>`;
-$('#consent').checked=Boolean(draft.consent);$('#payment').value=draft.payment||'success';$('#payment-method').value=Object.hasOwn(paymentMethods,draft.paymentMethod)?draft.paymentMethod:'card';$('#camping-enabled').checked=campChoice.enabled;$('#camping-type').value=campChoice.type;
-function formCamping(){return campingChoice({enabled:$('#camping-enabled').checked,type:$('#camping-type').value,people:Number($('#camping-people').value)});}
-function formDraft(){return {firstName:$('#buyer-name').value,lastName:$('#buyer-surname').value,email:$('#buyer-email').value,phone:$('#buyer-phone').value,consent:$('#consent').checked,payment:$('#payment').value,paymentMethod:$('#payment-method').value,promoCode:$('#promo-code').value,appliedPromo:activePromo,camping:formCamping()};}
-cartStorageRefresh=key=>{const state=formDraft();if(key==='pulse:promo:'+cartKey()){state.appliedPromo=savedPromo();state.promoCode=state.appliedPromo;}if(key==='pulse:camping:'+cartKey())state.camping=savedCamping();renderCart(state);updateCount();};
-function updateTotals(){const choice=formCamping(),quote=campingQuote(choice),sums=promoTotals(cart,activePromo),campingTotal=quote.camping?.price||0,total=sums.total+campingTotal,tax=includedTax(total),type=campingCatalog.types.find(t=>t.id===choice.type);$('#camping-fields').hidden=!choice.enabled;$('#camping-fields').disabled=!choice.enabled;$('#camping-people').required=choice.enabled;$('#camping-people').max=String(type.maxPeople);$('#camping-help').textContent=tr(`Místo ${money(type.price)} + ${money(campingCatalog.personPrice)} za osobu. Nejvýše ${type.maxPeople} osob. Volných míst: ${campingAvailability(type)}.`,`Pitch ${money(type.price)} + ${money(campingCatalog.personPrice)} per person. Up to ${type.maxPeople} people. Available pitches: ${campingAvailability(type)}.`);$('#camping-error').textContent=quote.error;$('#order-subtotal').textContent=money(sums.subtotal);$('#order-discount').textContent='−'+money(sums.discount);$('#order-total').textContent=money(total);$('#order-vat').textContent=moneyExact(tax.vat);$('#order-net').textContent=moneyExact(tax.net);$('#discount-row').hidden=!sums.discount;$('#discount-code').textContent=sums.promoCode;$('#order-camping-row').hidden=!choice.enabled;$('#order-camping').textContent=quote.error?'—':money(campingTotal);$('#checkout-submit').disabled=Boolean(conflicts.length||quote.error);$('#checkout-submit').textContent=`${paymentAction($('#payment-method').value)} · ${money(total)} →`;return {quote,sums,campingTotal,total,tax};}
-function persistCamping(){save('camping:'+cartKey(),formCamping());updateTotals();}$('#camping-enabled').onchange=persistCamping;$('#camping-type').onchange=()=>{const type=campingCatalog.types.find(t=>t.id===$('#camping-type').value);if(Number($('#camping-people').value)>type.maxPeople)$('#camping-people').value=String(type.maxPeople);persistCamping();};$('#camping-people').oninput=persistCamping;
-function setPromo(code){if(!save('promo:'+cartKey(),{code}))return false;activePromo=code;updateTotals();return true;}
-function applyPromo(){const code=normalizePromo($('#promo-code').value);if(code&&!Object.hasOwn(promoCatalog,code)){$('#promo-message').textContent=tr('Tento promo kód neplatí. Zkontroluj ho nebo pole vymaž.','This promo code is not valid. Check it or clear the field.');setPromo('');return;}if(setPromo(code)){$('#promo-code').value=code;$('#promo-message').textContent=code?tr('Promo kód byl uplatněn.','The promo code has been applied.'):tr('Promo kód byl odebrán.','The promo code has been removed.');}}
-$('#apply-promo').onclick=applyPromo;$('#promo-code').oninput=()=>{if(normalizePromo($('#promo-code').value)!==activePromo){setPromo('');$('#promo-message').textContent=$('#promo-code').value?tr('Zadaný kód potvrď tlačítkem Použít.','Confirm the code using Apply.'):'';}};$('#promo-code').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();applyPromo();}};$('#payment-method').onchange=updateTotals;updateTotals();if(activePromo)$('#promo-message').textContent=tr('Promo kód byl uplatněn.','The promo code has been applied.');
-main.querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>{const state=formDraft(),items=getCart(),remove=cart[Number(b.dataset.remove)],index=items.findIndex(t=>ticketKey(t)===ticketKey(remove));if(index>=0)items.splice(index,1);if(save(cartKey(),items)){updateCount();renderCart(state);}});
-$('#checkout').onsubmit=async e=>{e.preventDefault();await withInventoryLock(()=>{const error=$('#checkout-error');error.textContent='';const firstName=$('#buyer-name').value.trim(),lastName=$('#buyer-surname').value.trim(),name=[firstName,lastName].join(' '),email=$('#buyer-email').value.trim().toLowerCase(),phone=$('#buyer-phone').value.trim(),method=$('#payment-method').value,code=normalizePromo($('#promo-code').value);
-if(!firstName||!lastName||!emailValid(email)){error.textContent=tr('Zkontroluj jméno, příjmení a platný e-mail.','Check your first name, last name and email address.');return;}if(!phoneValid(phone)){error.textContent=tr('Zadej platné telefonní číslo s 9 až 15 číslicemi.','Enter a valid phone number containing 9 to 15 digits.');$('#buyer-phone').focus();return;}if(!Object.hasOwn(paymentMethods,method)){error.textContent=tr('Vyber způsob platby.','Choose a payment method.');return;}if(code&&!Object.hasOwn(promoCatalog,code)){error.textContent=tr('Promo kód neplatí. Oprav ho nebo pole vymaž.','The promo code is not valid. Correct it or clear the field.');$('#promo-code').focus();return;}if(code!==activePromo){error.textContent=tr('Před dokončením nejprve potvrď promo kód tlačítkem Použít.','Apply the promo code before completing your order.');$('#apply-promo').focus();return;}if(!$('#consent').checked){error.textContent=tr('Pro pokračování potvrď podmínky objednávky.','Accept the order terms to continue.');return;}if($('#payment').value==='declined'){error.textContent='Ukázková platba byla zamítnuta. Košík zůstává beze změny. Zkus úspěšnou simulaci.';return;}
-const latest=getCart(),sameSelection=items=>JSON.stringify(items.map(t=>ticketKey(t)+':'+t.price).sort());if(sameSelection(latest)!==sameSelection(cart)){renderCart({...formDraft(),error:tr('Košík se mezitím změnil v jiné kartě. Zkontroluj nový výběr a součet a objednávku potvrď znovu.','The cart changed in another tab. Review the new selection and total, then confirm your order again.')});updateCount();$('#checkout-error')?.focus();return;}
-if(latest.length>maxOrderTickets){error.textContent=tr(`Jedna objednávka může obsahovat nejvýše ${maxOrderTickets} vstupenek. Odeber přebytečné vstupenky.`,`One order can contain at most ${maxOrderTickets} tickets. Remove the extra tickets.`);return;}
-if(!latest.length||bookingConflicts(latest).size){error.textContent=tr('Některé místo nebo kapacita scény už nejsou dostupné. Odeber vstupenku a vyber jinou.','A place or stage capacity is no longer available. Remove the ticket and choose another.');return;}
-const choice=formCamping(),persisted=savedCamping();if(JSON.stringify(choice)!==JSON.stringify(persisted)){renderCart({...formDraft(),camping:persisted,error:tr('Výběr kempu se změnil v jiné kartě. Zkontroluj nový součet a objednávku potvrď znovu.','The camping choice changed in another tab. Review the new total and confirm your order again.')});$('#checkout-error')?.focus();return;}
-const quote=campingQuote(choice);if(quote.error){updateTotals();error.textContent=quote.error;return;}const sums=promoTotals(latest,code),campingTotal=quote.camping?.price||0,total=sums.total+campingTotal,order={id:'PP-'+keyId(),edition:festivalEdition,created:new Date().toISOString(),owner:user?.id||null,name,firstName,lastName,email,phone,paymentMethod:method,...sums,camping:quote.camping,campingTotal,total,tax:includedTax(total),tickets:latest.map(t=>({...ticketFor(t.day,t.seat,t.scope||'day',t.days,admission.venueId(t)),code:keyId()}))};
-if(!save('orders',[...storage.get('orders'),order]))return;save(cartKey(),[]);save('promo:'+cartKey(),{code:''});save('camping:'+cartKey(),campingChoice());updateCount();try{sessionStorage.setItem('pulse:last-order',order.id);}catch{}showOrder(order);});};
-}
+  let cartStorageRefresh = () => {};
+  window.addEventListener('storage', (event) => {
+    if (page === 'cart.html' && (event.key === null || event.key?.startsWith('pulse:'))) {
+      cartStorageRefresh(event.key);
+    }
+  });
+  // Draft zachová kontakty při překreslení; součty vždy vycházejí z nového obsahu košíku.
+  function cart(draft = {}) {
+    cartStorageRefresh = () => {
+      renderCart();
+      updateCount();
+    };
+    const cart = getCart();
+    main.innerHTML =
+      crumb('Košík') +
+      heading(
+        'Objednávka / 2027',
+        'Košík',
+        tr(
+          'Zkontroluj vstupenky a doplň kontaktní údaje. Nakoupit můžeš s účtem i jako host.',
+          'Review your tickets and fill in your contact details. You can buy with an account or as a guest.',
+        ),
+      );
+    if (!cart.length) {
+      main.innerHTML += `<section class="empty"><h2>Košík je prázdný</h2><p class="muted">${tr('Vyber kategorii, počet osob a festivalové dny.', 'Choose your category, number of people and festival days.')}</p>${link('tickets.html', tr('Vybrat vstupenky →', 'Choose tickets →'), 'button')}</section>`;
+      return;
+    }
+    const conflicts = [...bookingConflicts(cart)],
+      accountParts = (user?.name || '').trim().split(/\s+/),
+      accountFirst = user?.firstName || accountParts.shift() || '',
+      accountLast = user?.lastName || accountParts.join(' '),
+      firstName = draft.firstName ?? draft.name ?? accountFirst,
+      lastName = draft.lastName ?? accountLast;
+    let activePromo = typeof draft.appliedPromo === 'string' ? draft.appliedPromo : savedPromo();
+    if (!Object.hasOwn(promoCatalog, activePromo)) activePromo = '';
+    const inputPromo = draft.promoCode ?? activePromo,
+      campChoice = campingChoice(draft.camping ?? savedCamping());
+    main.innerHTML += `<div class="seat-layout"><section class="card"><h2>Vybrané vstupenky</h2>${cart.map((t, i) => `<article class="cart-item"><div><h3>${esc(ticketLabel(t))}</h3><p class="muted">${ticketDate(t)} · ${esc(admissionLabel(t))}</p><p>${money(t.price)} ${conflicts.includes(t) ? '<strong class="danger">' + tr('· místo nebo kapacita scény už nejsou dostupné; uprav výběr', '· this place or stage capacity is no longer available; edit your selection') + '</strong>' : ''}</p></div><button type="button" class="secondary small remove-ticket" data-remove="${i}" aria-label="${tr('Odebrat', 'Remove')} ${esc(ticketLabel(t))}">${removeIcon}</button></article>`).join('')}<p class="total" id="cart-ticket-subtotal">${tr('Cena vstupenek', 'Ticket subtotal')}: ${money(promoTotals(cart).subtotal)}</p>${cartCapacityHtml(cart)}${link('tickets.html', tr('Upravit výběr / přidat vstupenky →', 'Edit selection / add tickets →'), 'text-button')}</section><section class="card"><p class="eyebrow">Objednávka</p><h2>Dokončení objednávky</h2>${user ? `<p>${tr('Přihlášen jako', 'Signed in as')} <strong class="account-name">${esc(user.name)}</strong></p>` : `<p class="muted">Nakupuješ jako host. ${link('account.html?next=cart', 'Přihlásit se nebo registrovat →')}</p>`}<form id="checkout" class="form-stack"><div class="checkout-fields grid two"><div class="field"><label for="buyer-name">${tr('Jméno', 'First name')}</label><input id="buyer-name" name="firstName" required minlength="1" maxlength="80" autocomplete="given-name" value="${esc(firstName)}"></div><div class="field"><label for="buyer-surname">${tr('Příjmení', 'Last name')}</label><input id="buyer-surname" name="lastName" required minlength="1" maxlength="80" autocomplete="family-name" value="${esc(lastName)}"></div><div class="field"><label for="buyer-email">E-mail</label><input id="buyer-email" name="email" type="email" required maxlength="160" autocomplete="email" value="${esc(draft.email ?? user?.email ?? '')}" ${user ? 'readonly' : ''}></div><div class="field"><label for="buyer-phone">${tr('Telefon', 'Phone')}</label><input id="buyer-phone" name="phone" type="tel" required minlength="9" maxlength="30" autocomplete="tel" placeholder="+420 777 123 456" value="${esc(draft.phone ?? user?.phone ?? '')}"></div></div><fieldset class="camping-addon"><legend>${tr('Kempování · 1.–4. srpna (3 noci)', 'Camping · 1–4 August (3 nights)')}</legend><label class="check"><input id="camping-enabled" type="checkbox"><span>${tr('Přidat místo v kempu', 'Add a camping pitch')}</span></label><p class="count">${tr('Jedno místo pro vlastní stan nebo karavan. Cena zahrnuje všechny tři noci; vybavení není součástí.', 'One pitch for your own tent or caravan. The price includes all three nights; equipment is not included.')}</p><fieldset id="camping-fields"><legend class="visually-hidden">${tr('Výběr kempu', 'Camping selection')}</legend><div class="grid two"><div class="field"><label for="camping-type">${tr('Typ místa', 'Pitch type')}</label><select id="camping-type">${campingCatalog.types.map((t) => `<option value="${t.id}">${t.id === 'tent' ? tr('Stan', 'Tent') : tr('Karavan', 'Caravan')} · ${money(t.price)}</option>`).join('')}</select></div><div class="field"><label for="camping-people">${tr('Počet ubytovaných', 'Number of campers')}</label><input id="camping-people" type="number" min="1" step="1" inputmode="numeric" value="${esc(campChoice.people)}"></div></div><p id="camping-help" class="count"></p><p id="camping-error" class="error" role="alert"></p></fieldset></fieldset><div class="field promo-field"><label for="promo-code">${tr('Promo kód', 'Promo code')}</label><div class="actions"><input id="promo-code" name="promoCode" maxlength="32" autocomplete="off" value="${esc(inputPromo)}" aria-describedby="promo-message"><button id="apply-promo" type="button" class="secondary">${tr('Použít', 'Apply')}</button></div><p id="promo-message" class="count" role="status"></p><small class="muted">${tr('Promo kód snižuje pouze cenu vstupenek. Na kempování se nevztahuje.', 'Promo codes reduce ticket prices only. They do not apply to camping.')}</small></div><dl class="price-breakdown"><div class="price-row"><dt>${tr('Vstupenky', 'Tickets')}</dt><dd id="order-subtotal"></dd></div><div class="price-row" id="discount-row" hidden><dt>${tr('Sleva', 'Discount')} <span id="discount-code" data-no-translate></span></dt><dd id="order-discount"></dd></div><div class="price-row" id="order-camping-row" hidden><dt>${tr('Kempování', 'Camping')}</dt><dd id="order-camping"></dd></div><div class="price-row"><dt>${tr('Poplatky za objednávku', 'Booking fees')}</dt><dd>${money(0)}</dd></div><div class="price-row total"><dt>${tr('Cena celkem (včetně DPH)', 'Total price (including VAT)')}</dt><dd id="order-total"></dd></div><div class="price-row"><dt>${tr('Z toho DPH', 'Included VAT')} (${taxRate} %)</dt><dd id="order-vat"></dd></div><div class="price-row"><dt>${tr('Cena bez DPH', 'Price excluding VAT')}</dt><dd id="order-net"></dd></div></dl><div class="field"><label for="payment-method">${tr('Způsob platby', 'Payment method')}</label><select id="payment-method" name="paymentMethod">${Object.entries(
+      paymentMethods,
+    )
+      .map(([id, labels]) => `<option value="${id}">${tr(...labels)}</option>`)
+      .join(
+        '',
+      )}</select></div><div class="field"><label for="payment">Výsledek ukázkové platby</label><select id="payment"><option value="success">Simulovat úspěšnou platbu</option><option value="declined">Simulovat zamítnutí</option></select></div><label class="check"><input id="consent" type="checkbox" required><span>Souhlasím s <a href="terms.html">podmínkami objednávky</a> a beru na vědomí <a href="privacy.html">informace o zpracování údajů</a>.</span></label><p id="checkout-error" class="error" role="alert" tabindex="-1">${esc(draft.error || '')}</p><button id="checkout-submit" class="full" ${conflicts.length ? 'disabled' : ''}></button></form></section></div>`;
+    $('#consent').checked = Boolean(draft.consent);
+    $('#payment').value = draft.payment || 'success';
+    $('#payment-method').value = Object.hasOwn(paymentMethods, draft.paymentMethod)
+      ? draft.paymentMethod
+      : 'card';
+    $('#camping-enabled').checked = campChoice.enabled;
+    $('#camping-type').value = campChoice.type;
+    function formCamping() {
+      return campingChoice({
+        enabled: $('#camping-enabled').checked,
+        type: $('#camping-type').value,
+        people: Number($('#camping-people').value),
+      });
+    }
+    function formDraft() {
+      return {
+        firstName: $('#buyer-name').value,
+        lastName: $('#buyer-surname').value,
+        email: $('#buyer-email').value,
+        phone: $('#buyer-phone').value,
+        consent: $('#consent').checked,
+        payment: $('#payment').value,
+        paymentMethod: $('#payment-method').value,
+        promoCode: $('#promo-code').value,
+        appliedPromo: activePromo,
+        camping: formCamping(),
+      };
+    }
+    cartStorageRefresh = (key) => {
+      const state = formDraft();
+      if (key === 'pulse:promo:' + cartKey()) {
+        state.appliedPromo = savedPromo();
+        state.promoCode = state.appliedPromo;
+      }
+      if (key === 'pulse:camping:' + cartKey()) state.camping = savedCamping();
+      renderCart(state);
+      updateCount();
+    };
+    function updateTotals() {
+      const choice = formCamping(),
+        quote = campingQuote(choice),
+        sums = promoTotals(cart, activePromo),
+        campingTotal = quote.camping?.price || 0,
+        total = sums.total + campingTotal,
+        tax = includedTax(total),
+        type = campingCatalog.types.find((t) => t.id === choice.type);
+      $('#camping-fields').hidden = !choice.enabled;
+      $('#camping-fields').disabled = !choice.enabled;
+      $('#camping-people').required = choice.enabled;
+      $('#camping-people').max = String(type.maxPeople);
+      $('#camping-help').textContent = tr(
+        `Místo ${money(type.price)} + ${money(campingCatalog.personPrice)} za osobu. Nejvýše ${type.maxPeople} osob. Volných míst: ${campingAvailability(type)}.`,
+        `Pitch ${money(type.price)} + ${money(campingCatalog.personPrice)} per person. Up to ${type.maxPeople} people. Available pitches: ${campingAvailability(type)}.`,
+      );
+      $('#camping-error').textContent = quote.error;
+      $('#order-subtotal').textContent = money(sums.subtotal);
+      $('#order-discount').textContent = '−' + money(sums.discount);
+      $('#order-total').textContent = money(total);
+      $('#order-vat').textContent = moneyExact(tax.vat);
+      $('#order-net').textContent = moneyExact(tax.net);
+      $('#discount-row').hidden = !sums.discount;
+      $('#discount-code').textContent = sums.promoCode;
+      $('#order-camping-row').hidden = !choice.enabled;
+      $('#order-camping').textContent = quote.error ? '—' : money(campingTotal);
+      $('#checkout-submit').disabled = Boolean(conflicts.length || quote.error);
+      $('#checkout-submit').textContent =
+        `${paymentAction($('#payment-method').value)} · ${money(total)} →`;
+      return { quote, sums, campingTotal, total, tax };
+    }
+    function persistCamping() {
+      save('camping:' + cartKey(), formCamping());
+      updateTotals();
+    }
+    $('#camping-enabled').onchange = persistCamping;
+    $('#camping-type').onchange = () => {
+      const type = campingCatalog.types.find((t) => t.id === $('#camping-type').value);
+      if (Number($('#camping-people').value) > type.maxPeople)
+        $('#camping-people').value = String(type.maxPeople);
+      persistCamping();
+    };
+    $('#camping-people').oninput = persistCamping;
+    function setPromo(code) {
+      if (!save('promo:' + cartKey(), { code })) return false;
+      activePromo = code;
+      updateTotals();
+      return true;
+    }
+    function applyPromo() {
+      const code = normalizePromo($('#promo-code').value);
+      if (code && !Object.hasOwn(promoCatalog, code)) {
+        $('#promo-message').textContent = tr(
+          'Tento promo kód neplatí. Zkontroluj ho nebo pole vymaž.',
+          'This promo code is not valid. Check it or clear the field.',
+        );
+        setPromo('');
+        return;
+      }
+      if (setPromo(code)) {
+        $('#promo-code').value = code;
+        $('#promo-message').textContent = code
+          ? tr('Promo kód byl uplatněn.', 'The promo code has been applied.')
+          : tr('Promo kód byl odebrán.', 'The promo code has been removed.');
+      }
+    }
+    $('#apply-promo').onclick = applyPromo;
+    $('#promo-code').oninput = () => {
+      if (normalizePromo($('#promo-code').value) !== activePromo) {
+        setPromo('');
+        $('#promo-message').textContent = $('#promo-code').value
+          ? tr('Zadaný kód potvrď tlačítkem Použít.', 'Confirm the code using Apply.')
+          : '';
+      }
+    };
+    $('#promo-code').onkeydown = (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        applyPromo();
+      }
+    };
+    $('#payment-method').onchange = updateTotals;
+    updateTotals();
+    if (activePromo)
+      $('#promo-message').textContent = tr(
+        'Promo kód byl uplatněn.',
+        'The promo code has been applied.',
+      );
+    main.querySelectorAll('[data-remove]').forEach(
+      (b) =>
+        (b.onclick = () => {
+          const state = formDraft(),
+            items = getCart(),
+            remove = cart[Number(b.dataset.remove)],
+            index = items.findIndex((t) => ticketKey(t) === ticketKey(remove));
+          if (index >= 0) items.splice(index, 1);
+          if (save(cartKey(), items)) {
+            updateCount();
+            renderCart(state);
+          }
+        }),
+    );
+    $('#checkout').onsubmit = async (e) => {
+      e.preventDefault();
+      await withInventoryLock(() => {
+        const error = $('#checkout-error');
+        error.textContent = '';
+        const firstName = $('#buyer-name').value.trim(),
+          lastName = $('#buyer-surname').value.trim(),
+          name = [firstName, lastName].join(' '),
+          email = $('#buyer-email').value.trim().toLowerCase(),
+          phone = $('#buyer-phone').value.trim(),
+          method = $('#payment-method').value,
+          code = normalizePromo($('#promo-code').value);
+        if (!firstName || !lastName || !emailValid(email)) {
+          error.textContent = tr(
+            'Zkontroluj jméno, příjmení a platný e-mail.',
+            'Check your first name, last name and email address.',
+          );
+          return;
+        }
+        if (!phoneValid(phone)) {
+          error.textContent = tr(
+            'Zadej platné telefonní číslo s 9 až 15 číslicemi.',
+            'Enter a valid phone number containing 9 to 15 digits.',
+          );
+          $('#buyer-phone').focus();
+          return;
+        }
+        if (!Object.hasOwn(paymentMethods, method)) {
+          error.textContent = tr('Vyber způsob platby.', 'Choose a payment method.');
+          return;
+        }
+        if (code && !Object.hasOwn(promoCatalog, code)) {
+          error.textContent = tr(
+            'Promo kód neplatí. Oprav ho nebo pole vymaž.',
+            'The promo code is not valid. Correct it or clear the field.',
+          );
+          $('#promo-code').focus();
+          return;
+        }
+        if (code !== activePromo) {
+          error.textContent = tr(
+            'Před dokončením nejprve potvrď promo kód tlačítkem Použít.',
+            'Apply the promo code before completing your order.',
+          );
+          $('#apply-promo').focus();
+          return;
+        }
+        if (!$('#consent').checked) {
+          error.textContent = tr(
+            'Pro pokračování potvrď podmínky objednávky.',
+            'Accept the order terms to continue.',
+          );
+          return;
+        }
+        if ($('#payment').value === 'declined') {
+          error.textContent =
+            'Ukázková platba byla zamítnuta. Košík zůstává beze změny. Zkus úspěšnou simulaci.';
+          return;
+        }
+        const latest = getCart(),
+          sameSelection = (items) =>
+            JSON.stringify(items.map((t) => ticketKey(t) + ':' + t.price).sort());
+        if (sameSelection(latest) !== sameSelection(cart)) {
+          renderCart({
+            ...formDraft(),
+            error: tr(
+              'Košík se mezitím změnil v jiné kartě. Zkontroluj nový výběr a součet a objednávku potvrď znovu.',
+              'The cart changed in another tab. Review the new selection and total, then confirm your order again.',
+            ),
+          });
+          updateCount();
+          $('#checkout-error')?.focus();
+          return;
+        }
+        if (latest.length > maxOrderTickets) {
+          error.textContent = tr(
+            `Jedna objednávka může obsahovat nejvýše ${maxOrderTickets} vstupenek. Odeber přebytečné vstupenky.`,
+            `One order can contain at most ${maxOrderTickets} tickets. Remove the extra tickets.`,
+          );
+          return;
+        }
+        if (!latest.length || bookingConflicts(latest).size) {
+          error.textContent = tr(
+            'Některé místo nebo kapacita scény už nejsou dostupné. Odeber vstupenku a vyber jinou.',
+            'A place or stage capacity is no longer available. Remove the ticket and choose another.',
+          );
+          return;
+        }
+        const choice = formCamping(),
+          persisted = savedCamping();
+        if (JSON.stringify(choice) !== JSON.stringify(persisted)) {
+          renderCart({
+            ...formDraft(),
+            camping: persisted,
+            error: tr(
+              'Výběr kempu se změnil v jiné kartě. Zkontroluj nový součet a objednávku potvrď znovu.',
+              'The camping choice changed in another tab. Review the new total and confirm your order again.',
+            ),
+          });
+          $('#checkout-error')?.focus();
+          return;
+        }
+        const quote = campingQuote(choice);
+        if (quote.error) {
+          updateTotals();
+          error.textContent = quote.error;
+          return;
+        }
+        const sums = promoTotals(latest, code),
+          campingTotal = quote.camping?.price || 0,
+          total = sums.total + campingTotal,
+          order = {
+            id: 'PP-' + keyId(),
+            edition: festivalEdition,
+            created: new Date().toISOString(),
+            owner: user?.id || null,
+            name,
+            firstName,
+            lastName,
+            email,
+            phone,
+            paymentMethod: method,
+            ...sums,
+            camping: quote.camping,
+            campingTotal,
+            total,
+            tax: includedTax(total),
+            tickets: latest.map((t) => ({
+              ...ticketFor(t.day, t.seat, t.scope || 'day', t.days, admission.venueId(t)),
+              code: keyId(),
+            })),
+          };
+        if (!save('orders', [...storage.get('orders'), order])) return;
+        save(cartKey(), []);
+        save('promo:' + cartKey(), { code: '' });
+        save('camping:' + cartKey(), campingChoice());
+        updateCount();
+        try {
+          sessionStorage.setItem('pulse:last-order', order.id);
+        } catch {}
+        showOrder(order);
+      });
+    };
+  }
 
-const renderCart=cart;
-function emailValid(s){return s.length<=160&&/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(s);}
-async function download(o){
-const buttons=[...main.querySelectorAll('[data-download]')].filter(b=>b.dataset.download===o.id);
-buttons.forEach(b=>{b.disabled=true;b.setAttribute('aria-busy','true');});
-try{await window.PulseTickets.download(o);toast('PDF vstupenky byly připraveny ke stažení.');}
-catch(error){console.error('PDF generation failed',error);toast('PDF se nepodařilo vytvořit. Zkus to znovu.');}
-finally{buttons.forEach(b=>{b.disabled=false;b.removeAttribute('aria-busy');});}
-}
-function orderHtml(o){return `<article class="order card"><p class="eyebrow">Dokončená objednávka</p><h2 class="order-id">Objednávka ${esc(o.id)}</h2><p data-no-translate>${esc(o.name)} · ${esc(o.email)}</p><p class="count">${new Date(o.created).toLocaleString(locale)}</p>${o.campingIssue?`<p class="notice">${tr('Údaje o kempu nejsou úplné. PDF obsahuje pouze festivalové vstupenky; uložený celkový součet objednávky zůstává beze změny.','Camping details are incomplete. The PDF contains festival tickets only; the saved order total remains unchanged.')}</p>`:''}<div class="ticket-list">${o.tickets.map((t,i)=>`<div class="ticket-paper"><span class="badge">PRAGUE PULSE FEST</span><h3>${esc(ticketLabel(t))}</h3><p>${ticketDate(t,o.edition??2026)} · ${tr('Výstaviště Praha','Výstaviště Praha')}<br>${durationLabel(ticketDays(t).length)} · ${esc(admissionLabel(t))}</p><p>${tr('Ceníková cena','List price')}: ${money(t.price)} · ${tr('Kód','Code')}: <span class="order-id">${esc(t.code||o.id+'-'+(i+1))}</span></p></div>`).join('')}${o.camping?`<div class="ticket-paper camping-voucher"><span class="badge">${tr('KEMPOVÁNÍ','CAMPING')}</span><h3>${o.camping.type==='tent'?tr('Stan','Tent'):tr('Karavan','Caravan')} · ${Number(o.camping.people)} ${tr('osob','people')}</h3><p>${tr('1.–4. srpna','1–4 August')} ${o.edition??2026} · ${tr('3 noci, jedno místo','3 nights, one pitch')}</p><p>${money(o.camping.price)}</p></div>`:''}</div>${o.campingIssue?`<p class="total">${tr('Uložená cena objednávky','Saved order total')}: ${money(o.total)}</p>`:`<dl class="price-breakdown"><div class="price-row"><dt>${tr('Cena vstupenek','Ticket subtotal')}</dt><dd>${money(o.subtotal??o.tickets.reduce((sum,t)=>sum+t.price,0))}</dd></div>${o.discount?`<div class="price-row"><dt>${tr('Sleva','Discount')} <span data-no-translate>${esc(o.promoCode)}</span></dt><dd>−${money(o.discount)}</dd></div>`:''}${o.camping?`<div class="price-row"><dt>${tr('Kempování','Camping')}</dt><dd>${money(o.campingTotal??o.camping.price)}</dd></div>`:''}<div class="price-row total"><dt>${o.tax?tr('Cena celkem (včetně DPH)','Total price (including VAT)'):tr('Cena celkem','Total price')}</dt><dd>${money(o.total)}</dd></div>${o.tax?`<div class="price-row"><dt>${tr('Z toho DPH','Included VAT')} (${Number(o.tax.rate)} %)</dt><dd>${moneyExact(o.tax.vat)}</dd></div><div class="price-row"><dt>${tr('Cena bez DPH','Price excluding VAT')}</dt><dd>${moneyExact(o.tax.net)}</dd></div>`:''}</dl>`}${o.paymentMethod?`<p>${tr('Způsob platby','Payment method')}: ${esc(tr(...(Object.hasOwn(paymentMethods,o.paymentMethod)?paymentMethods[o.paymentMethod]:[o.paymentMethod,o.paymentMethod])))}</p>`:''}<div class="actions order-download"><button data-download="${esc(o.id)}">Stáhnout PDF vstupenky ↓</button></div></article>`;}
+  const renderCart = cart;
+  function emailValid(s) {
+    return s.length <= 160 && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(s);
+  }
+  async function download(o) {
+    const buttons = [...main.querySelectorAll('[data-download]')].filter(
+      (b) => b.dataset.download === o.id,
+    );
+    buttons.forEach((b) => {
+      b.disabled = true;
+      b.setAttribute('aria-busy', 'true');
+    });
+    try {
+      await window.PulseTickets.download(o);
+      toast('PDF vstupenky byly připraveny ke stažení.');
+    } catch (error) {
+      console.error('PDF generation failed', error);
+      toast('PDF se nepodařilo vytvořit. Zkus to znovu.');
+    } finally {
+      buttons.forEach((b) => {
+        b.disabled = false;
+        b.removeAttribute('aria-busy');
+      });
+    }
+  }
+  function orderHtml(o) {
+    return `<article class="order card"><p class="eyebrow">Dokončená objednávka</p><h2 class="order-id">Objednávka ${esc(o.id)}</h2><p data-no-translate>${esc(o.name)} · ${esc(o.email)}</p><p class="count">${new Date(o.created).toLocaleString(locale)}</p>${o.campingIssue ? `<p class="notice">${tr('Údaje o kempu nejsou úplné. PDF obsahuje pouze festivalové vstupenky; uložený celkový součet objednávky zůstává beze změny.', 'Camping details are incomplete. The PDF contains festival tickets only; the saved order total remains unchanged.')}</p>` : ''}<div class="ticket-list">${o.tickets.map((t, i) => `<div class="ticket-paper"><span class="badge">PRAGUE PULSE FEST</span><h3>${esc(ticketLabel(t))}</h3><p>${ticketDate(t, o.edition ?? 2026)} · ${tr('Výstaviště Praha', 'Výstaviště Praha')}<br>${durationLabel(ticketDays(t).length)} · ${esc(admissionLabel(t))}</p><p>${tr('Ceníková cena', 'List price')}: ${money(t.price)} · ${tr('Kód', 'Code')}: <span class="order-id">${esc(t.code || o.id + '-' + (i + 1))}</span></p></div>`).join('')}${o.camping ? `<div class="ticket-paper camping-voucher"><span class="badge">${tr('KEMPOVÁNÍ', 'CAMPING')}</span><h3>${o.camping.type === 'tent' ? tr('Stan', 'Tent') : tr('Karavan', 'Caravan')} · ${Number(o.camping.people)} ${tr('osob', 'people')}</h3><p>${tr('1.–4. srpna', '1–4 August')} ${o.edition ?? 2026} · ${tr('3 noci, jedno místo', '3 nights, one pitch')}</p><p>${money(o.camping.price)}</p></div>` : ''}</div>${o.campingIssue ? `<p class="total">${tr('Uložená cena objednávky', 'Saved order total')}: ${money(o.total)}</p>` : `<dl class="price-breakdown"><div class="price-row"><dt>${tr('Cena vstupenek', 'Ticket subtotal')}</dt><dd>${money(o.subtotal ?? o.tickets.reduce((sum, t) => sum + t.price, 0))}</dd></div>${o.discount ? `<div class="price-row"><dt>${tr('Sleva', 'Discount')} <span data-no-translate>${esc(o.promoCode)}</span></dt><dd>−${money(o.discount)}</dd></div>` : ''}${o.camping ? `<div class="price-row"><dt>${tr('Kempování', 'Camping')}</dt><dd>${money(o.campingTotal ?? o.camping.price)}</dd></div>` : ''}<div class="price-row total"><dt>${o.tax ? tr('Cena celkem (včetně DPH)', 'Total price (including VAT)') : tr('Cena celkem', 'Total price')}</dt><dd>${money(o.total)}</dd></div>${o.tax ? `<div class="price-row"><dt>${tr('Z toho DPH', 'Included VAT')} (${Number(o.tax.rate)} %)</dt><dd>${moneyExact(o.tax.vat)}</dd></div><div class="price-row"><dt>${tr('Cena bez DPH', 'Price excluding VAT')}</dt><dd>${moneyExact(o.tax.net)}</dd></div>` : ''}</dl>`}${o.paymentMethod ? `<p>${tr('Způsob platby', 'Payment method')}: ${esc(tr(...(Object.hasOwn(paymentMethods, o.paymentMethod) ? paymentMethods[o.paymentMethod] : [o.paymentMethod, o.paymentMethod])))}</p>` : ''}<div class="actions order-download"><button data-download="${esc(o.id)}">Stáhnout PDF vstupenky ↓</button></div></article>`;
+  }
 
-function showOrder(o){cartStorageRefresh=()=>{};main.innerHTML=crumb('Dokončená objednávka')+heading('Objednávka dokončena','Vstupenky ke stažení')+`<p class="notice">${o.owner?'Objednávku najdeš i v historii svého účtu.':'Vstupenky si stáhni a uschovej číslo objednávky.'}</p>`+orderHtml(o)+link('index.html','Zpět na festival →','text-button');main.focus();window.scrollTo(0,0);}
-function bytesToHex(a){return [...new Uint8Array(a)].map(x=>x.toString(16).padStart(2,'0')).join('');}
-async function passwordHash(password,salt){if(!crypto.subtle)throw new Error('Tento prohlížeč nepodporuje bezpečné zpracování hesla. Použij moderní prohlížeč.');const key=await crypto.subtle.importKey('raw',new TextEncoder().encode(password),'PBKDF2',false,['deriveBits']);return bytesToHex(await crypto.subtle.deriveBits({name:'PBKDF2',salt:new TextEncoder().encode(salt),iterations:120000,hash:'SHA-256'},key,256));}
-function account(){
-window.PulseAccount.render({main,$,esc,tr,locale,crumb,heading,link,storage,save,toast,shell,routeUrl,emailValid,phoneValid,passwordHash,keyId,orderHtml,getUser:()=>user,setUser:value=>{user=value;},login:found=>{
-const guest=getCart(),guestPromo=savedPromo(),guestCamping=savedCamping();rememberLogin(found.id);user=found;if(guest.length){const merged=[...getCart()];
-// Standing references identify people, so guest and account quantities are added together.
-for(const ticket of guest){
-if(ticket.category==='standing'){
-let item=ticket;
-if(merged.some(other=>ticketKey(other)===ticketKey(ticket))){
-const freeReference=admission.available({venueId:admission.venueId(ticket),category:'standing',days:ticketDays(ticket),cart:merged,orders:[],edition:festivalEdition})[0];
-if(freeReference)item=ticketFor(ticket.day,freeReference,ticket.scope||'day',ticket.days,admission.venueId(ticket));
-}
-merged.push(item);
-}else if(!merged.some(other=>overlaps(other,ticket)))merged.push(ticket);
-}
-if(save(cartKey(),merged)){save('cart:guest',[]);if(guestPromo&&!savedPromo())save('promo:'+cartKey(),{code:guestPromo});if(guestCamping.enabled&&!savedCamping().enabled)save('camping:'+cartKey(),guestCamping);save('promo:cart:guest',{code:''});save('camping:cart:guest',campingChoice());}}location.href=routeUrl(new URLSearchParams(location.search).get('next')==='cart'?'cart.html':'account.html');
-}});
-}
+  function showOrder(o) {
+    cartStorageRefresh = () => {};
+    main.innerHTML =
+      crumb('Dokončená objednávka') +
+      heading('Objednávka dokončena', 'Vstupenky ke stažení') +
+      `<p class="notice">${o.owner ? 'Objednávku najdeš i v historii svého účtu.' : 'Vstupenky si stáhni a uschovej číslo objednávky.'}</p>` +
+      orderHtml(o) +
+      link('index.html', 'Zpět na festival →', 'text-button');
+    main.focus();
+    window.scrollTo(0, 0);
+  }
+  function bytesToHex(a) {
+    return [...new Uint8Array(a)].map((x) => x.toString(16).padStart(2, '0')).join('');
+  }
+  async function passwordHash(password, salt) {
+    if (!crypto.subtle)
+      throw new Error(
+        'Tento prohlížeč nepodporuje bezpečné zpracování hesla. Použij moderní prohlížeč.',
+      );
+    const key = await crypto.subtle.importKey(
+      'raw',
+      new TextEncoder().encode(password),
+      'PBKDF2',
+      false,
+      ['deriveBits'],
+    );
+    return bytesToHex(
+      await crypto.subtle.deriveBits(
+        {
+          name: 'PBKDF2',
+          salt: new TextEncoder().encode(salt),
+          iterations: 120000,
+          hash: 'SHA-256',
+        },
+        key,
+        256,
+      ),
+    );
+  }
+  function account() {
+    window.PulseAccount.render({
+      main,
+      $,
+      esc,
+      tr,
+      locale,
+      crumb,
+      heading,
+      link,
+      storage,
+      save,
+      toast,
+      shell,
+      routeUrl,
+      emailValid,
+      phoneValid,
+      passwordHash,
+      keyId,
+      orderHtml,
+      getUser: () => user,
+      setUser: (value) => {
+        user = value;
+      },
+      login: (found) => {
+        const guest = getCart(),
+          guestPromo = savedPromo(),
+          guestCamping = savedCamping();
+        rememberLogin(found.id);
+        user = found;
+        if (guest.length) {
+          const merged = [...getCart()];
+          // Standing references identify people, so guest and account quantities are added together.
+          for (const ticket of guest) {
+            if (ticket.category === 'standing') {
+              let item = ticket;
+              if (merged.some((other) => ticketKey(other) === ticketKey(ticket))) {
+                const freeReference = admission.available({
+                  venueId: admission.venueId(ticket),
+                  category: 'standing',
+                  days: ticketDays(ticket),
+                  cart: merged,
+                  orders: [],
+                  edition: festivalEdition,
+                })[0];
+                if (freeReference)
+                  item = ticketFor(
+                    ticket.day,
+                    freeReference,
+                    ticket.scope || 'day',
+                    ticket.days,
+                    admission.venueId(ticket),
+                  );
+              }
+              merged.push(item);
+            } else if (!merged.some((other) => overlaps(other, ticket))) merged.push(ticket);
+          }
+          if (save(cartKey(), merged)) {
+            save('cart:guest', []);
+            if (guestPromo && !savedPromo()) save('promo:' + cartKey(), { code: guestPromo });
+            if (guestCamping.enabled && !savedCamping().enabled)
+              save('camping:' + cartKey(), guestCamping);
+            save('promo:cart:guest', { code: '' });
+            save('camping:cart:guest', campingChoice());
+          }
+        }
+        location.href = routeUrl(
+          new URLSearchParams(location.search).get('next') === 'cart'
+            ? 'cart.html'
+            : 'account.html',
+        );
+      },
+    });
+  }
 
-document.addEventListener('click',e=>{const a=e.target.closest('[data-artist]');if(a&&a.tagName!=='A')artistDetail(a.dataset.artist);const event=e.target.closest('[data-event]');if(event)eventDetail(event.dataset.event);const f=e.target.closest('[data-fav]');if(f){const fav=storage.get('favorites'),id=f.dataset.fav;const next=fav.includes(id)?fav.filter(x=>x!==id):[...fav,id];if(save('favorites',next)){f.setAttribute('aria-pressed',next.includes(id));f.textContent=next.includes(id)?'♥ Uloženo':'♡ Uložit';main.dispatchEvent(new Event('favorites-changed'));(main.querySelector(`[data-fav="${id}"]`)||$('#only-favorites'))?.focus();}}const dl=e.target.closest('[data-download]');if(dl){const o=storage.get('orders').find(x=>x.id===dl.dataset.download);if(o&&(o.owner===user?.id||(!o.owner&&o.id===sessionStorage.getItem('pulse:last-order'))))download(o);}});
-shell();const routes={'index.html':home,'program.html':program,'performers.html':performers,'performer.html':artistPage,'venues.html':venues,'info.html':info,'search.html':search,'tickets.html':tickets,'cart.html':renderCart,'account.html':account,'news.html':()=>window.PulseNews.render(main,new URLSearchParams(location.search).get('id')),'privacy.html':()=>window.PulseVisitor.render(main,'privacy.html'),'terms.html':()=>window.PulseVisitor.render(main,'terms.html'),'credits.html':()=>window.PulseVisitor.render(main,'credits.html')};try{(routes[page]||home)();window.PulseCapacity?.mount(main);}catch(err){console.error(err);main.innerHTML=heading('Něco se nepodařilo','Zkus to prosím znovu.')+'<p>Pokud problém přetrvává, otevři web v aktuálním prohlížeči s povoleným místním úložištěm.</p>';}
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('[data-artist]');
+    if (a && a.tagName !== 'A') artistDetail(a.dataset.artist);
+    const event = e.target.closest('[data-event]');
+    if (event) eventDetail(event.dataset.event);
+    const f = e.target.closest('[data-fav]');
+    if (f) {
+      const fav = storage.get('favorites'),
+        id = f.dataset.fav;
+      const next = fav.includes(id) ? fav.filter((x) => x !== id) : [...fav, id];
+      if (save('favorites', next)) {
+        f.setAttribute('aria-pressed', next.includes(id));
+        f.textContent = next.includes(id) ? '♥ Uloženo' : '♡ Uložit';
+        main.dispatchEvent(new Event('favorites-changed'));
+        (main.querySelector(`[data-fav="${id}"]`) || $('#only-favorites'))?.focus();
+      }
+    }
+    const dl = e.target.closest('[data-download]');
+    if (dl) {
+      const o = storage.get('orders').find((x) => x.id === dl.dataset.download);
+      if (
+        o &&
+        (o.owner === user?.id || (!o.owner && o.id === sessionStorage.getItem('pulse:last-order')))
+      )
+        download(o);
+    }
+  });
+  shell();
+  const routes = {
+    'index.html': home,
+    'program.html': program,
+    'performers.html': performers,
+    'performer.html': artistPage,
+    'venues.html': venues,
+    'info.html': info,
+    'search.html': search,
+    'tickets.html': tickets,
+    'cart.html': renderCart,
+    'account.html': account,
+    'news.html': () =>
+      window.PulseNews.render(main, new URLSearchParams(location.search).get('id')),
+    'privacy.html': () => window.PulseVisitor.render(main, 'privacy.html'),
+    'terms.html': () => window.PulseVisitor.render(main, 'terms.html'),
+    'credits.html': () => window.PulseVisitor.render(main, 'credits.html'),
+  };
+  try {
+    (routes[page] || home)();
+    window.PulseCapacity?.mount(main);
+  } catch (err) {
+    console.error(err);
+    main.innerHTML =
+      heading('Něco se nepodařilo', 'Zkus to prosím znovu.') +
+      '<p>Pokud problém přetrvává, otevři web v aktuálním prohlížeči s povoleným místním úložištěm.</p>';
+  }
 })();
