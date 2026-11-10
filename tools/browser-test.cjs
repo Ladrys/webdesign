@@ -6,7 +6,7 @@ class BrowserTest {
  send(method,params={}){const id=++this.sequence;return new Promise((resolve,reject)=>{this.pending.set(id,{resolve,reject});this.ws.send(JSON.stringify({id,method,params}));});}
  async evaluate(expression){const r=await this.send('Runtime.evaluate',{expression,returnByValue:true,awaitPromise:true});if(r.exceptionDetails)throw Error(r.exceptionDetails.exception?.description||r.exceptionDetails.text);return r.result.value;}
  async goto(page){const before=await this.evaluate('performance.timeOrigin');await this.send('Page.navigate',{url:page.startsWith('file:')?page:'http://127.0.0.1:'+(process.env.PULSE_TEST_PORT||4173)+'/web/'+page});for(let i=0;i<150;i++){await new Promise(r=>setTimeout(r,50));try{if(await this.evaluate(`performance.timeOrigin!==${before}&&document.readyState==='complete'&&Boolean(window.PulseI18n)&&Boolean(document.querySelector('main h1'))`))return;}catch{}}throw Error('Page did not load '+page);}
- async screenshot(name){const r=await this.send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});fs.mkdirSync(path.dirname(name),{recursive:true});fs.writeFileSync(name,Buffer.from(r.data,'base64'));}
+ async screenshot(name){const format=/\.jpe?g$/i.test(name)?'jpeg':'png';const r=await this.send('Page.captureScreenshot',{format,...(format==='jpeg'?{quality:82}:{}),captureBeyondViewport:false});fs.mkdirSync(path.dirname(name),{recursive:true});fs.writeFileSync(name,Buffer.from(r.data,'base64'));}
  close(){this.ws.close();}
 }
 module.exports=BrowserTest;

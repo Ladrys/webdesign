@@ -28,6 +28,7 @@ foreach($name in @('web','prototype')){Copy-Item -LiteralPath ($root+'/'+$name) 
 foreach($name in @('project-specification.md','documentation.md','data.xml','festival.xsd','validation_report.md')){Copy-Item -LiteralPath ($root+'/'+$name) -Destination $final}
 foreach($name in @('docs','preview','review')){[IO.Directory]::CreateDirectory($final+'/'+$name)|Out-Null}
 Copy-Item -LiteralPath ($root+'/docs/czu-logo.png') -Destination ($final+'/docs')
+Copy-Item -LiteralPath ($root+'/docs/DEVELOPMENT.md') -Destination ($final+'/docs')
 Copy-Item -LiteralPath ($root+'/preview/home.jpg') -Destination ($final+'/preview')
 foreach($name in @('received-review.md','technical-validation.json')){Copy-Item -LiteralPath ($root+'/review/'+$name) -Destination ($final+'/review')}
 [IO.Compression.ZipFile]::CreateFromDirectory(($output+'/finalni-projekt'),($output+'/finalni-projekt.zip'))

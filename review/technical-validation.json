@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-10T18:21:43.106Z",
+  "date": "2026-11-10T18:46:55.751Z",
   "browser": "Google Chrome headless on Windows",
   "pages": 14,
   "languages": [
@@ -16,7 +16,7 @@
   "pageLanguageChecks": 28,
   "viewportChecks": 140,
   "audit": {
-    "date": "2026-11-10T18:09:17.349Z",
+    "date": "2026-11-10T18:45:26.840Z",
     "errors": [],
     "report": [
       {
@@ -302,7 +302,7 @@
     ]
   },
   "scenarios": {
-    "date": "2026-11-10T18:09:21.568Z",
+    "date": "2026-11-10T18:45:31.941Z",
     "checks": [
       "S1: den a scéna filtrují sedm koncertů River Stage",
       "S1: uložení a filtr vlastního programu",
