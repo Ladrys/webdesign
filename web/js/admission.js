@@ -306,7 +306,65 @@
     return id === 'all' ? (lang === 'en' ? 'All stages' : 'Všechny scény') : venue(id)?.name || '';
   }
 
+  // Nine stage/day combinations. Buying admission twice for the same combination
+  // is unnecessary: the two-day tariff is never dearer than the three-day pass.
+  function recommend(events, { cart = [], orders = [] } = {}) {
+    const cell = (day, stage) =>
+      1 << (dayIds.indexOf(day) * venueIds.length + venueIds.indexOf(stage));
+    const needed = events.reduce((mask, event) => mask | cell(event.dayId, event.venueId), 0);
+    if (!needed) return null;
+    const inventory = stateFor([...committed(orders), ...cart.filter(validTicket)]);
+    const options = [];
+    for (let subset = 1; subset < 1 << dayIds.length; subset++) {
+      const selected = dayIds.filter((_, index) => subset & (1 << index));
+      for (const id of [...venueIds, 'all']) {
+        const coverage = selected.reduce(
+          (mask, day) =>
+            admittedVenues(id).reduce((value, stage) => value | cell(day, stage), mask),
+          0,
+        );
+        if (!(coverage & needed)) continue;
+        const scope = ['day', 'multi', 'festival'][selected.length - 1];
+        const cheapest = categories(id)
+          .sort((a, b) => price(id, a, selected.length) - price(id, b, selected.length))
+          .find((category) => {
+            const seats = category === 'standing' ? ['S1'] : pool(id, category);
+            return seats.some((seat) =>
+              canAdd(inventory, ticketFor(selected[0], seat, scope, selected, id)),
+            );
+          });
+        if (cheapest)
+          options.push({
+            coverage,
+            venueId: id,
+            days: selected,
+            category: cheapest,
+            price: price(id, cheapest, selected.length),
+          });
+      }
+    }
+    const better = (next, previous) =>
+      !previous ||
+      next.total < previous.total ||
+      (next.total === previous.total && next.tickets.length < previous.tickets.length);
+    const plans = new Map([[0, { total: 0, tickets: [] }]]);
+    for (const ticket of options) {
+      for (const [mask, plan] of [...plans]) {
+        if (mask & ticket.coverage) continue;
+        const combined = mask | ticket.coverage;
+        const next = { total: plan.total + ticket.price, tickets: [...plan.tickets, ticket] };
+        if (better(next, plans.get(combined))) plans.set(combined, next);
+      }
+    }
+    let best = null;
+    for (const [mask, plan] of plans) {
+      if ((mask & needed) === needed && better(plan, best)) best = plan;
+    }
+    return best;
+  }
+
   window.PulseAdmission = Object.freeze({
+    recommend,
     venueId,
     days,
     ticketFor,

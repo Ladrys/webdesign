@@ -222,6 +222,22 @@ function check(condition, label) {
       ),
       'Můj program: po registraci, odhlášení a přihlášení zůstává uložený koncert',
     );
+    const suggested = await b.evaluate(
+      "document.querySelector('.programme-admission li a').getAttribute('href')",
+    );
+    check(
+      await b.evaluate(
+        "document.querySelector('.programme-admission strong').textContent.includes('110')",
+      ),
+      'Můj program: doporučení nabízí jeden vstup na River Stage za 110 Kč',
+    );
+    await b.goto(suggested);
+    check(
+      await b.evaluate(
+        "document.querySelector('#ticket-venue').value==='h2' && document.querySelector('#ticket-category').value==='standing' && document.querySelector('#ticket-day').value==='d1'",
+      ),
+      'Doporučený vstup otevře nákup pro přesný den a scénu',
+    );
     const literal = '<festival-marker>Test & "Hudba"</festival-marker>';
     await b.goto('search.html?q=' + encodeURIComponent(literal));
     check(

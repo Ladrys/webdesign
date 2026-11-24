@@ -344,7 +344,7 @@
                 .map((id) => D.performers.find((p) => p.id === id))
                 .filter(Boolean),
               headline = artists.some((p) => ['i1', 'i2', 'i3'].includes(p.id));
-            return `<article class="event" data-start="${e.date}T${e.startTime}"><div class="time"><time datetime="${e.date}T${e.startTime}">${date(e.date)}<br>${e.startTime.slice(0, 5)}–${e.endTime.slice(0, 5)}</time></div><div><span class="badge">${esc(e.venueName)}</span>${headline ? `<span class="badge headliner-badge">${tr('Hlavní koncert', 'Headline show')}</span>` : e.highlight ? `<span class="badge program-highlight">${tr('Večerní hlavní set', 'Closing highlight')}</span>` : ''}${clashes.has(e.id) ? `<span class="badge program-clash" data-clash-event="${e.id}">${tr('Kolize v mém programu', 'Personal programme clash')}</span>` : ''}<h3>${artists.map((p) => `<a class="text-button event-artist" href="performer.html?id=${p.id}" data-artist="${p.id}">${esc(p.name)}</a>`).join(' · ') || esc(e.name)}</h3><p class="event-genre">${esc([...new Set(artists.map((p) => p.genre))].join(' / ') || e.theme)}</p></div><div class="event-actions"><button class="secondary small" data-fav="${e.id}" aria-pressed="${fav.includes(e.id)}" aria-label="${fav.includes(e.id) ? 'Odebrat z' : 'Přidat do'} oblíbených: ${esc(e.name)}">${fav.includes(e.id) ? '♥ Uloženo' : '♡ Uložit'}</button><button class="small secondary" data-event="${e.id}">Detail</button>${link(purchaseUrl(e), tr('Vstup na scénu · ', 'Stage admission · ') + money(admission.price(e.venueId, 'standing', 1)), 'button small event-buy')}</div></article>`;
+            return `<article class="event" data-start="${e.date}T${e.startTime}"><div class="time"><time datetime="${e.date}T${e.startTime}">${date(e.date)}<br>${e.startTime.slice(0, 5)}–${e.endTime.slice(0, 5)}</time></div><div><span class="badge">${esc(e.venueName)}</span>${headline ? `<span class="badge headliner-badge">${tr('Hlavní koncert', 'Headline show')}</span>` : e.highlight ? `<span class="badge program-highlight">${tr('Večerní hlavní set', 'Closing highlight')}</span>` : ''}${clashes.has(e.id) ? `<span class="badge program-clash" data-clash-event="${e.id}">${tr('Kolize v mém programu', 'Personal programme clash')}</span>` : ''}<h3>${artists.map((p) => `<a class="text-button event-artist" href="performer.html?id=${p.id}" data-artist="${p.id}">${esc(p.name)}</a>`).join(' · ') || esc(e.name)}</h3><p class="event-genre">${esc([...new Set(artists.map((p) => p.genre))].join(' / ') || e.theme)}</p></div><div class="event-actions"><button class="secondary small" data-fav="${e.id}" aria-pressed="${fav.includes(e.id)}" aria-label="${fav.includes(e.id) ? 'Odebrat z' : 'Přidat do'} oblíbených: ${esc(e.name)}">${fav.includes(e.id) ? '♥ Uloženo' : '♡ Uložit'}</button><button class="small secondary" data-event="${e.id}">Detail</button>${link(purchaseUrl(e), tr('Stání na této scéně na celý den · ', 'Standing at this stage for the whole day · ') + money(admission.price(e.venueId, 'standing', 1)), 'button small event-buy')}</div></article>`;
           })
           .join('')
       : '<div class="empty">Žádná vystoupení. Zkuste změnit filtry.</div>';
@@ -432,6 +432,34 @@
       }
     return pairs;
   }
+  function recommendedAdmission(favorites) {
+    const events = D.events.filter((event) => favorites.includes(event.id));
+    if (!events.length) return '';
+    const plan = admission.recommend(events, { orders: storage.get('orders'), cart: getCart() });
+    const title = tr('Vstupenky pro můj program', 'Tickets for my programme');
+    if (!plan)
+      return `<h2>${title}</h2><p>${tr('Pro celý výběr už není dostupná kombinace vstupenek.', 'There is no available ticket combination for the whole selection.')}</p>`;
+    const items = plan.tickets.map((ticket) => {
+      const { venueId, days, category } = ticket;
+      const stage = admission.venueLabel(venueId, window.PulseI18n?.lang);
+      const dates = days
+        .map((id) => date(D.festival.dates.find((day) => day.id === id).date))
+        .join(' + ');
+      const categoryName =
+        category === 'standing' ? tr('Stání', 'Standing') : category === 'vip' ? 'VIP' : 'Regular';
+      const url = new URLSearchParams({
+        venue: venueId,
+        category,
+        duration: String(days.length),
+        day: days[0],
+        days: days.join(','),
+      });
+      const label = esc(stage) + ' · ' + dates + ' · ' + categoryName;
+      return `<li>${link('tickets.html?' + url, label)} <strong>${money(ticket.price)}</strong></li>`;
+    });
+    return `<h2>${title}</h2><p>${tr('Nejlevnější dostupný vstup pro jednu osobu na všechny uložené koncerty', 'Lowest available admission for one person to all saved performances')} · <strong>${money(plan.total)}</strong></p><ul>${items.join('')}</ul><p class="count">${tr('Každý odkaz předvybere uvedenou vstupenku. Cena je před slevami a počítá s nákupem všech uvedených vstupů.', 'Each link preselects the ticket shown. The price is before discounts and assumes you buy all the listed tickets.')}</p>`;
+  }
+
   function program() {
     const params = new URLSearchParams(location.search);
     const savedView = params.get('saved') === '1';
@@ -469,6 +497,10 @@
     $('#only-favorites').checked = savedView;
     $('#only-favorites').defaultChecked = savedView;
     if (savedView) $('#only-favorites').closest('label').hidden = true;
+    const recommendation = document.createElement('section');
+    recommendation.className = 'card programme-admission';
+    $('#program-conflicts').before(recommendation);
+    let previousSelection;
     const view = document.createElement('select');
     if (!savedView) {
       const field = document.createElement('div');
@@ -488,6 +520,12 @@
         pairs = savedProgramConflicts(fav),
         clashes = new Set(pairs.flatMap((pair) => pair.map((event) => event.id))),
         warning = $('#program-conflicts');
+      recommendation.hidden = !$('#only-favorites').checked || !fav.length;
+      const selection = JSON.stringify(fav);
+      if (!recommendation.hidden && selection !== previousSelection) {
+        recommendation.innerHTML = recommendedAdmission(fav);
+        previousSelection = selection;
+      }
       warning.hidden = !pairs.length;
       warning.innerHTML = pairs.length
         ? `<h2>${tr('Některé uložené koncerty se překrývají', 'Some saved performances overlap')}</h2><p>${tr('Uprav vlastní program, pokud chceš stihnout celé sety.', 'Adjust your personal programme if you want to see complete sets.')}</p><ul>${pairs.map(([a, b]) => `<li>${date(a.date)}: <a href="program.html?event=${a.id}">${esc(a.name)}</a> (${a.startTime.slice(0, 5)}–${a.endTime.slice(0, 5)}) × <a href="program.html?event=${b.id}">${esc(b.name)}</a> (${b.startTime.slice(0, 5)}–${b.endTime.slice(0, 5)})</li>`).join('')}</ul>`
@@ -534,7 +572,15 @@
     $('#program-filters').onreset = () => setTimeout(render, 0);
     main.addEventListener('favorites-changed', render);
     window.addEventListener('storage', (event) => {
-      if (event.key === 'pulse:favorites') render();
+      if (
+        event.key === 'pulse:favorites' ||
+        event.key === 'pulse:orders' ||
+        event.key === 'pulse:' + cartKey() ||
+        event.key === null
+      ) {
+        previousSelection = undefined;
+        render();
+      }
     });
     render();
     if (params.get('event')) eventDetail(params.get('event'));

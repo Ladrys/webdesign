@@ -10,6 +10,8 @@ Po rozbalení otevřete `web/index.html` v prohlížeči s povoleným JavaScript
 - Program se otevře na prvním festivalovém dni. Každá scéna má vlastní sloupec a stejnou půlhodinovou osu. Souběžné koncerty začínají ve stejné výšce. Na úzkém displeji lze posunout osu do strany, zvolit jedinou scénu nebo přepnout na seznam.
 - Můj program se otevírá přímo z navigace i ze stránky účtu. Ukáže uložené koncerty za všechny dny včetně časových kolizí. Výběr se ukládá do prohlížeče již hostovi a přetrvá po registraci, přihlášení i odhlášení.
 
+V Mém programu se zároveň zobrazí nejlevnější dostupná kombinace vstupů pro jednu osobu před slevami. Doporučení porovnává vstup na jednotlivé scény i společné vstupy na jeden, dva nebo tři dny. Dva koncerty na stejné scéně ve stejný den pokrývá jediný vstup. Každý odkaz předvybere scénu, kategorii a konkrétní dny v nákupu.
+
 ## Dva průchody pro hodnotitele
 1. **Naplánovat návštěvu.** Otevřete Program a na 1. srpna porovnejte koncerty ve 12:30. Uložte dvě souběžná vystoupení. Přes navigaci otevřete Můj program. Očekávejte oba koncerty a upozornění na kolizi. Obnovte stránku, jeden koncert odeberte a ověřte, že druhý zůstává a upozornění zmizelo.
 2. **Najít interpreta a vstup.** Do hlavního hledání napište DARK. Z výsledků otevřete DARKZY, z jeho profilu pokračujte na vstupenky a porovnejte předvolený den a scénu s koncertem. Přidejte vstup do košíku. Pro dokončení ukázky použijte smyšlené údaje. Po potvrzení vznikne PDF a v plánku se změní kapacita odpovídající scény a dne.
@@ -19,6 +21,8 @@ Po rozbalení otevřete `web/index.html` v prohlížeči s povoleným JavaScript
 - Nákupní scénář ověřil dvě vstupenky, promo PULSE10, stan a konečnou cenu 848 Kč, odmítnutou platbu, úspěšnou objednávku, tři stránky PDF a změny kapacit podle dne. Otestovaly se také sdílená sedadla, lokální účet a otevření webu z disku.
 - Na 14 stránkách v obou jazycích byly zkontrolovány nadpis H1, duplicitní identifikátory, diagnostika překladu a vodorovné přetékání při šířkách 320, 375, 768, 1024 a 1440 px.
 - Při kontrole vstupů jsme prověřili vykreslení vyhledávacího dotazu a uložených údajů objednávky. Test s textem obsahujícím závorky HTML ověřil, že hledání nevytvoří nový HTML prvek. Neplatný ročník uložené objednávky se při načtení převede na výchozí číselný rok.
+
+- Kontrola doporučení zahrnula opakovanou návštěvu stejné scény, kombinaci různých vstupů, dva nenavazující dny, třídenní permanentku a vyprodanou scénu. Průchod v prohlížeči ověřil cenu i přenos údajů do nákupu.
 
 ## Známá omezení
 Účty, oblíbené koncerty, objednávky i obsazenost patří jednomu prohlížeči. Po vymazání místních dat se ztratí. Platba je simulace a QR kód nemá serverové ověření. Vlastní plánek funguje offline, externí mapa vyžaduje internet a souhlas. Testy využily Chrome a simulované šířky displeje. Úplná shoda s WCAG AA, fyzický iPhone a hlasová čtečka zůstávají neověřené. V uvedených průchodech jsme nezjistili blokující chybu.
