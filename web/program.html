@@ -63,6 +63,7 @@
           ><span>MENU</span></button
         ><nav id="navigation" class="nav" aria-label="Hlavní navigace"
           ><a href="program.html" aria-current="page">Program</a
+          ><a href="program.html?saved=1">Můj program <span class="saved-count">0</span></a
           ><a href="performers.html">Účinkující</a><a href="venues.html">Scény</a
           ><a href="info.html">Info</a><a href="account.html">Účet</a
           ><a href="cart.html"
@@ -131,12 +132,19 @@
       ><p class="lead"
         >Koncerty na scénách běží souběžně. Tři večerní hlavní sety každý den navazují s 30 minutami
         na přesun.</p
+      ><aside class="personal-program-note"
+        ><p
+          >Ulož si koncerty srdíčkem. Výběr zůstane v tomto prohlížeči i po přihlášení nebo
+          odhlášení; účet nepotřebuješ. Mezi zařízeními se nepřenáší.</p
+        ><a class="button secondary small" href="program.html?saved=1"
+          >Zobrazit můj program →</a
+        ></aside
       ><form class="filters" id="program-filters"
         ><div class="field"
           ><label for="day">Den</label
           ><select id="day"
             ><option value="">Všechny dny</option
-            ><option value="d1">1. srpna</option
+            ><option value="d1" selected="">1. srpna</option
             ><option value="d2">2. srpna</option
             ><option value="d3">3. srpna</option></select
           ></div
@@ -206,6 +214,12 @@
             ><option value="UK garage">UK garage</option
             ><option value="UK garage / speed garage">UK garage / speed garage</option></select
           ></div
+        ><div class="field"
+          ><label for="program-view">Zobrazení</label
+          ><select id="program-view"
+            ><option value="timeline">Časová osa</option
+            ><option value="list">Seznam</option></select
+          ></div
         ><label class="check"><input type="checkbox" id="only-favorites" />Jen můj program</label
         ><button class="secondary small" type="reset">Zrušit filtry</button></form
       ><section
@@ -215,1478 +229,610 @@
         aria-live="polite"
         hidden=""
       ></section
-      ><p id="result-count" class="count" role="status">60 z 60 vystoupení</p
+      ><p id="result-count" class="count" role="status">20 z 60 vystoupení</p
       ><h2 class="visually-hidden">Vystoupení</h2
       ><section id="events" aria-label="Vystoupení"
         ><section class="program-day" aria-labelledby="program-d1"
           ><div class="program-day-heading"
             ><h2 id="program-d1"><time datetime="2027-08-01">1. srpna 2027</time></h2
             ><p class="program-order-note"
-              >Od prvního vystoupení po poslední. Časy jsou uvedené v pražském čase.</p
+              >Scény mají společnou časovou osu. Na mobilu posuň přehled do strany. Všechny časy
+              jsou v pražském čase.</p
             ></div
-          ><article class="event" data-start="2027-08-01T09:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-01T09:30:00">1. srpna<br />09:30–10:30</time></div
-            ><div
-              ><span class="badge">River Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i23" data-artist="i23"
-                  >Calin</a
-                ></h3
-              ><p class="event-genre">Pop rap / R&amp;B</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a2"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Calin"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a2">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d1&amp;venue=h2&amp;category=standing&amp;event=a2"
-                >Vstup na scénu · 110&nbsp;Kč</a
+          ><div class="timeline-scroll" role="region" tabindex="0" aria-labelledby="program-d1"
+            ><div class="program-timeline" style="--stage-count: 3; --time-rows: 28"
+              ><span class="timeline-corner" aria-hidden="true">Čas</span
+              ><h3 class="timeline-stage" style="grid-column: 2; grid-row: 1">Main Hall</h3
+              ><h3 class="timeline-stage" style="grid-column: 3; grid-row: 1">River Stage</h3
+              ><h3 class="timeline-stage" style="grid-column: 4; grid-row: 1">Club Stage</h3
+              ><span class="timeline-time" style="grid-row: 2; grid-column: 1" aria-hidden="true"
+                >09:30</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 2; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 3; grid-column: 1" aria-hidden="true"
+                >10:00</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 3; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 4; grid-column: 1" aria-hidden="true"
+                >10:30</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 4; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 5; grid-column: 1" aria-hidden="true"
+                >11:00</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 5; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 6; grid-column: 1" aria-hidden="true"
+                >11:30</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 6; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 7; grid-column: 1" aria-hidden="true"
+                >12:00</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 7; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 8; grid-column: 1" aria-hidden="true"
+                >12:30</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 8; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 9; grid-column: 1" aria-hidden="true"
+                >13:00</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 9; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 10; grid-column: 1" aria-hidden="true"
+                >13:30</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 10; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 11; grid-column: 1" aria-hidden="true"
+                >14:00</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 11; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 12; grid-column: 1" aria-hidden="true"
+                >14:30</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 12; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 13; grid-column: 1" aria-hidden="true"
+                >15:00</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 13; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 14; grid-column: 1" aria-hidden="true"
+                >15:30</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 14; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 15; grid-column: 1" aria-hidden="true"
+                >16:00</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 15; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 16; grid-column: 1" aria-hidden="true"
+                >16:30</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 16; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 17; grid-column: 1" aria-hidden="true"
+                >17:00</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 17; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 18; grid-column: 1" aria-hidden="true"
+                >17:30</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 18; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 19; grid-column: 1" aria-hidden="true"
+                >18:00</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 19; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 20; grid-column: 1" aria-hidden="true"
+                >18:30</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 20; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 21; grid-column: 1" aria-hidden="true"
+                >19:00</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 21; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 22; grid-column: 1" aria-hidden="true"
+                >19:30</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 22; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 23; grid-column: 1" aria-hidden="true"
+                >20:00</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 23; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 24; grid-column: 1" aria-hidden="true"
+                >20:30</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 24; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 25; grid-column: 1" aria-hidden="true"
+                >21:00</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 25; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 26; grid-column: 1" aria-hidden="true"
+                >21:30</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 26; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 27; grid-column: 1" aria-hidden="true"
+                >22:00</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 27; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 28; grid-column: 1" aria-hidden="true"
+                >22:30</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 28; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><span class="timeline-time" style="grid-row: 29; grid-column: 1" aria-hidden="true"
+                >23:00</span
+              ><span
+                class="timeline-rule"
+                style="grid-row: 29; grid-column: 2/-1"
+                aria-hidden="true"
+              ></span
+              ><article
+                class="event timeline-event"
+                data-start="2027-08-01T09:30:00"
+                style="grid-column: 3; grid-row: 2 / span 2"
+                ><time datetime="2027-08-01T09:30:00">09:30–10:30</time
+                ><h3><a class="" href="performer.html?id=i23">Calin</a></h3
+                ><p class="event-genre">Pop rap / R&amp;B</p
+                ><span class="visually-hidden">River Stage</span
+                ><div class="timeline-actions"
+                  ><button
+                    class="secondary small"
+                    data-fav="a2"
+                    aria-pressed="false"
+                    aria-label="Uložit: Calin"
+                    >♡ Uložit</button
+                  ><button class="secondary small" data-event="a2" aria-label="Detail: Calin"
+                    >Detail</button
+                  ></div
+                ></article
+              ><article
+                class="event timeline-event"
+                data-start="2027-08-01T11:00:00"
+                style="grid-column: 3; grid-row: 5 / span 2"
+                ><time datetime="2027-08-01T11:00:00">11:00–12:00</time
+                ><h3><a class="" href="performer.html?id=i24">STEIN27</a></h3
+                ><p class="event-genre">Alternative R&amp;B</p
+                ><span class="visually-hidden">River Stage</span
+                ><div class="timeline-actions"
+                  ><button
+                    class="secondary small"
+                    data-fav="a4"
+                    aria-pressed="false"
+                    aria-label="Uložit: STEIN27"
+                    >♡ Uložit</button
+                  ><button class="secondary small" data-event="a4" aria-label="Detail: STEIN27"
+                    >Detail</button
+                  ></div
+                ></article
+              ><article
+                class="event timeline-event"
+                data-start="2027-08-01T12:30:00"
+                style="grid-column: 4; grid-row: 8 / span 2"
+                ><time datetime="2027-08-01T12:30:00">12:30–13:30</time
+                ><h3><a class="" href="performer.html?id=i5">Chase &amp; Status</a></h3
+                ><p class="event-genre">Drum and bass / jungle</p
+                ><span class="visually-hidden">Club Stage</span
+                ><div class="timeline-actions"
+                  ><button
+                    class="secondary small"
+                    data-fav="a5"
+                    aria-pressed="false"
+                    aria-label="Uložit: Chase &amp; Status"
+                    >♡ Uložit</button
+                  ><button
+                    class="secondary small"
+                    data-event="a5"
+                    aria-label="Detail: Chase &amp; Status"
+                    >Detail</button
+                  ></div
+                ></article
+              ><article
+                class="event timeline-event"
+                data-start="2027-08-01T12:30:00"
+                style="grid-column: 2; grid-row: 8 / span 2"
+                ><time datetime="2027-08-01T12:30:00">12:30–13:30</time
+                ><h3><a class="" href="performer.html?id=i4">Tiësto</a></h3
+                ><p class="event-genre">Progressive house</p
+                ><span class="visually-hidden">Main Hall</span
+                ><div class="timeline-actions"
+                  ><button
+                    class="secondary small"
+                    data-fav="a1"
+                    aria-pressed="false"
+                    aria-label="Uložit: Tiësto"
+                    >♡ Uložit</button
+                  ><button class="secondary small" data-event="a1" aria-label="Detail: Tiësto"
+                    >Detail</button
+                  ></div
+                ></article
+              ><article
+                class="event timeline-event"
+                data-start="2027-08-01T12:30:00"
+                style="grid-column: 3; grid-row: 8 / span 2"
+                ><time datetime="2027-08-01T12:30:00">12:30–13:30</time
+                ><h3><a class="" href="performer.html?id=i25">Viktor Sheen</a></h3
+                ><p class="event-genre">Melodic rap</p
+                ><span class="visually-hidden">River Stage</span
+                ><div class="timeline-actions"
+                  ><button
+                    class="secondary small"
+                    data-fav="a7"
+                    aria-pressed="false"
+                    aria-label="Uložit: Viktor Sheen"
+                    >♡ Uložit</button
+                  ><button class="secondary small" data-event="a7" aria-label="Detail: Viktor Sheen"
+                    >Detail</button
+                  ></div
+                ></article
+              ><article
+                class="event timeline-event"
+                data-start="2027-08-01T14:00:00"
+                style="grid-column: 4; grid-row: 11 / span 2"
+                ><time datetime="2027-08-01T14:00:00">14:00–15:00</time
+                ><h3><a class="" href="performer.html?id=i6">Sub Focus</a></h3
+                ><p class="event-genre">Drum and bass / dancefloor</p
+                ><span class="visually-hidden">Club Stage</span
+                ><div class="timeline-actions"
+                  ><button
+                    class="secondary small"
+                    data-fav="a8"
+                    aria-pressed="false"
+                    aria-label="Uložit: Sub Focus"
+                    >♡ Uložit</button
+                  ><button class="secondary small" data-event="a8" aria-label="Detail: Sub Focus"
+                    >Detail</button
+                  ></div
+                ></article
+              ><article
+                class="event timeline-event"
+                data-start="2027-08-01T14:00:00"
+                style="grid-column: 2; grid-row: 11 / span 2"
+                ><time datetime="2027-08-01T14:00:00">14:00–15:00</time
+                ><h3><a class="" href="performer.html?id=i37">The Offspring</a></h3
+                ><p class="event-genre">Punk rock</p><span class="visually-hidden">Main Hall</span
+                ><div class="timeline-actions"
+                  ><button
+                    class="secondary small"
+                    data-fav="a3"
+                    aria-pressed="false"
+                    aria-label="Uložit: The Offspring"
+                    >♡ Uložit</button
+                  ><button
+                    class="secondary small"
+                    data-event="a3"
+                    aria-label="Detail: The Offspring"
+                    >Detail</button
+                  ></div
+                ></article
+              ><article
+                class="event timeline-event"
+                data-start="2027-08-01T14:00:00"
+                style="grid-column: 3; grid-row: 11 / span 2"
+                ><time datetime="2027-08-01T14:00:00">14:00–15:00</time
+                ><h3><a class="" href="performer.html?id=i26">Yzomandias</a></h3
+                ><p class="event-genre">Trap</p><span class="visually-hidden">River Stage</span
+                ><div class="timeline-actions"
+                  ><button
+                    class="secondary small"
+                    data-fav="a10"
+                    aria-pressed="false"
+                    aria-label="Uložit: Yzomandias"
+                    >♡ Uložit</button
+                  ><button class="secondary small" data-event="a10" aria-label="Detail: Yzomandias"
+                    >Detail</button
+                  ></div
+                ></article
+              ><article
+                class="event timeline-event"
+                data-start="2027-08-01T15:30:00"
+                style="grid-column: 4; grid-row: 14 / span 2"
+                ><time datetime="2027-08-01T15:30:00">15:30–16:30</time
+                ><h3><a class="" href="performer.html?id=i7">Wilkinson</a></h3
+                ><p class="event-genre">Drum and bass / dancefloor</p
+                ><span class="visually-hidden">Club Stage</span
+                ><div class="timeline-actions"
+                  ><button
+                    class="secondary small"
+                    data-fav="a11"
+                    aria-pressed="false"
+                    aria-label="Uložit: Wilkinson"
+                    >♡ Uložit</button
+                  ><button class="secondary small" data-event="a11" aria-label="Detail: Wilkinson"
+                    >Detail</button
+                  ></div
+                ></article
+              ><article
+                class="event timeline-event"
+                data-start="2027-08-01T15:30:00"
+                style="grid-column: 2; grid-row: 14 / span 2"
+                ><time datetime="2027-08-01T15:30:00">15:30–16:30</time
+                ><h3><a class="" href="performer.html?id=i38">Green Day</a></h3
+                ><p class="event-genre">Punk rock</p><span class="visually-hidden">Main Hall</span
+                ><div class="timeline-actions"
+                  ><button
+                    class="secondary small"
+                    data-fav="a6"
+                    aria-pressed="false"
+                    aria-label="Uložit: Green Day"
+                    >♡ Uložit</button
+                  ><button class="secondary small" data-event="a6" aria-label="Detail: Green Day"
+                    >Detail</button
+                  ></div
+                ></article
+              ><article
+                class="event timeline-event"
+                data-start="2027-08-01T15:30:00"
+                style="grid-column: 3; grid-row: 14 / span 2"
+                ><time datetime="2027-08-01T15:30:00">15:30–16:30</time
+                ><h3><a class="" href="performer.html?id=i27">Nik Tendo</a></h3
+                ><p class="event-genre">Trap</p><span class="visually-hidden">River Stage</span
+                ><div class="timeline-actions"
+                  ><button
+                    class="secondary small"
+                    data-fav="a14"
+                    aria-pressed="false"
+                    aria-label="Uložit: Nik Tendo"
+                    >♡ Uložit</button
+                  ><button class="secondary small" data-event="a14" aria-label="Detail: Nik Tendo"
+                    >Detail</button
+                  ></div
+                ></article
+              ><article
+                class="event timeline-event"
+                data-start="2027-08-01T17:00:00"
+                style="grid-column: 4; grid-row: 17 / span 2"
+                ><time datetime="2027-08-01T17:00:00">17:00–18:00</time
+                ><h3><a class="" href="performer.html?id=i8">DARKZY</a></h3
+                ><p class="event-genre">UK bassline</p
+                ><span class="visually-hidden">Club Stage</span
+                ><div class="timeline-actions"
+                  ><button
+                    class="secondary small"
+                    data-fav="a15"
+                    aria-pressed="false"
+                    aria-label="Uložit: DARKZY"
+                    >♡ Uložit</button
+                  ><button class="secondary small" data-event="a15" aria-label="Detail: DARKZY"
+                    >Detail</button
+                  ></div
+                ></article
+              ><article
+                class="event timeline-event"
+                data-start="2027-08-01T17:00:00"
+                style="grid-column: 2; grid-row: 17 / span 2"
+                ><time datetime="2027-08-01T17:00:00">17:00–18:00</time
+                ><h3><a class="" href="performer.html?id=i41">Muse</a></h3
+                ><p class="event-genre">Alternative rock / progressive rock</p
+                ><span class="visually-hidden">Main Hall</span
+                ><div class="timeline-actions"
+                  ><button
+                    class="secondary small"
+                    data-fav="a9"
+                    aria-pressed="false"
+                    aria-label="Uložit: Muse"
+                    >♡ Uložit</button
+                  ><button class="secondary small" data-event="a9" aria-label="Detail: Muse"
+                    >Detail</button
+                  ></div
+                ></article
+              ><article
+                class="event timeline-event"
+                data-start="2027-08-01T17:00:00"
+                style="grid-column: 3; grid-row: 17 / span 2"
+                ><time datetime="2027-08-01T17:00:00">17:00–18:00</time
+                ><h3><a class="" href="performer.html?id=i28">Ben Cristovao</a></h3
+                ><p class="event-genre">R&amp;B / dance pop</p
+                ><span class="visually-hidden">River Stage</span
+                ><div class="timeline-actions"
+                  ><button
+                    class="secondary small"
+                    data-fav="a17"
+                    aria-pressed="false"
+                    aria-label="Uložit: Ben Cristovao"
+                    >♡ Uložit</button
+                  ><button
+                    class="secondary small"
+                    data-event="a17"
+                    aria-label="Detail: Ben Cristovao"
+                    >Detail</button
+                  ></div
+                ></article
+              ><article
+                class="event timeline-event"
+                data-start="2027-08-01T18:30:00"
+                style="grid-column: 4; grid-row: 20 / span 2"
+                ><time datetime="2027-08-01T18:30:00">18:30–19:30</time
+                ><h3><a class="" href="performer.html?id=i9">TS7</a></h3
+                ><p class="event-genre">Bassline / UK garage</p
+                ><span class="visually-hidden">Club Stage</span
+                ><div class="timeline-actions"
+                  ><button
+                    class="secondary small"
+                    data-fav="a18"
+                    aria-pressed="false"
+                    aria-label="Uložit: TS7"
+                    >♡ Uložit</button
+                  ><button class="secondary small" data-event="a18" aria-label="Detail: TS7"
+                    >Detail</button
+                  ></div
+                ></article
+              ><article
+                class="event timeline-event"
+                data-start="2027-08-01T18:30:00"
+                style="grid-column: 2; grid-row: 20 / span 2"
+                ><time datetime="2027-08-01T18:30:00">18:30–19:30</time
+                ><h3><a class="" href="performer.html?id=i49">The Weeknd</a></h3
+                ><p class="event-genre">R&amp;B / synthpop</p
+                ><span class="visually-hidden">Main Hall</span
+                ><div class="timeline-actions"
+                  ><button
+                    class="secondary small"
+                    data-fav="a12"
+                    aria-pressed="false"
+                    aria-label="Uložit: The Weeknd"
+                    >♡ Uložit</button
+                  ><button class="secondary small" data-event="a12" aria-label="Detail: The Weeknd"
+                    >Detail</button
+                  ></div
+                ></article
+              ><article
+                class="event timeline-event"
+                data-start="2027-08-01T18:30:00"
+                style="grid-column: 3; grid-row: 20 / span 2"
+                ><time datetime="2027-08-01T18:30:00">18:30–19:30</time
+                ><h3><a class="" href="performer.html?id=i29">Ewa Farna</a></h3
+                ><p class="event-genre">Pop rock</p><span class="visually-hidden">River Stage</span
+                ><div class="timeline-actions"
+                  ><button
+                    class="secondary small"
+                    data-fav="a19"
+                    aria-pressed="false"
+                    aria-label="Uložit: Ewa Farna"
+                    >♡ Uložit</button
+                  ><button class="secondary small" data-event="a19" aria-label="Detail: Ewa Farna"
+                    >Detail</button
+                  ></div
+                ></article
+              ><article
+                class="event timeline-event"
+                data-start="2027-08-01T20:00:00"
+                style="grid-column: 4; grid-row: 23 / span 2"
+                ><time datetime="2027-08-01T20:00:00">20:00–21:00</time
+                ><h3><a class="" href="performer.html?id=i10">Sammy Virji</a></h3
+                ><p class="event-genre">UK garage / speed garage</p
+                ><span class="visually-hidden">Club Stage</span
+                ><div class="timeline-actions"
+                  ><button
+                    class="secondary small"
+                    data-fav="a20"
+                    aria-pressed="false"
+                    aria-label="Uložit: Sammy Virji"
+                    >♡ Uložit</button
+                  ><button class="secondary small" data-event="a20" aria-label="Detail: Sammy Virji"
+                    >Detail</button
+                  ></div
+                ></article
+              ><article
+                class="event timeline-event"
+                data-start="2027-08-01T20:00:00"
+                style="grid-column: 2; grid-row: 23 / span 2"
+                ><time datetime="2027-08-01T20:00:00">20:00–21:00</time
+                ><h3><a class="" href="performer.html?id=i50">Imagine Dragons</a></h3
+                ><p class="event-genre">Alternative pop rock</p
+                ><span class="visually-hidden">Main Hall</span
+                ><div class="timeline-actions"
+                  ><button
+                    class="secondary small"
+                    data-fav="a16"
+                    aria-pressed="false"
+                    aria-label="Uložit: Imagine Dragons"
+                    >♡ Uložit</button
+                  ><button
+                    class="secondary small"
+                    data-event="a16"
+                    aria-label="Detail: Imagine Dragons"
+                    >Detail</button
+                  ></div
+                ></article
+              ><article
+                class="event timeline-event"
+                data-start="2027-08-01T21:30:00"
+                style="grid-column: 2; grid-row: 26 / span 3"
+                ><time datetime="2027-08-01T21:30:00">21:30–23:00</time
+                ><h3><a class="" href="performer.html?id=i1">David Guetta</a></h3
+                ><p class="event-genre">Dance pop / house</p
+                ><span class="visually-hidden">Main Hall</span
+                ><div class="timeline-actions"
+                  ><button
+                    class="secondary small"
+                    data-fav="a13"
+                    aria-pressed="false"
+                    aria-label="Uložit: David Guetta"
+                    >♡ Uložit</button
+                  ><button
+                    class="secondary small"
+                    data-event="a13"
+                    aria-label="Detail: David Guetta"
+                    >Detail</button
+                  ></div
+                ></article
               ></div
-            ></article
-          ><article class="event" data-start="2027-08-01T11:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-01T11:00:00">1. srpna<br />11:00–12:00</time></div
-            ><div
-              ><span class="badge">River Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i24" data-artist="i24"
-                  >STEIN27</a
-                ></h3
-              ><p class="event-genre">Alternative R&amp;B</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a4"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: STEIN27"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a4">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d1&amp;venue=h2&amp;category=standing&amp;event=a4"
-                >Vstup na scénu · 110&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-01T12:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-01T12:30:00">1. srpna<br />12:30–13:30</time></div
-            ><div
-              ><span class="badge">Club Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i5" data-artist="i5"
-                  >Chase &amp; Status</a
-                ></h3
-              ><p class="event-genre">Drum and bass / jungle</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a5"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Chase &amp; Status"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a5">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d1&amp;venue=h3&amp;category=standing&amp;event=a5"
-                >Vstup na scénu · 90&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-01T12:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-01T12:30:00">1. srpna<br />12:30–13:30</time></div
-            ><div
-              ><span class="badge">Main Hall</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i4" data-artist="i4"
-                  >Tiësto</a
-                ></h3
-              ><p class="event-genre">Progressive house</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a1"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Tiësto"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a1">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d1&amp;venue=h1&amp;category=standing&amp;event=a1"
-                >Vstup na scénu · 150&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-01T12:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-01T12:30:00">1. srpna<br />12:30–13:30</time></div
-            ><div
-              ><span class="badge">River Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i25" data-artist="i25"
-                  >Viktor Sheen</a
-                ></h3
-              ><p class="event-genre">Melodic rap</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a7"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Viktor Sheen"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a7">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d1&amp;venue=h2&amp;category=standing&amp;event=a7"
-                >Vstup na scénu · 110&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-01T14:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-01T14:00:00">1. srpna<br />14:00–15:00</time></div
-            ><div
-              ><span class="badge">Club Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i6" data-artist="i6"
-                  >Sub Focus</a
-                ></h3
-              ><p class="event-genre">Drum and bass / dancefloor</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a8"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Sub Focus"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a8">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d1&amp;venue=h3&amp;category=standing&amp;event=a8"
-                >Vstup na scénu · 90&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-01T14:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-01T14:00:00">1. srpna<br />14:00–15:00</time></div
-            ><div
-              ><span class="badge">Main Hall</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i37" data-artist="i37"
-                  >The Offspring</a
-                ></h3
-              ><p class="event-genre">Punk rock</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a3"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: The Offspring"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a3">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d1&amp;venue=h1&amp;category=standing&amp;event=a3"
-                >Vstup na scénu · 150&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-01T14:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-01T14:00:00">1. srpna<br />14:00–15:00</time></div
-            ><div
-              ><span class="badge">River Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i26" data-artist="i26"
-                  >Yzomandias</a
-                ></h3
-              ><p class="event-genre">Trap</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a10"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Yzomandias"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a10">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d1&amp;venue=h2&amp;category=standing&amp;event=a10"
-                >Vstup na scénu · 110&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-01T15:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-01T15:30:00">1. srpna<br />15:30–16:30</time></div
-            ><div
-              ><span class="badge">Club Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i7" data-artist="i7"
-                  >Wilkinson</a
-                ></h3
-              ><p class="event-genre">Drum and bass / dancefloor</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a11"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Wilkinson"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a11">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d1&amp;venue=h3&amp;category=standing&amp;event=a11"
-                >Vstup na scénu · 90&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-01T15:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-01T15:30:00">1. srpna<br />15:30–16:30</time></div
-            ><div
-              ><span class="badge">Main Hall</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i38" data-artist="i38"
-                  >Green Day</a
-                ></h3
-              ><p class="event-genre">Punk rock</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a6"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Green Day"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a6">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d1&amp;venue=h1&amp;category=standing&amp;event=a6"
-                >Vstup na scénu · 150&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-01T15:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-01T15:30:00">1. srpna<br />15:30–16:30</time></div
-            ><div
-              ><span class="badge">River Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i27" data-artist="i27"
-                  >Nik Tendo</a
-                ></h3
-              ><p class="event-genre">Trap</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a14"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Nik Tendo"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a14">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d1&amp;venue=h2&amp;category=standing&amp;event=a14"
-                >Vstup na scénu · 110&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-01T17:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-01T17:00:00">1. srpna<br />17:00–18:00</time></div
-            ><div
-              ><span class="badge">Club Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i8" data-artist="i8"
-                  >DARKZY</a
-                ></h3
-              ><p class="event-genre">UK bassline</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a15"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: DARKZY"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a15">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d1&amp;venue=h3&amp;category=standing&amp;event=a15"
-                >Vstup na scénu · 90&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-01T17:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-01T17:00:00">1. srpna<br />17:00–18:00</time></div
-            ><div
-              ><span class="badge">Main Hall</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i41" data-artist="i41"
-                  >Muse</a
-                ></h3
-              ><p class="event-genre">Alternative rock / progressive rock</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a9"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Muse"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a9">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d1&amp;venue=h1&amp;category=standing&amp;event=a9"
-                >Vstup na scénu · 150&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-01T17:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-01T17:00:00">1. srpna<br />17:00–18:00</time></div
-            ><div
-              ><span class="badge">River Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i28" data-artist="i28"
-                  >Ben Cristovao</a
-                ></h3
-              ><p class="event-genre">R&amp;B / dance pop</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a17"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Ben Cristovao"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a17">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d1&amp;venue=h2&amp;category=standing&amp;event=a17"
-                >Vstup na scénu · 110&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-01T18:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-01T18:30:00">1. srpna<br />18:30–19:30</time></div
-            ><div
-              ><span class="badge">Club Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i9" data-artist="i9"
-                  >TS7</a
-                ></h3
-              ><p class="event-genre">Bassline / UK garage</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a18"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: TS7"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a18">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d1&amp;venue=h3&amp;category=standing&amp;event=a18"
-                >Vstup na scénu · 90&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-01T18:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-01T18:30:00">1. srpna<br />18:30–19:30</time></div
-            ><div
-              ><span class="badge">Main Hall</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i49" data-artist="i49"
-                  >The Weeknd</a
-                ></h3
-              ><p class="event-genre">R&amp;B / synthpop</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a12"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: The Weeknd"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a12">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d1&amp;venue=h1&amp;category=standing&amp;event=a12"
-                >Vstup na scénu · 150&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-01T18:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-01T18:30:00">1. srpna<br />18:30–19:30</time></div
-            ><div
-              ><span class="badge">River Stage</span
-              ><span class="badge program-highlight">Večerní hlavní set</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i29" data-artist="i29"
-                  >Ewa Farna</a
-                ></h3
-              ><p class="event-genre">Pop rock</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a19"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Ewa Farna"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a19">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d1&amp;venue=h2&amp;category=standing&amp;event=a19"
-                >Vstup na scénu · 110&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-01T20:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-01T20:00:00">1. srpna<br />20:00–21:00</time></div
-            ><div
-              ><span class="badge">Club Stage</span
-              ><span class="badge program-highlight">Večerní hlavní set</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i10" data-artist="i10"
-                  >Sammy Virji</a
-                ></h3
-              ><p class="event-genre">UK garage / speed garage</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a20"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Sammy Virji"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a20">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d1&amp;venue=h3&amp;category=standing&amp;event=a20"
-                >Vstup na scénu · 90&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-01T20:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-01T20:00:00">1. srpna<br />20:00–21:00</time></div
-            ><div
-              ><span class="badge">Main Hall</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i50" data-artist="i50"
-                  >Imagine Dragons</a
-                ></h3
-              ><p class="event-genre">Alternative pop rock</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a16"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Imagine Dragons"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a16">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d1&amp;venue=h1&amp;category=standing&amp;event=a16"
-                >Vstup na scénu · 150&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-01T21:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-01T21:30:00">1. srpna<br />21:30–23:00</time></div
-            ><div
-              ><span class="badge">Main Hall</span
-              ><span class="badge headliner-badge">Hlavní koncert</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i1" data-artist="i1"
-                  >David Guetta</a
-                ></h3
-              ><p class="event-genre">Dance pop / house</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a13"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: David Guetta"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a13">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d1&amp;venue=h1&amp;category=standing&amp;event=a13"
-                >Vstup na scénu · 150&nbsp;Kč</a
-              ></div
-            ></article
-          ></section
-        ><section class="program-day" aria-labelledby="program-d2"
-          ><div class="program-day-heading"
-            ><h2 id="program-d2"><time datetime="2027-08-02">2. srpna 2027</time></h2
-            ><p class="program-order-note"
-              >Od prvního vystoupení po poslední. Časy jsou uvedené v pražském čase.</p
             ></div
-          ><article class="event" data-start="2027-08-02T11:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-02T11:00:00">2. srpna<br />11:00–12:00</time></div
-            ><div
-              ><span class="badge">Club Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i11" data-artist="i11"
-                  >Macky Gee</a
-                ></h3
-              ><p class="event-genre">Drum and bass / jump-up</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a22"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Macky Gee"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a22">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d2&amp;venue=h3&amp;category=standing&amp;event=a22"
-                >Vstup na scénu · 90&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-02T11:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-02T11:00:00">2. srpna<br />11:00–12:00</time></div
-            ><div
-              ><span class="badge">River Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i30" data-artist="i30"
-                  >Mirai</a
-                ></h3
-              ><p class="event-genre">Pop rock</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a24"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Mirai"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a24">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d2&amp;venue=h2&amp;category=standing&amp;event=a24"
-                >Vstup na scénu · 110&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-02T12:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-02T12:30:00">2. srpna<br />12:30–13:30</time></div
-            ><div
-              ><span class="badge">Club Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i12" data-artist="i12"
-                  >Andy C</a
-                ></h3
-              ><p class="event-genre">Drum and bass / jungle</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a25"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Andy C"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a25">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d2&amp;venue=h3&amp;category=standing&amp;event=a25"
-                >Vstup na scénu · 90&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-02T12:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-02T12:30:00">2. srpna<br />12:30–13:30</time></div
-            ><div
-              ><span class="badge">Main Hall</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i42" data-artist="i42"
-                  >Billie Eilish</a
-                ></h3
-              ><p class="event-genre">Alternative pop</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a21"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Billie Eilish"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a21">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d2&amp;venue=h1&amp;category=standing&amp;event=a21"
-                >Vstup na scénu · 150&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-02T12:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-02T12:30:00">2. srpna<br />12:30–13:30</time></div
-            ><div
-              ><span class="badge">River Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i31" data-artist="i31"
-                  >Kryštof</a
-                ></h3
-              ><p class="event-genre">Pop rock</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a27"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Kryštof"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a27">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d2&amp;venue=h2&amp;category=standing&amp;event=a27"
-                >Vstup na scénu · 110&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-02T14:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-02T14:00:00">2. srpna<br />14:00–15:00</time></div
-            ><div
-              ><span class="badge">Club Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i13" data-artist="i13"
-                  >Hybrid Minds</a
-                ></h3
-              ><p class="event-genre">Liquid drum and bass</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a28"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Hybrid Minds"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a28">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d2&amp;venue=h3&amp;category=standing&amp;event=a28"
-                >Vstup na scénu · 90&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-02T14:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-02T14:00:00">2. srpna<br />14:00–15:00</time></div
-            ><div
-              ><span class="badge">Main Hall</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i43" data-artist="i43"
-                  >Arctic Monkeys</a
-                ></h3
-              ><p class="event-genre">Indie rock</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a23"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Arctic Monkeys"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a23">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d2&amp;venue=h1&amp;category=standing&amp;event=a23"
-                >Vstup na scénu · 150&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-02T14:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-02T14:00:00">2. srpna<br />14:00–15:00</time></div
-            ><div
-              ><span class="badge">River Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i32" data-artist="i32"
-                  >Chinaski</a
-                ></h3
-              ><p class="event-genre">Pop rock</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a30"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Chinaski"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a30">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d2&amp;venue=h2&amp;category=standing&amp;event=a30"
-                >Vstup na scénu · 110&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-02T15:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-02T15:30:00">2. srpna<br />15:30–16:30</time></div
-            ><div
-              ><span class="badge">Club Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i14" data-artist="i14"
-                  >Dimension</a
-                ></h3
-              ><p class="event-genre">Drum and bass / dancefloor</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a31"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Dimension"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a31">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d2&amp;venue=h3&amp;category=standing&amp;event=a31"
-                >Vstup na scénu · 90&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-02T15:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-02T15:30:00">2. srpna<br />15:30–16:30</time></div
-            ><div
-              ><span class="badge">Main Hall</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i45" data-artist="i45"
-                  >The Chemical Brothers</a
-                ></h3
-              ><p class="event-genre">Big beat / techno</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a26"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: The Chemical Brothers"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a26">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d2&amp;venue=h1&amp;category=standing&amp;event=a26"
-                >Vstup na scénu · 150&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-02T15:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-02T15:30:00">2. srpna<br />15:30–16:30</time></div
-            ><div
-              ><span class="badge">River Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i33" data-artist="i33"
-                  >Kabát</a
-                ></h3
-              ><p class="event-genre">Hard rock</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a34"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Kabát"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a34">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d2&amp;venue=h2&amp;category=standing&amp;event=a34"
-                >Vstup na scénu · 110&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-02T17:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-02T17:00:00">2. srpna<br />17:00–18:00</time></div
-            ><div
-              ><span class="badge">Club Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i15" data-artist="i15"
-                  >Hedex</a
-                ></h3
-              ><p class="event-genre">Drum and bass / jump-up</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a35"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Hedex"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a35">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d2&amp;venue=h3&amp;category=standing&amp;event=a35"
-                >Vstup na scénu · 90&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-02T17:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-02T17:00:00">2. srpna<br />17:00–18:00</time></div
-            ><div
-              ><span class="badge">Main Hall</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i34" data-artist="i34"
-                  >Iron Maiden</a
-                ></h3
-              ><p class="event-genre">Heavy metal</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a29"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Iron Maiden"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a29">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d2&amp;venue=h1&amp;category=standing&amp;event=a29"
-                >Vstup na scénu · 150&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-02T17:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-02T17:00:00">2. srpna<br />17:00–18:00</time></div
-            ><div
-              ><span class="badge">River Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i51" data-artist="i51"
-                  >Lucie</a
-                ></h3
-              ><p class="event-genre">Pop rock</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a37"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Lucie"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a37">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d2&amp;venue=h2&amp;category=standing&amp;event=a37"
-                >Vstup na scénu · 110&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-02T18:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-02T18:30:00">2. srpna<br />18:30–19:30</time></div
-            ><div
-              ><span class="badge">Club Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i16" data-artist="i16"
-                  >Bou</a
-                ></h3
-              ><p class="event-genre">Drum and bass / jump-up</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a38"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Bou"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a38">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d2&amp;venue=h3&amp;category=standing&amp;event=a38"
-                >Vstup na scénu · 90&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-02T18:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-02T18:30:00">2. srpna<br />18:30–19:30</time></div
-            ><div
-              ><span class="badge">Main Hall</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i44" data-artist="i44"
-                  >The Prodigy</a
-                ></h3
-              ><p class="event-genre">Big beat / breakbeat</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a32"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: The Prodigy"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a32">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d2&amp;venue=h1&amp;category=standing&amp;event=a32"
-                >Vstup na scénu · 150&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-02T18:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-02T18:30:00">2. srpna<br />18:30–19:30</time></div
-            ><div
-              ><span class="badge">River Stage</span
-              ><span class="badge program-highlight">Večerní hlavní set</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i52" data-artist="i52"
-                  >Wohnout</a
-                ></h3
-              ><p class="event-genre">Alternative rock</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a39"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Wohnout"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a39">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d2&amp;venue=h2&amp;category=standing&amp;event=a39"
-                >Vstup na scénu · 110&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-02T20:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-02T20:00:00">2. srpna<br />20:00–21:00</time></div
-            ><div
-              ><span class="badge">Club Stage</span
-              ><span class="badge program-highlight">Večerní hlavní set</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i17" data-artist="i17"
-                  >Kanine</a
-                ></h3
-              ><p class="event-genre">Drum and bass / dancefloor</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a40"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Kanine"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a40">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d2&amp;venue=h3&amp;category=standing&amp;event=a40"
-                >Vstup na scénu · 90&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-02T20:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-02T20:00:00">2. srpna<br />20:00–21:00</time></div
-            ><div
-              ><span class="badge">Main Hall</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i36" data-artist="i36"
-                  >Depeche Mode</a
-                ></h3
-              ><p class="event-genre">Synthpop</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a36"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Depeche Mode"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a36">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d2&amp;venue=h1&amp;category=standing&amp;event=a36"
-                >Vstup na scénu · 150&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-02T21:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-02T21:30:00">2. srpna<br />21:30–23:00</time></div
-            ><div
-              ><span class="badge">Main Hall</span
-              ><span class="badge headliner-badge">Hlavní koncert</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i2" data-artist="i2"
-                  >Katy Perry</a
-                ></h3
-              ><p class="event-genre">Dance pop</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a33"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Katy Perry"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a33">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d2&amp;venue=h1&amp;category=standing&amp;event=a33"
-                >Vstup na scénu · 150&nbsp;Kč</a
-              ></div
-            ></article
-          ></section
-        ><section class="program-day" aria-labelledby="program-d3"
-          ><div class="program-day-heading"
-            ><h2 id="program-d3"><time datetime="2027-08-03">3. srpna 2027</time></h2
-            ><p class="program-order-note"
-              >Od prvního vystoupení po poslední. Časy jsou uvedené v pražském čase.</p
-            ></div
-          ><article class="event" data-start="2027-08-03T09:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-03T09:30:00">3. srpna<br />09:30–10:30</time></div
-            ><div
-              ><span class="badge">River Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i54" data-artist="i54"
-                  >Divokej Bill</a
-                ></h3
-              ><p class="event-genre">Folk rock</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a41"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Divokej Bill"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a41">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d3&amp;venue=h2&amp;category=standing&amp;event=a41"
-                >Vstup na scénu · 110&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-03T11:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-03T11:00:00">3. srpna<br />11:00–12:00</time></div
-            ><div
-              ><span class="badge">Club Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i18" data-artist="i18"
-                  >Friction</a
-                ></h3
-              ><p class="event-genre">Drum and bass / jungle</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a42"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Friction"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a42">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d3&amp;venue=h3&amp;category=standing&amp;event=a42"
-                >Vstup na scénu · 90&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-03T11:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-03T11:00:00">3. srpna<br />11:00–12:00</time></div
-            ><div
-              ><span class="badge">River Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i55" data-artist="i55"
-                  >Vypsaná fiXa</a
-                ></h3
-              ><p class="event-genre">Alternative rock / punk</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a44"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Vypsaná fiXa"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a44">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d3&amp;venue=h2&amp;category=standing&amp;event=a44"
-                >Vstup na scénu · 110&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-03T12:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-03T12:30:00">3. srpna<br />12:30–13:30</time></div
-            ><div
-              ><span class="badge">Club Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i19" data-artist="i19"
-                  >JOYRYDE</a
-                ></h3
-              ><p class="event-genre">Bass house</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a45"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: JOYRYDE"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a45">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d3&amp;venue=h3&amp;category=standing&amp;event=a45"
-                >Vstup na scénu · 90&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-03T12:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-03T12:30:00">3. srpna<br />12:30–13:30</time></div
-            ><div
-              ><span class="badge">River Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i56" data-artist="i56"
-                  >Dymytry</a
-                ></h3
-              ><p class="event-genre">Industrial metal</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a47"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Dymytry"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a47">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d3&amp;venue=h2&amp;category=standing&amp;event=a47"
-                >Vstup na scénu · 110&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-03T14:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-03T14:00:00">3. srpna<br />14:00–15:00</time></div
-            ><div
-              ><span class="badge">Club Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i20" data-artist="i20"
-                  >AC Slater</a
-                ></h3
-              ><p class="event-genre">Bass house / UK garage</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a48"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: AC Slater"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a48">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d3&amp;venue=h3&amp;category=standing&amp;event=a48"
-                >Vstup na scénu · 90&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-03T14:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-03T14:00:00">3. srpna<br />14:00–15:00</time></div
-            ><div
-              ><span class="badge">Main Hall</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i39" data-artist="i39"
-                  >Linkin Park</a
-                ></h3
-              ><p class="event-genre">Alternative rock / nu metal</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a43"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Linkin Park"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a43">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d3&amp;venue=h1&amp;category=standing&amp;event=a43"
-                >Vstup na scénu · 150&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-03T14:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-03T14:00:00">3. srpna<br />14:00–15:00</time></div
-            ><div
-              ><span class="badge">River Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i57" data-artist="i57"
-                  >Sergei Barracuda</a
-                ></h3
-              ><p class="event-genre">Trap / gangsta rap</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a50"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Sergei Barracuda"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a50">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d3&amp;venue=h2&amp;category=standing&amp;event=a50"
-                >Vstup na scénu · 110&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-03T15:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-03T15:30:00">3. srpna<br />15:30–16:30</time></div
-            ><div
-              ><span class="badge">Club Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i21" data-artist="i21"
-                  >Conducta</a
-                ></h3
-              ><p class="event-genre">UK garage</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a51"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Conducta"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a51">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d3&amp;venue=h3&amp;category=standing&amp;event=a51"
-                >Vstup na scénu · 90&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-03T15:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-03T15:30:00">3. srpna<br />15:30–16:30</time></div
-            ><div
-              ><span class="badge">Main Hall</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i40" data-artist="i40"
-                  >Foo Fighters</a
-                ></h3
-              ><p class="event-genre">Alternative rock</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a46"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Foo Fighters"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a46">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d3&amp;venue=h1&amp;category=standing&amp;event=a46"
-                >Vstup na scénu · 150&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-03T15:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-03T15:30:00">3. srpna<br />15:30–16:30</time></div
-            ><div
-              ><span class="badge">River Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i58" data-artist="i58"
-                  >PTK</a
-                ></h3
-              ><p class="event-genre">Trap / rap</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a54"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: PTK"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a54">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d3&amp;venue=h2&amp;category=standing&amp;event=a54"
-                >Vstup na scénu · 110&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-03T17:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-03T17:00:00">3. srpna<br />17:00–18:00</time></div
-            ><div
-              ><span class="badge">Club Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i22" data-artist="i22"
-                  >Skepsis</a
-                ></h3
-              ><p class="event-genre">Bassline / bass house</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a55"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Skepsis"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a55">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d3&amp;venue=h3&amp;category=standing&amp;event=a55"
-                >Vstup na scénu · 90&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-03T17:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-03T17:00:00">3. srpna<br />17:00–18:00</time></div
-            ><div
-              ><span class="badge">Main Hall</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i35" data-artist="i35"
-                  >The Cure</a
-                ></h3
-              ><p class="event-genre">Gothic rock / post-punk</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a49"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: The Cure"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a49">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d3&amp;venue=h1&amp;category=standing&amp;event=a49"
-                >Vstup na scénu · 150&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-03T17:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-03T17:00:00">3. srpna<br />17:00–18:00</time></div
-            ><div
-              ><span class="badge">River Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i59" data-artist="i59"
-                  >Hugo Toxxx</a
-                ></h3
-              ><p class="event-genre">Alternative hip-hop</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a57"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Hugo Toxxx"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a57">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d3&amp;venue=h2&amp;category=standing&amp;event=a57"
-                >Vstup na scénu · 110&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-03T18:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-03T18:30:00">3. srpna<br />18:30–19:30</time></div
-            ><div
-              ><span class="badge">Club Stage</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i47" data-artist="i47"
-                  >Pendulum</a
-                ></h3
-              ><p class="event-genre">Drum and bass / electronic rock</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a58"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Pendulum"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a58">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d3&amp;venue=h3&amp;category=standing&amp;event=a58"
-                >Vstup na scénu · 90&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-03T18:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-03T18:30:00">3. srpna<br />18:30–19:30</time></div
-            ><div
-              ><span class="badge">Main Hall</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i46" data-artist="i46"
-                  >Bring Me the Horizon</a
-                ></h3
-              ><p class="event-genre">Metalcore / alternative metal</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a52"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Bring Me the Horizon"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a52">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d3&amp;venue=h1&amp;category=standing&amp;event=a52"
-                >Vstup na scénu · 150&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-03T18:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-03T18:30:00">3. srpna<br />18:30–19:30</time></div
-            ><div
-              ><span class="badge">River Stage</span
-              ><span class="badge program-highlight">Večerní hlavní set</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i60" data-artist="i60"
-                  >Paulie Garand</a
-                ></h3
-              ><p class="event-genre">Alternative hip-hop</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a59"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Paulie Garand"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a59">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d3&amp;venue=h2&amp;category=standing&amp;event=a59"
-                >Vstup na scénu · 110&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-03T20:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-03T20:00:00">3. srpna<br />20:00–21:00</time></div
-            ><div
-              ><span class="badge">Club Stage</span
-              ><span class="badge program-highlight">Večerní hlavní set</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i53" data-artist="i53"
-                  >HOLY PRIEST</a
-                ></h3
-              ><p class="event-genre">Hard techno</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a60"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: HOLY PRIEST"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a60">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d3&amp;venue=h3&amp;category=standing&amp;event=a60"
-                >Vstup na scénu · 90&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-03T20:00:00"
-            ><div class="time"
-              ><time datetime="2027-08-03T20:00:00">3. srpna<br />20:00–21:00</time></div
-            ><div
-              ><span class="badge">Main Hall</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i48" data-artist="i48"
-                  >Dua Lipa</a
-                ></h3
-              ><p class="event-genre">Dance pop / disco</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a56"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Dua Lipa"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a56">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d3&amp;venue=h1&amp;category=standing&amp;event=a56"
-                >Vstup na scénu · 150&nbsp;Kč</a
-              ></div
-            ></article
-          ><article class="event" data-start="2027-08-03T21:30:00"
-            ><div class="time"
-              ><time datetime="2027-08-03T21:30:00">3. srpna<br />21:30–23:00</time></div
-            ><div
-              ><span class="badge">Main Hall</span
-              ><span class="badge headliner-badge">Hlavní koncert</span
-              ><h3
-                ><a class="text-button event-artist" href="performer.html?id=i3" data-artist="i3"
-                  >Skrillex</a
-                ></h3
-              ><p class="event-genre">Dubstep / bass house</p></div
-            ><div class="event-actions"
-              ><button
-                class="secondary small"
-                data-fav="a53"
-                aria-pressed="false"
-                aria-label="Přidat do oblíbených: Skrillex"
-                >♡ Uložit</button
-              ><button class="small secondary" data-event="a53">Detail</button
-              ><a
-                class="button small event-buy"
-                href="tickets.html?duration=1&amp;day=d3&amp;venue=h1&amp;category=standing&amp;event=a53"
-                >Vstup na scénu · 150&nbsp;Kč</a
-              ></div
-            ></article
           ></section
         ></section
       ><noscript

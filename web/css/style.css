@@ -4198,3 +4198,145 @@ dialog.cookie-panel {
 a.text-button {
   display: inline-block;
 }
+
+/* Shared stage timetable. Only the schedule scrolls sideways on smaller screens. */
+.personal-program-note {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-block: 1.25rem;
+  border-inline-start: 3px solid var(--orange);
+  padding: 0.5rem 1rem;
+}
+.personal-program-note p {
+  max-width: 65ch;
+  margin: 0;
+}
+.account-programme {
+  margin-block: 1rem;
+}
+.account-programme a {
+  color: var(--orange);
+  text-decoration: underline;
+}
+.timeline-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+}
+.program-timeline {
+  display: grid;
+  grid-template-columns: 3.4rem repeat(var(--stage-count), minmax(12rem, 1fr));
+  grid-template-rows: auto repeat(var(--time-rows), 5.9rem);
+  column-gap: 0.35rem;
+  padding-bottom: 0.25rem;
+}
+.timeline-stage,
+.timeline-corner {
+  margin: 0;
+  background: var(--panel);
+  padding: 0.65rem 0.4rem;
+  font-size: 1.1rem;
+}
+.timeline-corner,
+.timeline-time {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: #17181a;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.timeline-time {
+  font-size: 0.85rem;
+  padding: 0.3rem;
+}
+.timeline-rule {
+  border-top: 1px solid var(--line);
+  pointer-events: none;
+}
+.program-timeline .timeline-event {
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+  margin: 0 0 0.25rem;
+  padding: 0.6rem;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--orange);
+  border-radius: 0.4rem;
+  background: var(--panel);
+}
+.timeline-event h3,
+.timeline-event p {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.timeline-event h3 {
+  font-size: 1.35rem;
+  line-height: 1.1;
+}
+.timeline-event time,
+.timeline-clash {
+  color: var(--orange);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.timeline-event .event-genre {
+  font-size: 0.85rem;
+}
+.timeline-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: auto;
+}
+.timeline-actions .small {
+  padding: 0.3rem 0.55rem;
+  min-height: 2.75rem;
+}
+.nav a,
+.nav .ticket-link {
+  font-size: 1rem;
+}
+.saved-count {
+  font-size: 0.8em;
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 1023px) {
+  .nav.open {
+    order: 1;
+    grid-template-columns: 1fr 1fr;
+  }
+  .header-tools {
+    order: 2;
+  }
+  .nav.open a {
+    border-radius: 6px;
+  }
+  .nav.open .ticket-link {
+    grid-column: auto;
+    margin: 0;
+  }
+}
+@media (min-width: 1024px) and (max-width: 1399px) {
+  .header-inner.rocks-header {
+    flex-wrap: wrap;
+    gap: 6px 16px;
+  }
+  .rocks-header .brand-cluster {
+    flex: 1;
+  }
+  .rocks-header .header-tools {
+    order: 1;
+  }
+  .rocks-header .nav {
+    order: 2;
+    flex-basis: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}

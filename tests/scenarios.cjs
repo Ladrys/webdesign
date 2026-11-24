@@ -37,6 +37,23 @@ function check(condition, label) {
     await b.goto('index.html');
     await b.evaluate("localStorage.clear();localStorage.setItem('prf:language','cs')");
     await b.goto('program.html');
+    check(
+      await b.evaluate(`(() => {
+      const cards = [...document.querySelectorAll('.timeline-event[data-start$="T12:30:00"]')];
+      const boxes = cards.map(n => n.getBoundingClientRect());
+      return document.querySelector('#day').value === 'd1' && boxes.length === 3 &&
+        boxes.every(r => r.top === boxes[0].top) && new Set(boxes.map(r => r.left)).size === 3;
+    })()`),
+      'Program: souběžné koncerty leží na jedné výšce ve třech sloupcích',
+    );
+    await input('program-view', 'list');
+    check(
+      await b.evaluate(
+        "document.querySelectorAll('#events .event').length===20 && !document.querySelector('.program-timeline')",
+      ),
+      'Program: seznam nabízí stejných 20 koncertů prvního dne',
+    );
+    await input('program-view', 'timeline');
     await input('day', 'd1');
     await input('venue', 'h2');
     check(
@@ -197,6 +214,26 @@ function check(condition, label) {
     await click('#auth-submit');
     await wait("Boolean(document.querySelector('#logout'))");
     check(true, 'Účet: odhlášení a opětovné přihlášení');
+    await click('.account-programme a');
+    await wait("document.querySelector('main h1').textContent==='Můj program'");
+    check(
+      await b.evaluate(
+        "document.querySelectorAll('#events .event').length===1 && document.querySelector('.saved-count').textContent==='1' && !document.querySelector('#day').value",
+      ),
+      'Můj program: po registraci, odhlášení a přihlášení zůstává uložený koncert',
+    );
+    const literal = '<festival-marker>Test & "Hudba"</festival-marker>';
+    await b.goto('search.html?q=' + encodeURIComponent(literal));
+    check(
+      await b.evaluate(
+        "!document.querySelector('festival-marker') && document.querySelector('#search-count').textContent.includes('festival-marker')",
+      ),
+      'Hledání: znaky HTML se zobrazí jako text',
+    );
+    check(
+      await b.evaluate("PulseOrders.normalize({edition:'invalid'}).edition === 2026"),
+      'Historie: neplatný uložený ročník získá číselnou výchozí hodnotu',
+    );
     for (const language of ['en', 'cs']) {
       await b.evaluate(`localStorage.setItem('prf:language','${language}')`);
       await b.goto('program.html');

@@ -24,13 +24,25 @@
   function dateInfo() {
     return window.PulseDesign?.festivalDates(window.FESTIVAL_DATA);
   }
-  function header({ page = 'index.html', user = null, cartCount = 0, lang = 'cs' } = {}) {
+  function header({
+    page = 'index.html',
+    user = null,
+    cartCount = 0,
+    savedCount = 0,
+    savedView = false,
+    lang = 'cs',
+  } = {}) {
     const t = (cs, en) => tr(cs, en, lang),
       dates = dateInfo();
     const date = dates ? `${dates.range} / ${dates.month}` : '';
     const year = dates?.year || '';
+    const active = savedView ? 'program.html?saved=1' : page;
     const nav = [
       ['program.html', t('Program', 'Programme')],
+      [
+        'program.html?saved=1',
+        `${t('Můj program', 'My programme')} <span class="saved-count">${savedCount}</span>`,
+      ],
       ['performers.html', t('Účinkující', 'Artists')],
       ['venues.html', t('Scény', 'Stages')],
       ['info.html', t('Info', 'Info')],
@@ -40,7 +52,7 @@
         `${cartIcon}<span>${t('Košík', 'Cart')} <span class="cart-count">${cartCount}</span></span>`,
       ],
     ];
-    return `<div class="header-inner rocks-header"><div class="brand-cluster"><a class="brand" href="index.html" aria-label="${t('Prague Pulse Fest – úvod', 'Prague Pulse Fest – home')}">${window.PulseDesign?.logoLight || 'PRAGUE PULSE FEST'}</a><div class="header-date"><strong>${date}</strong><span>${year} · ${t('PRAHA', 'PRAGUE')}</span></div></div><button class="menu-toggle secondary small" aria-expanded="false" aria-controls="navigation"><span class="visually-hidden">${t('Otevřít navigaci', 'Open navigation')}</span>${menuIcon}<span>MENU</span></button><nav id="navigation" class="nav" aria-label="${t('Hlavní navigace', 'Main navigation')}">${nav.map(([href, label]) => `<a href="${href}" ${page === href || (page === 'performer.html' && href === 'performers.html') ? 'aria-current="page"' : ''}${href === 'account.html' && user ? ` aria-label="${t('Můj účet', 'My account')}"` : ''}>${label}</a>`).join('')}<a href="tickets.html" class="ticket-link" ${page === 'tickets.html' ? 'aria-current="page"' : ''}>${t('Vstupenky', 'Tickets')} ${arrow}</a></nav><div class="header-tools"><form class="global-search" action="search.html" role="search"><label class="visually-hidden" for="global-q">${t('Hledat na celém webu', 'Search the whole website')}</label><input type="search" id="global-q" name="q" maxlength="120" placeholder="${t('Hledat…', 'Search…')}"><button type="submit" aria-label="${t('Vyhledat', 'Search')}">${searchIcon}</button></form><div class="language-switch" role="group" aria-label="${t('Jazyk webu', 'Website language')}"><button type="button" data-lang="cs" lang="cs" aria-pressed="${lang !== 'en'}" aria-label="Čeština">CZ</button><span aria-hidden="true">/</span><button type="button" data-lang="en" lang="en" aria-pressed="${lang === 'en'}" aria-label="English">EN</button></div></div></div>`;
+    return `<div class="header-inner rocks-header"><div class="brand-cluster"><a class="brand" href="index.html" aria-label="${t('Prague Pulse Fest – úvod', 'Prague Pulse Fest – home')}">${window.PulseDesign?.logoLight || 'PRAGUE PULSE FEST'}</a><div class="header-date"><strong>${date}</strong><span>${year} · ${t('PRAHA', 'PRAGUE')}</span></div></div><button class="menu-toggle secondary small" aria-expanded="false" aria-controls="navigation"><span class="visually-hidden">${t('Otevřít navigaci', 'Open navigation')}</span>${menuIcon}<span>MENU</span></button><nav id="navigation" class="nav" aria-label="${t('Hlavní navigace', 'Main navigation')}">${nav.map(([href, label]) => `<a href="${href}" ${active === href || (page === 'performer.html' && href === 'performers.html') ? 'aria-current="page"' : ''}${href === 'account.html' && user ? ` aria-label="${t('Můj účet', 'My account')}"` : ''}>${label}</a>`).join('')}<a href="tickets.html" class="ticket-link" ${page === 'tickets.html' ? 'aria-current="page"' : ''}>${t('Vstupenky', 'Tickets')} ${arrow}</a></nav><div class="header-tools"><form class="global-search" action="search.html" role="search"><label class="visually-hidden" for="global-q">${t('Hledat na celém webu', 'Search the whole website')}</label><input type="search" id="global-q" name="q" maxlength="120" placeholder="${t('Hledat…', 'Search…')}"><button type="submit" aria-label="${t('Vyhledat', 'Search')}">${searchIcon}</button></form><div class="language-switch" role="group" aria-label="${t('Jazyk webu', 'Website language')}"><button type="button" data-lang="cs" lang="cs" aria-pressed="${lang !== 'en'}" aria-label="Čeština">CZ</button><span aria-hidden="true">/</span><button type="button" data-lang="en" lang="en" aria-pressed="${lang === 'en'}" aria-label="English">EN</button></div></div></div>`;
   }
   function footer({ lang = 'cs' } = {}) {
     const t = (cs, en) => tr(cs, en, lang),

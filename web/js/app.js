@@ -246,7 +246,7 @@
       ? crypto.randomUUID()
       : Date.now().toString(36) + '-' + Math.random().toString(36).slice(2);
   }
-  const link = (href, text, cls = '') => `<a class="${cls}" href="${href}">${text}</a>`;
+  const link = (href, text, cls = '') => `<a class="${esc(cls)}" href="${esc(href)}">${text}</a>`;
   const crumb = (t) =>
     `<nav class="crumb" aria-label="${tr('Drobečková navigace', 'Breadcrumb')}"><a href="index.html">Festival</a> <span aria-hidden="true">/</span> <span aria-current="page">${esc(t)}</span></nav>`;
   const heading = (tag, title, desc = '') =>
@@ -257,6 +257,9 @@
       page,
       user,
       cartCount: getCart().length,
+      savedCount: storage.get('favorites').length,
+      savedView:
+        page === 'program.html' && new URLSearchParams(location.search).get('saved') === '1',
       lang,
       diskMode,
     });
@@ -431,16 +434,22 @@
   }
   function program() {
     const params = new URLSearchParams(location.search);
+    const savedView = params.get('saved') === '1';
+    const title = savedView
+      ? tr('Můj program', 'My programme')
+      : tr('Program 2027', 'Programme 2027');
+    if (savedView) document.title = title + ' | Prague Pulse Fest';
     main.innerHTML =
-      crumb('Program') +
+      crumb(savedView ? title : tr('Program', 'Programme')) +
       heading(
         '1.–3. srpna / tři scény',
-        'Program 2027',
+        title,
         tr(
           'Koncerty na scénách běží souběžně. Tři večerní hlavní sety každý den navazují s 30 minutami na přesun.',
           'Stages run in parallel. Each day’s three closing highlights follow one another with 30 minutes to move between stages.',
         ),
       ) +
+      `<aside class="personal-program-note"><p>${tr('Ulož si koncerty srdíčkem. Výběr zůstane v tomto prohlížeči i po přihlášení nebo odhlášení; účet nepotřebuješ. Mezi zařízeními se nepřenáší.', 'Save performances with the heart button. Your selection stays in this browser when you sign in or out; no account is needed. It does not sync across devices.')}</p>${link(savedView ? 'program.html' : 'program.html?saved=1', savedView ? tr('← Celý program', '← Full programme') : tr('Zobrazit můj program →', 'View my programme →'), 'button secondary small')}</aside>` +
       `<form class="filters" id="program-filters"><div class="field"><label for="day">Den</label><select id="day"><option value="">Všechny dny</option>${D.festival.dates.map((d) => `<option value="${d.id}">${date(d.date)}</option>`).join('')}</select></div><div class="field"><label for="venue">Scéna</label><select id="venue"><option value="">Všechny scény</option>${D.venues.map((v) => `<option value="${v.id}">${esc(v.name)}</option>`).join('')}</select></div><div class="field"><label for="program-q">Interpret nebo téma</label><input id="program-q" type="search" maxlength="120" placeholder="Např. David nebo bassline"></div><div class="field"><label for="program-genre">${tr('Žánr', 'Genre')}</label><select id="program-genre"><option value="">${tr('Všechny žánry', 'All genres')}</option>${[
         ...new Set(D.performers.map((p) => p.genre)),
       ]
@@ -449,9 +458,31 @@
         .join(
           '',
         )}</select></div><label class="check"><input type="checkbox" id="only-favorites">Jen můj program</label><button class="secondary small" type="reset">Zrušit filtry</button></form><section id="program-conflicts" class="notice program-conflicts" role="status" aria-live="polite" hidden></section><p id="result-count" class="count" role="status"></p><h2 class="visually-hidden">Vystoupení</h2><section id="events" aria-label="Vystoupení"></section>`;
-    $('#day').value = params.get('day') || '';
+    const selectedEvent = D.events.find((event) => event.id === params.get('event'));
+    const initialDay = savedView
+      ? ''
+      : params.get('day') || selectedEvent?.dayId || D.festival.dates[0].id;
+    $('#day').value = D.festival.dates.some((day) => day.id === initialDay) ? initialDay : '';
+    for (const option of $('#day').options)
+      option.defaultSelected = option.value === $('#day').value;
     $('#venue').value = params.get('venue') || '';
+    $('#only-favorites').checked = savedView;
+    $('#only-favorites').defaultChecked = savedView;
+    if (savedView) $('#only-favorites').closest('label').hidden = true;
+    const view = document.createElement('select');
+    if (!savedView) {
+      const field = document.createElement('div');
+      field.className = 'field';
+      field.innerHTML = `<label for="program-view">${tr('Zobrazení', 'View')}</label>`;
+      view.id = 'program-view';
+      view.add(new Option(tr('Časová osa', 'Timeline'), 'timeline'));
+      view.add(new Option(tr('Seznam', 'List'), 'list'));
+      field.append(view);
+      $('#program-filters').insertBefore(field, $('#only-favorites').parentElement);
+    }
     function render() {
+      const scroll = [...main.querySelectorAll('.timeline-scroll')].map((n) => n.scrollLeft);
+      const showList = savedView || view.value === 'list';
       const q = normalize($('#program-q').value.trim()),
         fav = storage.get('favorites'),
         pairs = savedProgramConflicts(fav),
@@ -485,11 +516,18 @@
             .map((day) => {
               const events = list.filter((e) => e.dayId === day.id);
               return events.length
-                ? `<section class="program-day" aria-labelledby="program-${day.id}"><div class="program-day-heading"><h2 id="program-${day.id}"><time datetime="${day.date}">${date(day.date)} 2027</time></h2><p class="program-order-note">${tr('Od prvního vystoupení po poslední. Časy jsou uvedené v pražském čase.', 'From the first performance to the last. All times are Prague local time.')}</p></div>${eventRows(events, clashes)}</section>`
+                ? `<section class="program-day" aria-labelledby="program-${day.id}"><div class="program-day-heading"><h2 id="program-${day.id}"><time datetime="${day.date}">${date(day.date)} 2027</time></h2><p class="program-order-note">${showList ? tr('Koncerty podle času. Časy jsou v pražském čase.', 'Performances in time order. All times are Prague local time.') : tr('Scény mají společnou časovou osu. Na mobilu posuň přehled do strany. Všechny časy jsou v pražském čase.', 'Stages share the same timeline. On mobile, scroll the schedule sideways. All times are Prague local time.')}</p></div>${showList ? eventRows(events, clashes) : programTimeline(day, events, clashes)}</section>`
                 : '';
             })
             .join('')
-        : eventRows([]);
+        : $('#only-favorites').checked && !fav.length
+          ? `<div class="empty"><h2>${tr('Zatím nemáš uložené koncerty', 'No saved performances yet')}</h2><p>${tr('V programu stiskni u koncertu „Uložit“. Tady pak uvidíš celý svůj výběr bez přihlášení.', 'Press “Save” on a performance in the programme. Your whole selection will appear here without signing in.')}</p>${link('program.html', tr('Vybrat koncerty →', 'Choose performances →'), 'button')}</div>`
+          : eventRows([]);
+      main.querySelectorAll('.timeline-scroll').forEach((n, i) => {
+        n.scrollLeft = scroll[i] || 0;
+      });
+      const counter = document.querySelector('.saved-count');
+      if (counter) counter.textContent = String(fav.length);
     }
     $('#program-filters').oninput = render;
     $('#program-filters').onsubmit = (e) => e.preventDefault();
@@ -500,6 +538,35 @@
     });
     render();
     if (params.get('event')) eventDetail(params.get('event'));
+  }
+  // One row represents 30 minutes on every stage, including gaps and filtered-out shows.
+  // Grid positions come from the complete day so filtering never shifts the time axis.
+  function programTimeline(day, events, clashes) {
+    const minute = (time) => Number(time.slice(0, 2)) * 60 + Number(time.slice(3, 5));
+    const all = D.events.filter((event) => event.dayId === day.id);
+    const start = Math.floor(Math.min(...all.map((event) => minute(event.startTime))) / 30) * 30;
+    const end = Math.ceil(Math.max(...all.map((event) => minute(event.endTime))) / 30) * 30;
+    const venues = D.venues.filter((venue) => !$('#venue').value || venue.id === $('#venue').value);
+    const clock = (value) =>
+      `${String(Math.floor(value / 60)).padStart(2, '0')}:${String(value % 60).padStart(2, '0')}`;
+    const ticks = [];
+    for (let value = start; value <= end; value += 30) {
+      const row = (value - start) / 30 + 2;
+      ticks.push(
+        `<span class="timeline-time" style="grid-row:${row};grid-column:1" aria-hidden="true">${clock(value)}</span><span class="timeline-rule" style="grid-row:${row};grid-column:2/-1" aria-hidden="true"></span>`,
+      );
+    }
+    const favorites = storage.get('favorites');
+    const cards = events.map((event) => {
+      const row = (minute(event.startTime) - start) / 30 + 2;
+      const span = (minute(event.endTime) - minute(event.startTime)) / 30;
+      const column = venues.findIndex((venue) => venue.id === event.venueId) + 2;
+      const artist = D.performers.find((p) => p.id === event.performerIds[0]);
+      const saved = favorites.includes(event.id);
+      const saveLabel = saved ? tr('Odebrat', 'Remove') : tr('Uložit', 'Save');
+      return `<article class="event timeline-event" data-start="${event.date}T${event.startTime}" style="grid-column:${column};grid-row:${row}/span ${span}"><time datetime="${event.date}T${event.startTime}">${event.startTime.slice(0, 5)}–${event.endTime.slice(0, 5)}</time><h3>${artist ? link('performer.html?id=' + encodeURIComponent(artist.id), esc(artist.name)) : esc(event.name)}</h3><p class="event-genre">${esc(artist?.genre || event.theme)}</p><span class="visually-hidden">${esc(event.venueName)}</span>${clashes.has(event.id) ? `<small class="timeline-clash">${tr('Časová kolize', 'Time clash')}</small>` : ''}<div class="timeline-actions"><button class="secondary small" data-fav="${esc(event.id)}" aria-pressed="${saved}" aria-label="${saveLabel}: ${esc(event.name)}">${saved ? '♥' : '♡'} ${saveLabel}</button><button class="secondary small" data-event="${esc(event.id)}" aria-label="Detail: ${esc(event.name)}">Detail</button></div></article>`;
+    });
+    return `<div class="timeline-scroll" role="region" tabindex="0" aria-labelledby="program-${day.id}"><div class="program-timeline" style="--stage-count:${venues.length};--time-rows:${(end - start) / 30 + 1}"><span class="timeline-corner" aria-hidden="true">${tr('Čas', 'Time')}</span>${venues.map((venue, index) => `<h3 class="timeline-stage" style="grid-column:${index + 2};grid-row:1">${esc(venue.name)}</h3>`).join('')}${ticks.join('')}${cards.join('')}</div></div>`;
   }
   function performers() {
     main.innerHTML =
@@ -752,9 +819,13 @@
   // Neplatný volitelný kemp/daň se vynechá, koncertní vstupenky z historie zůstávají.
   function normalizeStoredOrder(order) {
     const result = { ...order },
-      edition = Number.isInteger(order.edition) ? order.edition : 2026,
+      edition =
+        Number.isInteger(order.edition) && order.edition >= 1000 && order.edition <= 9999
+          ? order.edition
+          : 2026,
       camp = order.camping,
       type = campingCatalog.types.find((t) => t.id === camp?.type);
+    result.edition = edition;
     const validCamp =
       camp &&
       typeof camp === 'object' &&
@@ -1731,7 +1802,9 @@
         f.setAttribute('aria-pressed', next.includes(id));
         f.textContent = next.includes(id) ? '♥ Uloženo' : '♡ Uložit';
         main.dispatchEvent(new Event('favorites-changed'));
-        (main.querySelector(`[data-fav="${id}"]`) || $('#only-favorites'))?.focus();
+        (
+          main.querySelector(`[data-fav="${id}"]`) || main.querySelector('.personal-program-note a')
+        )?.focus();
       }
     }
     const dl = e.target.closest('[data-download]');
