@@ -7,6 +7,20 @@ on:
 permissions:
   contents: read
 jobs:
+  chrome-macos:
+    runs-on: macos-15
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Koncerty, jazyk a interakce v Chromu na macOS
+        env:
+          CHROMIUM_PATH: /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+        run: |
+          "$CHROMIUM_PATH" --version
+          node tests/run.cjs
   validate:
     runs-on: ubuntu-24.04
     timeout-minutes: 10

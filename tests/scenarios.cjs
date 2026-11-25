@@ -280,6 +280,21 @@ function check(condition, label) {
       await b.evaluate("document.querySelector('main h1').textContent==='DARKZY'"),
       'Offline: samostatný detail funguje i přes file:// směrování',
     );
+    await b.goto(fileUrl + '?page=program.html&lang=cs');
+    for (const language of ['en', 'cs']) {
+      await click('[data-lang="' + language + '"]');
+      await wait(
+        `document.documentElement.lang==='${language}' && document.querySelectorAll('.timeline-event').length===20`,
+      );
+      await click('[data-event]');
+      check(
+        await b.evaluate(
+          "document.querySelector('#detail').open && !!document.querySelector('#dialog-title').textContent.trim()",
+        ),
+        'Offline: 20 koncertů a otevření detailu po přepnutí na ' + language,
+      );
+      await click('#detail .close');
+    }
     check(b.errors.length === 0, 'Žádná neošetřená JavaScriptová chyba během scénářů');
   } finally {
     fs.writeFileSync(
