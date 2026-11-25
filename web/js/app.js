@@ -68,11 +68,23 @@
   $('meta[property="og:title"]').content = document.title;
   // Keep one file URL for all views: file:// localStorage isolation otherwise differs by browser.
   // Při otevření z disku držíme všechny pohledy pod index.html kvůli místnímu úložišti.
+  const urlLanguage = new URLSearchParams(location.search).get('lang');
+  const carryLanguage = ['cs', 'en'].includes(urlLanguage);
   function routeUrl(href) {
-    if (!diskMode || typeof href !== 'string' || href.startsWith('#')) return href;
+    if ((!diskMode && !carryLanguage) || typeof href !== 'string' || href.startsWith('#'))
+      return href;
     const target = new URL(href, location.href),
       filename = target.pathname.split('/').pop();
-    if (!pages.includes(filename)) return href;
+    if (
+      !pages.includes(filename) ||
+      target.protocol !== location.protocol ||
+      target.host !== location.host ||
+      target.pathname.slice(0, target.pathname.lastIndexOf('/') + 1) !==
+        location.pathname.slice(0, location.pathname.lastIndexOf('/') + 1)
+    )
+      return href;
+    if (carryLanguage) target.searchParams.set('lang', urlLanguage);
+    if (!diskMode) return target.href;
     if (filename === 'index.html' && target.searchParams.has('page')) return target.href;
     target.pathname = target.pathname.replace(/[^/]+$/, 'index.html');
     target.searchParams.set('page', filename);
@@ -85,7 +97,7 @@
   document.addEventListener('click', (e) => {
     const anchor = e.target.closest('a[href]');
     if (
-      !diskMode ||
+      (!diskMode && !carryLanguage) ||
       !anchor ||
       anchor.target ||
       anchor.download ||
@@ -264,6 +276,13 @@
       diskMode,
     });
     $('#footer').innerHTML = window.PulseShell.footer({ lang });
+    if (carryLanguage) {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = 'lang';
+      input.value = urlLanguage;
+      $('.global-search').append(input);
+    }
     if (diskMode) {
       $('.global-search').action = 'index.html';
       $('.global-search').insertAdjacentHTML(
@@ -276,11 +295,6 @@
       e.currentTarget.setAttribute('aria-expanded', open);
       $('#navigation').classList.toggle('open', open);
     };
-    main.ownerDocument
-      .querySelectorAll('[data-lang]')
-      .forEach(
-        (button) => (button.onclick = () => window.PulseI18n.setLanguage(button.dataset.lang)),
-      );
   }
   function updateCount() {
     const badge = $('nav a[href="cart.html"] .cart-count');
@@ -289,14 +303,14 @@
   function openDialog(html) {
     $('#detail-content').innerHTML = html;
     window.PulseCapacity?.mount($('#detail-content'));
-    $('#detail').showModal();
+    window.PulseShell.showDialog($('#detail'));
   }
-  $('#detail .close').onclick = () => $('#detail').close();
+  $('#detail .close').onclick = () => window.PulseShell.closeDialog($('#detail'));
   $('#detail').addEventListener('click', (e) => {
     if (e.target === $('#detail')) {
       const r = e.target.getBoundingClientRect();
       if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)
-        e.target.close();
+        window.PulseShell.closeDialog(e.target);
     }
   });
   function artistCard(p, i = 0) {
@@ -985,7 +999,9 @@
         0,
       ),
       normalized = normalizePromo(code),
-      promo = Object.hasOwn(promoCatalog, normalized) ? promoCatalog[normalized] : null;
+      promo = Object.prototype.hasOwnProperty.call(promoCatalog, normalized)
+        ? promoCatalog[normalized]
+        : null;
     const discount = promo
       ? Math.min(subtotal, promo.amount || Math.round((subtotal * promo.percent) / 100))
       : 0;
@@ -1001,7 +1017,7 @@
       const code = normalizePromo(
         JSON.parse(localStorage.getItem('pulse:promo:' + cartKey()) || 'null')?.code,
       );
-      return Object.hasOwn(promoCatalog, code) ? code : '';
+      return Object.prototype.hasOwnProperty.call(promoCatalog, code) ? code : '';
     } catch {
       return '';
     }
@@ -1396,7 +1412,7 @@
       firstName = draft.firstName ?? draft.name ?? accountFirst,
       lastName = draft.lastName ?? accountLast;
     let activePromo = typeof draft.appliedPromo === 'string' ? draft.appliedPromo : savedPromo();
-    if (!Object.hasOwn(promoCatalog, activePromo)) activePromo = '';
+    if (!Object.prototype.hasOwnProperty.call(promoCatalog, activePromo)) activePromo = '';
     const inputPromo = draft.promoCode ?? activePromo,
       campChoice = campingChoice(draft.camping ?? savedCamping());
     main.innerHTML += `<div class="seat-layout"><section class="card"><h2>Vybrané vstupenky</h2>${cart.map((t, i) => `<article class="cart-item"><div><h3>${esc(ticketLabel(t))}</h3><p class="muted">${ticketDate(t)} · ${esc(admissionLabel(t))}</p><p>${money(t.price)} ${conflicts.includes(t) ? '<strong class="danger">' + tr('· místo nebo kapacita scény už nejsou dostupné; uprav výběr', '· this place or stage capacity is no longer available; edit your selection') + '</strong>' : ''}</p></div><button type="button" class="secondary small remove-ticket" data-remove="${i}" aria-label="${tr('Odebrat', 'Remove')} ${esc(ticketLabel(t))}">${removeIcon}</button></article>`).join('')}<p class="total" id="cart-ticket-subtotal">${tr('Cena vstupenek', 'Ticket subtotal')}: ${money(promoTotals(cart).subtotal)}</p>${cartCapacityHtml(cart)}${link('tickets.html', tr('Upravit výběr / přidat vstupenky →', 'Edit selection / add tickets →'), 'text-button')}</section><section class="card"><p class="eyebrow">Objednávka</p><h2>Dokončení objednávky</h2>${user ? `<p>${tr('Přihlášen jako', 'Signed in as')} <strong class="account-name">${esc(user.name)}</strong></p>` : `<p class="muted">Nakupuješ jako host. ${link('account.html?next=cart', 'Přihlásit se nebo registrovat →')}</p>`}<form id="checkout" class="form-stack"><div class="checkout-fields grid two"><div class="field"><label for="buyer-name">${tr('Jméno', 'First name')}</label><input id="buyer-name" name="firstName" required minlength="1" maxlength="80" autocomplete="given-name" value="${esc(firstName)}"></div><div class="field"><label for="buyer-surname">${tr('Příjmení', 'Last name')}</label><input id="buyer-surname" name="lastName" required minlength="1" maxlength="80" autocomplete="family-name" value="${esc(lastName)}"></div><div class="field"><label for="buyer-email">E-mail</label><input id="buyer-email" name="email" type="email" required maxlength="160" autocomplete="email" value="${esc(draft.email ?? user?.email ?? '')}" ${user ? 'readonly' : ''}></div><div class="field"><label for="buyer-phone">${tr('Telefon', 'Phone')}</label><input id="buyer-phone" name="phone" type="tel" required minlength="9" maxlength="30" autocomplete="tel" placeholder="+420 777 123 456" value="${esc(draft.phone ?? user?.phone ?? '')}"></div></div><fieldset class="camping-addon"><legend>${tr('Kempování · 1.–4. srpna (3 noci)', 'Camping · 1–4 August (3 nights)')}</legend><label class="check"><input id="camping-enabled" type="checkbox"><span>${tr('Přidat místo v kempu', 'Add a camping pitch')}</span></label><p class="count">${tr('Jedno místo pro vlastní stan nebo karavan. Cena zahrnuje všechny tři noci; vybavení není součástí.', 'One pitch for your own tent or caravan. The price includes all three nights; equipment is not included.')}</p><fieldset id="camping-fields"><legend class="visually-hidden">${tr('Výběr kempu', 'Camping selection')}</legend><div class="grid two"><div class="field"><label for="camping-type">${tr('Typ místa', 'Pitch type')}</label><select id="camping-type">${campingCatalog.types.map((t) => `<option value="${t.id}">${t.id === 'tent' ? tr('Stan', 'Tent') : tr('Karavan', 'Caravan')} · ${money(t.price)}</option>`).join('')}</select></div><div class="field"><label for="camping-people">${tr('Počet ubytovaných', 'Number of campers')}</label><input id="camping-people" type="number" min="1" step="1" inputmode="numeric" value="${esc(campChoice.people)}"></div></div><p id="camping-help" class="count"></p><p id="camping-error" class="error" role="alert"></p></fieldset></fieldset><div class="field promo-field"><label for="promo-code">${tr('Promo kód', 'Promo code')}</label><div class="actions"><input id="promo-code" name="promoCode" maxlength="32" autocomplete="off" value="${esc(inputPromo)}" aria-describedby="promo-message"><button id="apply-promo" type="button" class="secondary">${tr('Použít', 'Apply')}</button></div><p id="promo-message" class="count" role="status"></p><small class="muted">${tr('Promo kód snižuje pouze cenu vstupenek. Na kempování se nevztahuje.', 'Promo codes reduce ticket prices only. They do not apply to camping.')}</small></div><dl class="price-breakdown"><div class="price-row"><dt>${tr('Vstupenky', 'Tickets')}</dt><dd id="order-subtotal"></dd></div><div class="price-row" id="discount-row" hidden><dt>${tr('Sleva', 'Discount')} <span id="discount-code" data-no-translate></span></dt><dd id="order-discount"></dd></div><div class="price-row" id="order-camping-row" hidden><dt>${tr('Kempování', 'Camping')}</dt><dd id="order-camping"></dd></div><div class="price-row"><dt>${tr('Poplatky za objednávku', 'Booking fees')}</dt><dd>${money(0)}</dd></div><div class="price-row total"><dt>${tr('Cena celkem (včetně DPH)', 'Total price (including VAT)')}</dt><dd id="order-total"></dd></div><div class="price-row"><dt>${tr('Z toho DPH', 'Included VAT')} (${taxRate} %)</dt><dd id="order-vat"></dd></div><div class="price-row"><dt>${tr('Cena bez DPH', 'Price excluding VAT')}</dt><dd id="order-net"></dd></div></dl><div class="field"><label for="payment-method">${tr('Způsob platby', 'Payment method')}</label><select id="payment-method" name="paymentMethod">${Object.entries(
@@ -1408,7 +1424,10 @@
       )}</select></div><div class="field"><label for="payment">Výsledek ukázkové platby</label><select id="payment"><option value="success">Simulovat úspěšnou platbu</option><option value="declined">Simulovat zamítnutí</option></select></div><label class="check"><input id="consent" type="checkbox" required><span>Souhlasím s <a href="terms.html">podmínkami objednávky</a> a beru na vědomí <a href="privacy.html">informace o zpracování údajů</a>.</span></label><p id="checkout-error" class="error" role="alert" tabindex="-1">${esc(draft.error || '')}</p><button id="checkout-submit" class="full" ${conflicts.length ? 'disabled' : ''}></button></form></section></div>`;
     $('#consent').checked = Boolean(draft.consent);
     $('#payment').value = draft.payment || 'success';
-    $('#payment-method').value = Object.hasOwn(paymentMethods, draft.paymentMethod)
+    $('#payment-method').value = Object.prototype.hasOwnProperty.call(
+      paymentMethods,
+      draft.paymentMethod,
+    )
       ? draft.paymentMethod
       : 'card';
     $('#camping-enabled').checked = campChoice.enabled;
@@ -1495,7 +1514,7 @@
     }
     function applyPromo() {
       const code = normalizePromo($('#promo-code').value);
-      if (code && !Object.hasOwn(promoCatalog, code)) {
+      if (code && !Object.prototype.hasOwnProperty.call(promoCatalog, code)) {
         $('#promo-message').textContent = tr(
           'Tento promo kód neplatí. Zkontroluj ho nebo pole vymaž.',
           'This promo code is not valid. Check it or clear the field.',
@@ -1573,11 +1592,11 @@
           $('#buyer-phone').focus();
           return;
         }
-        if (!Object.hasOwn(paymentMethods, method)) {
+        if (!Object.prototype.hasOwnProperty.call(paymentMethods, method)) {
           error.textContent = tr('Vyber způsob platby.', 'Choose a payment method.');
           return;
         }
-        if (code && !Object.hasOwn(promoCatalog, code)) {
+        if (code && !Object.prototype.hasOwnProperty.call(promoCatalog, code)) {
           error.textContent = tr(
             'Promo kód neplatí. Oprav ho nebo pole vymaž.',
             'The promo code is not valid. Correct it or clear the field.',
@@ -1717,7 +1736,7 @@
     }
   }
   function orderHtml(o) {
-    return `<article class="order card"><p class="eyebrow">Dokončená objednávka</p><h2 class="order-id">Objednávka ${esc(o.id)}</h2><p data-no-translate>${esc(o.name)} · ${esc(o.email)}</p><p class="count">${new Date(o.created).toLocaleString(locale)}</p>${o.campingIssue ? `<p class="notice">${tr('Údaje o kempu nejsou úplné. PDF obsahuje pouze festivalové vstupenky; uložený celkový součet objednávky zůstává beze změny.', 'Camping details are incomplete. The PDF contains festival tickets only; the saved order total remains unchanged.')}</p>` : ''}<div class="ticket-list">${o.tickets.map((t, i) => `<div class="ticket-paper"><span class="badge">PRAGUE PULSE FEST</span><h3>${esc(ticketLabel(t))}</h3><p>${ticketDate(t, o.edition ?? 2026)} · ${tr('Výstaviště Praha', 'Výstaviště Praha')}<br>${durationLabel(ticketDays(t).length)} · ${esc(admissionLabel(t))}</p><p>${tr('Ceníková cena', 'List price')}: ${money(t.price)} · ${tr('Kód', 'Code')}: <span class="order-id">${esc(t.code || o.id + '-' + (i + 1))}</span></p></div>`).join('')}${o.camping ? `<div class="ticket-paper camping-voucher"><span class="badge">${tr('KEMPOVÁNÍ', 'CAMPING')}</span><h3>${o.camping.type === 'tent' ? tr('Stan', 'Tent') : tr('Karavan', 'Caravan')} · ${Number(o.camping.people)} ${tr('osob', 'people')}</h3><p>${tr('1.–4. srpna', '1–4 August')} ${o.edition ?? 2026} · ${tr('3 noci, jedno místo', '3 nights, one pitch')}</p><p>${money(o.camping.price)}</p></div>` : ''}</div>${o.campingIssue ? `<p class="total">${tr('Uložená cena objednávky', 'Saved order total')}: ${money(o.total)}</p>` : `<dl class="price-breakdown"><div class="price-row"><dt>${tr('Cena vstupenek', 'Ticket subtotal')}</dt><dd>${money(o.subtotal ?? o.tickets.reduce((sum, t) => sum + t.price, 0))}</dd></div>${o.discount ? `<div class="price-row"><dt>${tr('Sleva', 'Discount')} <span data-no-translate>${esc(o.promoCode)}</span></dt><dd>−${money(o.discount)}</dd></div>` : ''}${o.camping ? `<div class="price-row"><dt>${tr('Kempování', 'Camping')}</dt><dd>${money(o.campingTotal ?? o.camping.price)}</dd></div>` : ''}<div class="price-row total"><dt>${o.tax ? tr('Cena celkem (včetně DPH)', 'Total price (including VAT)') : tr('Cena celkem', 'Total price')}</dt><dd>${money(o.total)}</dd></div>${o.tax ? `<div class="price-row"><dt>${tr('Z toho DPH', 'Included VAT')} (${Number(o.tax.rate)} %)</dt><dd>${moneyExact(o.tax.vat)}</dd></div><div class="price-row"><dt>${tr('Cena bez DPH', 'Price excluding VAT')}</dt><dd>${moneyExact(o.tax.net)}</dd></div>` : ''}</dl>`}${o.paymentMethod ? `<p>${tr('Způsob platby', 'Payment method')}: ${esc(tr(...(Object.hasOwn(paymentMethods, o.paymentMethod) ? paymentMethods[o.paymentMethod] : [o.paymentMethod, o.paymentMethod])))}</p>` : ''}<div class="actions order-download"><button data-download="${esc(o.id)}">Stáhnout PDF vstupenky ↓</button></div></article>`;
+    return `<article class="order card"><p class="eyebrow">Dokončená objednávka</p><h2 class="order-id">Objednávka ${esc(o.id)}</h2><p data-no-translate>${esc(o.name)} · ${esc(o.email)}</p><p class="count">${new Date(o.created).toLocaleString(locale)}</p>${o.campingIssue ? `<p class="notice">${tr('Údaje o kempu nejsou úplné. PDF obsahuje pouze festivalové vstupenky; uložený celkový součet objednávky zůstává beze změny.', 'Camping details are incomplete. The PDF contains festival tickets only; the saved order total remains unchanged.')}</p>` : ''}<div class="ticket-list">${o.tickets.map((t, i) => `<div class="ticket-paper"><span class="badge">PRAGUE PULSE FEST</span><h3>${esc(ticketLabel(t))}</h3><p>${ticketDate(t, o.edition ?? 2026)} · ${tr('Výstaviště Praha', 'Výstaviště Praha')}<br>${durationLabel(ticketDays(t).length)} · ${esc(admissionLabel(t))}</p><p>${tr('Ceníková cena', 'List price')}: ${money(t.price)} · ${tr('Kód', 'Code')}: <span class="order-id">${esc(t.code || o.id + '-' + (i + 1))}</span></p></div>`).join('')}${o.camping ? `<div class="ticket-paper camping-voucher"><span class="badge">${tr('KEMPOVÁNÍ', 'CAMPING')}</span><h3>${o.camping.type === 'tent' ? tr('Stan', 'Tent') : tr('Karavan', 'Caravan')} · ${Number(o.camping.people)} ${tr('osob', 'people')}</h3><p>${tr('1.–4. srpna', '1–4 August')} ${o.edition ?? 2026} · ${tr('3 noci, jedno místo', '3 nights, one pitch')}</p><p>${money(o.camping.price)}</p></div>` : ''}</div>${o.campingIssue ? `<p class="total">${tr('Uložená cena objednávky', 'Saved order total')}: ${money(o.total)}</p>` : `<dl class="price-breakdown"><div class="price-row"><dt>${tr('Cena vstupenek', 'Ticket subtotal')}</dt><dd>${money(o.subtotal ?? o.tickets.reduce((sum, t) => sum + t.price, 0))}</dd></div>${o.discount ? `<div class="price-row"><dt>${tr('Sleva', 'Discount')} <span data-no-translate>${esc(o.promoCode)}</span></dt><dd>−${money(o.discount)}</dd></div>` : ''}${o.camping ? `<div class="price-row"><dt>${tr('Kempování', 'Camping')}</dt><dd>${money(o.campingTotal ?? o.camping.price)}</dd></div>` : ''}<div class="price-row total"><dt>${o.tax ? tr('Cena celkem (včetně DPH)', 'Total price (including VAT)') : tr('Cena celkem', 'Total price')}</dt><dd>${money(o.total)}</dd></div>${o.tax ? `<div class="price-row"><dt>${tr('Z toho DPH', 'Included VAT')} (${Number(o.tax.rate)} %)</dt><dd>${moneyExact(o.tax.vat)}</dd></div><div class="price-row"><dt>${tr('Cena bez DPH', 'Price excluding VAT')}</dt><dd>${moneyExact(o.tax.net)}</dd></div>` : ''}</dl>`}${o.paymentMethod ? `<p>${tr('Způsob platby', 'Payment method')}: ${esc(tr(...(Object.prototype.hasOwnProperty.call(paymentMethods, o.paymentMethod) ? paymentMethods[o.paymentMethod] : [o.paymentMethod, o.paymentMethod])))}</p>` : ''}<div class="actions order-download"><button data-download="${esc(o.id)}">Stáhnout PDF vstupenky ↓</button></div></article>`;
   }
 
   function showOrder(o) {

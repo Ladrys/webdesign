@@ -64,7 +64,7 @@
       );
     }
     document.getElementById('cookie-banner')?.remove();
-    document.getElementById('cookie-panel')?.close();
+    window.PulseShell.closeDialog(document.getElementById('cookie-panel'));
     updateMaps();
     window.dispatchEvent(new CustomEvent('pulse:privacy-change', { detail: { ...choice } }));
   }
@@ -81,8 +81,8 @@
     panel.querySelector('#cookie-save').onclick = () =>
       save(panel.querySelector('#cookie-external-maps').checked);
     panel.querySelector('#cookie-only-necessary').onclick = () => save(false);
-    panel.querySelector('#cookie-close').onclick = () => panel.close();
-    panel.showModal();
+    panel.querySelector('#cookie-close').onclick = () => window.PulseShell.closeDialog(panel);
+    window.PulseShell.showDialog(panel);
   }
   function banner() {
     if (choice || document.getElementById('cookie-banner')) return;

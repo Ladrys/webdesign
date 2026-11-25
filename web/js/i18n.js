@@ -6,6 +6,8 @@
   try {
     lang = localStorage.getItem(key) === 'en' ? 'en' : 'cs';
   } catch {}
+  const urlLanguage = new URLSearchParams(location.search).get('lang');
+  if (['cs', 'en'].includes(urlLanguage)) lang = urlLanguage;
   const dictionary = {
     ...(window.PulseArtistCopy || {}),
     'Podmínky objednávky': 'Order terms',
@@ -581,7 +583,7 @@
   };
   const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const phrasePattern = new RegExp(
-    `(?<![\\p{L}])(?:${Object.keys(phrases)
+    `(^|[^\\p{L}])(${Object.keys(phrases)
       .sort((a, b) => b.length - a.length)
       .map(escapeRegExp)
       .join('|')})(?![\\p{L}])`,
@@ -622,7 +624,7 @@
     const arrow = trimmed.match(/^(.*?)(\s+[→↓↗])$/);
     if (arrow) return leading + translate(arrow[1]) + arrow[2] + trailing;
     let result = trimmed;
-    result = result.replace(phrasePattern, (match) => phrases[match]);
+    result = result.replace(phrasePattern, (_, boundary, phrase) => boundary + phrases[phrase]);
     const diagnosticText = properNames.reduce((text, name) => text.split(name).join(''), result);
     if (
       /[ěščřžýáíéůúďťň]/i.test(diagnosticText) &&
@@ -692,9 +694,16 @@
     try {
       localStorage.setItem(key, code);
     } catch {
+      const url = new URL(location.href);
+      url.searchParams.set('lang', code);
+      location.replace(url.href);
       return;
     }
-    location.reload();
+    if (urlLanguage) {
+      const url = new URL(location.href);
+      url.searchParams.delete('lang');
+      location.replace(url.href);
+    } else location.reload();
   }
   window.PulseI18n = Object.freeze({
     lang,

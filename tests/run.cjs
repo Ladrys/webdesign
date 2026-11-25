@@ -38,6 +38,7 @@ async function run(file) {
     }
     await run('tests/audit.cjs');
     await run('tests/scenarios.cjs');
+    await run('tests/safari-compat.cjs');
     const report = JSON.parse(fs.readFileSync('test-artifacts/audit.json', 'utf8'));
     if (
       report.errors.length ||

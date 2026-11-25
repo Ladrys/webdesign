@@ -1,5 +1,5 @@
 # Progress 04 — Prague Pulse Fest
-**Cvičení 5 · 24. listopadu 2026**  
+**Cvičení 5 · 25. listopadu 2026**  
 Michal Ladra · Matěj Mlejnek · Jan Martínek
 
 ## Aktuální stav
@@ -23,6 +23,8 @@ V Mém programu se zároveň zobrazí nejlevnější dostupná kombinace vstupů
 - Při kontrole vstupů jsme prověřili vykreslení vyhledávacího dotazu a uložených údajů objednávky. Test s textem obsahujícím závorky HTML ověřil, že hledání nevytvoří nový HTML prvek. Neplatný ročník uložené objednávky se při načtení převede na výchozí číselný rok.
 
 - Kontrola doporučení zahrnula opakovanou návštěvu stejné scény, kombinaci různých vstupů, dva nenavazující dny, třídenní permanentku a vyprodanou scénu. Průchod v prohlížeči ověřil cenu i přenos údajů do nákupu.
+
+- Kvůli hlášení z Macu jsme upravili spuštění překladu, ovládání detailu a práci s ceníkem pro starší prohlížeče. Při zakázaném místním úložišti nese volbu jazyka adresa stránky. Regresní kontrola simuluje chybějící funkce staršího Safari v Chromu a přechází z českého programu přes anglický detail do výběru vstupenek. Přímé ověření v kolegově verzi Safari zatím chybí.
 
 ## Známá omezení
 Účty, oblíbené koncerty, objednávky i obsazenost patří jednomu prohlížeči. Po vymazání místních dat se ztratí. Platba je simulace a QR kód nemá serverové ověření. Vlastní plánek funguje offline, externí mapa vyžaduje internet a souhlas. Testy využily Chrome a simulované šířky displeje. Úplná shoda s WCAG AA, fyzický iPhone a hlasová čtečka zůstávají neověřené. V uvedených průchodech jsme nezjistili blokující chybu.

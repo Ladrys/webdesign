@@ -67,7 +67,30 @@
     ];
     return `<div class="rocks-footer"><div class="footer-brand"><a href="index.html" class="brand" aria-label="Prague Pulse Fest">${window.PulseDesign?.logoLight || 'PRAGUE PULSE FEST'}</a><p>${dates ? `${dates.range} / ${dates.month}.${year}` : ''}<br>VÝSTAVIŠTĚ · ${t('PRAHA', 'PRAGUE')}</p></div><div class="footer-column"><h2>${t('FESTIVAL', 'FESTIVAL')}</h2><a href="program.html">${t('Program', 'Programme')}</a><a href="performers.html">${t('Účinkující', 'Artists')}</a><a href="venues.html">${t('Scény a areál', 'Stages & venue')}</a><a href="news.html">${t('Novinky', 'News')}</a><a href="info.html#history">${t('Příběh festivalu', 'Festival story')}</a><a href="account.html">${t('Můj účet', 'My account')}</a></div><div class="footer-column"><h2>${t('PRAKTICKÉ INFO', 'GOOD TO KNOW')}</h2><a href="info.html#travel">${t('Jak se k nám dostat', 'Getting here')}</a><a href="info.html#parking">${t('Parkování', 'Parking')}</a><a href="info.html#stay">${t('Ubytování', 'Accommodation')}</a><a href="info.html#accessibility">${t('Bezbariérový přístup', 'Accessibility')}</a><a href="info.html#faq">${t('Časté dotazy', 'Frequently asked questions')}</a></div><div class="footer-column footer-contact"><h2>${t('KONTAKT', 'CONTACT')}</h2><address>Výstaviště 67<br>170 00 Praha 7<br>info@praguepulsefest.cz</address><a href="info.html#contacts">${t('Kontaktní informace', 'Contact information')} ${arrow}</a><p class="footer-social-title">${t('SLEDUJTE NÁS', 'FOLLOW US')}</p><div class="footer-social">${social.map(([label, url]) => `<a href="${url}" target="_blank" rel="noopener noreferrer" aria-label="${label}" title="${t('Otevřít platformu', 'Open platform')} ${label}"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">${socialIcons[label]}</svg></a>`).join('')}</div></div><div class="rocks-footer-bottom"><p>© ${year} Prague Pulse Fest. ${t('Fiktivní festival.', 'Fictional festival.')}</p><div><a href="privacy.html">${t('Ochrana osobních údajů', 'Privacy')}</a><a href="terms.html">${t('Obchodní podmínky', 'Terms & conditions')}</a><a href="credits.html">${t('Grafika a zdroje', 'Artwork & sources')}</a><button class="footer-cookie-settings" type="button" data-cookie-settings>${t('Nastavení cookies', 'Cookie settings')}</button></div><a href="#header" class="back-top">${t('NAHORU', 'BACK TO TOP')} ↑</a></div></div>`;
   }
-  window.PulseShell = Object.freeze({ header, footer });
+  const openers = new WeakMap();
+  function showDialog(panel) {
+    if (typeof panel.showModal === 'function') return panel.showModal();
+    openers.set(panel, document.activeElement);
+    panel.setAttribute('role', 'dialog');
+    panel.classList.add('dialog-fallback');
+    panel.setAttribute('open', '');
+    panel.querySelector('button')?.focus();
+  }
+  function closeDialog(panel) {
+    if (!panel) return;
+    if (!openers.has(panel)) {
+      if (typeof panel.close === 'function') panel.close();
+      return;
+    }
+    panel.removeAttribute('open');
+    openers.get(panel)?.focus();
+    openers.delete(panel);
+  }
+  document.addEventListener('keydown', (event) => {
+    const panel = event.target.closest?.('.dialog-fallback[open]');
+    if (event.key === 'Escape' && panel) closeDialog(panel);
+  });
+  window.PulseShell = Object.freeze({ header, footer, showDialog, closeDialog });
   function updateCountdown() {
     const node = document.querySelector('[data-countdown]');
     if (!node || !window.PulseCountdown) return;

@@ -26,7 +26,9 @@
   function categories(id = 'all') {
     if (!knownVenue(id)) return [];
     const prices = venue(physicalVenue(id))?.ticketing?.prices || {};
-    return ['vip', 'regular', 'standing'].filter((category) => Object.hasOwn(prices, category));
+    return ['vip', 'regular', 'standing'].filter((category) =>
+      Object.prototype.hasOwnProperty.call(prices, category),
+    );
   }
 
   function price(id, category, count) {
